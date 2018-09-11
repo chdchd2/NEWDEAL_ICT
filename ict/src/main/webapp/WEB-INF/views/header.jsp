@@ -76,22 +76,35 @@ window.fbAsyncInit = function() {
 
 <a id="kakao-login-btn"></a>
 <a href="http://developers.kakao.com/logout" onclick="javascript:Kakao.Auth.logout()">로그아웃</a>
+
 <script type='text/javascript'>
-  //<![CDATA[
-    // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    Kakao.init('a4a27a184b3210f836eea86cdd0104cd');
-    // 카카오 로그인 버튼을 생성합니다.
-    Kakao.Auth.createLoginButton({
-      container: '#kakao-login-btn',
-      success: function(authObj) {
-        alert(JSON.stringify(authObj));
-   
-      },
-      fail: function(err) {
-         alert(JSON.stringify(err));
-      }
-    });
-  //]]>
+	//<![CDATA[
+	// 사용할 앱의 JavaScript 키를 설정해 주세요.
+	Kakao.init('a4a27a184b3210f836eea86cdd0104cd');
+	// 카카오 로그인 버튼을 생성합니다.
+	Kakao.Auth.createLoginButton({
+		container : '#kakao-login-btn',
+		success : function(authObj) {
+			// 로그인 성공시, API를 호출합니다.
+			Kakao.API.request({
+				url : '/v1/user/me',
+				success : function(res) {
+					var email = JSON.stringify(res.kaccount_email);
+					var emailLength = email.length;
+					var newEmail = email.substr(1,(emailLength-2));
+					$("#name").text('이메일주소:'+newEmail);
+					
+				},
+				fail : function(error) {
+					alert(JSON.stringify(error));
+				}
+			});
+		},
+		fail : function(err) {
+			alert(JSON.stringify(err));
+		}
+	});
+	//]]>
 </script>
   	
 

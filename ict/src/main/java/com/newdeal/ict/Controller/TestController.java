@@ -1,6 +1,7 @@
 package com.newdeal.ict.Controller;
 
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,16 @@ public class TestController {
 		model.addAttribute("list",list);
 		return "test/list";
 	}
+	
+	 @RequestMapping(value = "/test")
+
+	    public String test() throws IOException {
+
+	         {
+	                     throw new IOException("Occured IOException........");
+	           }
+
+	}
+
 	
 }
