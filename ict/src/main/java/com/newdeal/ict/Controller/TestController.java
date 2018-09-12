@@ -22,7 +22,7 @@ public class TestController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 		System.out.println("홈으로이동하기");
-		return "test/home";
+		return ".main";
 	}
 	
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
@@ -39,16 +39,23 @@ public class TestController {
 		List<TestVo> list=service.list();
 		System.out.println(list.toString());
 		model.addAttribute("list",list);
-		return "test/list";
+		return ".test.list";
 	}
 	
-	 @RequestMapping(value = "/test")
+	 @RequestMapping(value = "/exception")
 
 	    public String test() throws IOException {
 
 	         {
-	                     throw new IOException("Occured IOException........");
+	             throw new IOException("Occured IOException........");
 	           }
+
+	}
+	 
+	 @RequestMapping(value = "/test")
+
+	    public String main() throws IOException {
+		 	return ".test.home";
 
 	}
 
