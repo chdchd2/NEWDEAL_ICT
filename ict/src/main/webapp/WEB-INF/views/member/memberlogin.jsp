@@ -30,12 +30,29 @@ var checkLoginStatus = function(resp){
 	console.log(resp);  
 	if(resp.status ==='connected'){
 		
-		$("#logoutBtn").css("display","inline-block");
 		FB.api('/me?fields=email,name',function(resp){
-			console.log(resp);
+		var id2=JSON.stringify(resp.id);
+		var idLength = id2.length;
+		var id = id2.substr(1,(idLength-2));
+		
 		$("#name").text('이름:'+resp.name+', 이메일주소:'+resp.email);
-	
+		$.ajax({
+			type:"GET",
+			url:encodeURI("<c:url value='/ismember?gubun=facebook&id="+id+"'/>"),
+			dataType:"json",
+			success:function(data){
+				console.log(data.member);
+			
+		
+			}
 		});
+		});
+		
+		
+		
+		
+		$("#logoutBtn").css("display","inline-block");
+	
 	}else{
 		$("#logoutBtn").css("display","none");
 		document.querySelector('#name').innerHTML = '';
@@ -46,12 +63,12 @@ window.fbAsyncInit = function() {
     FB.init({
       appId      : '772518823139711',
       cookie     : true,  
-                          
       xfbml      : true, 
       version    : 'v3.1' 
     });
- 
-	FB.getLoginStatus(checkLoginStatus); 
+ 	
+    //로그인 상태 얻어오기
+	//FB.getLoginStatus(checkLoginStatus); 
 
   };
 
@@ -74,6 +91,8 @@ window.fbAsyncInit = function() {
 	
 </ul>
 
+<!-- 카카오톡 로그인 -->
+<!-- ---------------------------------------------------------------------------------------------------------------->
 <a id="kakao-login-btn"></a>
 <a href="http://developers.kakao.com/logout" onclick="javascript:Kakao.Auth.logout()">로그아웃</a>
 
@@ -106,7 +125,7 @@ window.fbAsyncInit = function() {
 	});
 	//]]>
 </script>
-  	
+ <!------------------------------------------------------------------------------------------------------------------> 	
 
 
 

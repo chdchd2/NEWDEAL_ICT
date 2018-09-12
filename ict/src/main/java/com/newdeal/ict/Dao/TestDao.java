@@ -14,7 +14,7 @@ import com.newdeal.ict.Vo.TestVo;
 public class TestDao {
 @Autowired private SqlSession session;
 	
-	private final String NAMESPACE = "mybatis.TestMapper";
+	private final String NAMESPACE = "mybatis.mapper.TestMapper";
 	
 	public int write(TestVo vo){
 		session.insert(NAMESPACE+".write",vo);

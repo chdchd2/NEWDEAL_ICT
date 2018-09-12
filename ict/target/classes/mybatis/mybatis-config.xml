@@ -5,12 +5,7 @@
 <configuration>
 	<typeAliases>
    	    <typeAlias type="com.newdeal.ict.Vo.TestVo" alias="testvo"/>
+	 	<typeAlias type="com.newdeal.ict.Vo.MemberVo" alias="member"/>
 	</typeAliases>
-
-
-	<mappers>
-       	<mapper resource="mybatis/TestMapper.xml" /> 
-   </mappers>
-
 </configuration>
 
