@@ -7,8 +7,6 @@
 
 <script>
 
-
-
 $(document).ready(function(){
 	
 });
@@ -41,7 +39,12 @@ var checkLoginStatus = function(resp){
 			url:encodeURI("<c:url value='/ismember?gubun=facebook&id="+id+"'/>"),
 			dataType:"json",
 			success:function(data){
-				console.log(data.member);
+				if(data.ismember=="yes"){
+					console.log(data.member);
+				}else{
+					alert("회원 정보가 없습니다. 가입 페이지로 이동합니다");
+				}
+				
 			
 		
 			}

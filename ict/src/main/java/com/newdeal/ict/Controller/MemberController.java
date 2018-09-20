@@ -2,6 +2,8 @@ package com.newdeal.ict.Controller;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,17 +25,31 @@ public class MemberController {
 	
 	 @RequestMapping({"/ismember"})
 	 @ResponseBody
-	public HashMap<String, Object> ismember(String gubun,String id) throws Exception {
+	public HashMap<String, Object> ismember(String gubun,String id,HttpSession session) throws Exception {
 		 HashMap<String, Object> map = new HashMap();
 		 System.out.println("구분값은?"+gubun);
 		 System.out.println("id는?"+id);
 		 
 		 map.put("type", gubun);
-		 map.put("id","01010101");
+		 map.put("id",id);
 		 MemberVo vo=service.ismember(map);
-		 System.out.println(vo.toString());
-		 map.put("member",vo);
+		
+		 if(vo==null){
+			 System.out.println("갑이없다");
+			 map.put("ismember","no");
+		 }else if(vo!=null) {
+			 System.out.println("값이 있다");
+			 map.put("ismember", "yes");
+			 map.put("member",vo);
+			 session.setAttribute("login", vo);
+		 }
+		
 		 
 		 return map;
 	}
+	 @RequestMapping(value = "/signup", method = RequestMethod.GET)
+		public String signup() {
+		
+			return ".member.signup";
+		}
 }
