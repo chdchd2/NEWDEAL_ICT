@@ -18,12 +18,19 @@ function facebooklogin(){
 		},{scope: 'public_profile,email'});	
 }
 
-function logout(){
+function logout(a){
+	if(a==1){
 	FB.logout(function(res){
 			console.log('logout =>',res);
 			checkLoginStatus(res);
 		});
+	}else if(a==2){
+		Kakao.Auth.logout(function(data){
+			console.log(data);
+		});
+	}
 }
+
 var checkLoginStatus = function(resp){
 	console.log(resp);  
 	if(resp.status ==='connected'){
@@ -36,7 +43,7 @@ var checkLoginStatus = function(resp){
 		$("#name").text('이름:'+resp.name+', 이메일주소:'+resp.email);
 		$.ajax({
 			type:"GET",
-			url:encodeURI("<c:url value='/ismember?gubun=facebook&id="+id+"'/>"),
+			url:encodeURI("<c:url value='/ismember?gubun=facebook&id="+resp.email+"'/>"),
 			dataType:"json",
 			success:function(data){
 				if(data.ismember=="yes"){
@@ -54,10 +61,10 @@ var checkLoginStatus = function(resp){
 		
 		
 		
-		$("#logoutBtn").css("display","inline-block");
+		
 	
 	}else{
-		$("#logoutBtn").css("display","none");
+		
 		document.querySelector('#name').innerHTML = '';
 	}
 }
@@ -84,7 +91,7 @@ window.fbAsyncInit = function() {
   }(document, 'script', 'facebook-jssdk'));
 </script>
 
- <span id="name">로그인 정보</span><input type="button" id="logoutBtn" value="로그아웃" onclick="logout()" style="display:none;">
+ <span id="name">로그인 정보</span>
 <ul style="list-style: none;">
 	<li>
 		<a onclick="facebooklogin();" style="cursor: pointer;"><img src="<c:url value='/resources/images/Login_facebook_ico.png'/>">
@@ -97,7 +104,9 @@ window.fbAsyncInit = function() {
 <!-- 카카오톡 로그인 -->
 <!-- ---------------------------------------------------------------------------------------------------------------->
 <a id="kakao-login-btn"></a>
-<a href="http://developers.kakao.com/logout" onclick="javascript:Kakao.Auth.logout()">로그아웃</a>
+<input type="button" value="페이스북로그아웃" onclick="logout(1)">
+<input type="button" value="카카오로그아웃" onclick="logout(2)">
+
 
 <script type='text/javascript'>
 	//<![CDATA[
@@ -115,6 +124,21 @@ window.fbAsyncInit = function() {
 					var emailLength = email.length;
 					var newEmail = email.substr(1,(emailLength-2));
 					$("#name").text('이메일주소:'+newEmail);
+					$.ajax({
+						type:"GET",
+						url:encodeURI("<c:url value='/ismember?gubun=kakaotalk&id="+newEmail+"'/>"),
+						dataType:"json",
+						success:function(data){
+							if(data.ismember=="yes"){
+								console.log(data.member);
+							}else{
+								alert("회원 정보가 없습니다. 가입 페이지로 이동합니다");
+							}
+							
+						
+					
+						}
+					});
 					
 				},
 				fail : function(error) {
