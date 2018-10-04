@@ -95,7 +95,7 @@ window.fbAsyncInit = function() {
 <ul style="list-style: none;">
 	<li>
 		<a onclick="facebooklogin();" style="cursor: pointer;"><img src="<c:url value='/resources/images/Login_facebook_ico.png'/>">
-		<span>페이스북 계정으로 회원가입</span>
+		<span>페이스북 로그인</span>
 		</a>
 	</li>
 	
@@ -104,8 +104,8 @@ window.fbAsyncInit = function() {
 <!-- 카카오톡 로그인 -->
 <!-- ---------------------------------------------------------------------------------------------------------------->
 <a id="kakao-login-btn"></a>
-<input type="button" value="페이스북로그아웃" onclick="logout(1)">
-<input type="button" value="카카오로그아웃" onclick="logout(2)">
+<input type="button" id="logout" value="페이스북로그아웃" onclick="logout()">
+
 
 
 <script type='text/javascript'>
