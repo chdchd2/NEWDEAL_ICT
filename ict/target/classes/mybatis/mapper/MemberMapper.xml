@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.mapper.MemberMapper">
 <select id="ismember" parameterType="hashmap" resultType="member">
-	SELECT M_NUM,M_EMAIL,M_PWD,M_NAME,M_PHONE,M_GUBUN,M_GRADE,M_JOINDATE FROM MEMBER WHERE M_GUBUN=#{type} AND M_EMAIL=#{id}
+	SELECT M_NUM,M_EMAIL,M_NAME,M_PHONE,M_GUBUN,M_GRADE,M_JOINDATE,M_ID FROM MEMBER WHERE M_GUBUN=#{type} AND M_ID=#{id}
 </select>
 
 

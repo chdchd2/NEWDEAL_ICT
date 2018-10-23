@@ -18,17 +18,8 @@ function facebooklogin(){
 		},{scope: 'public_profile,email'});	
 }
 
-function logout(a){
-	if(a==1){
-	FB.logout(function(res){
-			console.log('logout =>',res);
-			checkLoginStatus(res);
-		});
-	}else if(a==2){
-		Kakao.Auth.logout(function(data){
-			console.log(data);
-		});
-	}
+function logout(){
+	location.href="<c:url value='/logout.do'/>";
 }
 
 var checkLoginStatus = function(resp){
@@ -40,29 +31,26 @@ var checkLoginStatus = function(resp){
 		var idLength = id2.length;
 		var id = id2.substr(1,(idLength-2));
 		
-		$("#name").text('이름:'+resp.name+', 이메일주소:'+resp.email);
+	
 		$.ajax({
 			type:"GET",
-			url:encodeURI("<c:url value='/ismember?gubun=facebook&id="+resp.email+"'/>"),
+			url:encodeURI("<c:url value='/ismember?gubun=facebook&id="+resp.id+"&email="+resp.email+"'/>"),
 			dataType:"json",
 			success:function(data){
 				if(data.ismember=="yes"){
-					console.log(data.member);
+					location.href="<c:url value='/'/>";
 				}else{
-					alert("회원 정보가 없습니다. 가입 페이지로 이동합니다");
+					location.href="<c:url value='/signup'/>";
 				}
 				
 			
 		
 			}
 		});
+		 $("#name").text("${member.m_name}님 환영합니다"); 
+		
 		});
 		
-		
-		
-		
-		
-	
 	}else{
 		
 		document.querySelector('#name').innerHTML = '';
@@ -104,7 +92,7 @@ window.fbAsyncInit = function() {
 <!-- 카카오톡 로그인 -->
 <!-- ---------------------------------------------------------------------------------------------------------------->
 <a id="kakao-login-btn"></a>
-<input type="button" id="logout" value="페이스북로그아웃" onclick="logout()">
+
 
 
 

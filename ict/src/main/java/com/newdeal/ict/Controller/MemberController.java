@@ -25,23 +25,26 @@ public class MemberController {
 	
 	 @RequestMapping({"/ismember"})
 	 @ResponseBody
-	public HashMap<String, Object> ismember(String gubun,String id,HttpSession session) throws Exception {
+	public HashMap<String, Object> ismember(String gubun,String id,String email,HttpSession session) throws Exception {
 		 HashMap<String, Object> map = new HashMap();
 		 System.out.println("구분값은?"+gubun);
 		 System.out.println("id는?"+id);
+		 System.out.println("email은?"+email);
 		 
 		 map.put("type", gubun);
 		 map.put("id",id);
 		 MemberVo vo=service.ismember(map);
-		
+		 if(session.getAttribute("member") != null){
+				session.removeAttribute("member");
+			}
 		 if(vo==null){
-			 System.out.println("갑이없다");
-			 map.put("ismember","no");
+			 System.out.println("값이 없다");
+			 map.put("ismember","no");	
 		 }else if(vo!=null) {
 			 System.out.println("값이 있다");
-			 map.put("ismember", "yes");
-			 map.put("member",vo);
-			 session.setAttribute("login", vo);
+			 map.put("ismember", "yes");			
+			 session.setAttribute("member", vo);
+			 System.out.println("vo출력해보기"+vo.toString());
 		 }
 		
 		 
@@ -52,4 +55,9 @@ public class MemberController {
 		
 			return ".member.signup";
 		}
+	 @RequestMapping(value="/logout")
+	 public String logout(HttpSession session) {
+		 	session.removeAttribute("member"); 
+	        return "redirect:/login";
+	    }
 }

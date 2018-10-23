@@ -2,29 +2,32 @@ package com.newdeal.ict.Vo;
 
 import java.sql.Date;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class MemberVo {
 	private int m_num;
 	private String m_email;
-	private String m_pwd;
 	private String m_name;
 	private String m_phone;
 	private String m_gubun;
 	private int m_grade;
 	private Date m_joindate;
+	private String m_id;
 	
 	public MemberVo(){}
 
-	public MemberVo(int m_num, String m_email, String m_pwd, String m_name, String m_phone, String m_gubun, int m_grade,
-			Date m_joindate) {
+	public MemberVo(int m_num, String m_email, String m_name, String m_phone, String m_gubun, int m_grade,
+			Date m_joindate, String m_id) {
 		super();
 		this.m_num = m_num;
 		this.m_email = m_email;
-		this.m_pwd = m_pwd;
 		this.m_name = m_name;
 		this.m_phone = m_phone;
 		this.m_gubun = m_gubun;
 		this.m_grade = m_grade;
 		this.m_joindate = m_joindate;
+		this.m_id = m_id;
 	}
 
 	public int getM_num() {
@@ -41,14 +44,6 @@ public class MemberVo {
 
 	public void setM_email(String m_email) {
 		this.m_email = m_email;
-	}
-
-	public String getM_pwd() {
-		return m_pwd;
-	}
-
-	public void setM_pwd(String m_pwd) {
-		this.m_pwd = m_pwd;
 	}
 
 	public String getM_name() {
@@ -91,12 +86,20 @@ public class MemberVo {
 		this.m_joindate = m_joindate;
 	}
 
+	public String getM_id() {
+		return m_id;
+	}
+
+	public void setM_id(String m_id) {
+		this.m_id = m_id;
+	}
+
+
 	@Override
 	public String toString() {
-		return "MemberVo [m_num=" + m_num + ", m_email=" + m_email + ", m_pwd=" + m_pwd + ", m_name=" + m_name
-				+ ", m_phone=" + m_phone + ", m_gubun=" + m_gubun + ", m_grade=" + m_grade + ", m_joindate="
-				+ m_joindate + "]";
+		return ToStringBuilder.reflectionToString(this,ToStringStyle.JSON_STYLE);
 	}
+
 	
 	
 }
