@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -51,8 +52,8 @@ public class MemberController {
 		 return map;
 	}
 	 @RequestMapping(value = "/signup", method = RequestMethod.GET)
-		public String signup() {
-		
+		public String signup(MemberVo vo,Model model) {
+		 	model.addAttribute("vo",vo);
 			return ".member.signup";
 		}
 	 @RequestMapping(value="/logout")
@@ -60,4 +61,13 @@ public class MemberController {
 		 	session.removeAttribute("member"); 
 	        return "redirect:/login";
 	    }
+	 @RequestMapping(value = "/signin", method = RequestMethod.POST)
+		public String signin(MemberVo vo,Model model) throws Exception {
+		 	int a=service.signin(vo);
+		 	if(a==1) {
+		 		System.out.println("회원가입 성공");
+		 	}
+			return "redirect:/";
+		}
+	 
 }

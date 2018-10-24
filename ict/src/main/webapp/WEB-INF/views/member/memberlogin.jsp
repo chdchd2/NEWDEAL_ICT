@@ -40,14 +40,15 @@ var checkLoginStatus = function(resp){
 				if(data.ismember=="yes"){
 					location.href="<c:url value='/'/>";
 				}else{
-					location.href="<c:url value='/signup'/>";
+					alert("가입정보가 없습니다. 회원가입 페이지로 이동합니다.");
+					location.href="<c:url value='/signup?m_gubun=facebook&m_id="+resp.id+"&m_email="+resp.email+"'/>";
 				}
 				
 			
 		
 			}
 		});
-		 $("#name").text("${member.m_name}님 환영합니다"); 
+ 
 		
 		});
 		
@@ -91,9 +92,7 @@ window.fbAsyncInit = function() {
 
 <!-- 카카오톡 로그인 -->
 <!-- ---------------------------------------------------------------------------------------------------------------->
-<a id="kakao-login-btn"></a>
-
-
+<a id="kakao-login-btn"/>
 
 
 <script type='text/javascript'>
@@ -111,20 +110,20 @@ window.fbAsyncInit = function() {
 					var email = JSON.stringify(res.kaccount_email);
 					var emailLength = email.length;
 					var newEmail = email.substr(1,(emailLength-2));
-					$("#name").text('이메일주소:'+newEmail);
+					
 					$.ajax({
 						type:"GET",
-						url:encodeURI("<c:url value='/ismember?gubun=kakaotalk&id="+newEmail+"'/>"),
+						url:encodeURI("<c:url value='/ismember?gubun=kakaotalk&id="+res.id+"&email="+newEmail+"'/>"),
 						dataType:"json",
 						success:function(data){
 							if(data.ismember=="yes"){
-								console.log(data.member);
+								location.href="<c:url value='/'/>";
 							}else{
-								alert("회원 정보가 없습니다. 가입 페이지로 이동합니다");
-							}
+								
 							
-						
-					
+								alert("가입정보가 없습니다. 회원가입 페이지로 이동합니다.");
+								location.href="<c:url value='/signup?m_gubun=kakaotalk&m_id="+res.id+"&m_email="+newEmail+"'/>";
+							}
 						}
 					});
 					

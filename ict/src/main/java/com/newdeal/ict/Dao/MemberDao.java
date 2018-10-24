@@ -16,5 +16,8 @@ public class MemberDao {
 	public MemberVo ismember(HashMap<String, Object> map) {
 		return session.selectOne(NAMESPACE+".ismember",map);
 	}
+	public int signin(MemberVo vo) {
+		return session.insert(NAMESPACE+".signin",vo);
+	}
 	
 }

@@ -7,6 +7,9 @@
 	SELECT M_NUM,M_EMAIL,M_NAME,M_PHONE,M_GUBUN,M_GRADE,M_JOINDATE,M_ID FROM MEMBER WHERE M_GUBUN=#{type} AND M_ID=#{id}
 </select>
 
+<insert id="signin" parameterType="member">
+	INSERT INTO MEMBER VALUES(SEQ_MEMBER_NUM.nextval,#{m_email},#{m_name},#{m_phone},#{m_gubun},1,sysdate,#{m_id})
+</insert>
 
 </mapper>
 

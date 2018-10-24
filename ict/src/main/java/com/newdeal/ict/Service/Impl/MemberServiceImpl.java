@@ -18,5 +18,9 @@ public class MemberServiceImpl implements MemberService{
 	
 		return dao.ismember(map);
 	}
+	@Override
+	public int signin(MemberVo vo) throws Exception {
+		return dao.signin(vo);
+	}
 
 }
