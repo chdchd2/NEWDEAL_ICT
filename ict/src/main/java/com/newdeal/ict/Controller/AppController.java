@@ -19,11 +19,11 @@ import com.newdeal.ict.Service.AppService;
 public class AppController {
 	@Autowired
 	private AppService service;
-	@RequestMapping(value="/ksa/guide",method=RequestMethod.GET)
+	@RequestMapping(value="/guide",method=RequestMethod.GET)
 	public String app() {
 		return "app/guide/guidelist";
 	}
-	@RequestMapping(value="/ksa/guide/write",method=RequestMethod.GET)
+	@RequestMapping(value="/guide/write",method=RequestMethod.GET)
 	public String guidewrite() {
 		return "app/guide/guidewrite";
 	}

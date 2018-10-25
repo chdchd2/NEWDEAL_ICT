@@ -9,6 +9,6 @@
 </head>
 <body>
 신청안내입니다.
-<a href="<c:url value='/ksa/guide/write'/>">글 쓰기</a>
+<a href="<c:url value='/guide/write'/>">글 쓰기</a>
 </body>
 </html>
