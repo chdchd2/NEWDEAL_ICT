@@ -26,11 +26,10 @@ public class MemberController {
 	
 	 @RequestMapping({"/ismember"})
 	 @ResponseBody
-	public HashMap<String, Object> ismember(String gubun,String id,String email,HttpSession session) throws Exception {
+	public HashMap<String, Object> ismember(String gubun,String id,HttpSession session) throws Exception {
 		 HashMap<String, Object> map = new HashMap();
 		 System.out.println("구분값은?"+gubun);
 		 System.out.println("id는?"+id);
-		 System.out.println("email은?"+email);
 		 
 		 map.put("type", gubun);
 		 map.put("id",id);

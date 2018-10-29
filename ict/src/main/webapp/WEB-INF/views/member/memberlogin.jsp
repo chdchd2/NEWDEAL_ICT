@@ -34,14 +34,14 @@ var checkLoginStatus = function(resp){
 	
 		$.ajax({
 			type:"GET",
-			url:encodeURI("<c:url value='/ismember?gubun=facebook&id="+resp.id+"&email="+resp.email+"'/>"),
+			url:encodeURI("<c:url value='/ismember?gubun=facebook&id="+resp.id+"'/>"),
 			dataType:"json",
 			success:function(data){
 				if(data.ismember=="yes"){
 					location.href="<c:url value='/'/>";
 				}else{
 					alert("가입정보가 없습니다. 회원가입 페이지로 이동합니다.");
-					location.href="<c:url value='/signup?m_gubun=facebook&m_id="+resp.id+"&m_email="+resp.email+"'/>";
+					location.href="<c:url value='/signup?m_gubun=facebook&m_id="+resp.id+"'/>";
 				}
 				
 			
@@ -107,13 +107,11 @@ window.fbAsyncInit = function() {
 			Kakao.API.request({
 				url : '/v1/user/me',
 				success : function(res) {
-					var email = JSON.stringify(res.kaccount_email);
-					var emailLength = email.length;
-					var newEmail = email.substr(1,(emailLength-2));
+				
 					
 					$.ajax({
 						type:"GET",
-						url:encodeURI("<c:url value='/ismember?gubun=kakaotalk&id="+res.id+"&email="+newEmail+"'/>"),
+						url:encodeURI("<c:url value='/ismember?gubun=kakaotalk&id="+res.id+"'/>"),
 						dataType:"json",
 						success:function(data){
 							if(data.ismember=="yes"){
@@ -122,7 +120,7 @@ window.fbAsyncInit = function() {
 								
 							
 								alert("가입정보가 없습니다. 회원가입 페이지로 이동합니다.");
-								location.href="<c:url value='/signup?m_gubun=kakaotalk&m_id="+res.id+"&m_email="+newEmail+"'/>";
+								location.href="<c:url value='/signup?m_gubun=kakaotalk&m_id="+res.id+"'/>";
 							}
 						}
 					});

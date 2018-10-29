@@ -10,14 +10,12 @@
 <td>이름</td><td><input type="text" name="m_name" id="m_name"></td>
 </tr>
 <tr>
-<td>연락처</td><td><input type="text" name="m_phone" id="m_phone"></td>
+<td>연락처</td><td><input type="tel" name="m_phone" id="m_phone"></td>
 </tr>
 <tr>
 <td>가입구분</td><td><input type="text" id="m_gubun" name="m_gubun"value="${vo.m_gubun }" readonly="readonly"></td>
 </tr>
-<tr>
-<td>ID</td><td><input type="text" id="m_email" name="m_email"value="${vo.m_email }" readonly="readonly"></td>
-</tr>
+
 
 </table>
 <input type="hidden" value="${vo.m_id }" name="m_id" id="m_id">
