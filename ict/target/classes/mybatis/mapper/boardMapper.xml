@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<insert id="create">
+		INSERT INTO mboard (bno, title, content, writer)
+		VALUES((select nvl(max(bno+1),0) from mboard),#{title},#{content},#{writer})
+	</insert>
+	
+	<select id="read" resultType="mboard">
+		SELECT bno, title, content, writer, regdate, viewcnt
+		FROM mboard
+		WHERE bno = #{bno}
+	</select>
+
+	<update id="update" parameterType="hashmap">
+		UPDATE mboard SET title =#{title}, content =#{content}
+		WHERE bno = #{bno}
+	</update>
+	<!-- <update id="update">
+		update tbl_board set title =#{title}, content =#{content}
+		where bno = #{bno}
+	</update> -->
+
+	<delete id="delete" parameterType="hashmap">
+		DELETE FROM mboard WHERE bno = #{bno}
+	</delete>
+	<!-- <delete id="delete">
+		delete from tbl_board where bno = #{bno}
+	</delete> -->
+
+	<!-- <select id="listAll" resultType="BoardVO"> <![CDATA[ 
+		select bno,title, content, wirter, regdate, viewcnt from tbl_board where 
+		bno > 0 order by bno desc, regdate desc ]]> </select> -->
+	<select id="listAll" resultType="mboard">
+		SELECT bno
+			 , title
+			 , content
+			 , writer
+			 , regdate
+			 , viewcnt
+		  FROM mboard
+		 WHERE bno &gt; 0
+	  ORDER BY bno DESC, regdate DESC
+	</select>
+
+  	 <select id="listPage" resultType="mboard">
+		SELECT bno
+			 , title
+			 , content
+			 , writer
+			 , viewcnt
+			 , regdate
+		  FROM
+		   (
+		    SELECT rownum rn
+		  			    , bno
+		  			    , title
+		  			    , content
+		  			    , writer
+		  			    , viewcnt
+		  			    , regdate
+		  			FROM mboard
+		  		   WHERE ROWNUM &lt;= #{page} * #{perPageNum}
+		  			 AND bno &gt; 0
+		    )
+		 WHERE rn &gt; (#{page} -1) * #{perPageNum}
+</select>
+
+
+	  <select id="listCriteria" resultType="mboard">
+			SELECT bno
+				 , title
+				 , content
+				 , writer
+				 , viewcnt
+				 , regdate
+			  FROM
+			    (
+			    SELECT rownum rn
+			    			, bno
+			    			, title
+			    			, content
+			    			, writer
+			    			, viewcnt
+			    			, regdate
+			  			 FROM mboard
+			 			WHERE ROWNUM &lt;= #{page} * #{perPageNum}
+						  AND bno &gt; 0
+			    )
+			  WHERE rn &gt; (#{page} -1) * #{perPageNum}
+	</select>  
+	<select id="countPaging" resultType="int">
+		SELECT COUNT(bno)
+		  FROM mboard
+		 WHERE bno &gt; 0 
+	</select>
+	
+	<sql id="search">
+	<if test="searchType != null">
+			    <if test="searchType == 't'.toString()">
+			    		AND TITLE LIKE '%' || #{keyword} || '%' 
+			    	</if>
+			    	<if test="searchType == 'c'.toString()">
+			    		AND CONTENT LIKE '%' || #{keyword} || '%' 
+			    	</if>
+			    	<if test="searchType == 'w'.toString()">
+			    		AND WRITER LIKE '%' || #{keyword} || '%' 
+			    	</if>
+			    	<if test="searchType == 'tc'.toString()">
+			    		AND TITEL LIKE '%' || #{keyword} || '%' 
+			    		OR CONTENT LIKE '%' || #{keyword} || '%' 
+			    	</if>
+			    	<if test="searchType == 'cw'.toString()">
+			    		AND CONTENT LIKE '%' || #{keyword} || '%' 
+			    		OR WRITER LIKE '%' || #{keyword} || '%' 
+			    	</if>
+			    	<if test="searchType == 'tcw'.toString()">
+			    		AND TITLE LIKE '%' || #{keyword} || '%' 
+			    		OR CONTENT LIKE '%' || #{keyword} || '%' 
+			    		OR WRITER LIKE '%' || #{keyword} || '%' 
+			    	</if>
+			    </if>
+	</sql>
+	 <select id="listSearch" resultType="mboard">
+			SELECT bno
+				 , title
+				 , content
+				 , writer
+				 , viewcnt
+				 , regdate
+			  FROM
+			    (
+			    SELECT rownum rn
+			    			, bno
+			    			, title
+			    			, content
+			    			, writer
+			    			, viewcnt
+			    			, regdate
+			  			 FROM mboard
+			 			WHERE ROWNUM &lt;= #{page} * #{perPageNum}
+						  AND bno &gt; 0
+			    <include refid="search"></include>
+			    )
+			    
+			  WHERE rn &gt; (#{page} -1) * #{perPageNum}
+	</select>  
+	
+	<select id="listSearchCount" resultType="int">
+		SELECT COUNT(bno)
+		  FROM mboard
+		 WHERE bno &gt; 0 
+		<include refid="search"></include>
+	</select>
+</mapper>
