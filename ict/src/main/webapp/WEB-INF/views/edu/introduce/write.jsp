@@ -1,9 +1,13 @@
 <%@page import="com.newdeal.ict.Vo.MemberVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" errorPage="../../error/interror.jsp"
+	%> 
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
+	
 	MemberVo vo = (MemberVo) session.getAttribute("member");
+
 	if (!(vo.getMemGrade() == 2)) {
 %>
 <script>
@@ -24,7 +28,7 @@
 			<td>내용:<textarea rows="" cols="" id="content" name="intContent"></textarea></td>
 		</tr>
 		<tr>
-			<td>작성자 : <input type="text" id="writer" name="intGubun" value="${member.memNickName }"></td>
+			<td>작성자 : <input type="text" id="writer" name="intWriter" value="${member.memNickName }"></td>
 		</tr>
 		<tr>
 			<td>첨부파일: <input type="file" multiple="multiple" name="file">

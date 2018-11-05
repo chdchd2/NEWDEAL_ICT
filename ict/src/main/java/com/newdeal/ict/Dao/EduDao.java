@@ -1,11 +1,13 @@
 package com.newdeal.ict.Dao;
 
-import java.util.HashMap;
+
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.newdeal.ict.Util.PageUtil;
 import com.newdeal.ict.Vo.CommonFileVo;
 import com.newdeal.ict.Vo.IntroduceVo;
 
@@ -26,6 +28,12 @@ public class EduDao {
 	
 	public int intfileWrite(CommonFileVo vo) {
 		return session.insert(NAMESPACE+".intfileWrite",vo);
+	}
+	public List<IntroduceVo> intList(PageUtil vo){
+		return session.selectList(NAMESPACE+".intList",vo);
+	}
+	public int intCnt() {
+		return session.selectOne(NAMESPACE+".intCnt");
 	}
 	
 }

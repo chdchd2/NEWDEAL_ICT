@@ -10,16 +10,38 @@ public class IntroduceVo {
 	private int memNum;
 	private String intTitle;
 	private String intContent;
-	private String intGubun;
+	private String intWriter;
 	private Date intDate;
 	private int intHit;
 	
 	public IntroduceVo() {}
 	
 	
+	
+
+
+	public IntroduceVo(int intNum, int memNum, String intTitle, String intContent, String intWriter, Date intDate,
+			int intHit) {
+		super();
+		this.intNum = intNum;
+		this.memNum = memNum;
+		this.intTitle = intTitle;
+		this.intContent = intContent;
+		this.intWriter = intWriter;
+		this.intDate = intDate;
+		this.intHit = intHit;
+	}
+
+
+
+
+
 	public int getIntNum() {
 		return intNum;
 	}
+
+
+
 
 
 	public void setIntNum(int intNum) {
@@ -27,9 +49,15 @@ public class IntroduceVo {
 	}
 
 
+
+
+
 	public int getMemNum() {
 		return memNum;
 	}
+
+
+
 
 
 	public void setMemNum(int memNum) {
@@ -37,9 +65,15 @@ public class IntroduceVo {
 	}
 
 
+
+
+
 	public String getIntTitle() {
 		return intTitle;
 	}
+
+
+
 
 
 	public void setIntTitle(String intTitle) {
@@ -47,9 +81,15 @@ public class IntroduceVo {
 	}
 
 
+
+
+
 	public String getIntContent() {
 		return intContent;
 	}
+
+
+
 
 
 	public void setIntContent(String intContent) {
@@ -57,14 +97,23 @@ public class IntroduceVo {
 	}
 
 
-	public String getIntGubun() {
-		return intGubun;
+
+
+
+	public String getIntWriter() {
+		return intWriter;
 	}
 
 
-	public void setIntGubun(String intGubun) {
-		this.intGubun = intGubun;
+
+
+
+	public void setIntWriter(String intWriter) {
+		this.intWriter = intWriter;
 	}
+
+
+
 
 
 	public Date getIntDate() {
@@ -72,9 +121,15 @@ public class IntroduceVo {
 	}
 
 
+
+
+
 	public void setIntDate(Date intDate) {
 		this.intDate = intDate;
 	}
+
+
+
 
 
 	public int getIntHit() {
@@ -82,22 +137,15 @@ public class IntroduceVo {
 	}
 
 
+
+
+
 	public void setIntHit(int intHit) {
 		this.intHit = intHit;
 	}
 
 
-	public IntroduceVo(int intNum, int memNum, String intTitle, String intContent, String intGubun, Date intDate,
-			int intHit) {
-		super();
-		this.intNum = intNum;
-		this.memNum = memNum;
-		this.intTitle = intTitle;
-		this.intContent = intContent;
-		this.intGubun = intGubun;
-		this.intDate = intDate;
-		this.intHit = intHit;
-	}
+
 
 
 	@Override

@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.newdeal.ict.Dao.EduDao;
 import com.newdeal.ict.Service.EduService;
+import com.newdeal.ict.Util.PageUtil;
 import com.newdeal.ict.Vo.CommonFileVo;
 import com.newdeal.ict.Vo.IntroduceVo;
 
@@ -64,6 +65,19 @@ public class EduServiceImpl implements EduService{
 	public int intmaxNum() throws Exception {
 		
 		return dao.intmaxNum();
+	}
+
+	@Override
+	public List<IntroduceVo> intList(PageUtil vo) throws Exception {
+		
+	
+		return dao.intList(vo);
+	}
+
+	@Override
+	public int intCnt() throws Exception {
+		
+		return dao.intCnt();
 	}
 
 	

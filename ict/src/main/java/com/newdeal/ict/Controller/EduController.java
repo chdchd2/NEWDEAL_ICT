@@ -1,15 +1,18 @@
 package com.newdeal.ict.Controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.newdeal.ict.Service.EduService;
+import com.newdeal.ict.Util.PageUtil;
 import com.newdeal.ict.Vo.IntroduceVo;
 
 @Controller
@@ -33,9 +36,18 @@ public class EduController {
 		int num=service.intmaxNum();
 		service.intfileWrite(filelist, num);
 		
-		return "edu/introduce/list";
+		return "redirect:/edu/intList";
 	}
 	
+	@RequestMapping(value = "/intList",method = RequestMethod.GET)
+	public String intList(PageUtil pu,Model model) throws Exception {
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		System.out.println("pu°ªµé===>"+pu.toString());
+		List<IntroduceVo> list=service.intList(pu);
+		System.out.println(list.toString());
+		model.addAttribute("list",list);
+		return "edu/introduce/list";
+	}
 	
 	
 }
