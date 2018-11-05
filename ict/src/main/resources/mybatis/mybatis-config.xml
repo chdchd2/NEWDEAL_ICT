@@ -6,6 +6,8 @@
 	<typeAliases>
    	    <typeAlias type="com.newdeal.ict.Vo.TestVo" alias="testvo"/>
 	 	<typeAlias type="com.newdeal.ict.Vo.MemberVo" alias="member"/>
+		<typeAlias type="com.newdeal.ict.Vo.IntroduceVo" alias="intvo"/>
+		<typeAlias type="com.newdeal.ict.Vo.CommonFileVo" alias="filevo"/>
 	</typeAliases>
 </configuration>
 
