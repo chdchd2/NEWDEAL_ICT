@@ -7,17 +7,32 @@
 <form action="<c:url value='/signin'/>" method="POST">
 <table>
 <tr>
-<td>이름</td><td><input type="text" name="m_name" id="m_name"></td>
+<td>닉네임</td><td><input type="text" name="memNickName" id="nickname"></td>
 </tr>
 <tr>
-<td>연락처</td><td><input type="tel" name="m_phone" id="m_phone"></td>
+<td>분야</td> 
+	<td>
+		<select name="memField" id="field">	
+			<option value="경제">경제</option>
+			<option value="환경">환경</option>
+			<option value="문화/복지">문화/복지</option>
+			<option value="교육">교육</option>
+			<option value="혁신">혁신</option>
+			<option value="환경/안전">환경/안전</option>
+		</select>
+	</td>
 </tr>
+
 <tr>
-<td>가입구분</td><td><input type="text" id="m_gubun" name="m_gubun"value="${vo.m_gubun }" readonly="readonly"></td>
+<td>연락처</td><td><input type="tel" name="memTel" id="tel"></td>
+</tr>
+
+<tr>
+<td>가입구분</td><td><input type="text" id="gubun" name="memGubun"value="${vo.memGubun }" readonly="readonly"></td>
 </tr>
 
 
 </table>
-<input type="hidden" value="${vo.m_id }" name="m_id" id="m_id">
+<input type="hidden" value="${vo.memUid }" name="memUid" id="memUid">
 <input type="submit" value="가입하기">
 </form>
