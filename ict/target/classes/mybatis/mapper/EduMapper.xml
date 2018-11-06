@@ -53,7 +53,7 @@ INSERT INTO COMMON_FILE VALUES(
                                  ORDER BY INT_NUM DESC
                                 				 )AA
                      )
-      <![CDATA[where rnum >=1 and rnum <=10]]>
+      <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
 	
 </select>
 

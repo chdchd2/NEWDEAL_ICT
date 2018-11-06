@@ -33,7 +33,7 @@ public class EduServiceImpl implements EduService{
 	public int intfileWrite(List<MultipartFile> filelist,int num) throws Exception {
 		InputStream is = null;
 		FileOutputStream fos = null;
-		String filePath="D:\\test";
+		String filePath="C:\\Users\\haces\\git";
 		CommonFileVo filevo=new CommonFileVo();
 		
 		try {
@@ -68,10 +68,15 @@ public class EduServiceImpl implements EduService{
 	}
 
 	@Override
-	public List<IntroduceVo> intList(PageUtil vo) throws Exception {
-		
-	
-		return dao.intList(vo);
+	public HashMap<String, Object> intList(int pageNum) throws Exception {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int totalRowCount = dao.intCnt();
+		PageUtil pu=new PageUtil(pageNum, 10, 10, totalRowCount);
+		List<IntroduceVo> list =dao.intList(pu);
+		map.put("list", list);
+		map.put("pu",pu);
+		System.out.println("pu³»¿ë====>"+pu.toString());
+		return map;
 	}
 
 	@Override

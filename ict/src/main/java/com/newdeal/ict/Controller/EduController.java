@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -24,7 +25,7 @@ public class EduController {
 	@RequestMapping(value = "/intWrite",method = RequestMethod.GET)
 	public String intWrite() {
 		
-		return "edu/introduce/write";
+		return ".edu.introduce.write";
 	}
 	
 	@RequestMapping(value = "/intWrite", method = RequestMethod.POST)
@@ -40,12 +41,12 @@ public class EduController {
 	}
 	
 	@RequestMapping(value = "/intList",method = RequestMethod.GET)
-	public String intList(PageUtil pu,Model model) throws Exception {
-		HashMap<String, Object> map=new HashMap<String, Object>();
-		System.out.println("pu°ªµé===>"+pu.toString());
-		List<IntroduceVo> list=service.intList(pu);
-		System.out.println(list.toString());
-		model.addAttribute("list",list);
+	public String intList(@RequestParam(value="pageNum",defaultValue="1")int pageNum,Model model) throws Exception {
+	
+		HashMap<String, Object> map=service.intList(pageNum);
+		model.addAttribute("list",map.get("list"));
+		model.addAttribute("pu",map.get("pu"));
+		
 		return "edu/introduce/list";
 	}
 	
