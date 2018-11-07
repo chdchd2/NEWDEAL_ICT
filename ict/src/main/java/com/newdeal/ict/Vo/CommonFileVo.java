@@ -50,39 +50,9 @@ public class CommonFileVo {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public void setFileNum(int fileNum) {
 		this.fileNum = fileNum;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	public String getFileName() {
@@ -90,59 +60,14 @@ public class CommonFileVo {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
 	public String getFileOrgName() {
 		return fileOrgName;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	public void setFileOrgName(String fileOrgName) {
@@ -151,38 +76,9 @@ public class CommonFileVo {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public String getFileSize() {
 		return fileSize;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	public void setFileSize(String fileSize) {
@@ -191,38 +87,9 @@ public class CommonFileVo {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public String getFilePath() {
 		return filePath;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	public void setFilePath(String filePath) {
@@ -230,39 +97,9 @@ public class CommonFileVo {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public String getFileRefBoard() {
 		return fileRefBoard;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	public void setFileRefBoard(String fileRefBoard) {
@@ -271,57 +108,14 @@ public class CommonFileVo {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public int getFileRefNum() {
 		return fileRefNum;
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public void setFileRefNum(int fileRefNum) {
 		this.fileRefNum = fileRefNum;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -16,6 +16,7 @@ import com.newdeal.ict.Dao.EduDao;
 import com.newdeal.ict.Service.EduService;
 import com.newdeal.ict.Util.PageUtil;
 import com.newdeal.ict.Vo.CommonFileVo;
+import com.newdeal.ict.Vo.IntDetailJoinVo;
 import com.newdeal.ict.Vo.IntroduceVo;
 
 @Service
@@ -83,6 +84,12 @@ public class EduServiceImpl implements EduService{
 	public int intCnt() throws Exception {
 		
 		return dao.intCnt();
+	}
+
+	@Override
+	public IntDetailJoinVo intDetail(int intNum) throws Exception {
+		
+		return dao.intDetail(intNum);
 	}
 
 	

@@ -16,9 +16,6 @@ public class IntroduceVo {
 	
 	public IntroduceVo() {}
 	
-	
-	
-
 
 	public IntroduceVo(int intNum, int memNum, String intTitle, String intContent, String intWriter, Date intDate,
 			int intHit) {
@@ -33,15 +30,9 @@ public class IntroduceVo {
 	}
 
 
-
-
-
 	public int getIntNum() {
 		return intNum;
 	}
-
-
-
 
 
 	public void setIntNum(int intNum) {
@@ -49,15 +40,9 @@ public class IntroduceVo {
 	}
 
 
-
-
-
 	public int getMemNum() {
 		return memNum;
 	}
-
-
-
 
 
 	public void setMemNum(int memNum) {
@@ -65,15 +50,9 @@ public class IntroduceVo {
 	}
 
 
-
-
-
 	public String getIntTitle() {
 		return intTitle;
 	}
-
-
-
 
 
 	public void setIntTitle(String intTitle) {
@@ -81,15 +60,9 @@ public class IntroduceVo {
 	}
 
 
-
-
-
 	public String getIntContent() {
 		return intContent;
 	}
-
-
-
 
 
 	public void setIntContent(String intContent) {
@@ -97,15 +70,9 @@ public class IntroduceVo {
 	}
 
 
-
-
-
 	public String getIntWriter() {
 		return intWriter;
 	}
-
-
-
 
 
 	public void setIntWriter(String intWriter) {
@@ -113,15 +80,9 @@ public class IntroduceVo {
 	}
 
 
-
-
-
 	public Date getIntDate() {
 		return intDate;
 	}
-
-
-
 
 
 	public void setIntDate(Date intDate) {
@@ -129,23 +90,14 @@ public class IntroduceVo {
 	}
 
 
-
-
-
 	public int getIntHit() {
 		return intHit;
 	}
 
 
-
-
-
 	public void setIntHit(int intHit) {
 		this.intHit = intHit;
 	}
-
-
-
 
 
 	@Override
