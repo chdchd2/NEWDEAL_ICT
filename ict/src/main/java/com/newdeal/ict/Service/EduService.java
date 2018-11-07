@@ -17,6 +17,6 @@ public interface EduService {
 	public HashMap<String, Object> intList(int pageNum) throws Exception;
 	public int intCnt() throws Exception;
 	public IntDetailJoinVo intDetail(int intNum) throws Exception;
-	/*d*/
+
 }
  
