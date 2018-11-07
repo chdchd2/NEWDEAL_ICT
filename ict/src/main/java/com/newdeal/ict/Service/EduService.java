@@ -19,3 +19,4 @@ public interface EduService {
 	public IntDetailJoinVo intDetail(int intNum) throws Exception;
 	/*d*/
 }
+ 
