@@ -6,84 +6,162 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class MemberVo {
-	private int m_num;
-	private String m_name;
-	private String m_phone;
-	private String m_gubun;
-	private int m_grade;
-	private Date m_joindate;
-	private String m_id;
+	private int memNum;
+	private String memNickName;
+	private String memTel;
+	private String memGubun;
+	private int memGrade;
+	private Date memJoinDate;
+	private String memUid;
+	private String memField;
+	private String memState;
 	
 	public MemberVo(){}
 
-	public MemberVo(int m_num, String m_name, String m_phone, String m_gubun, int m_grade,
-			Date m_joindate, String m_id) {
+	
+
+
+	public int getMemNum() {
+		return memNum;
+	}
+
+
+
+
+	public void setMemNum(int memNum) {
+		this.memNum = memNum;
+	}
+
+
+
+
+	public String getMemNickName() {
+		return memNickName;
+	}
+
+
+
+
+	public void setMemNickName(String memNickName) {
+		this.memNickName = memNickName;
+	}
+
+
+
+
+	public String getMemTel() {
+		return memTel;
+	}
+
+
+
+
+	public void setMemTel(String memTel) {
+		this.memTel = memTel;
+	}
+
+
+
+
+	public String getMemGubun() {
+		return memGubun;
+	}
+
+
+
+
+	public void setMemGubun(String memGubun) {
+		this.memGubun = memGubun;
+	}
+
+
+
+
+	public int getMemGrade() {
+		return memGrade;
+	}
+
+
+
+
+	public void setMemGrade(int memGrade) {
+		this.memGrade = memGrade;
+	}
+
+
+
+
+	public Date getMemJoinDate() {
+		return memJoinDate;
+	}
+
+
+
+
+	public void setMemJoinDate(Date memJoinDate) {
+		this.memJoinDate = memJoinDate;
+	}
+
+
+
+
+	public String getMemUid() {
+		return memUid;
+	}
+
+
+
+
+	public void setMemUid(String memUid) {
+		this.memUid = memUid;
+	}
+
+
+
+
+	public String getMemField() {
+		return memField;
+	}
+
+
+
+
+	public void setMemField(String memField) {
+		this.memField = memField;
+	}
+
+
+
+
+	public String getMemState() {
+		return memState;
+	}
+
+
+
+
+	public void setMemState(String memState) {
+		this.memState = memState;
+	}
+
+
+
+
+	public MemberVo(int memNum, String memNickName, String memTel, String memGubun, int memGrade, Date memJoinDate,
+			String memUid, String memField, String memState) {
 		super();
-		this.m_num = m_num;
-		this.m_name = m_name;
-		this.m_phone = m_phone;
-		this.m_gubun = m_gubun;
-		this.m_grade = m_grade;
-		this.m_joindate = m_joindate;
-		this.m_id = m_id;
-	}
-
-	public int getM_num() {
-		return m_num;
-	}
-
-	public void setM_num(int m_num) {
-		this.m_num = m_num;
+		this.memNum = memNum;
+		this.memNickName = memNickName;
+		this.memTel = memTel;
+		this.memGubun = memGubun;
+		this.memGrade = memGrade;
+		this.memJoinDate = memJoinDate;
+		this.memUid = memUid;
+		this.memField = memField;
+		this.memState = memState;
 	}
 
 
-	public String getM_name() {
-		return m_name;
-	}
-
-	public void setM_name(String m_name) {
-		this.m_name = m_name;
-	}
-
-	public String getM_phone() {
-		return m_phone;
-	}
-
-	public void setM_phone(String m_phone) {
-		this.m_phone = m_phone;
-	}
-
-	public String getM_gubun() {
-		return m_gubun;
-	}
-
-	public void setM_gubun(String m_gubun) {
-		this.m_gubun = m_gubun;
-	}
-
-	public int getM_grade() {
-		return m_grade;
-	}
-
-	public void setM_grade(int m_grade) {
-		this.m_grade = m_grade;
-	}
-
-	public Date getM_joindate() {
-		return m_joindate;
-	}
-
-	public void setM_joindate(Date m_joindate) {
-		this.m_joindate = m_joindate;
-	}
-
-	public String getM_id() {
-		return m_id;
-	}
-
-	public void setM_id(String m_id) {
-		this.m_id = m_id;
-	}
 
 
 	@Override

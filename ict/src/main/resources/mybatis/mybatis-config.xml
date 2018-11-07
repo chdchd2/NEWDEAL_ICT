@@ -6,7 +6,13 @@
 	<typeAliases>
    	    <typeAlias type="com.newdeal.ict.Vo.TestVo" alias="testvo"/>
 	 	<typeAlias type="com.newdeal.ict.Vo.MemberVo" alias="member"/>
+<<<<<<< HEAD
 	 	<typeAlias type="com.newdeal.ict.Vo.BoardVO" alias="mboard"/>
+=======
+		<typeAlias type="com.newdeal.ict.Vo.IntroduceVo" alias="intvo"/>
+		<typeAlias type="com.newdeal.ict.Vo.CommonFileVo" alias="filevo"/>
+		<typeAlias type="com.newdeal.ict.Util.PageUtil" alias="pagevo"/>
+>>>>>>> branch 'jh' of https://github.com/ripplesiba/NEWDEAL_ICT.git
 	</typeAliases>
 </configuration>
 

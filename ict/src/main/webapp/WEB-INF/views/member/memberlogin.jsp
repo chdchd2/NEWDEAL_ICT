@@ -34,14 +34,14 @@ var checkLoginStatus = function(resp){
 	
 		$.ajax({
 			type:"GET",
-			url:encodeURI("<c:url value='/ismember?gubun=facebook&id="+resp.id+"'/>"),
+			url:encodeURI("<c:url value='/ismember?gubun=facebook&uid="+resp.id+"'/>"),
 			dataType:"json",
 			success:function(data){
 				if(data.ismember=="yes"){
 					location.href="<c:url value='/'/>";
 				}else{
 					alert("가입정보가 없습니다. 회원가입 페이지로 이동합니다.");
-					location.href="<c:url value='/signup?m_gubun=facebook&m_id="+resp.id+"'/>";
+					location.href="<c:url value='/signup?memGubun=facebook&memUid="+resp.id+"'/>";
 				}
 				
 			
@@ -54,7 +54,7 @@ var checkLoginStatus = function(resp){
 		
 	}else{
 		
-		document.querySelector('#name').innerHTML = '';
+		
 	}
 }
 
@@ -111,7 +111,7 @@ window.fbAsyncInit = function() {
 					
 					$.ajax({
 						type:"GET",
-						url:encodeURI("<c:url value='/ismember?gubun=kakaotalk&id="+res.id+"'/>"),
+						url:encodeURI("<c:url value='/ismember?gubun=kakaotalk&uid="+res.id+"'/>"),
 						dataType:"json",
 						success:function(data){
 							if(data.ismember=="yes"){
@@ -120,7 +120,7 @@ window.fbAsyncInit = function() {
 								
 							
 								alert("가입정보가 없습니다. 회원가입 페이지로 이동합니다.");
-								location.href="<c:url value='/signup?m_gubun=kakaotalk&m_id="+res.id+"'/>";
+								location.href="<c:url value='/signup?memGubun=kakaotalk&memUid="+res.id+"'/>";
 							}
 						}
 					});

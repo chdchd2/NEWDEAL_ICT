@@ -14,7 +14,7 @@ function logout(){
             <h1> HEADER</h1>
 	<%if(member!=null){
 	%>
-	${member.m_name}님 환영합니다. <input type="button" id="logout" value="로그아웃" onclick="logout()">
+	${member.memNickName}님 환영합니다. <input type="button" id="logout" value="로그아웃" onclick="logout()">
 	<%
 	}
 	%>
