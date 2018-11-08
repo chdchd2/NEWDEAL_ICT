@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="notice">
+
+<!-- 0718추가 -->
+<!-- 이전글 다음글 표시 -->
+	<!-- <select id="PNList" 
+		resultType=
+		"com.board.notice.model.board.dto.BoardDTO">
+		<include refid="paging_header" />
+		select * from board where bno = #{bno}
+		order by bno desc
+		<include refid="paging_footer" />
+	</select> -->
+	
+<!-- 게시물등록 -->
+	<insert id="insert">
+		INSERT INTO NOTICE (NT_NUM,NT_TITLE,NT_CONTENT,NT_WRITER) VALUES
+		( SEQ_NOTICE.NEXTVAL,
+		#{ntTitle}, #{ntContent}, #{ntWriter} )
+	</insert>
+	
+<!-- 게시물 수정  -->
+	<update id="update">
+		UPDATE NOTICE
+		SET NT_TITLE=#{ntTitle}, NT_CONTENT=#{ntContent}
+		WHERE NT_NUM=#{ntNum}
+	</update>
+
+<!-- 게시물 상세보기  -->	
+	<select id="view" resultType="com.newdeal.ict.Vo.NoticeVo">
+		SELECT NT_NUM,NT_TITLE,NT_REGDATE,NT_CONTENT,NT_VIEWCNT,NT_WRITER
+		FROM NOTICE NT, MEMBER M
+		WHERE NT_WRITER=M.MEM_NICKNAME AND NT_NUM=#{ntNum}
+	</select>
+	
+<!-- 게시물삭제 -->
+	<delete id="deleteArticle">
+		DELETE FROM NOTICE
+		WHERE NT_NUM=#{ntNum}
+	</delete>
+	
+<!-- 조회수 증가 처리 -->
+	<update id="increaseViewcnt">
+		UPDATE NOTICE SET NT_VIEWCNT=VIEWCNT+1 
+		WHERE NT_NUM=#{ntNum}
+	</update>
+
+<!-- 게시물 목록 -->
+	<select id="listAll" 
+	resultType=
+	"com.newdeal.ict.Vo.NoticeVo">
+	<include refid="paging_header" />
+	SELECT NT_NUM AS NTNUM,
+		   NT_TITLE AS NTTITLE,
+		   NT_REGDATE AS NTREGDATE,
+		   NT_VIEWCNT AS NTVIEWCNT,
+		   NT_WRITER AS NTWRITER,
+		   NT_SHOW AS NTSHOW
+	FROM NOTICE NT, MEMBER M
+	<include refid="search" />
+	ORDER BY NT_NUM DESC, NT_REGDATE DESC
+	<include refid="paging_footer" />
+	</select>
+	
+<!-- 레코드 갯수 계산 -->
+	<select id="countArticle" resultType="int">
+		SELECT COUNT(*)
+		FROM NOTICE NT, MEMBER M
+		<include refid="search"/>
+	</select>
+	
+<!-- 검색기능 -->	
+	<!-- #변수 - 따옴표를 처리(스트링 붙이고 숫자는 뺸다)
+	$변수 - 따옴표 무시 -->
+	<sql id="search">	
+		<choose>
+			<when test="search_option == 'all' ">
+				WHERE NT.NT_WRITER=M.MEM_NICKNAME
+				AND(NT_WRITER LIKE '%' || #{keyword} || '%'
+				OR NT_CONTENT LIKE '%' || #{keyword} || '%'
+				OR NT_TITLE LIKE '%' || #{keyword} || '%')
+			</when>
+			<otherwise>
+				WHERE NT.NT_WRITER=M.MEM_NICKNAME
+				AND ${search_option} LIKE '%' || #{keyword}||'%'
+			</otherwise>
+		</choose> 
+	</sql>
+
+<!-- 페이징처리  -->	
+	<sql id="paging_header">
+		SELECT *
+		FROM (
+			SELECT ROWNUM AS RN, A.*
+			FROM(
+	</sql>
+	<sql id="paging_footer">		
+				) A
+			) WHERE RN BETWEEN #{start} AND #{end}
+	</sql>
+	
+	
+	
+<!-- 첨부파일  -->		
+<!-- 새로운 첨부파일 추가 -->
+	<insert id="updateAttach">
+	INSERT INTO ATTACH (AT_FULLNAME, NT_NUM) VALUES
+	( #{atFullname}, #{ntNum} )
+	</insert>
+	
+<!-- 첨부파일 레코드 삭제 -->
+	<delete id="deleteFile">
+		DELETE FROM ATTACH
+		WHERE AT_FULLNAME=#{atFullname}
+	</delete>
+
+<!-- 첨부파일 목록 -->
+	<select id="getAttach" resultType="String">
+		SELECT AT_FULLNAME
+		FROM ATTACH
+		WHERE NT_NUM=#{ntNum}
+		ORDER BY AT_REGDATE DESC
+	</select>
+
+	
+<!-- 시퀀스.currval 현재 레코드의 번호 -->
+	<insert id="addAttach">
+		INSERT INTO ATTACH (AT_FULLNAME, NT_NUM) 
+		VALUES ( #{atFullName}, SEQ_NOTICE.CURRVAL )
+	</insert>
+	
+</mapper>

@@ -2,12 +2,20 @@
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">    
+
 <configuration>
+
+<settings>
+<!-- 자동으로 카멜케이스 규칙으로 변환 -->
+<setting value="true" name="mapUnderscoreToCamelCase"/>
+</settings>
+
 	<typeAliases>
    	    <typeAlias type="com.newdeal.ict.Vo.TestVo" alias="testvo"/>
 	 	<typeAlias type="com.newdeal.ict.Vo.MemberVo" alias="member"/>
 
-	 	<typeAlias type="com.newdeal.ict.Vo.BoardVO" alias="mboard"/>
+	 	<typeAlias type="com.newdeal.ict.Vo.FreeBoardVo" alias="freeboard"/>
+	 	<typeAlias type="com.newdeal.ict.Vo.NoticeVo" alias="notice"/>
 
 		<typeAlias type="com.newdeal.ict.Vo.IntroduceVo" alias="intvo"/>
 		<typeAlias type="com.newdeal.ict.Vo.CommonFileVo" alias="filevo"/>
