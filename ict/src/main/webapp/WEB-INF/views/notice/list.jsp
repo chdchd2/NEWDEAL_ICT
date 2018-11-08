@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<%-- <%@ include file="../include/header.jsp" %> --%>
-<%-- <%@ include file="../include/common_List.jsp" %> --%>
+<%@ include file="../include/header.jsp" %>
+<%@ include file="../include/common_List.jsp" %> 
 <script>
 $(function(){
 	$("#btnWrite").click(function(){

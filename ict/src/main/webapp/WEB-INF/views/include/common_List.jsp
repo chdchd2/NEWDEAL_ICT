@@ -5,8 +5,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt"
 uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath }" />
-<script src="${path}/include/jquery-3.3.1.min.js"></script>
-<!-- <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 
 <%-- <link rel="stylesheet" href="${path}/include/reset.css">
 <link rel="stylesheet" href="${path}/include/header.css">
@@ -15,6 +13,4 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="${path}/include/footer.css">
 <link rel="stylesheet" href="${path}/include/community_notice01.css?v=0"> --%>
 
-<%@ include file="../include/header.jsp" %>
 <script src="${path}/include/js/common.js"></script>
-<script src="${path}/ckeditor/ckeditor.js"></script>

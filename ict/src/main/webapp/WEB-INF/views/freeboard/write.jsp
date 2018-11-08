@@ -66,7 +66,7 @@ $(function(){
 <body>
 
 <%@ include file="../include/menu.jsp" %>
-<h2>공지사항</h2>
+<h2>자유게시판</h2>
 <form id="form" name="form" method="post"
 action="${path}/freeboard/insert.do">
 	<div>
@@ -96,11 +96,11 @@ action="${path}/freeboard/insert.do">
 	</div>
 	<div style="width:800px;">
 		내용 <textarea id="fbContent" name="fbContent" rows="3" cols="80"></textarea>
-		<script>
+		<!-- <script>
 		CKEDITOR.replace("fbContent",{
 			filebrowserUploadUrl : "${path}/imageUpload.do"
 		});
-		</script>
+		</script> -->
 	</div>
 	<div style="width:700px; text-align:center;">
 		<button type="button" id="btnSave">등록</button>

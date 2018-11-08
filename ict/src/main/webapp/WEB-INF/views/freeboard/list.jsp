@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<%-- <%@ include file="../include/header.jsp" %> --%>
-<%-- <%@ include file="../include/common_List.jsp" %> --%>
+<%@ include file="../include/header.jsp" %>
+<%@ include file="../include/common_List.jsp" %> 
 <script>
 $(function(){
 	$("#btnWrite").click(function(){
@@ -15,12 +15,12 @@ $(function(){
 });
 function list(page){
 	location.href="${path}/freeboard/list.do?curPage="+page
-			+"&search_option=${map.search_option}"
-			+"&keyword=${map.keyword}";
+	+"&search_option=${map.search_option}"
+	+"&keyword=${map.keyword}";
 }
 function view(fbNum){
 	document.form.fbNum.value=fbNum;
-	document.form.action="${path}/freeboard/view.do";
+	document.form.action="${path}/freeboard/view";
 	document.form.submit();
 }
 </script>
@@ -33,7 +33,7 @@ function view(fbNum){
 
 <!-- 검색폼 -->
 <form name="form" method="post" 
-action="${path}/freeboard/list.do">
+action="${path}/freeboard/list">
 총 ${map.count}건
 	<select name="search_option">
 		<c:choose>
@@ -87,7 +87,7 @@ action="${path}/freeboard/list.do">
 			<tr>
 				<td>${row.fbNum}</td>
 				<td>
-				<a href="${path}/freeboard/view.do?fbNum=${row.fbNum}">${row.fbTitle}</a> 
+				<a href="${path}/freeboard/view?fbNum=${row.fbNum}">${row.fbTitle}</a> 
 				<%-- <a href="#" onclick="view('${row.bno}')">${row.title}</a> --%>
 				</td>
 				<td>${row.fbWriter}</td>
