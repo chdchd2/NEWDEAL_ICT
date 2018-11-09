@@ -107,9 +107,9 @@ action="${path}/notice/list.do">
 	<!-- 페이지 네비게이션 -->
 	<tr>
 		<td colspan="5" align="center">
-	<%-- <c:if test="${map.pager.curBlock > 1 }">
+	<c:if test="${map.pager.curBlock > 1 }">
 		<a href="javascript:list('1')">[처음]</a>
-	</c:if>	 --%>
+	</c:if>	
 	<c:if test="${map.pager.curBlock >= 1 }">
 		<a href="javascript:list('${map.pager.prevPage}')">[이전]</a>
 	</c:if>
@@ -126,9 +126,9 @@ action="${path}/notice/list.do">
 	<c:if test="${map.pager.curBlock <= map.pager.totPage}">
 		<a href="javascript:list('${map.pager.nextPage}')">[다음]</a>
 	</c:if>
-	<%-- <c:if test="${map.pager.curPage <= map.pager.totPage}">
+	<c:if test="${map.pager.curPage <= map.pager.totPage}">
 		<a href="javascript:list('${map.pager.totPage}')">[끝]</a>
-	</c:if> --%>
+	</c:if> 
 		</td>
 	</tr>
 </table>
