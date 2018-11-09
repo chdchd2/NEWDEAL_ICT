@@ -57,6 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<include refid="paging_header" />
 	SELECT FB_NUM,FB_TITLE,FB_REGDATE,FB_VIEWCNT,FB_WRITER,FB_SHOW
 	FROM FREEBOARD FB, MEMBER M
+	<include refid="search"></include>
 	ORDER BY FB_NUM DESC, FB_REGDATE DESC
 	<include refid="paging_footer" />
 	</select>
@@ -64,7 +65,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 레코드 갯수 계산 -->
 	<select id="countArticle" resultType="int">
 		SELECT COUNT(*)
-		FROM FREEBOARD FB, MEMBER M
+		FROM FREEBOARD
+	<include refid="search"></include>
 	</select>
 	
 <!-- 검색기능 -->	
@@ -72,15 +74,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	$변수 - 따옴표 무시 -->
 	<sql id="search">	
 		<choose>
-			<when test="search_option == 'all' ">
-				WHERE FB.FB_WRITER=M.MEM_NICKNAME
-				AND(<!-- FB_WRITER LIKE '%' || #{keyword} || '%'
-				OR  -->FB_CONTENT LIKE '%' || #{keyword} || '%'
-				OR FB_TITLE LIKE '%' || #{keyword} || '%')
+			<when test="search_option == 'all'">
+				WHERE FB_WRITER LIKE '%' || #{keyword} || '%'
+				OR FB_CONTENT LIKE '%' || #{keyword} || '%'
+				OR FB_TITLE LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="search_option == 'fbWriter'">
+				WHERE FB_WRITER LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="search_option == 'fbContent'">
+				WHERE FB_CONTENT LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="search_option == 'fbTitle'">
+				WHERE FB_TITLE LIKE '%' || #{keyword} || '%'
 			</when>
 			<otherwise>
-				WHERE FB.FB_WRITER=M.MEM_NICKNAME
-				AND ${search_option} LIKE '%' || #{keyword}||'%'
+				WHERE ${search_option} LIKE '%' || #{keyword}||'%'
 			</otherwise>
 		</choose> 
 	</sql>

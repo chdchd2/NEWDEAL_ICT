@@ -60,8 +60,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   NT_VIEWCNT,
 		   NT_WRITER,
 		   NT_SHOW
-	FROM NOTICE NT, MEMBER M<!-- 
-	<include refid="search" /> -->
+	FROM NOTICE NT, MEMBER M 
+	<include refid="search" /> 
 	ORDER BY NT_NUM DESC, NT_REGDATE DESC
 	<include refid="paging_footer" />
 	</select>
@@ -69,8 +69,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 레코드 갯수 계산 -->
 	<select id="countArticle" resultType="int">
 		SELECT COUNT(*)
-		FROM NOTICE NT, MEMBER M<!-- 
-		<include refid="search"/> -->
+		FROM NOTICE  
+		<include refid="search"/> 
 	</select>
 	
 <!-- 검색기능 -->	
@@ -78,15 +78,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	$변수 - 따옴표 무시 -->
 	<sql id="search">	
 		<choose>
-			<when test="search_option == 'all' ">
-				WHERE NT.NT_WRITER=M.MEM_NICKNAME
-				AND(<!-- NT_WRITER LIKE '%' || #{keyword} || '%'
-				OR --> NT_CONTENT LIKE '%' || #{keyword} || '%'
-				OR NT_TITLE LIKE '%' || #{keyword} || '%')
+			<when test="search_option == 'all'">
+				WHERE NT_WRITER LIKE '%' || #{keyword} || '%'
+				OR NT_CONTENT LIKE '%' || #{keyword} || '%'
+				OR NT_TITLE LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="search_option == 'ntWriter'">
+				WHERE NT_WRITER LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="search_option == 'ntContent'">
+				WHERE NT_CONTENT LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="search_option == 'ntTitle'">
+				WHERE NT_TITLE LIKE '%' || #{keyword} || '%'
 			</when>
 			<otherwise>
-				WHERE NT.NT_WRITER=M.MEM_NICKNAME
-				AND ${search_option} LIKE '%' || #{keyword}||'%'
+				WHERE ${search_option} LIKE '%' || #{keyword}||'%'
 			</otherwise>
 		</choose> 
 	</sql>
