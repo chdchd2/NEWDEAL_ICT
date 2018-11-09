@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select> -->
 	
 <!-- 게시물등록 -->
-	<insert id="insert">
+	<insert id="insert" parameterType="notice">
 		INSERT INTO NOTICE (NT_NUM,NT_TITLE,NT_CONTENT,NT_WRITER) VALUES
 		( SEQ_NOTICE.NEXTVAL,
 		#{ntTitle}, #{ntContent}, #{ntWriter} )
@@ -34,8 +34,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 게시물 상세보기  -->	
 	<select id="view" resultType="com.newdeal.ict.Vo.NoticeVo">
 		SELECT NT_NUM,NT_TITLE,NT_REGDATE,NT_CONTENT,NT_VIEWCNT,NT_WRITER
-		FROM NOTICE NT, MEMBER M
-		WHERE NT_WRITER=M.MEM_NICKNAME AND NT_NUM=#{ntNum}
+		FROM NOTICE 
+		WHERE NT_NUM=#{ntNum}
 	</select>
 	
 <!-- 게시물삭제 -->
@@ -46,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 <!-- 조회수 증가 처리 -->
 	<update id="increaseViewcnt">
-		UPDATE NOTICE SET NT_VIEWCNT=VIEWCNT+1 
+		UPDATE NOTICE SET NT_VIEWCNT=NT_VIEWCNT+1 
 		WHERE NT_NUM=#{ntNum}
 	</update>
 
@@ -55,14 +55,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	resultType=
 	"com.newdeal.ict.Vo.NoticeVo">
 	<include refid="paging_header" />
-	SELECT NT_NUM AS NTNUM,
-		   NT_TITLE AS NTTITLE,
-		   NT_REGDATE AS NTREGDATE,
-		   NT_VIEWCNT AS NTVIEWCNT,
-		   NT_WRITER AS NTWRITER,
-		   NT_SHOW AS NTSHOW
-	FROM NOTICE NT, MEMBER M
-	<include refid="search" />
+	SELECT NT_NUM,NT_TITLE,
+		   NT_REGDATE,
+		   NT_VIEWCNT,
+		   NT_WRITER,
+		   NT_SHOW
+	FROM NOTICE NT, MEMBER M<!-- 
+	<include refid="search" /> -->
 	ORDER BY NT_NUM DESC, NT_REGDATE DESC
 	<include refid="paging_footer" />
 	</select>
@@ -70,8 +69,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 레코드 갯수 계산 -->
 	<select id="countArticle" resultType="int">
 		SELECT COUNT(*)
-		FROM NOTICE NT, MEMBER M
-		<include refid="search"/>
+		FROM NOTICE NT, MEMBER M<!-- 
+		<include refid="search"/> -->
 	</select>
 	
 <!-- 검색기능 -->	
@@ -81,8 +80,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<choose>
 			<when test="search_option == 'all' ">
 				WHERE NT.NT_WRITER=M.MEM_NICKNAME
-				AND(NT_WRITER LIKE '%' || #{keyword} || '%'
-				OR NT_CONTENT LIKE '%' || #{keyword} || '%'
+				AND(<!-- NT_WRITER LIKE '%' || #{keyword} || '%'
+				OR --> NT_CONTENT LIKE '%' || #{keyword} || '%'
 				OR NT_TITLE LIKE '%' || #{keyword} || '%')
 			</when>
 			<otherwise>

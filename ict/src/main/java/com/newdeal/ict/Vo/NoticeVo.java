@@ -44,7 +44,7 @@ public class NoticeVo {
 	public Date getNtRegdate() {
 		return ntRegdate;
 	}
-	public void setNtRegdate(Date NtRegdate) {
+	public void setNtRegdate(Date ntRegdate) {
 		this.ntRegdate = ntRegdate;
 	}
 	public int getNtViewcnt() {

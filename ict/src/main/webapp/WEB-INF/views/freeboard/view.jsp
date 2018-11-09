@@ -118,7 +118,7 @@ function listAttach(){
 				console.log(fileInfo);
 				var html=
 					"<div><a href='"+fileInfo.getLink+"'>"+fileInfo.fileName+"</a>&nbsp;&nbsp;";
-				<c:if test="${sessionScope.uid == vo.fbId}">	
+				<c:if test="${sessionScope.member == vo.fbWriter}">	
 					html+="<a href='#' class='file_del' data-src='"
 					+this+"'>[삭제]</a></div>";
 					/* html+="<input type='button' class='file_del' value='삭제' data-src='" 
@@ -140,7 +140,7 @@ function listAttach(){
 </head>
 <body>
 <%@ include file="../include/menu.jsp" %>
-<h2>공지사항</h2>
+<h2>자유게시판</h2>
 <form id="form" name="form" method="post"
 action="${path}/freeboard/insert.do">
 <!-- 관리자 -->
@@ -184,9 +184,9 @@ action="${path}/freeboard/insert.do">
 <!-- 사용자 -->
 		<div>
 			조회수 : ${vo.fbViewcnt}
-		</div> --%>
+		</div>
 		<div>
-			제목 : ${vo.fbTitle}
+			제목 <input name="title" value="${vo.fbTitle}"/>
 		</div>
 		<div>
 			작성자 : ${vo.fbWriter}
@@ -194,14 +194,14 @@ action="${path}/freeboard/insert.do">
 		<div>
 			작성일 : <fmt:formatDate value="${vo.fbRegdate}" pattern="yyyy.MM.dd"/> 
 		</div>
-		<div>
-			내용 : ${vo.fbContent}
-		
+		<div style="width:800px;">
+			내용 <textarea id="content" name="content" rows="3" cols="80">${vo.fbContent}</textarea>
+			
 		</div>
 		<div>
-			첨부 파일
-			<!-- 첨부파일을 드래그할 영역 -->
-			<!-- <div class="fileDrop"></div> -->
+			첨부 파일  : 
+			<!-- 첨부파일을 드래그할 영역 --> 
+			<div class="fileDrop"></div> 
 			<!-- 첨부파일 목록이 표시되는 영역 -->
 			<div id="uploadedList"></div>
 		</div>
@@ -226,10 +226,10 @@ action="${path}/freeboard/insert.do">
 	<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
 		<input type="hidden" name="fbNum" value="${vo.fbNum}" />
 	<!-- 본인 게시물만 수정,삭제 버튼 표시 -->	
-	<c:if test="${sessionScope.userid == dto.writer }">
+	<%-- <c:if test="${sessionScope.member == vo.fbWriter }"> --%>
 		<button type="button" id="btnUpdate">저장</button>
 		<button type="button" id="btnDelete">삭제</button>
-	</c:if>
+	<%-- </c:if> --%>
 		<button type="button" id="btnList">목록</button>
 	</div>
 </form>

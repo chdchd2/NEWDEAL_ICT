@@ -72,12 +72,9 @@ action="${path}/freeboard/insert.do">
 	<div>
 		제목 <input name="fbTitle" id="fbTitle" size="80"/>
 	</div>
-	<%-- <div>
-		작성자 : ${dto.name}
-	</div>
 	<div>
-		작성일 : <fmt:formatDate value="${dto.regdate}" pattern="yyyy.MM.dd"/> 
-	</div> --%>
+		작성자 <input name="fbWriter" id="fbWriter" size="80"/>
+	</div>
 	<div>
 		첨부 파일<br>
 		

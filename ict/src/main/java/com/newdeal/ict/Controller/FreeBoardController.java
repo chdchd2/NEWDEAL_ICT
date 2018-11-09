@@ -75,10 +75,8 @@ public class FreeBoardController {
 	
 	
 	@RequestMapping("insert.do")
-	public String insert(@ModelAttribute FreeBoardVo vo
-			,HttpSession session) throws Exception{
-		String fbWriter=(String)session.getAttribute("fbWriter");
-		vo.setFbWriter(fbWriter);
+	public String insert(@ModelAttribute FreeBoardVo vo,HttpSession session) throws Exception{
+		System.out.println("=====================>"+vo.toString());
 		service.create(vo);
 		return "redirect:/freeboard/list.do";
 	}
@@ -108,9 +106,10 @@ public class FreeBoardController {
 	public String update(@ModelAttribute FreeBoardVo vo) throws Exception {
 		if(vo != null){
 			service.update(vo);//레코드수정
+			System.out.println("=====================>"+vo.toString());
 		}
 		//수정상세화면
-		//return "redirect:/board/view.do?bno="+dto.getBno();
+		//return "redirect:/freeboard/view.do?fbNum="+vo.getFbNum();
 		return "redirect:/freeboard/list.do";
 	}
 	

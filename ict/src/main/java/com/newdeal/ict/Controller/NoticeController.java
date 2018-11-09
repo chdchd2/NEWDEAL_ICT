@@ -75,10 +75,8 @@ public class NoticeController {
 	
 	
 	@RequestMapping("insert.do")
-	public String insert(@ModelAttribute NoticeVo vo
-			,HttpSession session) throws Exception{
-		String ntWriter=(String)session.getAttribute("ntWriter");
-		vo.setNtWriter(ntWriter);
+	public String insert(@ModelAttribute NoticeVo vo ,HttpSession session) throws Exception{
+		System.out.println("=====================>"+vo.toString());
 		service.create(vo);
 		return "redirect:/notice/list.do";
 	}

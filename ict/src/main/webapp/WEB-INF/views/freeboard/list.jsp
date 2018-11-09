@@ -20,7 +20,7 @@ function list(page){
 }
 function view(fbNum){
 	document.form.fbNum.value=fbNum;
-	document.form.action="${path}/freeboard/view";
+	document.form.action="${path}/freeboard/view.do";
 	document.form.submit();
 }
 </script>
@@ -33,7 +33,7 @@ function view(fbNum){
 
 <!-- 검색폼 -->
 <form name="form" method="post" 
-action="${path}/freeboard/list">
+action="${path}/freeboard/list.do">
 총 ${map.count}건
 	<select name="search_option">
 		<c:choose>
@@ -83,11 +83,11 @@ action="${path}/freeboard/list">
 	
 <c:forEach var="row" items="${map.list}">
 	<c:choose>
-		<c:when test="${row.fbShow == 'Y' }">  --%>
+		<c:when test="${row.fbShow == 'Y' }"> 
 			<tr>
 				<td>${row.fbNum}</td>
 				<td>
-				<a href="${path}/freeboard/view?fbNum=${row.fbNum}">${row.fbTitle}</a> 
+				<a href="${path}/freeboard/view.do?fbNum=${row.fbNum}">${row.fbTitle}</a> 
 				<%-- <a href="#" onclick="view('${row.bno}')">${row.title}</a> --%>
 				</td>
 				<td>${row.fbWriter}</td>
@@ -123,7 +123,7 @@ action="${path}/freeboard/list">
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
-	<c:if test="${map.pager.curBlock >= map.pager.totBlock}">
+	<c:if test="${map.pager.curBlock <= map.pager.totPage}">
 		<a href="javascript:list('${map.pager.nextPage}')">[다음]</a>
 	</c:if>
 	<%-- <c:if test="${map.pager.curPage <= map.pager.totPage}">

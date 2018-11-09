@@ -83,7 +83,7 @@ action="${path}/notice/list.do">
 	
 <c:forEach var="row" items="${map.list}">
 	<c:choose>
-		<c:when test="${row.ntShow == 'Y' }">  --%>
+		<c:when test="${row.ntShow == 'Y' }">  
 			<tr>
 				<td>${row.ntNum}</td>
 				<td>
@@ -123,7 +123,7 @@ action="${path}/notice/list.do">
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
-	<c:if test="${map.pager.curBlock >= map.pager.totBlock}">
+	<c:if test="${map.pager.curBlock <= map.pager.totPage}">
 		<a href="javascript:list('${map.pager.nextPage}')">[다음]</a>
 	</c:if>
 	<%-- <c:if test="${map.pager.curPage <= map.pager.totPage}">

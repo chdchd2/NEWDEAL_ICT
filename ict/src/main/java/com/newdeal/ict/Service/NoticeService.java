@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import com.newdeal.ict.Vo.NoticeVo;
 
 public interface NoticeService {
-
 	public void deleteFile(String atFullname); //첨부파일삭제
 	public List<String> getAttach(int ntNum);//첨부파일 정보
 	//CRUD(Create, Read, Update, Delete)
