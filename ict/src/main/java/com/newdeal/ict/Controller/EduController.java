@@ -92,21 +92,31 @@ public class EduController {
 		}
 		
 		
-		return "";
+		return "redirect:/edu/intList";
 	}
 	
 	@RequestMapping(value = "/intEdit",method = RequestMethod.GET)
-	public String intEdit(int intNum,HttpSession session) throws Exception {
+	public String intEdit(int intNum,HttpSession session,Model model) throws Exception {
 		MemberVo vo=(MemberVo)session.getAttribute("member");
 		IntroduceVo intvo=service.getWriter(intNum);
 		
 		if(intvo.getMemNum()==vo.getMemNum()) {
 			System.out.println("작성자와 로그인한 사용자가 같으니까 수정으로 넘겨줌");
+			IntDetailJoinVo editvo=service.intDetail(intNum);
+			model.addAttribute("vo",editvo);
 		}else {
 			System.out.println("같지않다.");
 		}
 		
-		return "";
+		return "edu/introduce/edit";
+	}
+	
+	@RequestMapping(value = "/intEdit",method = RequestMethod.POST)
+	public String intEditOk(IntroduceVo vo,MultipartHttpServletRequest req) throws Exception {
+		System.out.println("수정시 정보들"+vo.toString());
+		service.intEdit(vo);
+		
+		return "redirect:/edu/intList";
 	}
 	
 }

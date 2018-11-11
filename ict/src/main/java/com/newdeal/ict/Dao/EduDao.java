@@ -54,5 +54,8 @@ public class EduDao {
 	public List<CommonFileVo> intFileDelList(int intNum){
 		return session.selectList(NAMESPACE+".intFileDelList",intNum);
 	}
+	public int intEdit(IntroduceVo vo) {
+		return session.update(NAMESPACE+".intEdit",vo);
+	}
 	
 }

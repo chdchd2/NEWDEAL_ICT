@@ -20,7 +20,7 @@ public interface EduService {
 	public CommonFileVo fileinfo(CommonFileVo filevo) throws Exception;
 	public IntroduceVo getWriter(int intNum) throws Exception;
 	public int intDelete(int intNum) throws Exception;
-	public int intEdit(int intNum) throws Exception;
+	public int intEdit(IntroduceVo vo) throws Exception;
  
 }
  

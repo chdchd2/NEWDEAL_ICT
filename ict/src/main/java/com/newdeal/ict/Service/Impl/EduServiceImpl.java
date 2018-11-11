@@ -129,9 +129,9 @@ public class EduServiceImpl implements EduService{
 	}
 
 	@Override
-	public int intEdit(int intNum) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int intEdit(IntroduceVo vo) throws Exception {
+		
+		return dao.intEdit(vo);
 	}
 	
 	

@@ -142,6 +142,10 @@ INSERT INTO COMMON_FILE VALUES(
 	 WHERE FILE_REF_BOARD='EDU_INTRODUCE' AND FILE_REF_NUM=#{intNum}
 </select>
 
+<update id="intEdit">
+	UPDATE EDU_INTRODUCE SET INT_TITLE=#{intTitle},INT_CONTENT=#{intContent} WHERE INT_NUM=#{intNum}
+</update>
+
 </mapper>
 
  
