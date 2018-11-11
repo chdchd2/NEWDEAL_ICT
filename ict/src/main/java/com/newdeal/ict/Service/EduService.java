@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-
+import com.newdeal.ict.Vo.CommonFileVo;
 import com.newdeal.ict.Vo.IntDetailJoinVo;
 import com.newdeal.ict.Vo.IntroduceVo;
 
@@ -17,6 +17,10 @@ public interface EduService {
 	public HashMap<String, Object> intList(int pageNum) throws Exception;
 	public int intCnt() throws Exception;
 	public IntDetailJoinVo intDetail(int intNum) throws Exception;
+	public CommonFileVo fileinfo(CommonFileVo filevo) throws Exception;
+	public IntroduceVo getWriter(int intNum) throws Exception;
+	public int intDelete(int intNum) throws Exception;
+	public int intEdit(int intNum) throws Exception;
  
 }
  

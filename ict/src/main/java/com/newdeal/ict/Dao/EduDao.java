@@ -39,5 +39,11 @@ public class EduDao {
 	public IntDetailJoinVo intDetail(int intNum) {
 		return session.selectOne(NAMESPACE+".intDetail",intNum);
 	}
+	public CommonFileVo fileinfo(CommonFileVo filevo) {
+		return session.selectOne(NAMESPACE+".fileinfo",filevo);
+	}
+	public IntroduceVo getWriter(int intNum) {
+		return session.selectOne(NAMESPACE+".getWriter",intNum);
+	}
 	
 }

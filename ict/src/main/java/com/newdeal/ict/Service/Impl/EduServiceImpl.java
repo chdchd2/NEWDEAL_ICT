@@ -92,6 +92,30 @@ public class EduServiceImpl implements EduService{
 		return dao.intDetail(intNum);
 	}
 
+	@Override
+	public CommonFileVo fileinfo(CommonFileVo filevo) throws Exception {
+		return dao.fileinfo(filevo);
+	}
+
+	@Override
+	public IntroduceVo getWriter(int intNum) throws Exception {
+		return dao.getWriter(intNum);
+	}
+
+	@Override
+	public int intDelete(int intNum) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int intEdit(int intNum) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
+
 	
 
 }
