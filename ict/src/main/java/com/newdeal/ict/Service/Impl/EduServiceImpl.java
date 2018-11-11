@@ -1,6 +1,7 @@
 package com.newdeal.ict.Service.Impl;
 
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -104,7 +105,26 @@ public class EduServiceImpl implements EduService{
 
 	@Override
 	public int intDelete(int intNum) throws Exception {
-		// TODO Auto-generated method stub
+			
+			List<CommonFileVo> filelist = dao.intFileDelList(intNum);
+			System.out.println("파일리스트출력"+filelist.toString());
+			for(CommonFileVo vo:filelist) {
+				String files=vo.getFilePath()+vo.getFileName();
+				System.out.println("파일디렉토리+파일이름 출력해보기"+files);
+				File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
+				if( file.exists() ){
+		            if(file.delete()){
+		                System.out.println("파일삭제 성공");
+		            }else{
+		                System.out.println("파일삭제 실패");
+		            }
+		        }else{
+		            System.out.println("파일이 존재하지 않습니다.");
+		        }
+				dao.intFileDelete(intNum);
+				dao.intDelete(intNum);
+
+			}
 		return 0;
 	}
 

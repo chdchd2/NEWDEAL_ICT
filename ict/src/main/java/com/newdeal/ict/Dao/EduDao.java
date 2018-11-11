@@ -45,5 +45,14 @@ public class EduDao {
 	public IntroduceVo getWriter(int intNum) {
 		return session.selectOne(NAMESPACE+".getWriter",intNum);
 	}
+	public int intDelete(int intNum) {
+		return session.delete(NAMESPACE+".intDelete",intNum);
+	}
+	public int intFileDelete(int intNum) {
+		return session.delete(NAMESPACE+".intFileDelete",intNum);
+	}
+	public List<CommonFileVo> intFileDelList(int intNum){
+		return session.selectList(NAMESPACE+".intFileDelList",intNum);
+	}
 	
 }

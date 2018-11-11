@@ -122,6 +122,26 @@ INSERT INTO COMMON_FILE VALUES(
 	WHERE INT_NUM=#{intNum}
 </select>
 
+<delete id="intDelete" parameterType="int">
+	DELETE EDU_INTRODUCE WHERE INT_NUM=#{intNum}
+</delete>
+
+<delete id="intFileDelete" parameterType="int">
+	DELETE COMMON_FILE WHERE FILE_REF_BOARD='EDU_INTRODUCE' AND FILE_REF_NUM=#{intNum}
+</delete>
+
+<select id="intFileDelList" parameterType="int" resultType="filevo">
+	SELECT  FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM 
+	 FROM COMMON_FILE 
+	 WHERE FILE_REF_BOARD='EDU_INTRODUCE' AND FILE_REF_NUM=#{intNum}
+</select>
+
 </mapper>
 
  

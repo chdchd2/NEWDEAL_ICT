@@ -86,7 +86,7 @@ public class EduController {
 		
 		if(intvo.getMemNum()==vo.getMemNum()) {
 			System.out.println("작성자와 로그인한 사용자가 같으니까 삭제처리");
-			
+			int n=service.intDelete(intNum);
 		}else {
 			System.out.println("같지않다.");
 		}
