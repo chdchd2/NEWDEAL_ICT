@@ -29,8 +29,14 @@ $(function(){
 
 		$("#btnUpdate").click(function(){
 		//첨부파일 이름들을 폼에 추가
-			
-			document.form.action="${path}/freeboard/updateView.do";
+			var str="";
+			$("#uploadedList .file").each(function(i){
+				str+=
+					"<input type='hidden' name='fbFiles["+i+"]' value='"
+					+$(this).val()+"'>";
+			});
+			$("#form").append(str);
+			document.form.action="${path}/freeboard/update.do";
 			document.form.submit();
 		});
 		
@@ -180,10 +186,7 @@ action="${path}/freeboard/insert.do">
 			조회수 : ${vo.fbViewcnt}
 		</div>
 		<div>
-			
-			<div>
-			제목: ${vo.fbTitle}
-			</div>
+			제목 <input name="title" value="${vo.fbTitle}"/>
 		</div>
 		<div>
 			작성자 : ${vo.fbWriter}
@@ -192,9 +195,7 @@ action="${path}/freeboard/insert.do">
 			작성일 : <fmt:formatDate value="${vo.fbRegdate}" pattern="yyyy.MM.dd"/> 
 		</div>
 		<div style="width:800px;">
-			<div>
-			내용: ${vo.fbContent}
-			</div>
+			내용 <textarea id="content" name="content" rows="3" cols="80">${vo.fbContent}</textarea>
 			
 		</div>
 		<div>
@@ -226,7 +227,7 @@ action="${path}/freeboard/insert.do">
 		<input type="hidden" name="fbNum" value="${vo.fbNum}" />
 	<!-- 본인 게시물만 수정,삭제 버튼 표시 -->	
 	<%-- <c:if test="${sessionScope.member == vo.fbWriter }"> --%>
-		<button type="button" id="btnUpdate">수정</button>
+		<button type="button" id="btnUpdate">저장</button>
 		<button type="button" id="btnDelete">삭제</button>
 	<%-- </c:if> --%>
 		<button type="button" id="btnList">목록</button>

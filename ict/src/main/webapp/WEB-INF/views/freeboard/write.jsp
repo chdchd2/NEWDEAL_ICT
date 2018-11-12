@@ -69,6 +69,9 @@ $(function(){
 <h2>자유게시판</h2>
 <form id="form" name="form" method="post"
 action="${path}/freeboard/insert.do">
+	
+	<input type="hidden" name="fbWriter" value="${member.memNickName}"/>
+	
 	<div>
 		제목 <input name="fbTitle" id="fbTitle" size="80"/>
 	</div>

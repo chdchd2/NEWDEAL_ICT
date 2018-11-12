@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.newdeal.ict.Service.EduService;
-import com.newdeal.ict.Util.PageUtil;
 import com.newdeal.ict.Vo.IntroduceVo;
 
 @Controller
