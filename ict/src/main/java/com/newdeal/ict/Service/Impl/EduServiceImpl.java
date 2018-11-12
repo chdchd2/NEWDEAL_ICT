@@ -35,7 +35,7 @@ public class EduServiceImpl implements EduService{
 	public int intfileWrite(List<MultipartFile> filelist,int num) throws Exception {
 		InputStream is = null;
 		FileOutputStream fos = null;
-		String filePath="C:\\Users\\haces\\git";
+		String filePath="C:\\Users\\Lenovo\\git";
 		CommonFileVo filevo=new CommonFileVo();
 		
 		try {
@@ -77,7 +77,7 @@ public class EduServiceImpl implements EduService{
 		List<IntroduceVo> list =dao.intList(pu);
 		map.put("list", list);
 		map.put("pu",pu);
-		System.out.println("pu³»¿ë====>"+pu.toString());
+		System.out.println("puï¿½ï¿½ï¿½ï¿½====>"+pu.toString());
 		return map;
 	}
 
@@ -107,19 +107,19 @@ public class EduServiceImpl implements EduService{
 	public int intDelete(int intNum) throws Exception {
 			
 			List<CommonFileVo> filelist = dao.intFileDelList(intNum);
-			System.out.println("ÆÄÀÏ¸®½ºÆ®Ãâ·Â"+filelist.toString());
+			System.out.println("ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½"+filelist.toString());
 			for(CommonFileVo vo:filelist) {
 				String files=vo.getFilePath()+vo.getFileName();
-				System.out.println("ÆÄÀÏµð·ºÅä¸®+ÆÄÀÏÀÌ¸§ Ãâ·ÂÇØº¸±â"+files);
+				System.out.println("ï¿½ï¿½ï¿½Ïµï¿½ï¿½ä¸®+ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½"+files);
 				File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 				if( file.exists() ){
 		            if(file.delete()){
-		                System.out.println("ÆÄÀÏ»èÁ¦ ¼º°ø");
+		                System.out.println("ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		            }else{
-		                System.out.println("ÆÄÀÏ»èÁ¦ ½ÇÆÐ");
+		                System.out.println("ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		            }
 		        }else{
-		            System.out.println("ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+		            System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.");
 		        }
 				dao.intFileDelete(intNum);
 				dao.intDelete(intNum);
