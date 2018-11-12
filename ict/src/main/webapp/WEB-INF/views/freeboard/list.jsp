@@ -133,10 +133,9 @@ action="${path}/freeboard/list.do">
 	</tr>
 </table>
 
-<%-- <c:if test="${sessionScope.member != null }">
+<c:if test="${sessionScope.member != null }">
 	<button type="button" id="btnWrite">등록</button>
-</c:if> --%>
-<button type="button" id="btnWrite">등록</button> 
+</c:if>
 
 <form name="form" method="post">
 	<input type="hidden" name="fbNum" />

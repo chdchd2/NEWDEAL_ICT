@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insert" parameterType="freeboard">
 		INSERT INTO FREEBOARD (FB_NUM,FB_TITLE,FB_CONTENT,FB_WRITER) VALUES
 		( (SELECT NVL(MAX(FB_NUM)+1,1) FROM FREEBOARD),
-		#{fbTitle}, #{fbContent}, #{fbWriter} )
+		#{fbTitle,jdbcType=VARCHAR}, #{fbContent,jdbcType=CLOB}, #{fbWriter,jdbcType=VARCHAR} )
 	</insert>
 	
 <!-- 게시물 수정  -->
@@ -34,8 +34,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 게시물 상세보기  -->	
 	<select id="view" resultType="com.newdeal.ict.Vo.FreeBoardVo">
 		SELECT FB_NUM,FB_TITLE,FB_REGDATE,FB_CONTENT,FB_VIEWCNT,FB_WRITER
-		FROM FREEBOARD
-		WHERE FB_NUM=#{fbNum}
+		FROM FREEBOARD FB, MEMBER M
+		WHERE FB.FB_WRITER=M.MEM_NICKNAME AND FB_NUM=#{fbNum}
 	</select>
 	
 <!-- 게시물삭제 -->
@@ -65,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 레코드 갯수 계산 -->
 	<select id="countArticle" resultType="int">
 		SELECT COUNT(*)
-		FROM FREEBOARD
+		FROM FREEBOARD FB, MEMBER M
 	<include refid="search"></include>
 	</select>
 	
