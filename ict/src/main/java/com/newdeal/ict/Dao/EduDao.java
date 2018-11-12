@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.newdeal.ict.Util.PageUtil;
 import com.newdeal.ict.Vo.CommonFileVo;
+import com.newdeal.ict.Vo.IntDetailJoinVo;
 import com.newdeal.ict.Vo.IntroduceVo;
 
 
@@ -34,6 +35,27 @@ public class EduDao {
 	}
 	public int intCnt() {
 		return session.selectOne(NAMESPACE+".intCnt");
+	}
+	public IntDetailJoinVo intDetail(int intNum) {
+		return session.selectOne(NAMESPACE+".intDetail",intNum);
+	}
+	public CommonFileVo fileinfo(CommonFileVo filevo) {
+		return session.selectOne(NAMESPACE+".fileinfo",filevo);
+	}
+	public IntroduceVo getWriter(int intNum) {
+		return session.selectOne(NAMESPACE+".getWriter",intNum);
+	}
+	public int intDelete(int intNum) {
+		return session.delete(NAMESPACE+".intDelete",intNum);
+	}
+	public int intFileDelete(int intNum) {
+		return session.delete(NAMESPACE+".intFileDelete",intNum);
+	}
+	public List<CommonFileVo> intFileDelList(int intNum){
+		return session.selectList(NAMESPACE+".intFileDelList",intNum);
+	}
+	public int intEdit(IntroduceVo vo) {
+		return session.update(NAMESPACE+".intEdit",vo);
 	}
 	
 }

@@ -17,7 +17,7 @@
     <c:forEach var="vo" items="${list}">
     <tr>
         <td>${vo.intNum}</td>
-        <td><a href="">${vo.intTitle}</a></td>
+        <td><a href="<c:url value='/edu/intDetail?intNum=${vo.intNum }'/>">${vo.intTitle}</a></td>
         <td>${vo.intWriter}</td>
         <td>${vo.intDate}</td>
         <td>${vo.intHit}</td>

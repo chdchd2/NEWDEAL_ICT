@@ -31,6 +31,13 @@
 			</beans:list>
 		</beans:property>
 	</beans:bean>
+	
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="0" />
+ </beans:bean>
+
+ <beans:bean id="FileDownView" class="com.newdeal.ict.Util.FileDownView"/>
+
 
 	<beans:bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="viewNames" value=".*" />
@@ -45,6 +52,7 @@
 		<beans:property name="suffix" value=".jsp" />
 		<beans:property name="order" value="2" />
 	</beans:bean>
+	
 	<beans:bean
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 		id="multipartResolver">
