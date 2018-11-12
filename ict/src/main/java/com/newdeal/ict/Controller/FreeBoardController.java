@@ -30,8 +30,6 @@ public class FreeBoardController {
 	@Inject
 	FreeBoardService service;
 	
-	
-	
 	@RequestMapping("list.do")
 	public ModelAndView list(
 			@RequestParam(defaultValue="1") int curPage,
