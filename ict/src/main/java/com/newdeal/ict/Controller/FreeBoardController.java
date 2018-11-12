@@ -46,7 +46,7 @@ public class FreeBoardController {
 				start, end, search_option, keyword);
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("freeboard/list");
-		Map<String, Object> map=new HashMap<>();
+		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("count", list.size());
 		map.put("search_option", search_option);

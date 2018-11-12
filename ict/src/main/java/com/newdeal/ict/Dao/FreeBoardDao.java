@@ -32,7 +32,7 @@ public class FreeBoardDao {
 	}
 //첨부파일수정
 	public void updateAttach(String atFullname, int fbNum) {
-		Map<String, Object> map=new HashMap<>();
+		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("atFullname", atFullname);
 		map.put("fbNum", fbNum);
 		sqlSession.insert("freeboard.updateAttach",map);
@@ -60,7 +60,7 @@ public class FreeBoardDao {
 
 	public List<FreeBoardVo> listAll(
 			int start, int end, String search_option, String keyword) throws Exception {
-		Map<String, Object> map=new HashMap<>();
+		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("search_option", search_option);
 		map.put("keyword", keyword);
 		map.put("start", start);
@@ -74,7 +74,7 @@ public class FreeBoardDao {
 	}
 
 	public int countArticle(String search_option, String keyword) throws Exception {
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("search_option", search_option);
 		map.put("keyword", keyword);
 		return sqlSession.selectOne("freeboard.countArticle", map);

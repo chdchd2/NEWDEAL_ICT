@@ -74,7 +74,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		long update_time = 0;
 		//세션에 저장된 게시물의 조회시간 검색
 		if(session.getAttribute("update_time_"+fbNum)!=null){
-			update_time=(long)session.getAttribute(
+			update_time=(Long)session.getAttribute(
 					"update_time_"+fbNum);
 		}
 		//현재 시간

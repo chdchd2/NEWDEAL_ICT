@@ -32,7 +32,7 @@ public class NoticeDao {
 	}
 //첨부파일수정
 	public void updateAttach(String atFullname, int ntNum) {
-		Map<String, Object> map=new HashMap<>();
+		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("atFullname", atFullname);
 		map.put("ntNum", ntNum);
 		sqlSession.insert("notice.updateAttach",map);
@@ -60,7 +60,7 @@ public class NoticeDao {
 
 	public List<NoticeVo> listAll(
 			int start, int end, String search_option, String keyword) throws Exception {
-		Map<String, Object> map=new HashMap<>();
+		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("search_option", search_option);
 		map.put("keyword", keyword);
 		map.put("start", start);
@@ -74,7 +74,7 @@ public class NoticeDao {
 	}
 
 	public int countArticle(String search_option, String keyword) throws Exception {
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("search_option", search_option);
 		map.put("keyword", keyword);
 		return sqlSession.selectOne("notice.countArticle", map);
