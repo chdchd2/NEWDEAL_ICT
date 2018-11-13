@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select> -->
 	
 <!-- 게시물등록 -->
-	<insert id="insert" parameterType="freeboard">
+	<insert id="insert" parameterType="freeboard" >
 		INSERT INTO FREEBOARD (FB_NUM,FB_TITLE,FB_CONTENT,FB_WRITER) VALUES
 		( (SELECT NVL(MAX(FB_NUM)+1,1) FROM FREEBOARD),
 		#{fbTitle,jdbcType=VARCHAR}, #{fbContent,jdbcType=CLOB}, #{fbWriter,jdbcType=VARCHAR} )
@@ -34,8 +34,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 게시물 상세보기  -->	
 	<select id="view" resultType="com.newdeal.ict.Vo.FreeBoardVo">
 		SELECT FB_NUM,FB_TITLE,FB_REGDATE,FB_CONTENT,FB_VIEWCNT,FB_WRITER
-		FROM FREEBOARD
-		WHERE FB_NUM=#{fbNum}
+		FROM FREEBOARD FB, MEMBER M
+		WHERE FB.FB_WRITER=M.MEM_NICKNAME AND FB_NUM=#{fbNum}
 	</select>
 	
 <!-- 게시물삭제 -->
@@ -53,10 +53,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 게시물 목록 -->
 	<select id="listAll" resultType="com.newdeal.ict.Vo.FreeBoardVo">
 	<include refid="paging_header" />
-	SELECT FB_NUM,FB_TITLE,FB_REGDATE,FB_VIEWCNT,FB_WRITER,FB_SHOW
-	FROM FREEBOARD FB
+	SELECT FB_NUM,FB_TITLE,FB.FB_REGDATE,FB_VIEWCNT,FB_WRITER,FB_SHOW
+	FROM FREEBOARD FB, MEMBER M
 	<include refid="search"></include>
-	ORDER BY FB_NUM DESC, FB_REGDATE DESC
+	ORDER BY FB_NUM DESC
 	<include refid="paging_footer" />
 	</select>
 	
@@ -71,20 +71,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- #변수 - 따옴표를 처리(스트링 붙이고 숫자는 뺸다)
 	$변수 - 따옴표 무시 -->
 	<sql id="search">	
+		<!--  <choose>
+			<when test="search_option != 'all'">
+				WHERE FB.FB_WRITER=M.MEM_NICKNAME 
+				AND FB_SHOW='Y'
+				AND ${search_option} LIKE #{keyword}
+			</when>
+			<otherwise>
+				WHERE FB.FB_WRITER=M.MEM_NICKNAME
+				AND FB_SHOW='Y'
+				AND (MEM_NICKNAME LIKE '%' || #{keyword} || '%'
+				OR FB_TITLE LIKE '%' || #{keyword} || '%'
+				OR FB_CONTENT LIKE '%' || #{keyword} || '%')
+			</otherwise>
+		</choose> -->
 		<choose>
 			<when test="search_option == 'all'">
-				WHERE FB_WRITER LIKE '%' || #{keyword} || '%'
-				OR FB_CONTENT LIKE '%' || #{keyword} || '%'
-				OR FB_TITLE LIKE '%' || #{keyword} || '%'
+				WHERE FB.FB_WRITER=M.MEM_NICKNAME 
+				AND FB_SHOW='Y'
+				AND ( MEM_NICKNAME LIKE '%' || #{keyword} || '%'
+				   OR FB_CONTENT LIKE '%' || #{keyword} || '%'
+				   OR FB_TITLE LIKE '%' || #{keyword} || '%' )
 			</when>
 			<when test="search_option == 'fbWriter'">
-				WHERE FB_WRITER LIKE '%' || #{keyword} || '%'
+				WHERE FB.FB_WRITER=M.MEM_NICKNAME 
+				AND FB_SHOW='Y'
+				AND ( MEM_NICKNAME LIKE '%' || #{keyword} || '%' )
 			</when>
 			<when test="search_option == 'fbContent'">
-				WHERE FB_CONTENT LIKE '%' || #{keyword} || '%'
+				WHERE FB.FB_WRITER=M.MEM_NICKNAME 
+				AND FB_SHOW='Y'
+				AND ( FB_CONTENT LIKE '%' || #{keyword} || '%' )
 			</when>
 			<when test="search_option == 'fbTitle'">
-				WHERE FB_TITLE LIKE '%' || #{keyword} || '%'
+				WHERE FB.FB_WRITER=M.MEM_NICKNAME 
+				AND FB_SHOW='Y'
+				AND ( FB_TITLE LIKE '%' || #{keyword} || '%')
 			</when>
 			<otherwise>
 				WHERE ${search_option} LIKE '%' || #{keyword}||'%'

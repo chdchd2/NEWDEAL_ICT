@@ -79,8 +79,9 @@ public class FreeBoardVo {
 	}
 	@Override
 	public String toString() {
-		return "FreeBoardDTO [fbNum=" + fbNum + ", fbTitle=" + fbTitle + ", fbContent=" + fbContent /*+ ", fbId=" + fbId*/
-				+ ", fbRegdate=" + fbRegdate + ", fbViewcnt=" + fbViewcnt + ", fbWriter=" + fbWriter + ", fbCnt=" + fbCnt + ", fbShow=" + fbShow
-				+ ", fbFiles=" + Arrays.toString(fbFiles) + "]";
+		return "FreeBoardVo [fbNum=" + fbNum + ", fbTitle=" + fbTitle + ", fbContent=" + fbContent + ", fbRegdate="
+				+ fbRegdate + ", fbViewcnt=" + fbViewcnt + ", fbWriter=" + fbWriter + ", fbCnt=" + fbCnt + ", fbShow="
+				+ fbShow + ", fbFiles=" + Arrays.toString(fbFiles) + "]";
 	}
+	
 }

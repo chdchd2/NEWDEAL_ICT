@@ -189,7 +189,7 @@ action="${path}/freeboard/insert.do">
 			제목 <input name="title" value="${vo.fbTitle}"/>
 		</div>
 		<div>
-			작성자 : ${vo.fbWriter}
+			작성자 : <input type="hidden" id="fbWriter" value="${member.memNickName}" /> ${member.memNickName}
 		</div>
 		<div>
 			작성일 : <fmt:formatDate value="${vo.fbRegdate}" pattern="yyyy.MM.dd"/> 

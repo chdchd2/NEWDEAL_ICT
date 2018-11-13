@@ -74,7 +74,7 @@ public class FreeBoardController {
 	
 	@RequestMapping("insert.do")
 	public String insert(@ModelAttribute FreeBoardVo vo,HttpSession session) throws Exception{
-		vo.setFbWriter((String)session.getAttribute("id"));
+		vo.setFbWriter((String)session.getAttribute("member"));
 		
 		System.out.println("=====================>"+vo.toString());
 		service.create(vo);
