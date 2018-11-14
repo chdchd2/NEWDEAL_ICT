@@ -21,7 +21,7 @@
     </div>
     <div>
         내용
-        <textarea name="content" id="content" rows="4" cols="80" placeholder="내용을 입력해주세요">${vo.intContent}</textarea>
+        <c:out value="${vo.intContent}" escapeXml="false"/>
     </div>
     <div>
         이름

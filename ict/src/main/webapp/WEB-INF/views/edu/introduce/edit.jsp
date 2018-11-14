@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
 <body>
 <h2>게시글 상세보기</h2>
 <form name="form1" action="<c:url value='/edu/intEdit'/>" method="POST" enctype="multipart/form-data">
@@ -27,3 +28,8 @@
     </div>
 </form>
 </body>
+<script>
+CKEDITOR.replace('intContent',{
+	filebrowserUploadUrl:"<c:url value='/ckImage.do'/>"
+});
+</script>

@@ -37,8 +37,8 @@ public class EduServiceImpl implements EduService{
 		FileOutputStream fos = null;
 		String filePath="C:\\Users\\haces\\git";
 		CommonFileVo filevo=new CommonFileVo();
-		
 		try {
+			if(filelist.size()>1) {
 			for(int i=0;i<filelist.size();i++) {
 				is=filelist.get(i).getInputStream();
 				UUID uuid=UUID.randomUUID();
@@ -56,6 +56,7 @@ public class EduServiceImpl implements EduService{
 				
 				fos.close();
 				is.close();
+				}
 			}
 		}finally {
 			
