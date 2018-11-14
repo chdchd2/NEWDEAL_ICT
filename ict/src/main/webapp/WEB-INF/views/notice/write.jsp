@@ -68,16 +68,13 @@ $(function(){
 <%@ include file="../include/menu.jsp" %>
 <h2>공지사항</h2>
 <form id="form" name="form" method="post"
-action="${path}/freeboard/insert.do">
+action="${path}/notice/insert.do">
 	<div>
-		제목 <input name="fbTitle" id="fbTitle" size="80"/>
-	</div>
-	<%-- <div>
-		작성자 : ${dto.name}
+		제목 <input name="ntTitle" id="ntTitle" size="80"/>
 	</div>
 	<div>
-		작성일 : <fmt:formatDate value="${dto.regdate}" pattern="yyyy.MM.dd"/> 
-	</div> --%>
+		작성자 : <input type="hidden" name="ntWriter" value="${member.memNickName}" /> ${member.memNickName}
+	</div>
 	<div>
 		첨부 파일<br>
 		
@@ -95,12 +92,12 @@ action="${path}/freeboard/insert.do">
 		<div id="uploadedList"></div> -->
 	</div>
 	<div style="width:800px;">
-		내용 <textarea id="fbContent" name="fbContent" rows="3" cols="80"></textarea>
-		<script>
+		내용 <textarea id="ntContent" name="ntContent" rows="3" cols="80"></textarea>
+		<!-- <script>
 		CKEDITOR.replace("fbContent",{
 			filebrowserUploadUrl : "${path}/imageUpload.do"
 		});
-		</script>
+		</script> -->
 	</div>
 	<div style="width:700px; text-align:center;">
 		<button type="button" id="btnSave">등록</button>

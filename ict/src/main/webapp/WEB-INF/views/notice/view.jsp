@@ -28,15 +28,7 @@ $(function(){
 		});
 
 		$("#btnUpdate").click(function(){
-		//첨부파일 이름들을 폼에 추가
-			var str="";
-			$("#uploadedList .file").each(function(i){
-				str+=
-					"<input type='hidden' name='ntFiles["+i+"]' value='"
-					+$(this).val()+"'>";
-			});
-			$("#form").append(str);
-			document.form.action="${path}/notice/update.do";
+			document.form.action="${path}/notice/updateView.do";
 			document.form.submit();
 		});
 		
@@ -226,10 +218,10 @@ action="${path}/notice/insert.do">
 	<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
 		<input type="hidden" name="ntNum" value="${vo.ntNum}" />
 	<!-- 본인 게시물만 수정,삭제 버튼 표시 -->	
-	<c:if test="${sessionScope.member == vo.ntWriter }">
-		<button type="button" id="btnUpdate">저장</button>
+	<c:if test="${sessionScope.member.memNickName == vo.ntWriter }"> 
+		<button type="button" id="btnUpdate">수정</button>
 		<button type="button" id="btnDelete">삭제</button>
-	</c:if>
+	</c:if> 
 		<button type="button" id="btnList">목록</button>
 	</div>
 </form>

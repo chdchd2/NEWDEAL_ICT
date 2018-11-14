@@ -21,11 +21,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insert" parameterType="notice">
 		INSERT INTO NOTICE (NT_NUM,NT_TITLE,NT_CONTENT,NT_WRITER) VALUES
 		( SEQ_NOTICE.NEXTVAL,
-		#{ntTitle}, #{ntContent}, #{ntWriter} )
+		#{ntTitle,jdbcType=VARCHAR}, #{ntContent,jdbcType=CLOB}, #{ntWriter,jdbcType=VARCHAR} )
 	</insert>
 	
 <!-- 게시물 수정  -->
-	<update id="update">
+	<update id="update" parameterType="notice">
 		UPDATE NOTICE
 		SET NT_TITLE=#{ntTitle}, NT_CONTENT=#{ntContent}
 		WHERE NT_NUM=#{ntNum}
@@ -34,8 +34,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 게시물 상세보기  -->	
 	<select id="view" resultType="com.newdeal.ict.Vo.NoticeVo">
 		SELECT NT_NUM,NT_TITLE,NT_REGDATE,NT_CONTENT,NT_VIEWCNT,NT_WRITER
-		FROM NOTICE 
-		WHERE NT_NUM=#{ntNum}
+		FROM NOTICE NT, MEMBER M
+		WHERE NT.NT_WRITER=M.MEM_NICKNAME AND NT_NUM=#{ntNum}
 	</select>
 	
 <!-- 게시물삭제 -->
@@ -51,25 +51,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 <!-- 게시물 목록 -->
-	<select id="listAll" 
-	resultType=
-	"com.newdeal.ict.Vo.NoticeVo">
+	<select id="listAll" resultType="com.newdeal.ict.Vo.NoticeVo">
 	<include refid="paging_header" />
-	SELECT NT_NUM,NT_TITLE,
-		   NT_REGDATE,
-		   NT_VIEWCNT,
-		   NT_WRITER,
-		   NT_SHOW
+	SELECT NT_NUM,NT_TITLE, NT_REGDATE,NT_VIEWCNT,NT_WRITER,NT_SHOW
 	FROM NOTICE NT, MEMBER M 
 	<include refid="search" /> 
-	ORDER BY NT_NUM DESC, NT_REGDATE DESC
+	ORDER BY NT_NUM DESC
 	<include refid="paging_footer" />
 	</select>
 	
 <!-- 레코드 갯수 계산 -->
 	<select id="countArticle" resultType="int">
 		SELECT COUNT(*)
-		FROM NOTICE  
+		FROM NOTICE NT, MEMBER M  
 		<include refid="search"/> 
 	</select>
 	
@@ -79,18 +73,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<sql id="search">	
 		<choose>
 			<when test="search_option == 'all'">
-				WHERE NT_WRITER LIKE '%' || #{keyword} || '%'
-				OR NT_CONTENT LIKE '%' || #{keyword} || '%'
-				OR NT_TITLE LIKE '%' || #{keyword} || '%'
+				WHERE NT.NT_WRITER=M.MEM_NICKNAME 
+				AND NT_SHOW='Y'
+				AND ( MEM_NICKNAME LIKE '%' || #{keyword} || '%'
+				   OR NT_CONTENT LIKE '%' || #{keyword} || '%'
+				   OR NT_TITLE LIKE '%' || #{keyword} || '%' )
 			</when>
 			<when test="search_option == 'ntWriter'">
-				WHERE NT_WRITER LIKE '%' || #{keyword} || '%'
+				WHERE NT.NT_WRITER=M.MEM_NICKNAME 
+				AND NT_SHOW='Y'
+				AND ( MEM_NICKNAME LIKE '%' || #{keyword} || '%' )
 			</when>
 			<when test="search_option == 'ntContent'">
-				WHERE NT_CONTENT LIKE '%' || #{keyword} || '%'
+				WHERE NT.NT_WRITER=M.MEM_NICKNAME 
+				AND NT_SHOW='Y'
+				AND ( NT_CONTENT LIKE '%' || #{keyword} || '%' )
 			</when>
 			<when test="search_option == 'ntTitle'">
-				WHERE NT_TITLE LIKE '%' || #{keyword} || '%'
+				WHERE NT.NT_WRITER=M.MEM_NICKNAME 
+				AND NT_SHOW='Y'
+				AND ( NT_TITLE LIKE '%' || #{keyword} || '%')
 			</when>
 			<otherwise>
 				WHERE ${search_option} LIKE '%' || #{keyword}||'%'

@@ -30,17 +30,15 @@ public class NoticeController {
 	@Inject
 	NoticeService service;
 	
-	
-	
 	@RequestMapping("list.do")
 	public ModelAndView list(
 			@RequestParam(defaultValue="1") int curPage,
 			@RequestParam(defaultValue="all") String search_option
 			, @RequestParam(defaultValue="") String keyword) throws Exception{
-		//레코드 갯수 계산
+		//��肄��� 媛��� 怨���
 		int count = service.countArticle(
 				search_option, keyword);
-		//페이지의 시작번호, 끝번호 계산
+		//���댁��� ����踰���, ��踰��� 怨���
 		Pager pager = new Pager(count, curPage);
 		int start = pager.getPageBegin();
 		int end=pager.getPageEnd();
@@ -55,10 +53,10 @@ public class NoticeController {
 		map.put("keyword", keyword);
 		map.put("pager", pager);
 		mav.addObject("map", map);
-		/*map으로 묶지 않았을 경우
+		/*map�쇰� 臾띠� ������ 寃쎌��
 		 * mav.addObject("list", list);
 		mav.addObject("count", list.size());*/
-		//list.jsp로 포워딩
+		//list.jsp濡� �ъ����
 		return mav;
 	}
 	
@@ -66,9 +64,9 @@ public class NoticeController {
 	public String write(){
 		return "notice/write"; //views/board/write.jsp
 	}
-	//REST방식의 url {bno} => PathVariable로 선언
+	//REST諛⑹���� url {bno} => PathVariable濡� ����
 	@RequestMapping("getAttach/{ntNum}")
-	@ResponseBody// 뷰가 아닌 데이터를 보낼 경우
+	@ResponseBody// 酉곌� ���� �곗�댄�곕�� 蹂대�� 寃쎌��
 	public List<String> getAttach(@PathVariable("ntNum") int ntNum){
 		return service.getAttach(ntNum);
 	}
@@ -84,14 +82,14 @@ public class NoticeController {
 	@RequestMapping("view.do")
 	public ModelAndView view(@RequestParam int ntNum
 			,HttpSession session) throws Exception {
-		//조회수 증가 처리
+		//議고���� 利�媛� 泥�由�
 		service.increaseViewcnt(ntNum, session);
 		
-		/*//0718추가
+		/*//0718異�媛�
 		List<BoardDTO> list2=boardService.PNList(bno);
 		//
 */		
-		//레코드를 리턴받음
+		//��肄���瑜� 由ы�대���
 		ModelAndView mav=new ModelAndView();
 		
 		/*mav.addObject("list2",list2);*/
@@ -100,14 +98,25 @@ public class NoticeController {
 		mav.addObject("vo", service.read(ntNum));
 		return mav;
 	}
+
+	@RequestMapping("updateView.do")
+	public ModelAndView updateView(@RequestParam int ntNum ,HttpSession session) throws Exception {
+		
+		ModelAndView mav=new ModelAndView();
+		
+		
+		mav.setViewName("notice/modify");
+		mav.addObject("vo", service.read(ntNum));
+		return mav;
+	}
 	
-	//게시물내용수정
+	//寃���臾쇰�댁�⑹����
 	@RequestMapping("update.do")
 	public String update(@ModelAttribute NoticeVo vo) throws Exception {
 		if(vo != null){
-			service.update(vo);//레코드수정
+			service.update(vo);//��肄�������
 		}
-		//수정상세화면
+		//�������명��硫�
 		//return "redirect:/board/view.do?bno="+dto.getBno();
 		return "redirect:/notice/list.do";
 	}

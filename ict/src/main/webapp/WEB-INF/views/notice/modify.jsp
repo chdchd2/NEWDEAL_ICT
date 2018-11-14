@@ -15,7 +15,7 @@ $(function(){
 		
 		$("#btnDelete").click(function(){
 			if(confirm("삭제하시겠습니까?")){
-				document.form.action="${path}/freeboard/delete.do";
+				document.form.action="${path}/notice/delete.do";
 				document.form.submit();
 			}
 		});
@@ -23,14 +23,20 @@ $(function(){
 			/*location.href="${path}/board/list.do";
 			//document.form.action="${path}/board/list.do";
 			//document.form.submit(); */
-			document.form.action="${path}/freeboard/list.do";
+			document.form.action="${path}/notice/list.do";
 			document.form.submit();
 		});
 
 		$("#btnUpdate").click(function(){
 		//첨부파일 이름들을 폼에 추가
-			
-			document.form.action="${path}/freeboard/updateView.do";
+			var str="";
+			$("#uploadedList .file").each(function(i){
+				str+=
+					"<input type='hidden' name='ntFiles["+i+"]' value='"
+					+$(this).val()+"'>";
+			});
+			$("#form").append(str);
+			document.form.action="${path}/notice/update.do";
 			document.form.submit();
 		});
 		
@@ -38,7 +44,7 @@ $(function(){
 			//태그.each(function(){})모든 태그 반복
 			var str="";
 			$("#uploadedList .file").each(function(i){
-				str+="<input type='hidden' name='fbFiles["+i+"]' value='"
+				str+="<input type='hidden' name='ntFiles["+i+"]' value='"
 				+$(this).val()+"'>";
 			});
 			//폼에 hidden 태그들을 추가
@@ -74,8 +80,8 @@ $(function(){
 	$(".fileDrop").on("drop",function(e){
 		e.preventDefault();
 		//드롭한 파일을 폼데이터에 추가함
-		var fbFiles = e.originalEvent.dataTransfer.fbFiles;
-		var file=fbFiles[0];
+		var ntFiles = e.originalEvent.dataTransfer.ntFiles;
+		var file=ntFiles[0];
 		var formData=new FormData();
 		//폼데이터에 추가
 		formData.append("file", file);
@@ -103,7 +109,7 @@ $(function(){
 function listAttach(){
 	$.ajax({
 		type: "post",
-		url: "${path}/freeboard/getAttach/${vo.fbNum}",
+		url: "${path}/notice/getAttach/${vo.ntNum}",
 		success:function(list){
 			//list => json 형식의 데이터
 			console.log(list);
@@ -112,7 +118,7 @@ function listAttach(){
 				console.log(fileInfo);
 				var html=
 					"<div><a href='"+fileInfo.getLink+"'>"+fileInfo.fileName+"</a>&nbsp;&nbsp;";
-				<c:if test="${sessionScope.member == vo.fbWriter}">	
+				<c:if test="${sessionScope.member == vo.ntWriter}">	
 					html+="<a href='#' class='file_del' data-src='"
 					+this+"'>[삭제]</a></div>";
 					/* html+="<input type='button' class='file_del' value='삭제' data-src='" 
@@ -136,7 +142,7 @@ function listAttach(){
 <%@ include file="../include/menu.jsp" %>
 <h2>자유게시판</h2>
 <form id="form" name="form" method="post"
-action="${path}/freeboard/insert.do">
+action="${path}/notice/insert.do">
 <!-- 관리자 -->
 <%-- <c:choose>
 	<c:when test="${sessionScope.userid == dto.writer }">
@@ -177,24 +183,19 @@ action="${path}/freeboard/insert.do">
 	<c:otherwise> --%>
 <!-- 사용자 -->
 		<div>
-			조회수 : ${vo.fbViewcnt}
+			조회수 : ${vo.ntViewcnt}
 		</div>
 		<div>
-			
-			<div>
-			제목: ${vo.fbTitle}
-			</div>
+			제목 <input name="ntTitle" value="${vo.ntTitle}"/>
 		</div>
 		<div>
-			작성자 : ${vo.fbWriter}
+			작성자 : <input type="hidden" name="ntWriter" value="${member.memNickName}" /> ${member.memNickName}
 		</div>
 		<div>
-			작성일 : <fmt:formatDate value="${vo.fbRegdate}" pattern="yyyy.MM.dd"/> 
+			작성일 : <fmt:formatDate value="${vo.ntRegdate}" pattern="yyyy.MM.dd"/> 
 		</div>
 		<div style="width:800px;">
-			<div>
-			내용: ${vo.fbContent}
-			</div>
+			내용 <textarea id="ntContent" name="ntContent" rows="3" cols="80">${vo.ntContent}</textarea>
 			
 		</div>
 		<div>
@@ -223,12 +224,12 @@ action="${path}/freeboard/insert.do">
 
 	<div>
 	<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
-		<input type="hidden" name="fbNum" value="${vo.fbNum}" />
+		<input type="hidden" name="ntNum" value="${vo.ntNum}" />
 	<!-- 본인 게시물만 수정,삭제 버튼 표시 -->	
-	<c:if test="${sessionScope.member.memNickName == vo.fbWriter }"> 
-		<button type="button" id="btnUpdate">수정</button>
+	<%-- <c:if test="${sessionScope.member == vo.ntWriter }"> --%>
+		<button type="button" id="btnUpdate">저장</button>
 		<button type="button" id="btnDelete">삭제</button>
-	</c:if> 
+	<%-- </c:if> --%>
 		<button type="button" id="btnList">목록</button>
 	</div>
 </form>
