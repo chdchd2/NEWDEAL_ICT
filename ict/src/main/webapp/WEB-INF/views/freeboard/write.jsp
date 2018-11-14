@@ -76,7 +76,7 @@ action="${path}/freeboard/insert.do">
 		제목 <input name="fbTitle" id="fbTitle" size="80"/>
 	</div>
 	<div>
-		작성자 : <input type="hidden" name="fbWriter" id="fbWriter" value="${member.memNickName}" /> ${member.memNickName}
+		작성자 : <input type="hidden" name="fbWriter" value="${member.memNickName}" /> ${member.memNickName}
 	</div>
 	<div>
 		첨부 파일<br>

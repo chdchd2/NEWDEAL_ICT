@@ -186,16 +186,16 @@ action="${path}/freeboard/insert.do">
 			조회수 : ${vo.fbViewcnt}
 		</div>
 		<div>
-			제목 <input name="title" value="${vo.fbTitle}"/>
+			제목 <input name="fbTitle" value="${vo.fbTitle}"/>
 		</div>
 		<div>
-			작성자 : <input type="hidden" id="fbWriter" value="${member.memNickName}" /> ${member.memNickName}
+			작성자 : <input type="hidden" name="fbWriter" value="${member.memNickName}" /> ${member.memNickName}
 		</div>
 		<div>
 			작성일 : <fmt:formatDate value="${vo.fbRegdate}" pattern="yyyy.MM.dd"/> 
 		</div>
 		<div style="width:800px;">
-			내용 <textarea id="content" name="content" rows="3" cols="80">${vo.fbContent}</textarea>
+			내용 <textarea id="fbContent" name="fbContent" rows="3" cols="80">${vo.fbContent}</textarea>
 			
 		</div>
 		<div>
