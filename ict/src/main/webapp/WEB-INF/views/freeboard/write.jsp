@@ -54,6 +54,8 @@ $(function(){
 		document.form.submit();
 	});
 });
+
+
 </script>
 <style>
 .fileDrop {
@@ -62,6 +64,12 @@ $(function(){
 	border: 1px solid #ededed;
 }
 </style>
+<script>
+function jidodown(){
+	var data=$("#jido").val();
+	console.log(data);
+}
+</script>
 </head>
 <body>
 
@@ -79,13 +87,10 @@ action="${path}/freeboard/insert.do">
 		작성자 : <input type="hidden" name="fbWriter" value="${member.memNickName}" /> ${member.memNickName}
 	</div>
 	<div>
-		첨부 파일<br>
-		
-		<!-- 0717추가 -->
-		<div>
-			<input type="file" name="file" id="btnUpload">
-		</div>
-	
+	지도첨부 <input type="text" id="jido" onkeydown="jidodown()" />
+	</div>
+	<div>
+		첨부 파일 <input type="file" name="file" id="btnUpload">
 		<!-- 첨부파일을 드래그할 영역 -->
 		<div class="fileDrop">
 			<!-- 첨부파일 목록이 표시되는 영역 -->
