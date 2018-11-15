@@ -35,10 +35,10 @@ public class FreeBoardController {
 			@RequestParam(defaultValue="1") int curPage,
 			@RequestParam(defaultValue="all") String search_option
 			, @RequestParam(defaultValue="") String keyword) throws Exception{
-		//��肄��� 媛��� 怨���
+		//레코드 갯수 계산
 		int count = service.countArticle(
 				search_option, keyword);
-		//���댁��� ����踰���, ��踰��� 怨���
+		//페이지의 시작번호, 끝번호 계산
 		Pager pager = new Pager(count, curPage);
 		int start = pager.getPageBegin();
 		int end=pager.getPageEnd();
@@ -53,10 +53,10 @@ public class FreeBoardController {
 		map.put("keyword", keyword);
 		map.put("pager", pager);
 		mav.addObject("map", map);
-		/*map�쇰� 臾띠� ������ 寃쎌��
+		/*map으로 묶지 않았을 경우
 		 * mav.addObject("list", list);
 		mav.addObject("count", list.size());*/
-		//list.jsp濡� �ъ����
+		//list.jsp로 포워딩
 		return mav;
 	}
 	
@@ -64,9 +64,9 @@ public class FreeBoardController {
 	public String write(){
 		return "freeboard/write"; //views/board/write.jsp
 	}
-	//REST諛⑹���� url {bno} => PathVariable濡� ����
+	//REST방식의 url {bno} => PathVariable로 선언
 	@RequestMapping("getAttach/{fbNum}")
-	@ResponseBody// 酉곌� ���� �곗�댄�곕�� 蹂대�� 寃쎌��
+	@ResponseBody// 뷰가 아닌 데이터를 보낼 경우
 	public List<String> getAttach(@PathVariable("fbNum") int fbNum){
 		return service.getAttach(fbNum);
 	}
@@ -84,14 +84,14 @@ public class FreeBoardController {
 	@RequestMapping("view.do")
 	public ModelAndView view(@RequestParam int fbNum
 			,HttpSession session) throws Exception {
-		//議고���� 利�媛� 泥�由�
+		//조회수 증가 처리
 		service.increaseViewcnt(fbNum, session);
 		
-		/*//0718異�媛�
+		/*//0718추가
 		List<BoardDTO> list2=boardService.PNList(bno);
 		//
 */		
-		//��肄���瑜� 由ы�대���
+		//레코드를 리턴받음
 		ModelAndView mav=new ModelAndView();
 		
 		/*mav.addObject("list2",list2);*/
@@ -112,14 +112,14 @@ public class FreeBoardController {
 		return mav;
 	}
 	
-	//寃���臾쇰�댁�⑹����
+	//게시물내용수정
 	@RequestMapping("update.do")
 	public String update(@ModelAttribute FreeBoardVo vo) throws Exception {
 		if(vo != null){
-			service.update(vo);//��肄�������
+			service.update(vo);//레코드수정
 			System.out.println("=====================>"+vo.toString());
 		}
-		//�������명��硫�
+		//수정상세화면
 		//return "redirect:/freeboard/view.do?fbNum="+vo.getFbNum();
 		return "redirect:/freeboard/list.do";
 	}

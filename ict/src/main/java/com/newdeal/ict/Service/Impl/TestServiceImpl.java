@@ -15,7 +15,7 @@ public class TestServiceImpl implements TestService{
 	@Override
 	public int write(TestVo vo) throws Exception {
 		dao.write(vo);
-		System.out.println("¸®ÅÏ°ª¹ŞÀ»¼öÀÖ´ÂÁö");
+		System.out.println("ë¦¬í„´ê°’ë°›ì„ìˆ˜ìˆëŠ”ì§€");
 		return 1;
 	}
 	@Override

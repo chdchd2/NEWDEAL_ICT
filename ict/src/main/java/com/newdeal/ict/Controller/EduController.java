@@ -29,9 +29,9 @@ public class EduController {
 	
 	@RequestMapping(value = "/intWrite", method = RequestMethod.POST)
 	public String intWriteOk(IntroduceVo vo,MultipartHttpServletRequest req) throws Exception {
-		//�� �ۼ��ϱ�
+		//글 작성하기
 		service.intWrite(vo); 
-		//÷������ ó���ϱ�
+		//첨부파일 처리하기
 		List<MultipartFile> filelist = req.getFiles("file"); 
 		int num=service.intmaxNum();
 		service.intfileWrite(filelist, num);

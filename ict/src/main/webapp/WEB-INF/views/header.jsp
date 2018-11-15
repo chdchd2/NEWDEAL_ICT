@@ -35,7 +35,7 @@ function logout(){
 <a href="${path}">HOME</a> |
 <a href="#">소개</a> |
 <a href="#">취업지원센터</a> |
-<a href="#">교육안내</a> |
+<a href="${path}/edu/intList.do">교육안내</a> |
 <a href="${path}/notice/list.do">커뮤니티</a> 
 
 <hr>

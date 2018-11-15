@@ -21,21 +21,21 @@ public class TestController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
-		System.out.println("È¨À¸·ÎÀÌµ¿ÇÏ±â");
+		System.out.println("í™ˆìœ¼ë¡œì´ë™í•˜ê¸°");
 		return ".main";
 	}
 	
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String write(TestVo vo,Model model) throws Exception {
-		System.out.println("VO·Î ³Ñ°Ü¹ŞÀº °ª Ãâ·Â:"+vo.toString());
+		System.out.println("VOë¡œ ë„˜ê²¨ë°›ì€ ê°’ ì¶œë ¥:"+vo.toString());
 		int i =service.write(vo);
-		System.out.println("service.write ¸Ş¼Òµå ½ÇÇà:¼ıÀÚ="+i);
+		System.out.println("service.write ë©”ì†Œë“œ ì‹¤í–‰:ìˆ«ì="+i);
 		return "redirect:/list";
 	}
 	
 	@RequestMapping(value = "/list")
 	public String list(Model model) throws Exception {
-		System.out.println("listÂÊÀ¸·Î ¿È");
+		System.out.println("listìª½ìœ¼ë¡œ ì˜´");
 		List<TestVo> list=service.list();
 		System.out.println(list.toString());
 		model.addAttribute("list",list);

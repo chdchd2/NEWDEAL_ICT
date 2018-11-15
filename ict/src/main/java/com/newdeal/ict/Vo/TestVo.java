@@ -4,10 +4,10 @@ public class TestVo {
 	private int num;
 	private String name;
 	
-	/* ´ÜÃàÅ° = Alt+Shift+ (O,R,S) »ı¼ºÀÚ,°ÔÅÍ¼¼ÅÍ,Åõ½ºÆ®¸µ */
-	public TestVo() {} // new °´Ã¼ »ı¼º ±âº»»ı¼ºÀÚ
+	/* ë‹¨ì¶•í‚¤ = Alt+Shift+ (O,R,S) ìƒì„±ì,ê²Œí„°ì„¸í„°,íˆ¬ìŠ¤íŠ¸ë§ */
+	public TestVo() {} // new ê°ì²´ ìƒì„± ê¸°ë³¸ìƒì„±ì
 	
-	public TestVo(int num, String name) { //¿À¹ö·ÎµùÇÏ¿© »ı¼ºÀÚ
+	public TestVo(int num, String name) { //ì˜¤ë²„ë¡œë”©í•˜ì—¬ ìƒì„±ì
 		super();
 		this.num = num;
 		this.name = name;
@@ -29,6 +29,5 @@ public class TestVo {
 	public String toString() {
 		return "TestVo [num=" + num + ", name=" + name + "]";
 	}
-	
 	
 }
