@@ -8,7 +8,6 @@
 <%@ include file="../include/header.jsp" %>
 <script src="${path}/include/js/common.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9c33dafb379eb8e557de8b4964389518&libraries=services"></script>
-<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
 $(function(){
 	
@@ -77,19 +76,29 @@ action="${path}/notice/insert.do">
 	</div>
 	<div>
 		작성자 : <input type="hidden" name="ntWriter" value="${member.memNickName}" /> ${member.memNickName}
+	</div>	
+	<div style="width:800px;">
+		내용 <textarea id="ntContent" name="ntContent" rows="3" cols="80"></textarea>
+		<!-- <script>
+		CKEDITOR.replace("fbContent",{
+			filebrowserUploadUrl : "${path}/imageUpload.do"
+		});
+		</script> -->
 	</div>
 	<div>
-	지도첨부<input type="text" id="searchWordBox" />
-	<span id="searchBtn">검색</span>
-	<div id="map" style="width:500px;height:350px;"></div>
+	지도첨부<input type="text" name="ntMap" id="searchWordBox" />
+	<button type="button" id="searchBtn">검색</button>
+	<div id="mapDiv" style="display:none">
+		<div id="map" style="width:300px;height:350px;"></div>
+	</div>
 	</div>
 	<div>
-		첨부 파일<br>
+		첨부 파일
 		
 		<!-- 0717추가 -->
-		<div>
+		<span>
 			<input type="file" name="file" id="btnUpload">
-		</div>
+		</span>
 	
 		<!-- 첨부파일을 드래그할 영역 -->
 		<div class="fileDrop">
@@ -98,14 +107,6 @@ action="${path}/notice/insert.do">
 		</div>
 		<!-- 첨부파일 목록이 표시되는 영역
 		<div id="uploadedList"></div> -->
-	</div>
-	<div style="width:800px;">
-		내용 <textarea id="ntContent" name="ntContent" rows="3" cols="80"></textarea>
-		<!-- <script>
-		CKEDITOR.replace("fbContent",{
-			filebrowserUploadUrl : "${path}/imageUpload.do"
-		});
-		</script> -->
 	</div>
 	<div style="width:700px; text-align:center;">
 		<button type="button" id="btnSave">등록</button>
@@ -116,7 +117,11 @@ action="${path}/notice/insert.do">
 $('#searchBtn').on('click',function(){
 	var searchWord = $('#searchWordBox').val();
 	test(searchWord);
-});
+	$('#mapDiv').show();
+	$('#map').relayout();
+})
+
+
 
 
 
@@ -124,7 +129,7 @@ function test(searchWord){
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = {
 	        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	        level: 3 // 지도의 확대 레벨
+	        level: 2 // 지도의 확대 레벨
 	    };  
 	
 	// 지도를 생성합니다    
@@ -155,10 +160,12 @@ function test(searchWord){
 	        infowindow.open(map, marker); */
 	
 	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        map.relayout();
 	        map.setCenter(coords);
 	    } 
 	});
 }
+
 </script>
 </body>
 </html>

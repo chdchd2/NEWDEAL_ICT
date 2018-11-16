@@ -19,9 +19,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 <!-- 게시물등록 -->
 	<insert id="insert" parameterType="notice">
-		INSERT INTO NOTICE (NT_NUM,NT_TITLE,NT_CONTENT,NT_WRITER) VALUES
+		INSERT INTO NOTICE (NT_NUM,NT_TITLE,NT_CONTENT,NT_WRITER,NT_MAP) VALUES
 		( SEQ_NOTICE.NEXTVAL,
-		#{ntTitle,jdbcType=VARCHAR}, #{ntContent,jdbcType=CLOB}, #{ntWriter,jdbcType=VARCHAR} )
+		#{ntTitle,jdbcType=VARCHAR}, #{ntContent,jdbcType=CLOB}, #{ntWriter,jdbcType=VARCHAR}, #{ntMap,jdbcType=VARCHAR} )
 	</insert>
 	
 <!-- 게시물 수정  -->
@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 게시물 상세보기  -->	
 	<select id="view" resultType="com.newdeal.ict.Vo.NoticeVo">
-		SELECT NT_NUM,NT_TITLE,NT_REGDATE,NT_CONTENT,NT_VIEWCNT,NT_WRITER
+		SELECT NT_NUM,NT_TITLE,NT_REGDATE,NT_CONTENT,NT_VIEWCNT,NT_WRITER,NT_MAP
 		FROM NOTICE NT, MEMBER M
 		WHERE NT.NT_WRITER=M.MEM_NICKNAME AND NT_NUM=#{ntNum}
 	</select>

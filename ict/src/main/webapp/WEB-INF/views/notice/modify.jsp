@@ -1,134 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<%@ include file="../include/header.jsp" %>
-<%@ include file="../include/common_View.jsp" %>
-
+<%@ include file="../include/header.jsp"%>
+<%@ include file="../include/common_View.jsp"%>
 <script src="${path}/include/js/common.js"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9c33dafb379eb8e557de8b4964389518&libraries=services"></script>
 <script>
-$(function(){
-	
-		
-		$("#btnDelete").click(function(){
-			if(confirm("삭제하시겠습니까?")){
-				document.form.action="${path}/notice/delete.do";
-				document.form.submit();
-			}
-		});
-		$("#btnList").click(function(){
-			/*location.href="${path}/board/list.do";
-			//document.form.action="${path}/board/list.do";
-			//document.form.submit(); */
-			document.form.action="${path}/notice/list.do";
-			document.form.submit();
-		});
+	$(function() {
 
-		$("#btnUpdate").click(function(){
-		//첨부파일 이름들을 폼에 추가
-			var str="";
-			$("#uploadedList .file").each(function(i){
-				str+=
-					"<input type='hidden' name='ntFiles["+i+"]' value='"
-					+$(this).val()+"'>";
-			});
-			$("#form").append(str);
-			document.form.action="${path}/notice/update.do";
-			document.form.submit();
-		});
-		
-		$("#btnSave").click(function(){
-			//태그.each(function(){})모든 태그 반복
-			var str="";
-			$("#uploadedList .file").each(function(i){
-				str+="<input type='hidden' name='ntFiles["+i+"]' value='"
-				+$(this).val()+"'>";
-			});
-			//폼에 hidden 태그들을 추가
-			$("#form").append(str);
-			document.form.submit();
-		});
-	listAttach(); //첨부파일 목록 로딩
+		$("#btnUpdate").click(
+				function() {
+					//첨부파일 이름들을 폼에 추가
+					var str = "";
+					$("#uploadedList .file").each(
+							function(i) {
+								str += "<input type='hidden' name='ntFiles["
+										+ i + "]' value='" + $(this).val()
+										+ "'>";
+							});
+					$("#form").append(str);
+					document.form.action = "${path}/notice/update.do";
+					document.form.submit();
+				});
 
-	
-	//첨부파일삭제
-	$("#uploadedList").on("click",".file_del",function(e){
-		var that=$(this);
-		//data:{fileName:$(this).attr("data-src")},
-		$.ajax({
-			type:"post",
-			url:"${path}/upload/deleteFile",
-			data:"fileName="+ $(this).attr("data-src"),
-			dataType:"text",
-			success:function(result){
-				if(result=="deleted"){
-					//화면에서 태그제거
-					that.parent("div").remove();
-				}
-			}
-		});
 	});
-	
-	
-	//드래그 기본효과 막음
-	$(".fileDrop").on("dragenter dragover", function(e){
-		e.preventDefault();
-	});
-	$(".fileDrop").on("drop",function(e){
-		e.preventDefault();
-		//드롭한 파일을 폼데이터에 추가함
-		var ntFiles = e.originalEvent.dataTransfer.ntFiles;
-		var file=ntFiles[0];
-		var formData=new FormData();
-		//폼데이터에 추가
-		formData.append("file", file);
-		//processData: false -header가 아닌 body로 전송
-		$.ajax({
-			url: "${path}/upload/uploadAjax",
-			data: formData,
-			dataType: "text",
-			processData: false,
-			contentType: false,
-			type: "post",
-			success: function(data){//콜백함수
-				var fileInfo=getFileInfo(data);//첨부파일정보
-				var html="<a href='"+fileInfo.getLink+"'>"+
-				fileInfo.fileName+"</a><br>";//첨부파일링크
-				html+="<input type='hidden' class='file' value='"
-				+fileInfo.fullName+"'>"; //hidden태그 추가
-				$("#uploadedList").append(html);//div에 추가
-			}
-		});
-	});
-
-	
-});
-function listAttach(){
-	$.ajax({
-		type: "post",
-		url: "${path}/notice/getAttach/${vo.ntNum}",
-		success:function(list){
-			//list => json 형식의 데이터
-			console.log(list);
-			$(list).each(function(){
-				var fileInfo=getFileInfo(this);
-				console.log(fileInfo);
-				var html=
-					"<div><a href='"+fileInfo.getLink+"'>"+fileInfo.fileName+"</a>&nbsp;&nbsp;";
-				<c:if test="${sessionScope.member == vo.ntWriter}">	
-					html+="<a href='#' class='file_del' data-src='"
-					+this+"'>[삭제]</a></div>";
-					/* html+="<input type='button' class='file_del' value='삭제' data-src='" 
-					+this+"'></div>"; */
-				</c:if> 
-					$("#uploadedList").append(html);
-			});
-		}
-	});
-}
 </script>
 <style>
 .fileDrop {
@@ -139,99 +39,165 @@ function listAttach(){
 </style>
 </head>
 <body>
-<%@ include file="../include/menu.jsp" %>
-<h2>자유게시판</h2>
-<form id="form" name="form" method="post"
-action="${path}/notice/insert.do">
-<!-- 관리자 -->
-<%-- <c:choose>
-	<c:when test="${sessionScope.userid == dto.writer }">
+	<%@ include file="../include/menu.jsp"%>
+	<h2>공지사항</h2>
+	<form id="form" name="form" method="post"
+		action="${path}/notice/insert.do">
+		<!-- 사용자 -->
+		<div>조회수 : ${vo.ntViewcnt}</div>
 		<div>
-			제목 <input name="title" value="${dto.title}"/>
+			제목 <input name="ntTitle" value="${vo.ntTitle}" />
 		</div>
 		<div>
-			작성자 : ${dto.name}
+			작성자 : <input type="hidden" name="ntWriter"
+				value="${member.memNickName}" /> ${member.memNickName}
 		</div>
 		<div>
-			작성일 : <fmt:formatDate value="${dto.regdate}" pattern="yyyy.MM.dd"/> 
+			작성일 :
+			<fmt:formatDate value="${vo.ntRegdate}" pattern="yyyy.MM.dd" />
+		</div>
+		<div style="width: 800px;">
+			내용
+			<textarea id="ntContent" name="ntContent" rows="3" cols="80">${vo.ntContent}</textarea>
+
 		</div>
 		<div>
-			첨부 파일<br>
-				
-			<!-- 0717추가 -->
-			<div>
-				<input type="file" name="file" id="btnUpload">
-			</div>
-		
+			<c:if test="${vo.ntMap != null}">
+			지도첨부<input type="text" name="ntMap" id="searchWordBox" value="${vo.ntMap }" />
+				<button type="button" id="searchBtn">검색</button>
+				<div id="map" style="width: 300px; height: 350px;"></div>
+			</c:if>
+			<c:if test="${vo.ntMap == null }">
+			지도첨부<input type="text" name="ntMap" id="searchWordBox"/>
+				<button type="button" id="searchBtn">검색</button>
+				<div id="mapDiv" style="display: none">
+					<div id="map" style="width: 300px; height: 350px;"></div>
+				</div>
+			</c:if>
+		</div>
+		<div>
+			첨부 파일 :
 			<!-- 첨부파일을 드래그할 영역 -->
-			<div class="fileDrop">
-				<!-- 첨부파일 목록이 표시되는 영역 -->
-				<div id="uploadedList"></div>
-			</div><!-- 
-			첨부파일 목록이 표시되는 영역
-			<div id="uploadedList"></div> -->
-		</div>
-		<div style="width:800px;">
-			내용 <textarea id="content" name="content" rows="3" cols="80">${dto.content}</textarea>
-			<script>
-			CKEDITOR.replace("content",{
-				filebrowserUploadUrl : "${path}/imageUpload.do"
-			});
-			</script>
-		</div>
-	</c:when>
-	<c:otherwise> --%>
-<!-- 사용자 -->
-		<div>
-			조회수 : ${vo.ntViewcnt}
-		</div>
-		<div>
-			제목 <input name="ntTitle" value="${vo.ntTitle}"/>
-		</div>
-		<div>
-			작성자 : <input type="hidden" name="ntWriter" value="${member.memNickName}" /> ${member.memNickName}
-		</div>
-		<div>
-			작성일 : <fmt:formatDate value="${vo.ntRegdate}" pattern="yyyy.MM.dd"/> 
-		</div>
-		<div style="width:800px;">
-			내용 <textarea id="ntContent" name="ntContent" rows="3" cols="80">${vo.ntContent}</textarea>
-			
-		</div>
-		<div>
-			첨부 파일  : 
-			<!-- 첨부파일을 드래그할 영역 --> 
-			<div class="fileDrop"></div> 
+			<div class="fileDrop"></div>
 			<!-- 첨부파일 목록이 표시되는 영역 -->
 			<div id="uploadedList"></div>
 		</div>
-	<%-- </c:otherwise>
-</c:choose> --%>
+		<div>
+			<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
+			<input type="hidden" name="ntNum" value="${vo.ntNum}" />
+			<!-- 본인 게시물만 수정,삭제 버튼 표시 -->
+			<%-- <c:if test="${sessionScope.member == vo.ntWriter }"> --%>
+			<button type="button" id="btnUpdate">저장</button>
+			<button type="button" id="btnDelete">삭제</button>
+			<%-- </c:if> --%>
+			<button type="button" id="btnList">목록</button>
+		</div>
+	</form>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+	<script>
+		/* 
+		 $('#searchBtn').on('click',function(){
+		 var searchWord = $('#searchWordBox').val();
+		 test(searchWord);
+		 $('#mapDiv').show();
+		 $('#map').relayout();
+		 });
 
-<!-- 0718추가 -->
-<%-- <c:choose>
-	<c:when test="$fn:length(list2) == 2 and board.bno ==list2[0].bno">
-		<tr>
-			<td><span class="prev">이전</span>이전글이 없습니다.</td>
-		</tr>
-		<tr>
-			<td><span class="next">다음</span><a href="/view.do?bno=${list2[1].bno}">${list2[1].title}</a></td>
-		</tr>
-	</c:when>
-	
-</c:choose> --%>
-<!--  -->
 
-	<div>
-	<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
-		<input type="hidden" name="ntNum" value="${vo.ntNum}" />
-	<!-- 본인 게시물만 수정,삭제 버튼 표시 -->	
-	<%-- <c:if test="${sessionScope.member == vo.ntWriter }"> --%>
-		<button type="button" id="btnUpdate">저장</button>
-		<button type="button" id="btnDelete">삭제</button>
-	<%-- </c:if> --%>
-		<button type="button" id="btnList">목록</button>
-	</div>
-</form>
+
+
+
+		 function test(searchWord){  */
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		mapOption = {
+			center : new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			level : 2
+		// 지도의 확대 레벨
+		};
+
+		// 지도를 생성합니다    
+		var map = new daum.maps.Map(mapContainer, mapOption);
+
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new daum.maps.services.Geocoder();
+
+		
+		// 주소로 좌표를 검색합니다
+		geocoder.addressSearch('${vo.ntMap}', function(result, status) {
+
+			// 정상적으로 검색이 완료됐으면 
+			if (status === daum.maps.services.Status.OK) {
+
+				var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+
+				// 결과값으로 받은 위치를 마커로 표시합니다
+				var marker = new daum.maps.Marker({
+					map : map,
+					position : coords
+				});
+
+				// 인포윈도우로 장소에 대한 설명을 표시합니다
+				/*  var infowindow = new daum.maps.InfoWindow({
+				     content: '<div display="none"></div>'
+				 
+				 });
+				 infowindow.open(map, marker); */
+
+				// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+				map.relayout();
+				map.setCenter(coords);
+			}
+		});
+		 $('#searchBtn').on('click',function(){
+			 var searchWord = $('#searchWordBox').val();
+			 test(searchWord);
+			 $('#mapDiv').show();
+			 $('#map').relayout();
+			 });
+		 function test(searchWord){
+			 
+				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+				mapOption = {
+					center : new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+					level : 2
+				// 지도의 확대 레벨
+				};
+
+				// 지도를 생성합니다    
+				var map = new daum.maps.Map(mapContainer, mapOption);
+
+				// 주소-좌표 변환 객체를 생성합니다
+				var geocoder = new daum.maps.services.Geocoder();
+
+				
+				// 주소로 좌표를 검색합니다
+				geocoder.addressSearch(searchWord, function(result, status) {
+
+					// 정상적으로 검색이 완료됐으면 
+					if (status === daum.maps.services.Status.OK) {
+
+						var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+
+						// 결과값으로 받은 위치를 마커로 표시합니다
+						var marker = new daum.maps.Marker({
+							map : map,
+							position : coords
+						});
+
+						// 인포윈도우로 장소에 대한 설명을 표시합니다
+						/*  var infowindow = new daum.maps.InfoWindow({
+						     content: '<div display="none"></div>'
+						 
+						 });
+						 infowindow.open(map, marker); */
+
+						// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+						map.relayout();
+						map.setCenter(coords);
+					}
+				});
+		 }
+		 /* } */ 
+	</script>
 </body>
 </html>

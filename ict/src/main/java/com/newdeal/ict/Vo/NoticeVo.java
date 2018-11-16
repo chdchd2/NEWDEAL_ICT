@@ -9,10 +9,10 @@ public class NoticeVo {
 	private int ntNum; //번호
 	private String ntTitle; //제목
 	private String ntContent;//내용
-//	private String ntId;//작성자id
 	private Date ntRegdate;//작성일
 	private int ntViewcnt;//조회수
 	private String ntWriter;//작성자
+	private String ntMap;
 	private int ntCnt;//댓글수
 	private String ntShow;//화면표시여부
 	private String[] ntFiles;//첨부파일이름배열
@@ -59,6 +59,12 @@ public class NoticeVo {
 	public void setNtWriter(String ntWriter) {
 		this.ntWriter = ntWriter;
 	}
+	public String getNtMap() {
+		return ntMap;
+	}
+	public void setNtMap(String ntMap) {
+		this.ntMap = ntMap;
+	}
 	public int getNtCnt() {
 		return ntCnt;
 	}
@@ -79,8 +85,10 @@ public class NoticeVo {
 	}
 	@Override
 	public String toString() {
-		return "FreeBoardDTO [ntNum=" + ntNum + ", ntTitle=" + ntTitle + ", ntContent=" + ntContent /*+ ", ntId=" + ntId*/
-				+ ", ntRegdate=" + ntRegdate + ", ntViewcnt=" + ntViewcnt + ", ntWriter=" + ntWriter + ", ntCnt=" + ntCnt + ", ntShow=" + ntShow
-				+ ", ntFiles=" + Arrays.toString(ntFiles) + "]";
+		return "NoticeVo [ntNum=" + ntNum + ", ntTitle=" + ntTitle + ", ntContent=" + ntContent + ", ntRegdate="
+				+ ntRegdate + ", ntViewcnt=" + ntViewcnt + ", ntWriter=" + ntWriter + ", ntMap=" + ntMap + ", ntCnt="
+				+ ntCnt + ", ntShow=" + ntShow + ", ntFiles=" + Arrays.toString(ntFiles) + "]";
 	}
+	
+	
 }

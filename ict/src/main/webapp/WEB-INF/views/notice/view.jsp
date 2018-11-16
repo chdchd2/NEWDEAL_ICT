@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/common_View.jsp" %>
-
 <script src="${path}/include/js/common.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9c33dafb379eb8e557de8b4964389518&libraries=services"></script>
 <script>
 $(function(){
 	
@@ -135,44 +135,6 @@ function listAttach(){
 <h2>공지사항</h2>
 <form id="form" name="form" method="post"
 action="${path}/notice/insert.do">
-<!-- 관리자 -->
-<%-- <c:choose>
-	<c:when test="${sessionScope.userid == dto.writer }">
-		<div>
-			제목 <input name="title" value="${dto.title}"/>
-		</div>
-		<div>
-			작성자 : ${dto.name}
-		</div>
-		<div>
-			작성일 : <fmt:formatDate value="${dto.regdate}" pattern="yyyy.MM.dd"/> 
-		</div>
-		<div>
-			첨부 파일<br>
-				
-			<!-- 0717추가 -->
-			<div>
-				<input type="file" name="file" id="btnUpload">
-			</div>
-		
-			<!-- 첨부파일을 드래그할 영역 -->
-			<div class="fileDrop">
-				<!-- 첨부파일 목록이 표시되는 영역 -->
-				<div id="uploadedList"></div>
-			</div><!-- 
-			첨부파일 목록이 표시되는 영역
-			<div id="uploadedList"></div> -->
-		</div>
-		<div style="width:800px;">
-			내용 <textarea id="content" name="content" rows="3" cols="80">${dto.content}</textarea>
-			<script>
-			CKEDITOR.replace("content",{
-				filebrowserUploadUrl : "${path}/imageUpload.do"
-			});
-			</script>
-		</div>
-	</c:when>
-	<c:otherwise> --%>
 <!-- 사용자 -->
 		<div>
 			조회수 : ${vo.ntViewcnt}
@@ -188,8 +150,14 @@ action="${path}/notice/insert.do">
 		</div>
 		<div>
 			내용 : ${vo.ntContent}
-		
 		</div>
+		<c:if test="${vo.ntMap != null }">
+		<div>
+			장소 : ${vo.ntMap }
+			<div id="map" style="width:300px;height:350px;"></div>
+		</div>
+		</c:if>
+		
 		<div>
 			첨부 파일
 			<!-- 첨부파일을 드래그할 영역 -->
@@ -197,22 +165,6 @@ action="${path}/notice/insert.do">
 			<!-- 첨부파일 목록이 표시되는 영역 -->
 			<div id="uploadedList"></div>
 		</div>
-	<%-- </c:otherwise>
-</c:choose> --%>
-
-<!-- 0718추가 -->
-<%-- <c:choose>
-	<c:when test="$fn:length(list2) == 2 and board.bno ==list2[0].bno">
-		<tr>
-			<td><span class="prev">이전</span>이전글이 없습니다.</td>
-		</tr>
-		<tr>
-			<td><span class="next">다음</span><a href="/view.do?bno=${list2[1].bno}">${list2[1].title}</a></td>
-		</tr>
-	</c:when>
-	
-</c:choose> --%>
-<!--  -->
 
 	<div>
 	<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
@@ -225,5 +177,48 @@ action="${path}/notice/insert.do">
 		<button type="button" id="btnList">목록</button>
 	</div>
 </form>
+<script>
+
+
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = {
+	        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        level: 2 // 지도의 확대 레벨
+	    };  
+	
+	// 지도를 생성합니다    
+	var map = new daum.maps.Map(mapContainer, mapOption); 
+	
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new daum.maps.services.Geocoder();
+	
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch('${vo.ntMap}', function(result, status) {
+	
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === daum.maps.services.Status.OK) {
+	
+	        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+	
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new daum.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+	
+	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	       /*  var infowindow = new daum.maps.InfoWindow({
+	            content: '<div display="none"></div>'
+	        
+	        });
+	        infowindow.open(map, marker); */
+	
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        map.relayout();
+	        map.setCenter(coords);
+	    } 
+	});
+
+</script>
 </body>
 </html>
