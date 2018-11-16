@@ -12,7 +12,7 @@
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9c33dafb379eb8e557de8b4964389518&libraries=services"></script>
 <script>
 	$(function() {
-
+	
 		$("#btnUpdate").click(
 				function() {
 					//첨부파일 이름들을 폼에 추가
@@ -27,6 +27,14 @@
 					document.form.action = "${path}/notice/update.do";
 					document.form.submit();
 				});
+		$("#btnList").click(function(){
+			/*location.href="${path}/board/list.do";
+			//document.form.action="${path}/board/list.do";
+			//document.form.submit(); */
+			document.form.action="${path}/notice/list.do";
+			document.form.submit();
+		});
+
 
 	});
 </script>
@@ -75,22 +83,21 @@
 				</div>
 			</c:if>
 		</div>
-		<div>
+		<!-- <div>
 			첨부 파일 :
-			<!-- 첨부파일을 드래그할 영역 -->
+			첨부파일을 드래그할 영역
 			<div class="fileDrop"></div>
-			<!-- 첨부파일 목록이 표시되는 영역 -->
+			첨부파일 목록이 표시되는 영역
 			<div id="uploadedList"></div>
-		</div>
+		</div> -->
 		<div>
 			<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
 			<input type="hidden" name="ntNum" value="${vo.ntNum}" />
 			<!-- 본인 게시물만 수정,삭제 버튼 표시 -->
 			<%-- <c:if test="${sessionScope.member == vo.ntWriter }"> --%>
 			<button type="button" id="btnUpdate">저장</button>
-			<button type="button" id="btnDelete">삭제</button>
 			<%-- </c:if> --%>
-			<button type="button" id="btnList">목록</button>
+			<button type="button" id="btnList">취소</button>
 		</div>
 	</form>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>

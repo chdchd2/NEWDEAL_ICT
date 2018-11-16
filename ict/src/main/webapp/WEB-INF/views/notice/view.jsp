@@ -157,14 +157,17 @@ action="${path}/notice/insert.do">
 			<div id="map" style="width:300px;height:350px;"></div>
 		</div>
 		</c:if>
-		
+		<c:if test="${vo.ntMap == null }">
+		장소 : 장소가 등록되지 않았습니다.
+		</c:if>
+	<!-- 	
 		<div>
 			첨부 파일
-			<!-- 첨부파일을 드래그할 영역 -->
-			<!-- <div class="fileDrop"></div> -->
-			<!-- 첨부파일 목록이 표시되는 영역 -->
+			첨부파일을 드래그할 영역
+			<div class="fileDrop"></div>
+			첨부파일 목록이 표시되는 영역
 			<div id="uploadedList"></div>
-		</div>
+		</div> -->
 
 	<div>
 	<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
