@@ -64,12 +64,6 @@ $(function(){
 	border: 1px solid #ededed;
 }
 </style>
-<script>
-function jidodown(){
-	var data=$("#jido").val();
-	console.log(data);
-}
-</script>
 </head>
 <body>
 
@@ -86,9 +80,7 @@ action="${path}/freeboard/insert.do">
 	<div>
 		작성자 : <input type="hidden" name="fbWriter" value="${member.memNickName}" /> ${member.memNickName}
 	</div>
-	<div>
-	지도첨부 <input type="text" id="jido" onkeydown="jidodown()" />
-	</div>
+	
 	<div>
 		첨부 파일 <input type="file" name="file" id="btnUpload">
 		<!-- 첨부파일을 드래그할 영역 -->
