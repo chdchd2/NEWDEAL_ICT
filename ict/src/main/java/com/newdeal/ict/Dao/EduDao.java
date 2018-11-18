@@ -57,5 +57,11 @@ public class EduDao {
 	public int intEdit(IntroduceVo vo) {
 		return session.update(NAMESPACE+".intEdit",vo);
 	}
+	public int fileDel(CommonFileVo vo) {
+		return session.delete(NAMESPACE+".fileDel",vo);
+	}
+	public int detailCntUp(int intNum) {
+		return session.update(NAMESPACE+".detailCntUp",intNum);
+	}
 	
 }

@@ -1,6 +1,7 @@
 package com.newdeal.ict.Dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class MemberDao {
 	}
 	public int signin(MemberVo vo) {
 		return session.insert(NAMESPACE+".signin",vo);
+	}
+	public String nickNameChk(String nickname){
+		return session.selectOne(NAMESPACE+".nickNameChk",nickname);
 	}
 	
 }

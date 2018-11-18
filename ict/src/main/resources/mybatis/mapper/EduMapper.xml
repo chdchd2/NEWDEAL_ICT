@@ -142,10 +142,17 @@ INSERT INTO COMMON_FILE VALUES(
 	 WHERE FILE_REF_BOARD='EDU_INTRODUCE' AND FILE_REF_NUM=#{intNum}
 </select>
 
-<update id="intEdit">
+<update id="intEdit" parameterType="intvo">
 	UPDATE EDU_INTRODUCE SET INT_TITLE=#{intTitle},INT_CONTENT=#{intContent} WHERE INT_NUM=#{intNum}
 </update>
 
+<delete id="fileDel" parameterType="filevo">
+	DELETE COMMON_FILE WHERE FILE_NUM=#{fileNum}
+</delete>
+
+<update id="detailCntUp" parameterType="int">
+	UPDATE EDU_INTRODUCE SET INT_HIT=INT_HIT+1 WHERE INT_NUM=#{intNum}
+</update>
 </mapper>
 
  

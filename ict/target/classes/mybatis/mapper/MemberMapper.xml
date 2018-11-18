@@ -22,6 +22,12 @@
 	INSERT INTO MEMBER VALUES(SEQ_MEMBER_NUM.nextval,#{memNickName},#{memTel},#{memGubun},1,sysdate,#{memUid},#{memField},'allow')
 </insert>
 
+<select id="nickNameChk" parameterType="String" resultType="String">
+	SELECT 
+		MEM_NICKNAME AS memNickName
+	FROM MEMBER WHERE MEM_NICKNAME=#{nickname}
+</select>
+
 </mapper>
 
  

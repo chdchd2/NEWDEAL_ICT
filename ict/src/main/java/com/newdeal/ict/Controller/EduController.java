@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -56,7 +57,7 @@ public class EduController {
 		model.addAttribute("list",map.get("list"));
 		model.addAttribute("pu",map.get("pu"));
 		
-		return "edu/introduce/list";
+		return ".edu.introduce.list";
 	}
 	
 	@RequestMapping(value = "/intDetail",method = RequestMethod.GET)
@@ -65,7 +66,7 @@ public class EduController {
 		IntDetailJoinVo vo=service.intDetail(intNum);
 		System.out.println("===>out"+vo.toString());
 		model.addAttribute("vo",vo);
-		return "edu/introduce/detail";
+		return ".edu.introduce.detail";
 	}
 	
 	@RequestMapping(value="/fileDown" )
@@ -108,15 +109,24 @@ public class EduController {
 			System.out.println("같지않다.");
 		}
 		
-		return "edu/introduce/edit";
+		return ".edu.introduce.edit";
 	}
 	
 	@RequestMapping(value = "/intEdit",method = RequestMethod.POST)
 	public String intEditOk(IntroduceVo vo,MultipartHttpServletRequest req) throws Exception {
 		System.out.println("수정시 정보들"+vo.toString());
+		List<MultipartFile> filelist = req.getFiles("file"); 
+		int num=service.intmaxNum();
+		service.intfileWrite(filelist, num);
 		service.intEdit(vo);
 		
 		return "redirect:/edu/intList";
+	}
+	@RequestMapping(value = "/fileDel",method = RequestMethod.POST)
+	@ResponseBody
+	public void fileDel(CommonFileVo vo) throws Exception {
+		System.out.println("파일번호는?"+vo);
+		service.fileDel(vo);
 	}
 	
 }
