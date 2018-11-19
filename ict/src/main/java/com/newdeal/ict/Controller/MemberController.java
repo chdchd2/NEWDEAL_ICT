@@ -74,7 +74,7 @@ public class MemberController {
 		public boolean nicknameChk(String nickname) throws Exception{
 		
 		nickname = nickname.replaceAll(" ", "").replaceAll("(^\\p{Z}+|\\p{Z}+$)", "");
-		System.out.println("´Ð³×ÀÓÀº====>"+nickname);
+		System.out.println("ë‹‰ë„¤ìž„ì€===>"+nickname);
 		boolean able =service.nickNameChk(nickname);
 			
 		return able;

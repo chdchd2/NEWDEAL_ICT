@@ -86,10 +86,10 @@ public class EduController {
 		IntroduceVo intvo=service.getWriter(intNum);
 		
 		if(intvo.getMemNum()==vo.getMemNum()) {
-			System.out.println("�ۼ��ڿ� �α����� ����ڰ� �����ϱ� ����ó��");
+			System.out.println("작성자와 로그인한 사용자가 같으니까 삭제처리");
 			int n=service.intDelete(intNum);
 		}else {
-			System.out.println("�����ʴ�.");
+			System.out.println("같지않다.");
 		}
 		
 		
@@ -102,11 +102,11 @@ public class EduController {
 		IntroduceVo intvo=service.getWriter(intNum);
 		
 		if(intvo.getMemNum()==vo.getMemNum()) {
-			System.out.println("�ۼ��ڿ� �α����� ����ڰ� �����ϱ� �������� �Ѱ���");
+			System.out.println("작성자와 로그인한 사용자가 같으니까 수정으로 넘겨줌");
 			IntDetailJoinVo editvo=service.intDetail(intNum);
 			model.addAttribute("vo",editvo);
 		}else {
-			System.out.println("�����ʴ�.");
+			System.out.println("같지않다.");
 		}
 		
 		return ".edu.introduce.edit";
@@ -114,7 +114,7 @@ public class EduController {
 	
 	@RequestMapping(value = "/intEdit",method = RequestMethod.POST)
 	public String intEditOk(IntroduceVo vo,MultipartHttpServletRequest req) throws Exception {
-		System.out.println("������ ������"+vo.toString());
+		System.out.println("수정시 정보들"+vo.toString());
 		List<MultipartFile> filelist = req.getFiles("file"); 
 		int num=service.intmaxNum();
 		service.intfileWrite(filelist, num);
@@ -125,7 +125,7 @@ public class EduController {
 	@RequestMapping(value = "/fileDel",method = RequestMethod.POST)
 	@ResponseBody
 	public void fileDel(CommonFileVo vo) throws Exception {
-		System.out.println("���Ϲ�ȣ��?"+vo);
+		System.out.println("파일번호는?"+vo);
 		service.fileDel(vo);
 	}
 	
