@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 게시물 수정  -->
 	<update id="update" parameterType="notice">
 		UPDATE NOTICE
-		SET NT_TITLE=#{ntTitle}, NT_CONTENT=#{ntContent}
+		SET NT_TITLE=#{ntTitle}, NT_CONTENT=#{ntContent}, NT_MAP=#{ntMap}
 		WHERE NT_NUM=#{ntNum}
 	</update>
 

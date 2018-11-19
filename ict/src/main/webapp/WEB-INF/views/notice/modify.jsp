@@ -13,8 +13,7 @@
 <script>
 	$(function() {
 	
-		$("#btnUpdate").click(
-				function() {
+		$("#btnUpdate").click(function() {
 					//첨부파일 이름들을 폼에 추가
 					var str = "";
 					$("#uploadedList .file").each(
