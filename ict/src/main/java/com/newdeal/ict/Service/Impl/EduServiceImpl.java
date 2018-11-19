@@ -89,7 +89,7 @@ public class EduServiceImpl implements EduService{
 
 	@Override
 	public IntDetailJoinVo intDetail(int intNum) throws Exception {
-		
+		dao.detailCntUp(intNum);
 		return dao.intDetail(intNum);
 	}
 
@@ -132,6 +132,24 @@ public class EduServiceImpl implements EduService{
 	public int intEdit(IntroduceVo vo) throws Exception {
 		
 		return dao.intEdit(vo);
+	}
+
+	@Override
+	public int fileDel(CommonFileVo filevo) throws Exception {
+		
+		CommonFileVo vo=dao.fileinfo(filevo);
+		File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
+		if( file.exists() ){
+            if(file.delete()){
+                System.out.println("파일삭제 성공");
+                dao.fileDel(filevo);
+            }else{
+                System.out.println("파일삭제 실패");
+            }
+        }else{
+            System.out.println("파일이 존재하지 않습니다.");
+        }
+		return 1;
 	}
 	
 	

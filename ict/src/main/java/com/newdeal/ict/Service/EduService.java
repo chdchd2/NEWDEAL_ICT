@@ -21,6 +21,7 @@ public interface EduService {
 	public IntroduceVo getWriter(int intNum) throws Exception;
 	public int intDelete(int intNum) throws Exception;
 	public int intEdit(IntroduceVo vo) throws Exception;
+	public int fileDel(CommonFileVo filevo) throws Exception;
  
 }
  

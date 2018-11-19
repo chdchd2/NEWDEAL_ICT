@@ -69,5 +69,15 @@ public class MemberController {
 		 	}
 			return "redirect:/";
 		}
-	 
+	@RequestMapping(value = "/nickNameChk",method = RequestMethod.POST)
+	@ResponseBody
+		public boolean nicknameChk(String nickname) throws Exception{
+		
+		nickname = nickname.replaceAll(" ", "").replaceAll("(^\\p{Z}+|\\p{Z}+$)", "");
+		System.out.println("닉네임은====>"+nickname);
+		boolean able =service.nickNameChk(nickname);
+			
+		return able;
+	}
+	
 }
