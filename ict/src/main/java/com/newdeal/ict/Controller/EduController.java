@@ -1,7 +1,6 @@
 package com.newdeal.ict.Controller;
 
 import java.io.File;
-import java.lang.reflect.Member;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,7 +19,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.newdeal.ict.Service.EduService;
-import com.newdeal.ict.Util.PageUtil;
 import com.newdeal.ict.Vo.CommonFileVo;
 import com.newdeal.ict.Vo.IntDetailJoinVo;
 import com.newdeal.ict.Vo.IntroduceVo;
@@ -57,7 +55,7 @@ public class EduController {
 		model.addAttribute("list",map.get("list"));
 		model.addAttribute("pu",map.get("pu"));
 		
-		return "edu/introduce/list";
+		return ".edu.introduce.list";
 	}
 	
 	@RequestMapping(value = "/intDetail",method = RequestMethod.GET)
@@ -71,7 +69,7 @@ public class EduController {
 	
 	@RequestMapping(value="/fileDown" )
 	public ModelAndView contactoDownload(@ModelAttribute CommonFileVo filevo) throws Exception{
-		System.out.println("��Ʈ�ѷ� ���ϴٿ�κб��� �´�.");
+		System.out.println("컨트롤러 파일다운부분까지 온다.");
 		CommonFileVo fileVo=service.fileinfo(filevo);
 		ModelAndView mv= new ModelAndView("FileDownView");
 		File file=new File(fileVo.getFilePath()+File.separator+fileVo.getFileName());

@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.newdeal.ict.Vo.CommonFileVo;
 import com.newdeal.ict.Vo.FreeBoardVo;
 
 @Repository
@@ -17,33 +18,23 @@ public class FreeBoardDao {
 	@Inject
 	SqlSession sqlSession;
 	
-	public void deleteFile(String atFullname) {
-		sqlSession.delete("freeboard.deleteFile", atFullname);
-
-	}
-
-	public List<String> getAttach(int fbNum) {
-		return sqlSession.selectList("freeboard.getAttach", fbNum);
-	}
-
-	public void addAttach(String atFullname) {
-		sqlSession.insert("freeboard.addAttach", atFullname);
-
-	}
-//첨부파일수정
-	public void updateAttach(String atFullname, int fbNum) {
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("atFullname", atFullname);
-		map.put("fbNum", fbNum);
-		sqlSession.insert("freeboard.updateAttach",map);
-
-	}
-
 	public void create(FreeBoardVo vo) throws Exception {
 		sqlSession.insert("freeboard.insert", vo);
 
 	}
 
+	public int fbmaxNum() {
+		return sqlSession.selectOne("freeboard.fbmaxNum");
+	}
+	
+	public int fbCnt() {
+		return sqlSession.selectOne("freeboard.fbCnt");
+	}
+	
+	public int fbfileWrite(CommonFileVo vo) {
+		return sqlSession.insert("freeboard.fbfileWrite",vo);
+	}
+	
 	public FreeBoardVo read(int fbNum) throws Exception {
 		return sqlSession.selectOne("freeboard.view", fbNum);
 	}
@@ -79,14 +70,16 @@ public class FreeBoardDao {
 		map.put("keyword", keyword);
 		return sqlSession.selectOne("freeboard.countArticle", map);
 	}
-
-
-
-	/*//0718추가
-	@Override
-	public List<Boardvo> PNList(int bno) throws Exception {
-		return sqlSession.selectList("board.PNList", bno);
+	public CommonFileVo fileinfo(CommonFileVo filevo) {
+		return sqlSession.selectOne("freeboard.fileinfo",filevo);
 	}
-	//
-*/	
+	public int fbFileDelete(int fbNum) {
+		return sqlSession.delete("freeboard.fbFileDelete",fbNum);
+	}
+	public List<CommonFileVo> fbFileDelList(int fbNum){
+		return sqlSession.selectList("freeboard.fbFileDelList",fbNum);
+	}
+	public int fileDel(CommonFileVo vo) {
+		return sqlSession.delete("freeboard.fileDel",vo);
+	}
 }

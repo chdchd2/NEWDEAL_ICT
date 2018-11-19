@@ -5,59 +5,89 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="freeboard">
-
-<!-- 0718추가 -->
-<!-- 이전글 다음글 표시 -->
-	<!-- <select id="PNList" 
-		resultType=
-		"com.board.notice.model.board.dto.BoardDTO">
-		<include refid="paging_header" />
-		select * from board where bno = #{bno}
-		order by bno desc
-		<include refid="paging_footer" />
-	</select> -->
-	
 <!-- 게시물등록 -->
 	<insert id="insert" parameterType="freeboard" >
-		INSERT INTO FREEBOARD (FB_NUM,FB_TITLE,FB_CONTENT,FB_WRITER) VALUES
-		( (SELECT NVL(MAX(FB_NUM)+1,1) FROM FREEBOARD),
-		#{fbTitle,jdbcType=VARCHAR}, #{fbContent,jdbcType=CLOB}, #{fbWriter,jdbcType=VARCHAR} )
+		INSERT INTO FREEBOARD (FB_NUM,FB_TITLE,FB_CONTENT,FB_WRITER) 
+					   VALUES ( 
+					   			(SELECT NVL(MAX(FB_NUM)+1,1) FROM FREEBOARD),
+								#{fbTitle,jdbcType=VARCHAR}, 
+								#{fbContent,jdbcType=CLOB}, 
+								#{fbWriter,jdbcType=VARCHAR} 
+							   )
 	</insert>
+
+	<select id="fbmaxNum" resultType="int">
+		SELECT NVL(MAX(FB_NUM),1) AS MAXNUM 
+							 	 FROM FREEBOARD
+	</select>
+	
+	<insert id="fbfileWrite" parameterType="filevo">
+		INSERT INTO COMMON_FILE VALUES(
+										SEQ_COMMON_FILE_FILE_NUM.nextval,
+										#{fileName},
+										#{fileOrgName},
+										#{fileSize},
+										#{filePath},
+										'FREEBOARD',
+										#{fileRefNum}
+										)
+	</insert>
+	
+	<select id="fbCnt" resultType="int">
+	 			SELECT NVL(COUNT(*),0) CNT FROM FREEBOARD <!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
+	 			
+	</select>
 	
 <!-- 게시물 수정  -->
 	<update id="update" parameterType="freeboard">
 		UPDATE FREEBOARD
-		SET FB_TITLE=#{fbTitle}, FB_CONTENT=#{fbContent}
-		WHERE FB_NUM=#{fbNum}
+		   SET FB_TITLE=#{fbTitle}, 
+		   	   FB_CONTENT=#{fbContent}
+		 WHERE FB_NUM=#{fbNum}
 	</update>
 
 <!-- 게시물 상세보기  -->	
 	<select id="view" resultType="com.newdeal.ict.Vo.FreeBoardVo">
-		SELECT FB_NUM,FB_TITLE,FB_REGDATE,FB_CONTENT,FB_VIEWCNT,FB_WRITER
-		FROM FREEBOARD FB, MEMBER M
-		WHERE FB.FB_WRITER=M.MEM_NICKNAME AND FB_NUM=#{fbNum}
+		SELECT FB_NUM,
+			   FB_TITLE,
+			   FB_REGDATE,
+			   FB_CONTENT,
+			   FB_VIEWCNT,
+			   FB_WRITER,
+			   FILE_NUM FILENUM,
+			   FILE_NAME FILENAME,
+			   FILE_ORGNAME FILEORGNAME,
+		   	   FILE_SIZE FILESIZE,
+			   FILE_PATH FILEPATH,
+			   FILE_REF_BOARD FILEREFBOARD,
+			   FILE_REF_NUM FILEREFNUM 
+		  FROM FREEBOARD FB, MEMBER M, COMMON_FILE CF
+	   	 WHERE FB.FB_WRITER=M.MEM_NICKNAME
+	   	   AND FB.FB_NUM=CF.FILE_REF_NUM(+) 
+	   	   AND FB.FB_NUM=#{fbNum}
 	</select>
 	
 <!-- 게시물삭제 -->
 	<delete id="deleteArticle">
 		DELETE FROM FREEBOARD
-		WHERE FB_NUM=#{fbNum}
+			  WHERE FB_NUM=#{fbNum}
 	</delete>
 	
 <!-- 조회수 증가 처리 -->
 	<update id="increaseViewcnt">
-		UPDATE FREEBOARD SET FB_VIEWCNT=FB_VIEWCNT+1 
-		WHERE FB_NUM=#{fbNum}
+		UPDATE FREEBOARD 
+		   SET FB_VIEWCNT=FB_VIEWCNT+1 
+		 WHERE FB_NUM=#{fbNum}
 	</update>
 
 <!-- 게시물 목록 -->
 	<select id="listAll" resultType="com.newdeal.ict.Vo.FreeBoardVo">
-	<include refid="paging_header" />
-	SELECT FB_NUM,FB_TITLE,FB.FB_REGDATE,FB_VIEWCNT,FB_WRITER,FB_SHOW
-	FROM FREEBOARD FB, MEMBER M
-	<include refid="search"></include>
-	ORDER BY FB_NUM DESC
-	<include refid="paging_footer" />
+		<include refid="paging_header" />
+		SELECT FB_NUM,FB_TITLE,FB.FB_REGDATE,FB_VIEWCNT,FB_WRITER,FB_SHOW
+		  FROM FREEBOARD FB, MEMBER M
+		<include refid="search"></include>
+	  ORDER BY FB_NUM DESC
+		<include refid="paging_footer" />
 	</select>
 	
 <!-- 레코드 갯수 계산 -->
@@ -71,42 +101,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- #변수 - 따옴표를 처리(스트링 붙이고 숫자는 뺸다)
 	$변수 - 따옴표 무시 -->
 	<sql id="search">	
-		<!--  <choose>
-			<when test="search_option != 'all'">
-				WHERE FB.FB_WRITER=M.MEM_NICKNAME 
-				AND FB_SHOW='Y'
-				AND ${search_option} LIKE #{keyword}
-			</when>
-			<otherwise>
-				WHERE FB.FB_WRITER=M.MEM_NICKNAME
-				AND FB_SHOW='Y'
-				AND (MEM_NICKNAME LIKE '%' || #{keyword} || '%'
-				OR FB_TITLE LIKE '%' || #{keyword} || '%'
-				OR FB_CONTENT LIKE '%' || #{keyword} || '%')
-			</otherwise>
-		</choose> -->
 		<choose>
 			<when test="search_option == 'all'">
 				WHERE FB.FB_WRITER=M.MEM_NICKNAME 
-				AND FB_SHOW='Y'
-				AND ( MEM_NICKNAME LIKE '%' || #{keyword} || '%'
-				   OR FB_CONTENT LIKE '%' || #{keyword} || '%'
-				   OR FB_TITLE LIKE '%' || #{keyword} || '%' )
+				  AND FB_SHOW='Y'
+				  AND (
+				  		MEM_NICKNAME LIKE '%' || #{keyword} || '%'
+				  		OR FB_CONTENT LIKE '%' || #{keyword} || '%'
+				   		OR FB_TITLE LIKE '%' || #{keyword} || '%' 
+				   	   )
 			</when>
 			<when test="search_option == 'fbWriter'">
 				WHERE FB.FB_WRITER=M.MEM_NICKNAME 
-				AND FB_SHOW='Y'
-				AND ( MEM_NICKNAME LIKE '%' || #{keyword} || '%' )
+				  AND FB_SHOW='Y'
+				  AND ( 
+				  		MEM_NICKNAME LIKE '%' || #{keyword} || '%' 
+				  	  )
 			</when>
 			<when test="search_option == 'fbContent'">
 				WHERE FB.FB_WRITER=M.MEM_NICKNAME 
-				AND FB_SHOW='Y'
-				AND ( FB_CONTENT LIKE '%' || #{keyword} || '%' )
+				  AND FB_SHOW='Y'
+				  AND ( 
+				  		FB_CONTENT LIKE '%' || #{keyword} || '%'
+				  	  )
 			</when>
 			<when test="search_option == 'fbTitle'">
 				WHERE FB.FB_WRITER=M.MEM_NICKNAME 
-				AND FB_SHOW='Y'
-				AND ( FB_TITLE LIKE '%' || #{keyword} || '%')
+				  AND FB_SHOW='Y'
+				  AND ( 
+				  		FB_TITLE LIKE '%' || #{keyword} || '%'
+				  	  )
 			</when>
 			<otherwise>
 				WHERE ${search_option} LIKE '%' || #{keyword}||'%'
@@ -118,42 +142,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<sql id="paging_header">
 		SELECT *
 		FROM (
-			SELECT ROWNUM AS RN, A.*
-			FROM(
+			   SELECT ROWNUM AS RN, A.*
+				 FROM(
 	</sql>
 	<sql id="paging_footer">		
-				) A
-			) WHERE RN BETWEEN #{start} AND #{end}
+				 ) A
+			  ) WHERE RN BETWEEN #{start} AND #{end}
 	</sql>
+
 	
+	<select id="fileinfo" parameterType="filevo" resultType="filevo">
+		SELECT FILE_NUM,
+			   FILE_NAME,
+			   FILE_ORGNAME,
+			   FILE_SIZE,
+			   FILE_PATH,
+			   FILE_REF_BOARD,
+			   FILE_REF_NUM
+		  FROM COMMON_FILE
+		 WHERE FILE_NUM=#{fileNum}
+	</select>	
 	
-	
-<!-- 첨부파일  -->		
-<!-- 새로운 첨부파일 추가 -->
-	<insert id="updateAttach">
-	INSERT INTO ATTACH (AT_FULLNAME, AT_NUM) VALUES
-	( #{atFullname}, #{atNum} )
-	</insert>
-	
-<!-- 첨부파일 레코드 삭제 -->
-	<delete id="deleteFile">
-		DELETE FROM ATTACH
-		WHERE AT_FULLNAME=#{atFullname}
+	<delete id="fbFileDelete" parameterType="int">
+		DELETE COMMON_FILE 
+		 WHERE FILE_REF_BOARD='FREEBOARD' 
+		   AND FILE_REF_NUM=#{fbNum}
 	</delete>
-
-<!-- 첨부파일 목록 -->
-	<select id="getAttach" resultType="String">
-		SELECT AT_FULLNAME
-		FROM ATTACH
-		WHERE AT_NUM=#{atNum}
-		ORDER BY AT_REGDATE DESC
+	
+	<select id="fbFileDelList" parameterType="int" resultType="filevo">
+		SELECT FILE_NUM,
+			   FILE_NAME,
+			   FILE_ORGNAME,
+			   FILE_SIZE,
+			   FILE_PATH,
+			   FILE_REF_BOARD,
+			   FILE_REF_NUM 
+		  FROM COMMON_FILE 
+		 WHERE FILE_REF_BOARD='FREEBOARD' AND FILE_REF_NUM=#{fbNum}
 	</select>
-
 	
-<!-- 시퀀스.currval 현재 레코드의 번호 -->
-	<insert id="addAttach">
-		INSERT INTO ATTACH (AT_FULLNAME, AT_NUM) 
-		VALUES ( #{atFullName}, SEQ_FREEBOARD.CURRVAL )
-	</insert>
-	
+	<delete id="fileDel" parameterType="filevo">
+		DELETE COMMON_FILE 
+		 WHERE FILE_NUM=#{fileNum}
+	</delete>
 </mapper>
