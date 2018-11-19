@@ -1,0 +1,176 @@
+@charset "UTF-8";
+
+
+/*헤더영역시작*/
+div#header_wrap{
+	width:100%; height:120px; position:fixed; left:0px; top:0px; z-index:9999; 
+}
+
+div#menu_back{
+	width:100%; height:220px; background:green; position:absolute; left:0px; top:-100px; z-index:10;
+	display: block!important;
+}
+
+
+header{
+	width:1260px; height:140px; margin:0px auto; position:relative; left:0px; top:0px; z-index:11; background:#0131ca;
+}
+
+
+ul.topmenu_list{
+	width:432px; height:48px; position:absolute; right:0px; top:0px; background:pink;
+}
+
+ul.topmenu_list li{
+	width:62px; float:left; margin-right:4px;  font:normal 0.750em/1.500em "N_Square_R"; 
+	margin-top: 16px;
+	background:yellow;
+}
+
+ul.topmenu_list li:nth-child(4){
+	margin-right:0px; 
+}
+
+ul.topmenu_list li:last-child{
+	margin-right:0px; margin-top:0px;
+}
+
+ul.topmenu_list li a:link{
+	text-decoration:none; color:white;
+}
+
+ul.topmenu_list li a:visited{ 
+	color:white; text-decoration:none; 
+}
+
+
+li#search_bar{
+	width:234px; height:48px; float:left
+	 background:red;
+}
+
+ul#mainmenu_list{
+	width:100%; height:92px; position:absolute; left:50%; margin-left:-50%; bottom:0px; background:white;
+	padding-top:10px;
+}
+
+h1#logo{
+	width:10%; height:90px; float:left; padding-left:10px; padding-right:10px; box-sizing:border-box;
+}
+
+h1#logo>a>img{
+	width:100%;
+}
+
+ul#mainmenu_list li.mainmenu{
+	width:22.5%; float:left; text-align:center; font:normal 1em "N_Square_R"; 
+}
+/*폰트색은 에이링크에서 텍스트데코레이션없앤 후 지정할 것*/
+
+ul#mainmenu_list li.mainmenu a:link{
+	text-decoration:none; color:black;
+}
+
+ul#mainmenu_list li.mainmenu a:visited{ 
+	color:black; text-decoration:none; 
+}
+
+ul#mainmenu_list li.mainmenu:last-child{ 
+	margin-right:0px;
+}
+
+ul.submenu_list{
+	margin-top:20px; width:100%; height:16px; float:left;
+}
+
+ul.submenu_list li{
+	margin-bottom:8px; background:red;
+}
+
+ul.submenu_list li a{
+	font-size:0.875em; color:black;
+}
+ul.submenu_list li a:hover{
+	font-family:"N_Square_B"; color:#ffd700 !important;
+}
+
+ul.submenu_list li p{
+	font:normal 0.875em "N_Square_L";
+	margin-top:8px;
+} 
+
+
+
+
+
+p#menu_icon{
+	display:none; width:28px; height:25px; position:absolute; right:30px; top:50%; margin-top:-12.5px;
+}
+
+div#nav_list{
+	width:70%; height:800px; background:white; float:right; position:absolute; right:0px; top:0px;
+	z-index: 999;
+}
+
+ul.main_nav{
+	width:100%; height:60px; float:left; 
+	cursor:pointer; display:block;
+}
+
+ul.main_nav li{
+	margin-left:50px;
+}
+
+ul.main_nav li>span{
+	font:normal 1.5em/2.8em "N_Square_R"; color:#2a2a2a;
+}
+
+li.sub_nav{
+	width:100%; height:60px; float:left;
+	font:normal 1.3em/2.8em "N_Square_R"; 
+}
+li.sub_nav a{
+	margin-left:20px;
+}
+li.sub_nav a:visited{
+	color:#2a2a2a; 
+}
+li.sub_nav a:link{
+	text-decoration:none;
+}
+div#gray_layer{
+	width:100%; height:100%; background:rgba(48,48,48,0.5);
+	position:absolute; z-index:99;
+}
+
+p#nav_close{
+	width:100%; height:60px; float:left;
+	padding:10px; box-sizing: border-box;
+}
+
+ul#topmenu_768{
+	width:62%; height:60px; margin:0px auto; 
+}
+	
+ul#topmenu_768 li{
+	float:left; height:100%;  margin-right:2%;
+}
+
+ul#topmenu_768 li:last-child{
+	margin-right:0px; line-height:50px;
+}
+
+ul#topmenu_768 li>span{
+	font:normal 0.5em "N_Square_L"; color:white;
+	width:20px; height:20px; 
+}
+
+
+div.topmenu_wrap{
+	width:100%; height:60px; float:left; margin-bottom:30px;
+	cursor:pointer; font:normal 1.5em/2.8em "N_Square_L"; display:block; background:#0060ff;
+}
+
+/*헤더영역 끝*/ 
+
+
