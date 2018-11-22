@@ -1,5 +1,6 @@
 package com.newdeal.ict.Service.Impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,15 +17,15 @@ public class QaBoardServiceImpl implements QaBoardService{
 
 	@Inject
 	QaBoardDao dao;
-	
+
 	@Override
-	public void create(QaBoardVo vo) throws Exception {
+	public int create(QaBoardVo vo) throws Exception {
 		// TODO Auto-generated method stub
-		
+		return 0;
 	}
 
 	@Override
-	public QaBoardVo read(int qaNum) throws Exception {
+	public QaBoardVo read(BigDecimal qaNum) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -43,6 +44,7 @@ public class QaBoardServiceImpl implements QaBoardService{
 
 	@Override
 	public List<QaBoardVo> listAll(int start, int end, String search_option, String keyword) throws Exception {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -54,6 +56,12 @@ public class QaBoardServiceImpl implements QaBoardService{
 
 	@Override
 	public int countArticle(String search_option, String keyword) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertReply(QaBoardVo vo) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}

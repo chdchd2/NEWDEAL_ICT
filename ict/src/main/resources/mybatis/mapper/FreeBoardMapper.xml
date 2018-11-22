@@ -5,6 +5,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="freeboard">
+
+<resultMap type="com.newdeal.ict.Vo.FreeBoardVo" id="freeboard">
+	<result property="fbNum" column="fbNum"/>
+	<result property="fbTitle" column="fbTitle"/>
+	<result property="fbContent" column="fbContent"/>
+	<result property="fbRegdate" column="fbRegdate"/>
+	<result property="fbViewcnt" column="fbViewcnt"/>
+	<result property="fbWriter" column="fbWriter"/>
+	<result property="fbShow" column="fbShow"/>
+	<collection property="list" ofType="com.newdeal.ict.Vo.CommonFileVo">
+		<result property="fileNum" column="fileNum"/>
+		<result property="fileName" column="fileName"/>
+		<result property="fileOrgName" column="fileOrgName"/>
+		<result property="fileSize" column="fileSize"/>
+		<result property="filePath" column="filePath"/>
+		<result property="fileRefBoard" column="fileRefBoard"/>
+		<result property="fileRefNum" column="fileRefNum"/>
+	</collection>
+</resultMap>
 <!-- 게시물등록 -->
 	<insert id="insert" parameterType="freeboard" >
 		INSERT INTO FREEBOARD (FB_NUM,FB_TITLE,FB_CONTENT,FB_WRITER) 
@@ -47,7 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 <!-- 게시물 상세보기  -->	
-	<select id="view" resultType="com.newdeal.ict.Vo.FreeBoardVo">
+	<select id="view" parameterType="int" resultMap="freeboard">
 		SELECT FB_NUM,
 			   FB_TITLE,
 			   FB_REGDATE,

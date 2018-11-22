@@ -95,7 +95,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public int fbfileWrite(List<MultipartFile> filelist, int num) throws Exception {
 		InputStream is = null;
 		FileOutputStream fos = null;
-		String filePath = "C:\\Users\\LG\\git\\NEWDEAL_ICT";
+		String filePath = "C:\\Users\\Lenovo\\git\\NEWDEAL_ICT";
 		CommonFileVo filevo = new CommonFileVo();
 		try {
 			if (filelist.size() > 1) {
