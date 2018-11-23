@@ -8,6 +8,7 @@
 	 	<typeAlias type="com.newdeal.ict.Vo.MemberVo" alias="member"/>
 		<typeAlias type="com.newdeal.ict.Vo.IntroduceVo" alias="intvo"/>
 		<typeAlias type="com.newdeal.ict.Vo.CommonFileVo" alias="filevo"/>
+		<typeAlias type="com.newdeal.ict.Vo.EduDetailVo" alias="edudetailvo"/>
 		<typeAlias type="com.newdeal.ict.Vo.IntDetailJoinVo" alias="intjoinvo"/>
 		<typeAlias type="com.newdeal.ict.Util.PageUtil" alias="pagevo"/>
 	</typeAliases>

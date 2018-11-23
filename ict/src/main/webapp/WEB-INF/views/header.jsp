@@ -47,7 +47,7 @@ function logout(){
  		<ul id="mainmenu_list">
 	 			
 	 		<h1 id="logo">
-	 			<a href="index.html">
+	 			<a href="<c:url value='/'/>">
 	 				<img src="<c:url value='/resources/images/logo.png'/>" alt="뉴딜커뮤니티홈">
 	 			</a>
 	 		</h1>
@@ -72,7 +72,7 @@ function logout(){
  				<a href="#">교육신청</a>
  			 	<ul class="submenu_list">
   				<li><a href="<c:url value='/edu/intList'/>">교육신청안내</a></li>
- 			 	<li><a href="#">프로그램상세</a></li>
+ 			 	<li><a href="<c:url value='/edu/detailList'/>">프로그램상세</a></li>
  			 	<li><a href="#">교육신청바로가기</a></li>
  			 	</ul>
  			</li>

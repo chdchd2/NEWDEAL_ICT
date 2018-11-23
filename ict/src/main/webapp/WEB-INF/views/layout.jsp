@@ -10,11 +10,12 @@
 <meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"></script>    
-	<script src="<c:url value='/resources/js/jquery-1.7.1.min.js'/>"></script>
+	<script src="<c:url value='/resources/js/jquery-3.2.1.min.js'/>"></script>
+	<script src="<c:url value='/resources/js/jquery.easing.1.3.js'/>"></script>
 	<link rel="stylesheet" href="<c:url value='/resources/css/reset.css'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/header_02.css'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/footer.css'/>">
+	<link rel="stylesheet" href="<c:url value='/resources/css/community_notice01.css'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/community_notice02.css'/>">
 	<script>
 		$(function(){

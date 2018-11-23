@@ -6,14 +6,14 @@
 <div id="subMenu">
 					<h2>교육신청</h2>
 					<ul>
-						<li><a href="<c:url value='/edu/intList'/>" class="subActive">교육신청안내 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
-						<li><a href="#a">프로그램상세</a></li>
+						<li><a href="<c:url value='/edu/intList'/>">교육신청안내 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
+						<li><a href="<c:url value='/edu/detailList'/>" class="subActive">프로그램상세<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
 						<li><a href="#">교육신청 바로가기</a></li>
 					</ul>
 				</div>
 <div id="sectionR">
 					<div id="contentHeader">
-						<h2>교육신청안내</h2>				
+						<h2>프로그램상세</h2>				
 					</div>
 						<div id="content">
 							<p id="count">총<span>134건</span></p>
@@ -48,11 +48,11 @@
 							<tbody>
 							 <c:forEach var="vo" items="${list}">
 								<tr>
-									<td>${vo.intNum}</td>
-									<td><a href="<c:url value='/edu/intDetail?intNum=${vo.intNum }'/>">${vo.intTitle}</a></td>
-									 <td>${vo.intWriter}</td>
-      								  <td>${vo.intDate}</td>
-       								 <td>${vo.intHit}</td>
+									<td>${vo.detNum}</td>
+									<td><a href="<c:url value='/edu/detail?detNum=${vo.detNum }'/>">${vo.detTitle}</a></td>
+									 <td>${vo.detWriter}</td>
+      								  <td>${vo.detDate}</td>
+       								 <td>${vo.hit}</td>
 								</tr>
 								</c:forEach>
 								</tbody>
@@ -62,7 +62,7 @@
 								<div id="page">
 			<c:choose>
 				<c:when test="${pu.startPageNum>9 }">
-					<p><a href="<c:url value='/edu/intList?pageNum=${pu.startPageNum-1 }&fieldnum=${fieldnum }&classnum=${classnum }'/>"><img src="<c:url value='/resources/images/page_Leftbtn.png'/>" alt="페이지왼쪽버튼"></a></p>
+					<p><a href="<c:url value='/edu/detailList?pageNum=${pu.startPageNum-1 }&fieldnum=${fieldnum }&classnum=${classnum }'/>"><img src="<c:url value='/resources/images/page_Leftbtn.png'/>" alt="페이지왼쪽버튼"></a></p>
 				</c:when>
 				<c:otherwise>
 			<p><a href="#"><img src="<c:url value='/resources/images/page_Leftbtn.png'/>" alt="페이지왼쪽버튼"></a></p>			
@@ -74,10 +74,10 @@
 				<c:choose>
 					<c:when test="${i==pu.pageNum }">
 						<!-- 현재페이지 색상 다르게 표시하기 -->
-						 <li><a href="<c:url value='/edu/intList?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }'/>" class="pageActive">${i }</a></li>
+						 <li><a href="<c:url value='/edu/detailList?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }'/>" class="pageActive">${i }</a></li>
 					</c:when>
 					<c:otherwise>
-					 <li><a href="<c:url value='/edu/intList?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }'/>">${i }</a></li>
+					 <li><a href="<c:url value='/edu/detailList?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }'/>">${i }</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -87,7 +87,7 @@
 			
 		<c:choose>
 			<c:when test="${pu.endPageNum<pu.totalPageCount }">
-				<p><a href="<c:url value='/edu/intList?pageNum=${pu.endPageNum+1 }&classnum=${classnum }&fieldnum=${fieldnum }'/>"><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
+				<p><a href="<c:url value='/edu/detailList?pageNum=${pu.endPageNum+1 }&classnum=${classnum }&fieldnum=${fieldnum }'/>"><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
 			</c:when>
 			<c:otherwise>
 			<p><a href="#"><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
@@ -108,7 +108,7 @@
 <ul>
 		<c:choose>
 				<c:when test="${pu.startPageNum>9 }">
-				 <li><a href="<c:url value='/edu/intList?pageNum=${pu.startPageNum-1 }&fieldnum=${fieldnum }&classnum=${classnum }'/>"><span aria-hidden="true">&laquo;</span></a></li>
+				 <li><a href="<c:url value='/edu/detailList?pageNum=${pu.startPageNum-1 }&fieldnum=${fieldnum }&classnum=${classnum }'/>"><span aria-hidden="true">&laquo;</span></a></li>
 				</c:when>
 				<c:otherwise>
 		<li><a href="#"><span>&laquo;</span></a> </li>
@@ -121,10 +121,10 @@
 				<c:choose>
 					<c:when test="${i==pu.pageNum }">
 						<!-- 현재페이지 색상 다르게 표시하기 -->
-						 <li class="active"><a href="<c:url value='/edu/intList?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }'/>">${i }</a></li>
+						 <li class="active"><a href="<c:url value='/edu/detailList?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }'/>">${i }</a></li>
 					</c:when>
 					<c:otherwise>
-					 <li><a href="<c:url value='/edu/intList?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }'/>">${i }</a></li>
+					 <li><a href="<c:url value='/edu/detailList?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }'/>">${i }</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -132,7 +132,7 @@
 
 		<c:choose>
 			<c:when test="${pu.endPageNum<pu.totalPageCount }">
-				  <li><a href="<c:url value='/edu/intList?pageNum=${pu.endPageNum+1 }&classnum=${classnum }&fieldnum=${fieldnum }'/>" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+				  <li><a href="<c:url value='/edu/detailList?pageNum=${pu.endPageNum+1 }&classnum=${classnum }&fieldnum=${fieldnum }'/>" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
 			</c:when>
 			<c:otherwise>
 		  <li><a href="#"><span>&raquo;</span></a></li>
