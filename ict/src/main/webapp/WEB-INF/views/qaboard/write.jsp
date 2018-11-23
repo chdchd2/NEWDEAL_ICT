@@ -25,20 +25,20 @@ $(function(){
 <body>
 
 <%@ include file="../include/menu.jsp" %>
-<h2>자유게시판</h2>
+<h2>질문게시판</h2>
 <form id="form" name="form" method="post" enctype="multipart/form-data"
-action="${path}/freeboard/insert.do">
+action="${path}/qaboard/insert.do">
 	
-	<%-- <input type="hidden" name="fbWriter" value="${member.memNickName}"/> --%>
+	<%-- <input type="hidden" name="qaWriter" value="${member.memNickName}"/> --%>
 	
 	<div>
-		제목 <input name="fbTitle" id="fbTitle" size="80"/>
+		제목 <input name="qaTitle" id="qaTitle" size="80"/>
 	</div>
 	<div>
-		작성자 : <input type="hidden" name="fbWriter" value="${member.memNickName}" /> ${member.memNickName}
+		작성자 : <input type="hidden" name="qaWriter" value="${member.memNickName}" /> ${member.memNickName}
 	</div>
 	<div style="width:800px;">
-		내용 <textarea id="fbContent" name="fbContent" rows="3" cols="80"></textarea>
+		내용 <textarea id="qaContent" name="qaContent" rows="3" cols="80"></textarea>
 	</div>
 	<div>
 		<div>첨부파일: <input type="file" multiple="multiple" name="file"></div>
@@ -48,7 +48,7 @@ action="${path}/freeboard/insert.do">
 	</div>
 </form>
 <script>
-CKEDITOR.replace('fbContent',{
+CKEDITOR.replace('qaContent',{
 	filebrowserUploadUrl:"<c:url value='/ckImage'/>"
 });
 </script>

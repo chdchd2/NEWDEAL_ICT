@@ -8,15 +8,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 게시물등록 -->
 	<insert id="insert" parameterType="qaboard" >
-		INSERT INTO QABOARD ( QA_NUM,QA_REF,QA_TITLE,QA_CONTENT,QA_WRITER) 
+		INSERT INTO QABOARD ( QA_NUM,QA_REF, QA_STEP, QA_LEVEL, QA_TITLE,QA_CONTENT,QA_WRITER, QA_VIEWCNT, QA_REGDATE) 
 					 VALUES ( 
-							  (SELECT NVL(MAX(QA_NUM)+1,1) FROM QABOARD),
+							   QABOARD_SEQ.NEXTVAL,
 							   #{qaRef},
+							   '0',
+							   '0',
 							   #{qaTitle,jdbcType=VARCHAR}, 
 							   #{qaContent,jdbcType=CLOB}, 
-							   #{qaWriter,jdbcType=VARCHAR} 
+							   #{qaWriter,jdbcType=VARCHAR},
+							   '0',
+							   sysdate 
 							 )
-	<selectKey resultType="BigDecimal" keyProperty="qaNum" order="AFTER">
+	<selectKey resultType="int" keyProperty="qaNum" order="AFTER">
 		SELECT MAX(QA_NUM) AS QA_NUM
 		  FROM QABOARD
 	</selectKey>						 
@@ -53,6 +57,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<include refid="search"></include>
 	  ORDER BY QA_REF DESC, QA_STEP, QA_LEVEL
 		<include refid="paging_footer" />
+	</select>	
+	
+<!-- 레코드 갯수 계산 -->
+	<select id="countArticle" resultType="int">
+		SELECT COUNT(*)
+		FROM QABOARD QA, MEMBER M
+	<include refid="search"></include>
 	</select>
 	
 <!-- 검색기능 -->	
@@ -109,7 +120,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</sql>
 	
 <!-- 최상위 부모글 번호 생성(1부터 차례대로 최상위 부모글만 생성된다.)  -->
-	<select id="qaRefMax" resultType="int">
+	<select id="refMax" resultType="int">
 		SELECT NVL(MAX(QA_REF)+1,'1') AS QA_REF 
 		  FROM QABOARD
 	</select>
@@ -123,7 +134,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 <!-- 현재 답글의 순번을 생성 -->	
-	<select id="qaStepMax" parameterType="qaboard">
+	<select id="stepMax" parameterType="qaboard">
 		SELECT DECODE (
 						#{qaStep},
 						'0',
@@ -158,7 +169,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				 '0',
 				 sysdate
 	  		   )
-	  		   <selectKey resultType="BigDecimal" keyProperty="qaNum" order="AFTER">
+	  		   <selectKey resultType="int" keyProperty="qaNum" order="AFTER">
 	  		   		SELECT MAX(QA_NUM) AS QA_NUM FROM QABOARD
 	  		   </selectKey>	 
 	</insert>

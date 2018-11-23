@@ -10,17 +10,17 @@
 <script>
 $(function(){
 	$("#btnWrite").click(function(){
-		location.href="${path}/freeboard/write.do";
+		location.href="${path}/qaboard/write.do";
 	});
 });
 function list(page){
-	location.href="${path}/freeboard/list.do?curPage="+page
+	location.href="${path}/qaboard/list.do?curPage="+page
 	+"&search_option=${map.search_option}"
 	+"&keyword=${map.keyword}";
 }
-function view(fbNum){
-	document.form.fbNum.value=fbNum;
-	document.form.action="${path}/freeboard/view.do";
+function view(qaNum){
+	document.form.qaNum.value=qaNum;
+	document.form.action="${path}/qaboard/view.do";
 	document.form.submit();
 }
 </script>
@@ -29,43 +29,43 @@ function view(fbNum){
 
 <%@ include file="../include/menu.jsp" %>
 <%@ include file="../include/community_submenu.jsp" %>
-<h2>자유게시판</h2>
+<h2>질문게시판(Q&A)</h2>
 
 <!-- 검색폼 -->
 <form name="form" method="post" 
-action="${path}/freeboard/list.do">
+action="${path}/qaboard/list.do">
 총 ${map.count}건
 	<select name="search_option">
 		<c:choose>
 			<c:when test="${map.search_option == 'all' }">
 				<option value="all" selected>전체</option>
-				<option value="fbWriter">이름</option>
-				<option value="fbContent">내용</option>
-				<option value="fbTitle">제목</option>
+				<option value="qaWriter">이름</option>
+				<option value="qaContent">내용</option>
+				<option value="qaTitle">제목</option>
 			</c:when>
-			<c:when test="${map.search_option == 'fbWriter' }">
+			<c:when test="${map.search_option == 'qaWriter' }">
 				<option value="all">전체</option>
-				<option value="fbWriter" selected>이름</option>
-				<option value="fbContent">내용</option>
-				<option value="fbTitle">제목</option>
+				<option value="qaWriter" selected>이름</option>
+				<option value="qaContent">내용</option>
+				<option value="qaTitle">제목</option>
 			</c:when>
-			<c:when test="${map.search_option == 'fbContent' }">
+			<c:when test="${map.search_option == 'qaContent' }">
 				<option value="all">전체</option>
-				<option value="fbWriter">이름</option>
-				<option value="fbContent" selected>내용</option>
-				<option value="fbTitle">제목</option>
+				<option value="qaWriter">이름</option>
+				<option value="qaContent" selected>내용</option>
+				<option value="qaTitle">제목</option>
 			</c:when>
-			<c:when test="${map.search_option == 'fbTitle' }">
+			<c:when test="${map.search_option == 'qaTitle' }">
 				<option value="all">전체</option>
-				<option value="fbWriter">이름</option>
-				<option value="fbContent">내용</option>
-				<option value="fbTitle" selected>제목</option>
+				<option value="qaWriter">이름</option>
+				<option value="qaContent">내용</option>
+				<option value="qaTitle" selected>제목</option>
 			</c:when>
 			<c:otherwise>
 				<option value="all" selected>전체</option>
-				<option value="fbWriter">이름</option>
-				<option value="fbContent">내용</option>
-				<option value="fbTitle">제목</option>
+				<option value="qaWriter">이름</option>
+				<option value="qaContent">내용</option>
+				<option value="qaTitle">제목</option>
 			</c:otherwise>
 		</c:choose>	
 	</select>
@@ -83,22 +83,22 @@ action="${path}/freeboard/list.do">
 	
 <c:forEach var="row" items="${map.list}">
 	<c:choose>
-		<c:when test="${row.fbShow == 'Y' }"> 
+		<c:when test="${row.qaShow == 'Y' }"> 
 			<tr>
-				<td>${row.fbNum}</td>
+				<td>${row.qaNum}</td>
 				<td>
-				<a href="${path}/freeboard/view.do?fbNum=${row.fbNum}">${row.fbTitle}</a> 
+				<a href="${path}/qaboard/view.do?qaNum=${row.qaNum}">${row.qaTitle}</a> 
 				<%-- <a href="#" onclick="view('${row.bno}')">${row.title}</a> --%>
 				</td>
-				<td>${row.fbWriter}</td>
-				<td><fmt:formatDate value="${row.fbRegdate}" pattern="yyyy.MM.dd "/></td>
-				<td>${row.fbViewcnt}</td>
+				<td>${row.qaWriter}</td>
+				<td><fmt:formatDate value="${row.qaRegdate}" pattern="yyyy.MM.dd "/></td>
+				<td>${row.qaViewcnt}</td>
 			</tr>
 		</c:when>
 		<c:otherwise>
 			<!-- 숨김처리한 게시물 -->
 			<tr>
-				<td>${row.fbNum}</td>
+				<td>${row.qaNum}</td>
 				<td colspan="4" align="center">삭제된 게시물입니다.</td>
 			</tr>
 		</c:otherwise>
@@ -138,7 +138,7 @@ action="${path}/freeboard/list.do">
 </c:if>
 
 <form name="form" method="post">
-	<input type="hidden" name="fbNum" />
+	<input type="hidden" name="qaNum" />
 </form>
 </body>
 </html>
