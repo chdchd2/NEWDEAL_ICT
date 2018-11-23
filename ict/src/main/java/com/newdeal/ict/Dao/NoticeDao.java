@@ -17,27 +17,6 @@ public class NoticeDao {
 	@Inject
 	SqlSession sqlSession;
 	
-	public void deleteFile(String atFullname) {
-		sqlSession.delete("notice.deleteFile", atFullname);
-
-	}
-
-	public List<String> getAttach(int ntNum) {
-		return sqlSession.selectList("notice.getAttach", ntNum);
-	}
-
-	public void addAttach(String atFullname) {
-		sqlSession.insert("notice.addAttach", atFullname);
-
-	}
-//첨부파일수정
-	public void updateAttach(String atFullname, int ntNum) {
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("atFullname", atFullname);
-		map.put("ntNum", ntNum);
-		sqlSession.insert("notice.updateAttach",map);
-
-	}
 
 	public void create(NoticeVo vo) throws Exception {
 		sqlSession.insert("notice.insert", vo);

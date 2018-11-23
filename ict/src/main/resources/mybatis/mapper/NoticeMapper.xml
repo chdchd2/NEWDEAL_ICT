@@ -111,35 +111,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				) A
 			) WHERE RN BETWEEN #{start} AND #{end}
 	</sql>
-	
-	
-	
-<!-- 첨부파일  -->		
-<!-- 새로운 첨부파일 추가 -->
-	<insert id="updateAttach">
-	INSERT INTO ATTACH (AT_FULLNAME, NT_NUM) VALUES
-	( #{atFullname}, #{ntNum} )
-	</insert>
-	
-<!-- 첨부파일 레코드 삭제 -->
-	<delete id="deleteFile">
-		DELETE FROM ATTACH
-		WHERE AT_FULLNAME=#{atFullname}
-	</delete>
-
-<!-- 첨부파일 목록 -->
-	<select id="getAttach" resultType="String">
-		SELECT AT_FULLNAME
-		FROM ATTACH
-		WHERE NT_NUM=#{ntNum}
-		ORDER BY AT_REGDATE DESC
-	</select>
-
-	
-<!-- 시퀀스.currval 현재 레코드의 번호 -->
-	<insert id="addAttach">
-		INSERT INTO ATTACH (AT_FULLNAME, NT_NUM) 
-		VALUES ( #{atFullName}, SEQ_NOTICE.CURRVAL )
-	</insert>
-	
 </mapper>

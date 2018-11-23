@@ -64,12 +64,6 @@ public class NoticeController {
 	public String write(){
 		return "notice/write"; //views/board/write.jsp
 	}
-	//REST방식의 url {bno} => PathVariable로 선언
-	@RequestMapping("getAttach/{ntNum}")
-	@ResponseBody// 뷰가 아닌 데이터를 보낼 경우
-	public List<String> getAttach(@PathVariable("ntNum") int ntNum){
-		return service.getAttach(ntNum);
-	}
 	
 	
 	@RequestMapping("insert.do")

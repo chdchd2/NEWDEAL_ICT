@@ -54,6 +54,14 @@ $(function(){
 		$("#form").append(str);
 		document.form.submit();
 	});
+	$("#btnList").click(function(){
+		/*location.href="${path}/board/list.do";
+		//document.form.action="${path}/board/list.do";
+		//document.form.submit(); */
+		document.form.action="${path}/notice/list.do";
+		document.form.submit();
+	});
+
 });
 </script>
 <style>
@@ -110,6 +118,7 @@ action="${path}/notice/insert.do">
 	</div>
 	<div style="width:700px; text-align:center;">
 		<button type="button" id="btnSave">등록</button>
+		<button type="button" id="btnList">취소</button>
 	</div>
 </form>
 <script>

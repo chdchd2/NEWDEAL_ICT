@@ -17,27 +17,11 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Inject
 	NoticeDao dao;
-	
-	@Override
-	public void deleteFile(String atFullname) {
-		dao.deleteFile(atFullname);
-	}
-
-	@Override
-	public List<String> getAttach(int ntNum) {
-		return dao.getAttach(ntNum);
-	}
 
 	@Transactional
 	@Override
 	public void create(NoticeVo vo) throws Exception {
 		dao.create(vo);
-		//첨부파일 정보 저장
-		String[] ntFiles=vo.getNtFiles();
-		if(ntFiles==null) return; //첨부파일이 없으면 리턴
-		for(String name : ntFiles){
-			dao.addAttach(name);
-		}
 	}
 
 	@Override
@@ -49,13 +33,6 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public void update(NoticeVo vo) throws Exception {
 		dao.update(vo);//board테이블 수정
-		//attach 테이블 수정
-		String[] ntFiles=vo.getNtFiles();
-		if(ntFiles==null) return;
-		for(String name : ntFiles) {
-			System.out.println("첨부파일 이름:"+name);
-			dao.updateAttach(name, vo.getNtNum());
-		}
 	}
 
 	@Override

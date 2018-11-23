@@ -98,39 +98,15 @@ public class QaBoardController {
 	}
 	
 	@RequestMapping("reply.do")
-	public ModelAndView reply(HttpServletRequest req, HttpServletResponse res){
-		ModelAndView mav = new ModelAndView();
-		if(req.getParameter("qaNum") != null && !req.getParameter("qaNum").equals("")){
-			try{
-				QaBoardVo vo = service.read(Integer.parseInt(req.getParameter("qaNum")));
-				String qaContent = vo.getQaContent();
-				qaContent = qaContent.replaceAll("\"", "'");
-				vo.setQaContent(qaContent);
-				mav.addObject("vo", vo);
-			} catch(Exception e){
-				
-			}
-		}
-		mav.setViewName("qaboard/reply");
-		return mav;
+	public String reply() throws Exception{
+
+		return "qaboard/reply";
 	}
 	
 	@RequestMapping("replyok.do")
-	public void insertReply(HttpServletRequest req, HttpServletResponse res, QaBoardVo vo, BindingResult errors){
-		if(errors.hasErrors()){
-			logger.info("errors...");
-		}
-		try {
-			int qaNum = 0;
-			if(req.getParameter("qaNum") != null && !req.getParameter("qaNum").equals("")){
-				String qaContent = req.getParameter("qaContent");
-				vo.setQaContent(qaContent);
-				qaNum = service.insertReply(vo);
-			}
-			res.sendRedirect("/qaboard/view.do?qaNum="+qaNum);
-		} catch (Exception e) {
-			logger.info("insert Fail...");
-			e.printStackTrace();
-		}
+	public String insertReply(@ModelAttribute QaBoardVo vo,HttpSession session) throws Exception{
+		System.out.println("=====================>"+vo.toString());
+		service.insertReply(vo);
+		return "redirect:/qaboard/list.do";
 	}
 }

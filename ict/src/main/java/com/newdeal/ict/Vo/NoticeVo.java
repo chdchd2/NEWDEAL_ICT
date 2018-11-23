@@ -1,6 +1,5 @@
 package com.newdeal.ict.Vo;
 
-import java.util.Arrays;
 import java.util.Date;
 
 public class NoticeVo {
@@ -15,7 +14,6 @@ public class NoticeVo {
 	private String ntMap;
 	private int ntCnt;//댓글수
 	private String ntShow;//화면표시여부
-	private String[] ntFiles;//첨부파일이름배열
 	//getter, setter, toString(), 기본생성자
 	public int getNtNum() {
 		return ntNum;
@@ -77,17 +75,11 @@ public class NoticeVo {
 	public void setNtShow(String ntShow) {
 		this.ntShow = ntShow;
 	}
-	public String[] getNtFiles() {
-		return ntFiles;
-	}
-	public void setNtFiles(String[] ntFiles) {
-		this.ntFiles = ntFiles;
-	}
 	@Override
 	public String toString() {
 		return "NoticeVo [ntNum=" + ntNum + ", ntTitle=" + ntTitle + ", ntContent=" + ntContent + ", ntRegdate="
 				+ ntRegdate + ", ntViewcnt=" + ntViewcnt + ", ntWriter=" + ntWriter + ", ntMap=" + ntMap + ", ntCnt="
-				+ ntCnt + ", ntShow=" + ntShow + ", ntFiles=" + Arrays.toString(ntFiles) + "]";
+				+ ntCnt + ", ntShow=" + ntShow + "]";
 	}
 	
 	

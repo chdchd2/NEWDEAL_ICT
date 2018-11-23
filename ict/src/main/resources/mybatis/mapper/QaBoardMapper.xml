@@ -48,7 +48,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   	 WHERE QA.QA_WRITER=M.MEM_NICKNAME
 	   	   AND QA.QA_NUM=#{qaNum}
 	</select>
-	
+		
+<!-- 조회수 증가 처리 -->
+	<update id="increaseViewcnt">
+		UPDATE QABOARD 
+		   SET QA_VIEWCNT=QA_VIEWCNT+1 
+		 WHERE QA_NUM=#{qaNum}
+	</update>
 <!-- 게시물 목록 -->
 	<select id="listAll" resultType="com.newdeal.ict.Vo.QaBoardVo">
 		<include refid="paging_header" />
@@ -134,7 +140,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 <!-- 현재 답글의 순번을 생성 -->	
-	<select id="stepMax" parameterType="qaboard">
+	<select id="stepMax" parameterType="qaboard" resultType="int">
 		SELECT DECODE (
 						#{qaStep},
 						'0',

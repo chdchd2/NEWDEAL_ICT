@@ -35,100 +35,15 @@ $(function(){
 		$("#btnSave").click(function(){
 			//태그.each(function(){})모든 태그 반복
 			var str="";
-			$("#uploadedList .file").each(function(i){
-				str+="<input type='hidden' name='ntFiles["+i+"]' value='"
-				+$(this).val()+"'>";
-			});
 			//폼에 hidden 태그들을 추가
 			$("#form").append(str);
 			document.form.submit();
 		});
-	listAttach(); //첨부파일 목록 로딩
-
 	
-	//첨부파일삭제
-	$("#uploadedList").on("click",".file_del",function(e){
-		var that=$(this);
-		//data:{fileName:$(this).attr("data-src")},
-		$.ajax({
-			type:"post",
-			url:"${path}/upload/deleteFile",
-			data:"fileName="+ $(this).attr("data-src"),
-			dataType:"text",
-			success:function(result){
-				if(result=="deleted"){
-					//화면에서 태그제거
-					that.parent("div").remove();
-				}
-			}
-		});
-	});
-	
-	
-	//드래그 기본효과 막음
-	$(".fileDrop").on("dragenter dragover", function(e){
-		e.preventDefault();
-	});
-	$(".fileDrop").on("drop",function(e){
-		e.preventDefault();
-		//드롭한 파일을 폼데이터에 추가함
-		var ntFiles = e.originalEvent.dataTransfer.ntFiles;
-		var file=ntFiles[0];
-		var formData=new FormData();
-		//폼데이터에 추가
-		formData.append("file", file);
-		//processData: false -header가 아닌 body로 전송
-		$.ajax({
-			url: "${path}/upload/uploadAjax",
-			data: formData,
-			dataType: "text",
-			processData: false,
-			contentType: false,
-			type: "post",
-			success: function(data){//콜백함수
-				var fileInfo=getFileInfo(data);//첨부파일정보
-				var html="<a href='"+fileInfo.getLink+"'>"+
-				fileInfo.fileName+"</a><br>";//첨부파일링크
-				html+="<input type='hidden' class='file' value='"
-				+fileInfo.fullName+"'>"; //hidden태그 추가
-				$("#uploadedList").append(html);//div에 추가
-			}
-		});
-	});
 
 	
 });
-function listAttach(){
-	$.ajax({
-		type: "post",
-		url: "${path}/notice/getAttach/${vo.ntNum}",
-		success:function(list){
-			//list => json 형식의 데이터
-			console.log(list);
-			$(list).each(function(){
-				var fileInfo=getFileInfo(this);
-				console.log(fileInfo);
-				var html=
-					"<div><a href='"+fileInfo.getLink+"'>"+fileInfo.fileName+"</a>&nbsp;&nbsp;";
-				<c:if test="${sessionScope.member == vo.ntWriter}">	
-					html+="<a href='#' class='file_del' data-src='"
-					+this+"'>[삭제]</a></div>";
-					/* html+="<input type='button' class='file_del' value='삭제' data-src='" 
-					+this+"'></div>"; */
-				</c:if> 
-					$("#uploadedList").append(html);
-			});
-		}
-	});
-}
 </script>
-<style>
-.fileDrop {
-	width: 300px;
-	height: 80px;
-	border: 1px solid #ededed;
-}
-</style>
 </head>
 <body>
 <%@ include file="../include/menu.jsp" %>
