@@ -22,6 +22,7 @@
 		<typeAlias type="com.newdeal.ict.Vo.CommonFileVo" alias="filevo"/>
 		<typeAlias type="com.newdeal.ict.Vo.IntDetailJoinVo" alias="intjoinvo"/>
 		<typeAlias type="com.newdeal.ict.Util.PageUtil" alias="pagevo"/>
+		<typeAlias type="com.newdeal.ict.Vo.CommentVo" alias="commentvo"/>
 	</typeAliases>
 </configuration>
 

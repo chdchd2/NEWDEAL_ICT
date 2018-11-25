@@ -39,14 +39,36 @@ $(function(){
 			document.form.submit();
 		});
 	
+	
 });
+function comment(){
+	var comContent=$("#comContent").val();
+	var memNum=$("#memNum").val();
+	var comBnum=${vo.fbNum};
+	console.log(comContent);
+	
+	$.ajax({
+	type:"GET",
+	url:encodeURI("<c:url value='/freeboard/comment.do?comContent="+comContent+"&memNum="+memNum+"&comBnum="+comBnum+"'/>"),
+	dataType:"json",
+	success:function(data){
+		console.log(data);
+		
+		$("#comContent").val("");
+		for(var i=0; i<data.commentList.length; i++){
+		$("#commentlist").append(data.commentList[i].memNum+"===>"+data.commentList[i].comContent+"<br>");	
+			
+		}
+
+	}
+}); 
+}
 </script>
 </head>
 <body>
 <%@ include file="../include/menu.jsp" %>
 <h2>자유게시판</h2>
-<form id="form" name="form" method="post"
-action="${path}/freeboard/insert.do">
+<form id="form" name="form" method="post" action="${path}/freeboard/insert.do">
 <!-- 사용자 -->
 		<div>
 			조회수 : ${vo.fbViewcnt}
@@ -83,6 +105,13 @@ action="${path}/freeboard/insert.do">
 		<button type="button" id="btnDelete">삭제</button>
 	</c:if> 
 		<button type="button" id="btnList">목록</button>
+	</div>
+	<span id="commentlist">
+	</span>
+	<div id="comment">
+		댓글쓰기 : <textarea id="comContent"></textarea>
+		<input type="hidden" value="${sessionScope.member.memNum }" id="memNum">
+		<a onclick="comment()">등록</a>
 	</div>
 </form>
 </body>

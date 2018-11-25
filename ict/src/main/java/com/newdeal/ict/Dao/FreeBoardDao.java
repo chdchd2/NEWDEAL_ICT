@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.newdeal.ict.Vo.CommentVo;
 import com.newdeal.ict.Vo.CommonFileVo;
 import com.newdeal.ict.Vo.FreeBoardVo;
 
@@ -81,5 +82,12 @@ public class FreeBoardDao {
 	}
 	public int fileDel(CommonFileVo vo) {
 		return sqlSession.delete("freeboard.fileDel",vo);
+	}
+	public int comment(CommentVo vo) {
+		return sqlSession.insert("freeboard.comment",vo);
+	}
+	
+	public List<CommentVo> commentList(){
+		return sqlSession.selectList("freeboard.commentList");
 	}
 }

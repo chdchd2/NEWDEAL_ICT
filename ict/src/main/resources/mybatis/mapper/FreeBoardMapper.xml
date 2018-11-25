@@ -67,19 +67,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 게시물 상세보기  -->	
 	<select id="view" parameterType="int" resultMap="freeboard">
-		SELECT FB_NUM,
-			   FB_TITLE,
-			   FB_REGDATE,
-			   FB_CONTENT,
-			   FB_VIEWCNT,
-			   FB_WRITER,
-			   FILE_NUM FILENUM,
-			   FILE_NAME FILENAME,
-			   FILE_ORGNAME FILEORGNAME,
-		   	   FILE_SIZE FILESIZE,
-			   FILE_PATH FILEPATH,
-			   FILE_REF_BOARD FILEREFBOARD,
-			   FILE_REF_NUM FILEREFNUM 
+		SELECT FB_NUM AS fbNum,
+			   FB_TITLE AS fbTitle,
+			   FB_REGDATE AS fbRegdate,
+			   FB_CONTENT AS fbContent,
+			   FB_VIEWCNT AS fbViewcnt,
+			   FB_WRITER AS fbWriter,
+			   FILE_NUM AS fileNum ,
+			   FILE_NAME AS fileName,
+			   FILE_ORGNAME AS fileOrgName,
+		   	   FILE_SIZE AS fileSize,
+			   FILE_PATH AS filePath,
+			   FILE_REF_BOARD AS fileRefBoard,
+			   FILE_REF_NUM AS fileRefNum 
 		  FROM FREEBOARD FB, MEMBER M, COMMON_FILE CF
 	   	 WHERE FB.FB_WRITER=M.MEM_NICKNAME
 	   	   AND FB.FB_NUM=CF.FILE_REF_NUM(+) 
@@ -204,4 +204,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE COMMON_FILE 
 		 WHERE FILE_NUM=#{fileNum}
 	</delete>
+	
+	<insert id="comment" parameterType="commentvo">
+		INSERT INTO COMMENTS VALUES(SEQ_COMMENTS_COM_NUM.nextval,#{memNum},#{comContent},#{comType},#{comBnum})
+	</insert>
+	
+	<select id="commentList" resultType="commentvo">
+		SELECT * FROM COMMENTS
+	</select>
 </mapper>

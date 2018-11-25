@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.newdeal.ict.Service.FreeBoardService;
 import com.newdeal.ict.Util.Pager;
+import com.newdeal.ict.Vo.CommentVo;
 import com.newdeal.ict.Vo.CommonFileVo;
 import com.newdeal.ict.Vo.FreeBoardVo;
 
@@ -151,5 +152,19 @@ public class FreeBoardController {
 	public void fileDel(CommonFileVo vo) throws Exception {
 		System.out.println("파일번호는?"+vo);
 		service.fileDel(vo);
+	}
+	
+	@RequestMapping(value = "/comment.do",method = RequestMethod.GET)
+	@ResponseBody
+	public HashMap<String, Object> comment(CommentVo vo) throws Exception {
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		System.out.println("vodsafsdafsadfsdfaf"+vo.toString());
+		vo.setComType("FreeBoard");
+		service.comment(vo);
+		List<CommentVo> commentlist=service.commentList();
+		map.put("commentList", commentlist);
+		System.out.println(commentlist.toString());
+		
+		return map;
 	}
 }
