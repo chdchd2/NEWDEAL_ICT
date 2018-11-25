@@ -99,9 +99,10 @@ public class FreeBoardController {
 		ModelAndView mav=new ModelAndView();
 		
 		/*mav.addObject("list2",list2);*/
-		
+		List<CommentVo> commentList=service.commentList();
 		mav.setViewName("freeboard/view");
 		mav.addObject("vo", service.read(fbNum));
+		mav.addObject("commentList",commentList);
 		return mav;
 	}
 	

@@ -206,10 +206,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<insert id="comment" parameterType="commentvo">
-		INSERT INTO COMMENTS VALUES(SEQ_COMMENTS_COM_NUM.nextval,#{memNum},#{comContent},#{comType},#{comBnum})
+		INSERT INTO COMMENTS VALUES(SEQ_COMMENTS_COM_NUM.nextval,#{memNum},#{comContent},#{comType},#{comBnum},sysdate)
 	</insert>
 	
 	<select id="commentList" resultType="commentvo">
-		SELECT * FROM COMMENTS
+		SELECT A.*,B.MEM_NICKNAME FROM COMMENTS A,MEMBER B WHERE A.MEM_NUM=B.MEM_NUM
 	</select>
 </mapper>

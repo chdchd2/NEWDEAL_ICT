@@ -55,8 +55,9 @@ function comment(){
 		console.log(data);
 		
 		$("#comContent").val("");
+		$("#commentlist").text("");
 		for(var i=0; i<data.commentList.length; i++){
-		$("#commentlist").append(data.commentList[i].memNum+"===>"+data.commentList[i].comContent+"<br>");	
+		$("#commentlist").append(data.commentList[i].memNickName+"===>"+data.commentList[i].comContent+data.commentList[i].comDate+"<br>");	
 			
 		}
 
@@ -107,6 +108,9 @@ function comment(){
 		<button type="button" id="btnList">목록</button>
 	</div>
 	<span id="commentlist">
+	<c:forEach var="comment" items="${commentList}">
+		${comment.memNickName} ===>${comment.comContent} ${comment.comDate } <br> 
+	</c:forEach>
 	</span>
 	<div id="comment">
 		댓글쓰기 : <textarea id="comContent"></textarea>
