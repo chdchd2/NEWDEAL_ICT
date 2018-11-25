@@ -7,7 +7,7 @@
 					<h2>교육신청</h2>
 					<ul>
 						<li><a href="<c:url value='/edu/intList'/>" class="subActive">교육신청안내 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
-						<li><a href="#a">프로그램상세</a></li>
+						<li><a href="<c:url value='/edu/detailList'/>">프로그램상세</a></li>
 						<li><a href="#">교육신청 바로가기</a></li>
 					</ul>
 				</div>
@@ -16,7 +16,7 @@
 						<h2>교육신청안내</h2>				
 					</div>
 						<div id="content">
-							<p id="count">총<span>134건</span></p>
+							<p id="count">총<span>${pu.totalRowCount}건</span></p>
 							<ol id="search">
 								<li><a href="#a">전체 <img src="<c:url value='/resources/images/search_Active.png'/>" alt="검색창더보기"></a>
 									<ul id="detail">
@@ -65,7 +65,7 @@
 					<p><a href="<c:url value='/edu/intList?pageNum=${pu.startPageNum-1 }&fieldnum=${fieldnum }&classnum=${classnum }'/>"><img src="<c:url value='/resources/images/page_Leftbtn.png'/>" alt="페이지왼쪽버튼"></a></p>
 				</c:when>
 				<c:otherwise>
-			<p><a href="#"><img src="<c:url value='/resources/images/page_Leftbtn.png'/>" alt="페이지왼쪽버튼"></a></p>			
+			<p><a><img src="<c:url value='/resources/images/page_Leftbtn.png'/>" alt="페이지왼쪽버튼"></a></p>			
 	</c:otherwise>
 			</c:choose>
 			
@@ -90,7 +90,7 @@
 				<p><a href="<c:url value='/edu/intList?pageNum=${pu.endPageNum+1 }&classnum=${classnum }&fieldnum=${fieldnum }'/>"><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
 			</c:when>
 			<c:otherwise>
-			<p><a href="#"><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
+			<p><a><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
 			
 	</c:otherwise>
 		</c:choose>

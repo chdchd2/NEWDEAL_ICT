@@ -16,7 +16,7 @@
 						<h2>프로그램상세</h2>				
 					</div>
 						<div id="content">
-							<p id="count">총<span>134건</span></p>
+							<p id="count">총<span>${pu.totalRowCount}건</span></p>
 							<ol id="search">
 								<li><a href="#a">전체 <img src="<c:url value='/resources/images/search_Active.png'/>" alt="검색창더보기"></a>
 									<ul id="detail">
@@ -90,7 +90,7 @@
 				<p><a href="<c:url value='/edu/detailList?pageNum=${pu.endPageNum+1 }&classnum=${classnum }&fieldnum=${fieldnum }'/>"><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
 			</c:when>
 			<c:otherwise>
-			<p><a href="#"><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
+			<p><a><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
 			
 	</c:otherwise>
 		</c:choose>
