@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.EduMapper">
+
+<resultMap type="com.newdeal.ict.Vo.IntDetailJoinVo" id="intjoinvo">
+	<result property="intNum" column="intNum"/>
+	<result property="memNum" column="memNum"/>
+	<result property="intTitle" column="intTitle"/>
+	<result property="intContent" column="intContent"/>
+	<result property="intWriter" column="intWriter"/>
+	<result property="intDate" column="intDate"/>
+	<result property="intHit" column="intHit"/>
+	<collection property="list" ofType="com.newdeal.ict.Vo.CommonFileVo">
+		<result property="fileNum" column="fileNum"/>
+		<result property="fileName" column="fileName"/>
+		<result property="fileOrgName" column="fileOrgName"/>
+		<result property="fileSize" column="fileSize"/>
+		<result property="filePath" column="filePath"/>
+		<result property="fileRefBoard" column="fileRefBoard"/>
+		<result property="fileRefNum" column="fileRefNum"/>
+	</collection>
+</resultMap>
+
+<insert id="intWrite" parameterType="intvo">
+	INSERT INTO EDU_INTRODUCE VALUES(
+									SEQ_EDU_INTRODUCE_INT_NUM.nextval,
+									#{memNum},
+									#{intTitle},
+									#{intContent},
+									#{intWriter},
+									sysdate,
+									0
+									)
+</insert>
+
+<select id="intmaxNum" resultType="int">
+	SELECT NVL(MAX(INT_NUM),1) AS MAXNUM 
+	FROM EDU_INTRODUCE
+</select>
+
+
+<select id="intCnt" resultType="int">
+ 			SELECT NVL(COUNT(*),0) CNT from EDU_INTRODUCE <!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
+ 			
+</select>
+
+<select id="detailCnt" resultType="int">
+ 			SELECT NVL(COUNT(*),0) CNT from EDU_DETAIL <!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
+ 			
+</select>
+
+<select id="intList" parameterType="pagevo" resultType="intvo">
+      SELECT INT_NUM AS INTNUM,
+      		 MEM_NUM AS MEMNUM,
+      		 INT_TITLE AS INTTITLE,
+      		 INT_CONTENT AS INTCONTENT,
+      		 INT_WRITER AS INTWRITER,
+      		 INT_DATE AS INTDATE,
+      		 INT_HIT AS INTHIT,
+      		 RNUM RNUM
+       FROM(
+                    SELECT AA.*,ROWNUM RNUM FROM(
+                                 SELECT * FROM EDU_INTRODUCE
+                                 ORDER BY INT_NUM DESC
+                                				 )AA
+                     )
+      <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
+	
+</select>
+
+<select id="detailList" parameterType="pagevo" resultType="edudetailvo">
+      SELECT DET_NUM AS DETNUM,
+      		 MEM_NUM AS MEMNUM,
+      		 DET_TITLE AS DETTITLE,
+      		 DET_CONTENT AS DETCONTENT,
+      		 DET_WRITER AS DETWRITER,
+      		 DET_DATE AS DETDATE,
+      		 DET_HIT AS HIT,
+      		 RNUM RNUM
+       FROM(
+                    SELECT AA.*,ROWNUM RNUM FROM(
+                                 SELECT * FROM EDU_DETAIL
+                                 ORDER BY DET_NUM DESC
+                                				 )AA
+                     )
+      <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
+	
+</select>
+
+<select id="intDetail" parameterType="int" resultMap="intjoinvo">
+	SELECT  INT_NUM AS INTNUM,
+			MEM_NUM AS MEMNUM,
+			INT_TITLE AS INTTITLE,
+			INT_CONTENT AS INTCONTENT,
+			INT_WRITER AS INTWRITER,
+			INT_DATE AS INTDATE,
+			INT_HIT AS INTHIT,
+			FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM FROM 
+		EDU_INTRODUCE A,COMMON_FILE B 
+	WHERE A.INT_NUM=B.FILE_REF_NUM(+)
+	AND A.INT_NUM=#{intNum}
+</select>
+
+<select id="fileinfo" parameterType="filevo" resultType="filevo">
+	SELECT  FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM
+	FROM 
+			COMMON_FILE
+	WHERE
+			FILE_NUM=#{fileNum}
+</select>
+
+<select id="getWriter" parameterType="int" resultType="intvo">
+	SELECT  INT_NUM AS INTNUM,
+			MEM_NUM AS MEMNUM,
+			INT_TITLE AS INTTITLE,
+			INT_CONTENT AS INTCONTENT,
+			INT_WRITER AS INTWRITER,
+			INT_DATE AS INTDATE,
+			INT_HIT AS INTHIT
+	FROM	EDU_INTRODUCE 
+	WHERE INT_NUM=#{intNum}
+</select>
+
+<delete id="intDelete" parameterType="int">
+	DELETE EDU_INTRODUCE WHERE INT_NUM=#{intNum}
+</delete>
+
+<delete id="intFileDelete" parameterType="int">
+	DELETE COMMON_FILE WHERE FILE_REF_BOARD='EDU_INTRODUCE' AND FILE_REF_NUM=#{intNum}
+</delete>
+
+<select id="intFileDelList" parameterType="int" resultType="filevo">
+	SELECT  FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM 
+	 FROM COMMON_FILE 
+	 WHERE FILE_REF_BOARD='EDU_INTRODUCE' AND FILE_REF_NUM=#{intNum}
+</select>
+
+<update id="intEdit" parameterType="intvo">
+	UPDATE EDU_INTRODUCE SET INT_TITLE=#{intTitle},INT_CONTENT=#{intContent} WHERE INT_NUM=#{intNum}
+</update>
+
+<delete id="fileDel" parameterType="filevo">
+	DELETE COMMON_FILE WHERE FILE_NUM=#{fileNum}
+</delete>
+
+<update id="detailCntUp" parameterType="int">
+	UPDATE EDU_INTRODUCE SET INT_HIT=INT_HIT+1 WHERE INT_NUM=#{intNum}
+</update>
+
+<insert id="detailWrite" parameterType="edudetailvo">
+	INSERT INTO EDU_DETAIL VALUES(
+									SEQ_EDU_DETAIL_DET_NUM.nextval,
+									#{memNum},
+									#{detTitle},
+									#{detContent},
+									sysdate,
+									#{detWriter},
+									0
+									)
+<selectKey keyProperty="detNum" resultType="int" order="AFTER"> 
+SELECT SEQ_EDU_DETAIL_DET_NUM.currval as detNum FROM dual
+</selectKey>
+</insert>
+
+
+</mapper>
+
+ 
