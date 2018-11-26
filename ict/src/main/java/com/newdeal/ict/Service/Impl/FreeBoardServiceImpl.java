@@ -3,7 +3,6 @@ package com.newdeal.ict.Service.Impl;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,28 +38,28 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		return dao.read(fbNum);
 	}
 
-	@Transactional // �듃�옖�옲�뀡泥섎━
+	@Transactional // 트랜잭션처리
 	@Override
 	public void update(FreeBoardVo vo) throws Exception {
-		dao.update(vo);// board�뀒�씠釉� �닔�젙
+		dao.update(vo);// board테이블 수정
 	}
 
 	@Override
 	public void delete(int fbNum) throws Exception {
 		List<CommonFileVo> filelist = dao.fbFileDelList(fbNum);
-		System.out.println("�뙆�씪由ъ뒪�듃異쒕젰"+filelist.toString());
+		System.out.println("파일리스트출력"+filelist.toString());
 		for(CommonFileVo vo:filelist) {
 			String files=vo.getFilePath()+vo.getFileName();
-			System.out.println("�뙆�씪�뵒�젆�넗由�+�뙆�씪�씠由� 異쒕젰�빐蹂닿린"+files);
+			System.out.println("파일디렉토리+파일이름 출력해보기"+files);
 			File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 			if( file.exists() ){
 	            if(file.delete()){
-	                System.out.println("�뙆�씪�궘�젣 �꽦怨�");
+	                System.out.println("파일삭제 성공");
 	            }else{
-	                System.out.println("�뙆�씪�궘�젣 �떎�뙣");
+	                System.out.println("파일삭제 실패");
 	            }
 	        }else{
-	            System.out.println("�뙆�씪�씠 議댁옱�븯吏� �븡�뒿�땲�떎.");
+	            System.out.println("파일이 존재하지 않습니다.");
 	        }
 		dao.fbFileDelete(fbNum);
 		dao.delete(fbNum);
@@ -75,13 +74,13 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	@Override
 	public void increaseViewcnt(int fbNum, HttpSession session) throws Exception {
 		long update_time = 0;
-		// �꽭�뀡�뿉 ���옣�맂 寃뚯떆臾쇱쓽 議고쉶�떆媛� 寃��깋
+		// 세션에 저장된 게시물의 조회시간 검색
 		if (session.getAttribute("update_time_" + fbNum) != null) {
 			update_time = (Long) session.getAttribute("update_time_" + fbNum);
 		}
-		// �쁽�옱 �떆媛�
+		// 현재 시간
 		long current_time = System.currentTimeMillis();
-		// �씪�젙 �떆媛꾩씠 寃쎄낵�맂 �썑 議고쉶�닔 利앷� 泥섎━
+		// 일정 시간이 경과된 후 조회수 증가 처리
 		if (current_time - update_time > 5 * 1000) {
 			dao.increaseViewcnt(fbNum);
 			session.setAttribute("update_time_" + fbNum, current_time);
@@ -144,13 +143,13 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 		if( file.exists() ){
             if(file.delete()){
-                System.out.println("�뙆�씪�궘�젣 �꽦怨�");
+                System.out.println("파일삭제 성공");
                 dao.fileDel(filevo);
             }else{
-                System.out.println("�뙆�씪�궘�젣 �떎�뙣");
+                System.out.println("파일삭제 실패");
             }
         }else{
-            System.out.println("�뙆�씪�씠 議댁옱�븯吏� �븡�뒿�땲�떎.");
+            System.out.println("파일이 존재하지 않습니다.");
         }
 		return 1;
 	}
