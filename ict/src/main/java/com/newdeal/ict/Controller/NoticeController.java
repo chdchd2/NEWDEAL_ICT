@@ -45,7 +45,7 @@ public class NoticeController {
 		List<NoticeVo> list=service.listAll(
 				start, end, search_option, keyword);
 		ModelAndView mav=new ModelAndView();
-		mav.setViewName("notice/list");
+		mav.setViewName(".notice.list");
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("count", list.size());
@@ -88,7 +88,7 @@ public class NoticeController {
 		
 		/*mav.addObject("list2",list2);*/
 		
-		mav.setViewName("notice/view");
+		mav.setViewName(".notice.view");
 		mav.addObject("vo", service.read(ntNum));
 		return mav;
 	}
@@ -99,7 +99,7 @@ public class NoticeController {
 		ModelAndView mav=new ModelAndView();
 		
 		
-		mav.setViewName("notice/modify");
+		mav.setViewName(".notice.modify");
 		mav.addObject("vo", service.read(ntNum));
 		return mav;
 	}

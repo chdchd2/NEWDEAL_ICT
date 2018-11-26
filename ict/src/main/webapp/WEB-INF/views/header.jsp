@@ -80,10 +80,10 @@ function logout(){
  			<li class="mainmenu">
  				<a href="#">커뮤니티</a>
 	 			 <ul class="submenu_list">
-	 				<li><a href="#">공지사항</a></li>
-	 			 	<li><a href="#">자유게시판</a></li>
-	 			 	<li><a href="#">FAQ</a></li>
-	 			 	<li><a href="#">Q&A</a></li>
+	 				<li><a href="<c:url value='/notice/list.do'/>">공지사항</a></li>
+	 			 	<li><a href="<c:url value='/freeboard/list.do'/>">자유게시판</a></li>
+	 			 	<li><a href="#">후기게시판</a></li>
+	 			 	<li><a href="<c:url value='/qaboard/list.do'/>">질문게시판</a></li>
  			 	</ul>
  			</li>
  			
