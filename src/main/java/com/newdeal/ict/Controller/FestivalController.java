@@ -23,8 +23,6 @@ import com.newdeal.ict.Service.FestivalService;
 import com.newdeal.ict.Vo.CommonFileVo;
 import com.newdeal.ict.Vo.FesDetailVo;
 import com.newdeal.ict.Vo.FestivalVo;
-import com.newdeal.ict.Vo.IntDetailJoinVo;
-import com.newdeal.ict.Vo.IntroduceVo;
 import com.newdeal.ict.Vo.MemberVo;
 
 @Controller
@@ -105,6 +103,7 @@ public class FestivalController {
 	@RequestMapping(value = "/fesEdit",method = RequestMethod.GET)
 	public String fesEdit(int fesNum,HttpSession session,Model model) throws Exception {
 		MemberVo vo=(MemberVo)session.getAttribute("member");
+		System.out.println("===========================vo"+vo);
 		FestivalVo fesvo=service.getWriter(fesNum);
 		
 		if(fesvo.getMemNum()==vo.getMemNum()) {

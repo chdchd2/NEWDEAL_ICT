@@ -1,7 +1,6 @@
 package com.newdeal.ict.Controller;
 
 import java.io.File;
-import java.lang.reflect.Member;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,9 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.newdeal.ict.Service.CommonService;
 import com.newdeal.ict.Service.EduService;
-import com.newdeal.ict.Util.PageUtil;
 import com.newdeal.ict.Vo.CommonFileVo;
+import com.newdeal.ict.Vo.EduDetailVo;
 import com.newdeal.ict.Vo.IntDetailJoinVo;
 import com.newdeal.ict.Vo.IntroduceVo;
 import com.newdeal.ict.Vo.MemberVo;
@@ -31,6 +31,8 @@ import com.newdeal.ict.Vo.MemberVo;
 public class EduController {
 	@Autowired
 	private EduService service;
+	@Autowired
+	private CommonService commonservice;
 	
 	@RequestMapping(value = "/intWrite",method = RequestMethod.GET)
 	public String intWrite() {
@@ -44,9 +46,10 @@ public class EduController {
 		service.intWrite(vo); 
 		//첨부파일 처리하기
 		List<MultipartFile> filelist = req.getFiles("file"); 
-		int num=service.intmaxNum();
-		service.intfileWrite(filelist, num);
-		
+		int fileRefNum=service.intmaxNum();
+		String fileRefBoard="EDU_INTRODUCE";
+		commonservice.fileWrite(filelist, fileRefNum,fileRefBoard);
+		System.out.println("파일쓰는부분 여기 오는지");
 		return "redirect:/edu/intList";
 	}
 	
@@ -116,8 +119,9 @@ public class EduController {
 	public String intEditOk(IntroduceVo vo,MultipartHttpServletRequest req) throws Exception {
 		System.out.println("수정시 정보들"+vo.toString());
 		List<MultipartFile> filelist = req.getFiles("file"); 
-		int num=service.intmaxNum();
-		service.intfileWrite(filelist, num);
+		String fileRefBoard="EDU_INTRODUCE";
+		int num=vo.getIntNum();
+		commonservice.fileWrite(filelist, num,fileRefBoard);
 		service.intEdit(vo);
 		
 		return "redirect:/edu/intList";
@@ -127,6 +131,35 @@ public class EduController {
 	public void fileDel(CommonFileVo vo) throws Exception {
 		System.out.println("파일번호는?"+vo);
 		service.fileDel(vo);
+	}
+	
+	@RequestMapping(value = "/detailwrite",method = RequestMethod.GET)
+	public String DetailWrite() {
+		
+		return ".edu.detail.write";
+	}
+	
+	@RequestMapping(value = "/detailwrite", method = RequestMethod.POST)
+	public String DetailWriteOk(EduDetailVo vo,MultipartHttpServletRequest req) throws Exception {
+		System.out.println("디테일내용=>"+vo.toString());
+		List<MultipartFile> filelist = req.getFiles("file"); 
+		service.detailWrite(vo);
+		int detNum = vo.getDetNum();
+		System.out.println("파일번호는?"+detNum);
+		String fileRefBoard="EDU_DETAIL";
+		commonservice.fileWrite(filelist, detNum,fileRefBoard);
+		
+		return "";
+	}
+	
+	@RequestMapping(value = "/detailList",method = RequestMethod.GET)
+	public String detailList(@RequestParam(value="pageNum",defaultValue="1")int pageNum,Model model) throws Exception {
+	
+		HashMap<String, Object> map=service.detailList(pageNum);
+		model.addAttribute("list",map.get("list"));
+		model.addAttribute("pu",map.get("pu"));
+		
+		return ".edu.detail.list";
 	}
 	
 }

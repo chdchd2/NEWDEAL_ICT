@@ -18,18 +18,17 @@
 <%
 	}
 %>
-
-교육신청안내게시판 글쓰기페이지
-<form action="<c:url value='/edu/intWrite'/>" method="POST" enctype="multipart/form-data">
+교육상세안내게시판 글쓰기페이지
+<form action="<c:url value='/edu/detailwrite'/>" method="POST" enctype="multipart/form-data">
 	<table border="1">
 		<tr>
-			<td>제목 : <input type="text" name="intTitle" id="title">
+			<td>제목 : <input type="text" name="detTitle" id="title">
 		</tr>
 		<tr>
-			<td>내용:<textarea rows="" cols="" id="content" name="intContent"></textarea></td>
+			<td>내용:<textarea rows="" cols="" id="content" name="detContent"></textarea></td>
 		</tr>
 		<tr>
-			<td>작성자 : <input type="text" id="writer" name="intWrite" value="${member.memNickName }"></td>
+			<td>작성자 : <input type="text" id="writer" name="detWriter" value="${member.memNickName }"></td>
 		</tr>
 		<tr>
 			<td>첨부파일: <input type="file" multiple="multiple" name="file">

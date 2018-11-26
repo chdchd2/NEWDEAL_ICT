@@ -40,20 +40,14 @@
 	FROM EDU_INTRODUCE
 </select>
 
-<insert id="intfileWrite" parameterType="filevo">
-INSERT INTO COMMON_FILE VALUES(
-								SEQ_COMMON_FILE_FILE_NUM.nextval,
-								#{fileName},
-								#{fileOrgName},
-								#{fileSize},
-								#{filePath},
-								'EDU_INTRODUCE',
-								#{fileRefNum}
-								)
-</insert>
 
 <select id="intCnt" resultType="int">
  			SELECT NVL(COUNT(*),0) CNT from EDU_INTRODUCE <!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
+ 			
+</select>
+
+<select id="detailCnt" resultType="int">
+ 			SELECT NVL(COUNT(*),0) CNT from EDU_DETAIL <!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
  			
 </select>
 
@@ -70,6 +64,25 @@ INSERT INTO COMMON_FILE VALUES(
                     SELECT AA.*,ROWNUM RNUM FROM(
                                  SELECT * FROM EDU_INTRODUCE
                                  ORDER BY INT_NUM DESC
+                                				 )AA
+                     )
+      <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
+	
+</select>
+
+<select id="detailList" parameterType="pagevo" resultType="edudetailvo">
+      SELECT DET_NUM AS DETNUM,
+      		 MEM_NUM AS MEMNUM,
+      		 DET_TITLE AS DETTITLE,
+      		 DET_CONTENT AS DETCONTENT,
+      		 DET_WRITER AS DETWRITER,
+      		 DET_DATE AS DETDATE,
+      		 DET_HIT AS HIT,
+      		 RNUM RNUM
+       FROM(
+                    SELECT AA.*,ROWNUM RNUM FROM(
+                                 SELECT * FROM EDU_DETAIL
+                                 ORDER BY DET_NUM DESC
                                 				 )AA
                      )
       <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
@@ -153,6 +166,23 @@ INSERT INTO COMMON_FILE VALUES(
 <update id="detailCntUp" parameterType="int">
 	UPDATE EDU_INTRODUCE SET INT_HIT=INT_HIT+1 WHERE INT_NUM=#{intNum}
 </update>
+
+<insert id="detailWrite" parameterType="edudetailvo">
+	INSERT INTO EDU_DETAIL VALUES(
+									SEQ_EDU_DETAIL_DET_NUM.nextval,
+									#{memNum},
+									#{detTitle},
+									#{detContent},
+									sysdate,
+									#{detWriter},
+									0
+									)
+<selectKey keyProperty="detNum" resultType="int" order="AFTER"> 
+SELECT SEQ_EDU_DETAIL_DET_NUM.currval as detNum FROM dual
+</selectKey>
+</insert>
+
+
 </mapper>
 
  

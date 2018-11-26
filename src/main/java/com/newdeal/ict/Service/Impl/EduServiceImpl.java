@@ -17,6 +17,7 @@ import com.newdeal.ict.Dao.EduDao;
 import com.newdeal.ict.Service.EduService;
 import com.newdeal.ict.Util.PageUtil;
 import com.newdeal.ict.Vo.CommonFileVo;
+import com.newdeal.ict.Vo.EduDetailVo;
 import com.newdeal.ict.Vo.IntDetailJoinVo;
 import com.newdeal.ict.Vo.IntroduceVo;
 
@@ -31,38 +32,6 @@ public class EduServiceImpl implements EduService{
 		return dao.intWrite(vo);
 	}
 
-	@Override
-	public int intfileWrite(List<MultipartFile> filelist,int num) throws Exception {
-		InputStream is = null;
-		FileOutputStream fos = null;
-		String filePath="C:\\Users\\haces\\git";
-		CommonFileVo filevo=new CommonFileVo();
-		try {
-			if(filelist.size()>1) {
-			for(int i=0;i<filelist.size();i++) {
-				is=filelist.get(i).getInputStream();
-				UUID uuid=UUID.randomUUID();
-				String fileOrgName=filelist.get(i).getOriginalFilename();
-				String fileName=uuid+"_"+fileOrgName;
-				String fileSize=filevo.byteCalculation(String.valueOf(filelist.get(i).getSize()));
-				filevo.setFileName(fileName);
-				filevo.setFileSize(fileSize);
-				filevo.setFileOrgName(fileOrgName);
-				filevo.setFilePath(filePath);
-				filevo.setFileRefNum(dao.intmaxNum());
-				dao.intfileWrite(filevo);
-				fos=new FileOutputStream(filePath+"\\"+fileName);
-				FileCopyUtils.copy(is, fos);
-				
-				fos.close();
-				is.close();
-				}
-			}
-		}finally {
-			
-		}
-		return 0;
-	}
 
 	@Override
 	public int intmaxNum() throws Exception {
@@ -76,6 +45,18 @@ public class EduServiceImpl implements EduService{
 		int totalRowCount = dao.intCnt();
 		PageUtil pu=new PageUtil(pageNum, 10, 10, totalRowCount);
 		List<IntroduceVo> list =dao.intList(pu);
+		map.put("list", list);
+		map.put("pu",pu);
+		System.out.println("pu내용====>"+pu.toString());
+		return map;
+	}
+	
+	@Override
+	public HashMap<String, Object> detailList(int pageNum) throws Exception {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int totalRowCount = dao.detailCnt();
+		PageUtil pu=new PageUtil(pageNum, 10, 10, totalRowCount);
+		List<EduDetailVo> list =dao.detailList(pu);
 		map.put("list", list);
 		map.put("pu",pu);
 		System.out.println("pu내용====>"+pu.toString());
@@ -151,6 +132,11 @@ public class EduServiceImpl implements EduService{
             System.out.println("파일이 존재하지 않습니다.");
         }
 		return 1;
+	}
+
+	@Override
+	public int detailWrite(EduDetailVo vo) throws Exception {
+		return dao.detailWrite(vo);
 	}
 	
 	

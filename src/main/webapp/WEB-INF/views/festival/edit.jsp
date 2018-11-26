@@ -39,7 +39,7 @@ function fileDel(fileNum){
     <div style="width:650px; text-align: center;">
         <!-- 게시물번호를 hidden으로 처리 -->
         <input type="hidden" name="fesNum" value="${FestivalVo.fesNum}">
-       <button type="submit" id="btnUpdete">수정</button>
+        <button type="submit" id="btnUpdete">수정</button>
     </div>
 </form>
 </body>

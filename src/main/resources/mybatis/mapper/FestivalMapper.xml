@@ -31,7 +31,7 @@
 		sysdate,
 		#{fesWrite},
 		0,
-		null 
+		#{memNum}
 		)
 </insert>
 

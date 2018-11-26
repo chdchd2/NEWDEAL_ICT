@@ -19,7 +19,7 @@
 					<div id="contentHeader">
 						<h2>취업정보안내</h2>
 					</div>
-					<form name="form1" method="post">
+					<form name="form" method="post">
 					<div id="content">
 						<div id="boardheader">
 							<h2>${vo.intTitle }</h2>

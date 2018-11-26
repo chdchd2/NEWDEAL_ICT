@@ -4,12 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">    
 <configuration>
 	<typeAliases>
-   	    <typeAlias type="com.newdeal.ict.Vo.TestVo" alias="testvo"/>
-	 	<typeAlias type="com.newdeal.ict.Vo.MemberVo" alias="member"/>
-		<typeAlias type="com.newdeal.ict.Vo.IntroduceVo" alias="intvo"/>
-		<typeAlias type="com.newdeal.ict.Vo.CommonFileVo" alias="filevo"/>
-		<typeAlias type="com.newdeal.ict.Vo.IntDetailJoinVo" alias="intjoinvo"/>
-		<typeAlias type="com.newdeal.ict.Util.PageUtil" alias="pagevo"/>
+		<typeAlias alias="testvo" type="com.newdeal.ict.Vo.TestVo"/>
+		<typeAlias alias="member" type="com.newdeal.ict.Vo.MemberVo"/>
+		<typeAlias alias="intvo" type="com.newdeal.ict.Vo.IntroduceVo"/>
+		<typeAlias alias="filevo" type="com.newdeal.ict.Vo.CommonFileVo"/>
+		<typeAlias alias="edudetailvo" type="com.newdeal.ict.Vo.EduDetailVo"/>
+		<typeAlias alias="intjoinvo" type="com.newdeal.ict.Vo.IntDetailJoinVo"/>
+		<typeAlias alias="pagevo" type="com.newdeal.ict.Util.PageUtil"/>
 		<typeAlias type="com.newdeal.ict.Vo.FestivalVo" alias="fesvo"/>
 		<typeAlias type="com.newdeal.ict.Vo.FesDetailVo" alias="fesDevo"/>
 	</typeAliases>
