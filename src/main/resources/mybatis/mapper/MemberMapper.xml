@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.MemberMapper">
+<select id="ismember" parameterType="hashmap" resultType="member">
+	SELECT 
+		MEM_NUM AS memNum,
+		MEM_NICKNAME AS memNickName,
+		MEM_TEL AS memTel,
+		MEM_GUBUN AS memGubun,
+		MEM_GRADE AS memGrade,
+		MEM_JOINDATE AS memJoinDate,
+		MEM_UID AS memUid,
+		MEM_FIELD AS memField,
+		MEM_STATE AS memState
+	 FROM MEMBER 
+	 WHERE MEM_GUBUN=#{type} AND MEM_UID=#{uid}
+</select>
+
+<insert id="signin" parameterType="member">
+	INSERT INTO MEMBER VALUES(SEQ_MEMBER_NUM.nextval,#{memNickName},#{memTel},#{memGubun},1,sysdate,#{memUid},#{memField},'allow')
+</insert>
+
+<select id="nickNameChk" parameterType="String" resultType="String">
+	SELECT 
+		MEM_NICKNAME AS memNickName
+	FROM MEMBER WHERE MEM_NICKNAME=#{nickname}
+</select>
+
+</mapper>
+
+ 
