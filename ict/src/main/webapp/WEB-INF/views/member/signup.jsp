@@ -4,8 +4,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script>
 	$(document).ready(function() {
-		
+		console.log("${vo.memGubun}");
+		if(${vo.memGubun eq null}){
+			alert("비정상적인 접근입니다");
+			location.href="<c:url value='/login'/>";
+		}
 	});
+	
 	function nickNameChk(){
 		var data=$("#nickname").val();
 		 $.ajax({
