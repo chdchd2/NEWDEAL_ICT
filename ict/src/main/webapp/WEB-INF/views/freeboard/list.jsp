@@ -5,8 +5,8 @@
 <section>
 <script>
 $(function(){
-	$("#btnWrite").click(function(){
-		location.href="${path}/freeboard/write.do";
+	$(".btnWrite").click(function(){
+		location.href="/ict/freeboard/write.do";
 	});
 });
 function list(page){
@@ -35,8 +35,6 @@ function view(fbNum){
 					<div id="contentHeader">
 						<h2>자유게시판</h2>
 					</div>
-
-
 
 					<div id="content">
 						<p id="count">총<span>${map.count}건</span></p>
