@@ -60,7 +60,7 @@ function logout(){
  			 	</ul>
  			</li>
  			
- 			<li class="mainmenu">
+ 			<li class="mainmenu"> 
  				<a href="#">취업지원센터</a>
  			 	<ul class="submenu_list">
  				<li><a href="#">취업행사안내</a></li>

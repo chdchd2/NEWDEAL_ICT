@@ -78,7 +78,7 @@
 		//$menuBg.slideUp(200,"easeOutCubic")
 		$menuBg.animate({"top":-100},200,"easeOutCubic")
 	}
-
+ 
 </script>
 </head>
 <body>
