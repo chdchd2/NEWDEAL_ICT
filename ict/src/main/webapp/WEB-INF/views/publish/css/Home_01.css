@@ -1,0 +1,635 @@
+@charset "UTF-8";
+
+
+/*컨텐츠 영역*/
+section {
+	background-color:#ebebeb;
+	overflow:hidden;
+	padding:185px 0 30px;
+}
+
+section #sectionC {
+	width:1260px;
+	margin:0 auto;
+}
+section #sectionC #sectionL {
+	float:left;
+	width:876px;
+	overflow:hidden;
+}
+
+
+
+
+/*베너영역*/
+section #sectionC #sectionL #banner {
+	width:876px;
+	height:448px;
+}
+section #sectionC #sectionL #banner > a {
+	display:block;
+	width:876px;
+	height:448px;
+	border-radius:4px;
+	background-image:url(../images/mainbanner.png);
+	background-size:cover;
+}
+section #sectionC #sectionL #architentures {
+	width:433px;
+	height:218px;
+	margin-top:10px;
+	float:left;
+	border-radius:4px;
+}
+
+
+
+
+
+/*최근 등록된 아키텍처*/
+#architentures {
+	background-color:#fff;
+}
+#architentures dl dt {
+	width:393px;
+	height:50px;
+	line-height:50px;
+	color:#000;
+	font-weight:500;
+	font-size:16px;
+	padding:0 20px;
+	border-bottom:1px solid #949494;
+}
+#architentures dl dt img {
+	margin-top:-4px;
+	margin-right:12px; 
+}
+#architentures dl dd {
+	padding-left:20px;
+}
+#architentures dl dd a {
+	display:inline-block;
+	border-bottom:1px solid #dedede;
+	height:56px;
+	line-height:56px;
+	width:413px;
+	color:#4c4c4c;
+	font-size:14px;
+	font-weight:400;
+}
+#architentures dl dd:last-child a {
+	border-bottom:none;
+}
+
+#architentures dl dd a img {
+	float:right;
+	margin-top:23px;
+	margin-right:30px;
+}
+
+
+
+
+
+/*아키텍처 등록 바로기*/
+section #sectionC #sectionL #register {
+	width:433px;
+	height:218px;
+	margin-top:10px;
+	background-color:#071633;
+	float:right;
+	border-radius:4px;
+	text-align:center;
+}
+section #sectionC #sectionL #register h2 {
+	display:inline-block;
+	height:38px;
+	line-height:38px;
+	margin-top:68px; 
+	color:#e5e5e5;
+	font-size:32px;
+	font-weight:300;
+	text-align:center;
+	position:relative;
+	left:28px;
+}
+section #sectionC #sectionL #register h2:before{
+	content:"";
+	width:38px;
+	height:38px;
+	position:absolute;
+	background-image:url(../images/icon_03.png);
+	top:0;
+	left:-56px;
+}
+section #sectionC #sectionL #register h2 span {
+	font-weight:700;
+}
+section #sectionC #sectionL #register a {
+	display:block;
+	width:90px;
+	height:28px;
+	border:1px solid #e6e6e6;
+	margin:22px auto;
+	color:#e5e5e5;
+	font-size:13px;
+	line-height:28px;
+}
+section #sectionC #sectionL #register a img{
+	margin-left:8px;
+	margin-bottom:4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+section #sectionC #sectionR {
+	float:right;
+}
+section #sectionC #sectionR >ul > li {
+	width:364px;
+	height:218px;
+	margin-top:10px;
+	border-radius:4px;
+	
+}
+section #sectionC #sectionR ul #login{
+	margin-top:0;
+	height:220px;
+	background-color:#fff;
+}
+
+
+
+/*로그인 창*/
+#login h2 {
+	width:324px;
+	height:57px;
+	line-height:57px;
+	color:#000;
+	font-weight:500;
+	font-size:16px;
+	padding:0 20px;
+
+}
+#login  form .top {
+	width:324px;
+	height:111px;
+	position:relative;
+	padding:0 20px;
+}
+#login  form .top li input {
+	width:226px;
+	height:40px;
+	border:1px solid #d9d9d9;
+	border-radius:0;
+	box-sizing:border-box;
+}
+#login  form .top li:nth-of-type(1),#login  form .top li:nth-of-type(2){
+	width:226px;
+}
+#login  form .top li:nth-of-type(2) {
+	margin-top:6px;
+}
+#login  form .top #btn {
+	position:absolute;
+	right:20px;
+	top:0;
+}
+#login  form .top #btn a{
+	display:inline-block;
+	width:86px;
+	height:86px;
+	background-color:#000;
+	line-height:86px;
+	color:#fff;
+	font-weight:500;
+	font-size:16px; 
+	text-align:center; 
+}
+
+
+#login .btm {
+	height:52px;
+	box-sizing:border-box;
+	border-top:1px solid #d9d9d9;
+}
+#login .btm li {
+	float:left;
+	text-align:center;
+
+}
+#login .btm li a {
+	display:inline-block;
+	height:52px;
+	line-height:52px;
+	box-sizing:border-box;
+	color:#808080;
+	font-size:14px;
+	font-weight:400; 
+}
+
+#login .btm li:nth-of-type(1) a { 
+	width:224px;
+	border-right:1px solid #d9d9d9;
+}
+#login .btm li:nth-of-type(2) a { 
+	width:140px;
+}    
+
+
+
+#notice, #data {
+	background-color:#fff;
+}
+.list dt a {
+	display:inline-block;
+	width:324px;
+	height:50px;
+	line-height:50px;
+	color:#000;
+	font-weight:500;
+	font-size:16px;
+	padding:0 20px;
+	border-bottom:1px solid #949494;
+	position:relative;
+}
+.list  dd {
+	padding-left:20px;
+}
+.list  dd a {
+	display:inline-block;
+	border-bottom:1px solid #dedede;
+	height:56px;
+	line-height:56px;
+	width:344px;
+	color:#4c4c4c;
+	font-size:14px;
+	font-weight:400;
+
+}
+.list  dd:last-child a {
+	display:inline-block;
+	border-bottom:none;
+}
+.list dt a img {
+	margin-top:-4px;
+	margin-right:12px; 
+}
+.list dt a:after {
+	content:"";
+	position:absolute;
+	right:15px;
+	top:15px;
+	width:20px;
+	height:20px;
+	background-image: url(../images/plus_icon.png);
+}
+
+
+
+
+
+
+
+
+@media all and ( max-width:1400px){
+	section #sectionC {
+		width:1100px;
+		overflow:hidden;
+	}
+	section #sectionC #sectionL {
+		width:65%;
+	}
+	section #sectionC #sectionR {
+		
+	}
+	section #sectionC #sectionL #banner {
+		width:100%;
+	}
+	section #sectionC #sectionL #banner a{
+		width:100%;
+		background-position:center;
+	}
+	section #sectionC #sectionL #architentures {
+		width: 48%;
+		float:left;
+		overflow:hidden;
+	}
+	section #sectionC #sectionL #register {
+		width:48%;
+		float:right;
+	}
+
+
+}
+
+
+
+
+
+
+
+@media all and ( max-width:1200px){
+	section {
+		width:100%;
+	}
+	section #sectionC {
+		width:820px;
+	}
+
+
+	section #sectionC #sectionL {
+		width:433px;
+
+	}
+	section #sectionC #sectionL  #banner{
+		width:433px;
+		height:220px;
+	}
+	section #sectionC #sectionL  #banner a{
+		width:433px;
+		height:220px;
+	}
+
+	section #sectionC #sectionL #architentures {
+		width:433px;
+	}
+
+	section #sectionC #sectionL #register {
+		width:433px;
+	}
+}
+
+
+
+
+
+
+@media all and ( max-width:870px){
+	section {
+		width:100%;
+	}
+	section #sectionC {
+		width:80%;
+	}
+	section #sectionC #sectionL{
+		width:100%;
+	}
+	
+	section #sectionC #sectionL #banner {
+		width:100%;
+		height:auto;
+	}
+	section #sectionC #sectionL #banner a{
+		width:100%;
+		height:40vw;
+	}
+	section #sectionC #sectionL #architentures {
+		width:100%;
+	}
+	section #sectionC #sectionL #architentures dl dt{
+		width:100%;
+	}
+	section #sectionC #sectionL #architentures dl dd a{
+		width:100%;
+	}
+	section #sectionC #sectionL #register {
+		width:100%;
+		height:40vw;	
+	}
+	section #sectionC #sectionL #register h2{
+		margin-top:13vw;
+	}
+	section #sectionC #sectionR{
+		width:100%;
+		clear:left;
+	}
+	section #sectionC #sectionR #login {
+		display:none;
+	}
+	section #sectionC #sectionR #notice {
+		width:100%;
+	}
+	section #sectionC #sectionR #notice dl dt a{
+		width:100%;
+		box-sizing:border-box;
+	}
+	section #sectionC #sectionR #notice dl dd a{
+		width:100%;
+		box-sizing:border-box;
+	}
+	section #sectionC #sectionR #data {
+		width:100%;
+	}
+	section #sectionC #sectionR #data dl dt a{
+		width:100%;
+		box-sizing:border-box;
+	}
+	section #sectionC #sectionR #data dl dd a{
+		width:100%;
+	}
+
+
+
+
+
+
+/*모바일 로그인창*/
+	#loginbgM {
+		position:fixed;
+		width:100%;
+		height:100%;
+		position:absolute;
+		z-index:100;
+		background-color:rgb(0,0,0,0.8);
+		text-align:center;
+	}
+	#loginM {
+		display:inline-block;
+		margin-top:120px;
+		height:auto;
+		background-color:#fff;
+		text-align:center;
+		padding:40px 120px;
+		position:relative;
+	}  
+
+	#loginM #close {
+		position:absolute;
+		top:30px;
+		right:30px;
+		width:20px;
+		height:20px;
+		border:1px solid #d9d9d9;
+		text-align:center;
+	}
+	#loginM #close a {
+		display:inline-block;
+		width:20px;
+		height:20px;
+		color:#808080;
+		line-height:20px;
+		padding:0;
+		margin:0;
+	}
+	#loginM h2 {
+	height:57px;
+	line-height:57px;
+	color:#000;
+	font-weight:500;
+	font-size:16px;
+
+}
+#loginM  form {
+
+}
+#loginM  form .top {
+	width:300px;
+	height:111px;
+	position:relative;
+	left:50%;
+	margin-left:-150px;
+}
+#loginM  form .top li input {
+	width:180px;
+	height:40px;
+	border:1px solid #d9d9d9;
+	border-radius:0;
+	box-sizing:border-box;
+}
+#loginM  form .top li:nth-of-type(1),#loginM  form .top li:nth-of-type(2){
+	width:180px;
+}
+#loginM  form .top li:nth-of-type(2) {
+	margin-top:6px;
+}
+#loginM  form .top #btn {
+	position:absolute;
+	right:0px;
+	top:0px;
+}
+#loginM  form .top #btn a{
+	display:inline-block;
+	width:80px;
+	height:86px;
+	background-color:#000;
+	line-height:86px;
+	color:#fff;
+	font-weight:500;
+	font-size:16px; 
+	text-align:center; 
+	margin:0;
+}
+
+
+#loginM .btm {
+	position:relative;	
+	width:300px;
+	height:52px;
+	box-sizing:border-box;
+	left:50%;
+	margin-left:-150px;
+}
+#loginM .btm li {
+	float:left;
+	text-align:center;
+
+}
+#loginM .btm li a {
+	display:inline-block;
+	height:40px;
+	line-height:40px;
+	box-sizing:border-box;
+	color:#808080;
+	font-size:14px;
+	font-weight:400;
+	margin-top:0;
+	border:1px solid #d9d9d9;
+}
+#loginM .btm li:nth-of-type(1) a { 
+	width:160px;
+	border:1px solid #d9d9d9;
+}
+#loginM .btm li:nth-of-type(2) a { 
+	width:140px;
+} 
+
+
+}
+
+   
+
+
+@media all and ( max-width:630px){
+	section {
+		padding:140px 0 30px;
+	}
+
+
+} 
+
+
+
+
+@media all and ( max-width:440px) {
+	#loginbgM{
+		/*display:block;*/
+	}
+	#loginbgM div#loginM {
+		padding: 40px 20px;
+	}
+	#loginbgM div#loginM .top li {
+		width:100%;
+		clear:left;
+	}
+	#loginbgM div#loginM .top li input{
+		width:80%;
+		clear:left;
+	}
+
+	#loginM form .top #btn a {
+	
+		width:80%;
+		overflow:hidden;
+		/*border:1px solid red;*/
+		/*margin-top:20px;*/
+		padding:0;
+		margin:0 auto;
+		height:40px;
+		line-height:40px;
+		border:none;
+		float:none;
+	} 
+	#loginbgM div#loginM .top {
+		height:auto;
+		box-sizing:border-box;
+		/*margin:0;*/
+		padding:0;
+
+	}
+	#loginbgM div#loginM .top li#btn {
+		position:static;
+
+		padding:0;
+		height:40px;
+		margin:10px 0;
+
+	}
+	#loginM form .btm {
+		margin:20px 0 0;
+		width:240px;
+		left:0;
+	}
+	#loginM form .btm li { box-sizing:border-box; width:100%;}
+	#loginM .btm li:nth-of-type(1) a { width:100%;}
+	#loginM .btm li:nth-of-type(2) a { width:100%;}
+}
+

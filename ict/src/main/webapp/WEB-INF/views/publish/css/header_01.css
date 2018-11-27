@@ -1,0 +1,249 @@
+	
+header {
+	position:absolute;
+	width:100%;
+	height:154px;
+	background-color:#383c49;
+	border-bottom:1px solid #fff;
+	box-shadow:0px 3px 8px rgba(12,11,12,0.2);
+}
+
+header #headerC {
+	width:1400px;
+	height:154px;
+	background-image:url(../images/header_bg.png);
+	margin:0 auto;
+}
+header #headerC #topMenu {
+	width:1260px;
+	height:114px;
+	margin:0 auto; 
+}
+header #headerC #topMenu h1 {
+	float:left;
+	margin-top:25px;
+	height:50px;
+}
+header #headerC #topMenu h1 img {
+	margin-right:12px;
+}
+header #headerC #topMenu h1 a {
+	color:white;
+	font-size:32px;
+}
+
+
+
+/*헤더 메인메뉴*/
+header #headerC nav {
+	width:1260px;
+	margin:0 auto; 
+}
+header #headerC nav ul li {
+	float:left;
+	text-align:center;
+	margin-right:4px;	
+}
+header #headerC nav ul li> a {
+	display:inline-block;
+	width:140px;
+	height:40px; 
+	color:#fff;
+	line-height:40px;
+	font-size:14px;
+	border-radius:4px 4px 0 0;
+	    -moz-border-radius:4px 4px 0 0;
+	    -webkit-border-radius:4px 4px 0 0;
+	background-color:#5b6278;
+	font-weight:500;
+
+	/*behavior: url(PIE/PIE.htc);*/
+}
+header #headerC nav ul li a.mainActive {
+	background-color:#fff;
+	color:#262626;
+	font-weight:700;
+}
+
+
+
+#navM,#loginbtnM,#loginbgM,#navbtnM {
+	display:none;
+}
+
+
+
+
+/*=========width:1400px=====================*/
+@media all and ( max-width:1400px){
+	header {
+		width:100%;
+	}
+	header #headerC { 
+		width:100%;
+		background-size:100% 100%; 
+	}
+	header #headerC #topMenu {
+		width:80%;
+	}
+
+	header #headerC nav {
+	width:80% 
+	}
+
+	header #headerC #topMenu ul {
+		margin-top:35px;
+	}
+
+
+	
+header #headerC nav ul li {
+		margin-right:10px;
+	}
+}
+
+
+
+/*=========width:1200px=====================*/
+@media all and ( max-width:1200px){
+	header {
+		width:100%;
+	}
+	header #headerC { 
+		width:100%;
+		background-size:100% 100%; 
+	}
+	header #headerC #topMenu {
+		width:800px;
+
+	}
+
+	header #headerC nav {
+		width:620px; 
+	}
+
+	header #headerC nav {
+
+	}
+	header #headerC nav ul li {
+		margin-right:20px;
+		/*border:1px solid red;*/
+	}
+	header #headerC nav ul li:last-child {
+		margin-right:0px;
+	}
+
+
+
+}
+@media all and ( max-width:870px){
+	header #headerC {
+		width:80%;
+	}
+	header #headerC #topMenu {
+		width:100%;
+	}
+	header #headerC #topMenu h1 {
+		margin-top:20px;
+	}
+
+	
+	header #headerC nav {
+		width:100%;
+	}
+	header #headerC nav ul{
+		position:relative;
+		width:100%;
+		display:none;
+		border:1px solid #dbdbdb;
+		overflow:hidden;
+		z-index:10;
+	}
+	header #headerC nav ul {
+		/*width:100%;*/
+		
+	}
+	header #headerC nav ul li{
+		width:100%;
+	}
+	header #headerC nav ul li a{
+		width:100%;
+		clear:left;
+		color:#000;
+		background-color:#fff;
+		border-bottom:1px solid #dbdbdb;
+		border-radius:0;
+	}
+	header #headerC nav ul li a:hover {
+		background-color:#5b6278;
+		color:#fff;
+	}
+
+	#loginbtnM{
+		display:block;
+		float:right;
+		margin-top:25px;
+	}
+	#loginbtnM a{
+		display:inline-block;
+		color:white;
+		font-size:16px;
+		border:1px solid white;
+		padding:2px;
+
+	}
+	#navbtnM {
+		display:block;
+	}
+	#navbtnM a{
+		display:inline-block;
+		font-size:16px;
+		color:white;
+		width:100%;
+		border:1px solid #5b6278;
+		height:38px;
+		line-height:38px;
+		text-align:center;
+		font-weight:400;
+		background-color:#5b6278; 
+	}
+	#loginM a {
+		color:white;
+		border:1px solid white;
+		height:24px;
+		line-height:24px;
+		padding:0 10px;
+		margin-top:30px;
+		float:right;
+	}
+}
+
+
+@media all and ( max-width:630px) {
+	header {
+		height:120px;
+	}
+	header #headerC {
+		height:120px;
+	}
+	header #headerC #topMenu h1 a{
+		font-size:5vw;
+	}
+	header #headerC #topMenu {
+		height:80px;
+	}
+	header #headerC #topMenu h1 a img{
+		width:7vw;
+	}
+	#loginbtnM a{
+		font-size:3vw;
+	}
+
+} 
+
+
+
+
+
+
+

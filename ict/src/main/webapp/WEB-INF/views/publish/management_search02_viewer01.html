@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+	<link rel="stylesheet" href="css/reset.css">
+
+	<link rel="stylesheet" href="css/management_search02_viewer01.css">
+	<link rel="stylesheet" href="css/footer.css">
+	<title></title>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script>
+		$(function(){
+			
+
+			
+			$("#tab li a").click(function(){
+				var n = $(this).parent().index();
+
+				$(".content").hide();
+				$("#contentBox .content").eq(n).show();
+
+				$("#tab li a").removeClass("navActive");
+				$(this).addClass("navActive");
+			});
+
+
+
+			$("#tab02 li a").click(function(){
+				$("#tab02 li a").removeClass("tabActive");
+				$(this).addClass("tabActive");
+			});
+
+
+			$(".popupClose").click(function(){
+				$("#popupBg").hide();
+			});
+
+			$("#content02TableB tr td:eq(0) a").click(function(){
+				$("#popupBg").show();
+			});
+
+		});
+	</script>
+</head>
+<body>
+	<div id="popupBg">
+		<div id="popup">
+			<h2 id="popupHeader">
+				<ul>
+					<li><a href="#a" class="popupNavAcitive">상세정보</a></li>
+					<li><a href="#a">관련 산출물</a></li>
+				</ul>
+				<a href="#a" class="popupClose"><img src="images/btn_close.png" alt="닫기버튼"></a>
+			</h2>
+			<div id="popupContent">
+				<table id="popupTable">
+					<colgroup>
+						<col>
+						<col>
+					</colgroup>
+					<thead>
+						<tr>
+							<td>항목</td>
+							<td>값</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>업무 중 기능 명칭</td>
+							<td><input type="text"></td>
+						</tr>
+						<tr>
+							<td>업무 중 기능 설명</td>
+							<td><input type="text"></td>
+						</tr>
+						<tr>
+							<td>수행 빈도</td>
+							<td><input type="text"></td>
+						</tr>
+						<tr>
+							<td>시스템화 가능성</td>
+							<td><input type="text"></td>
+						</tr>
+						<tr>
+							<td>국방 업무 중 기능 명칭</td>
+							<td><input type="text"></td>
+						</tr>
+						<tr>
+							<td>관련 조직</td>
+							<td><input type="text"></td>
+						</tr>
+						<tr>
+							<td>관련 국방 BRM 중 기능</td>
+							<td><input type="text"></td>
+						</tr>
+						<tr>
+							<td>관련 업무 소 기능</td>
+							<td><input type="text"></td>
+						</tr>
+						<tr>
+							<td>관련 업무 기능 간 정보</td>
+							<td><input type="text"></td>
+						</tr>
+						<tr>
+							<td>관련 업무 대 기능</td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				<div id="popupCloseBg">
+					<a href="#a" class="popupClose">닫기</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div id="headerC">
+			<h1><a href="#a"><img src="images/logo_search.png" alt="아키텍처조회아이콘">아키텍처 조회</a></h1>
+			<ul>
+				<li>
+					<select>
+						<option value="">기관별 아키텍처</option>
+						<option value="">기관별 아키텍처2</option>
+					</select>
+					
+					
+				</li>
+				<li><select>
+						<option value="">국방부</option>
+						<option value="">국방부2</option>
+					</select></li>
+				<li>
+					<select>
+						<option value="">국방현행아키텍처-2017</option>
+						<option value="">국방현행아키텍처-2018</option>
+					</select>
+				</li>
+				<li><a href="#a">검색</a></li>
+			</ul>
+
+			<ol>
+				<li><a href="#a">최근 조회내역</a></li>
+				<li><a href="#a">산출물 찾기</a></li>
+			</ol>
+		<div>
+	</header>
+
+	<section>
+		<div id="sectionC">
+			<div id="sectionL">
+				<div id="sectionLT">
+					<nav id="tab02">
+						<ul>
+							<li><a href="#a" class="tabActive">산출물</a></li>
+							<li><a href="#a">기능</a></li>
+							<li><a href="#a">조직</a></li>
+						</ul>
+					</nav>
+				</div>
+				<div id="sectionLB">
+					<div id="search">
+						<input type="text" placeholder="산출물명칭">
+						<a href="#a">조회</a>
+					</div>
+					<p id="count">총 <span>11건</span>이 검색되었습니다.</p>
+					<div id="list">
+						<dl>
+							<dt><a href="#a">산출물 명칭</a></dt>
+							<dd><a href="#a">OV 2_업무관계도_1기획(조직)</a></dd>
+							<dd><a href="#a">OV 2_업무관계도_2계획예산</a></dd>
+							<dd><a href="#a">OV 2_업무관계도_3인사</a></dd>
+							<dd><a href="#a">OV 2_업무관계도_4동원</a></dd>
+							<dd><a href="#a">OV 2_업무관계도_5보건복지(의무)</a></dd>
+							<dd><a href="#a">OV 2_업무관계도_6군수_01육군…</a></dd>
+							<dd><a href="#a">OV 2_업무관계도_6군수_01육군…</a></dd>
+							<dd><a href="#a">OV 2_업무관계도_6군수_01육군…</a></dd>
+							<dd><a href="#a">OV 2_업무관계도_6군수_01육군…</a></dd>
+							<dd><a href="#a">OV 2_업무관계도_6군수_01육군…</a></dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+			<div id="sectionR">
+				<nav id="tab">
+					<ul>
+						<li><a href="#a" class="navActive">산출물 1</a></li>
+						<li><a href="#a">산출물 2</a></li>
+						<li><a href="#a">산출물 3</a></li>
+					</ul>
+				</nav>
+				<div id="contentBox">
+					<div id="content01" class="content">
+						<img src="images/content_img.png" alt="">
+					</div>
+					<div id="content02" class="content">
+						<div id="content02T">
+							<h2><img src="images/document_icon.png" alt="">문서</h2>
+							<p class="upIcon"><a href="#a">
+								<img src="images/up_icon.png" alt="위로가기아이콘">
+							</a></p>
+							<table>
+								<colgroup>
+									<col>
+									<col>
+								</colgroup>
+								<thead class="content02TableHeader">
+									<tr>
+										<td>참고파일</td>
+										<td>설명</td>
+									</tr>
+								</thead>
+
+								<tbody class="content02TableBody">
+									<tr>
+										<td><a href="#a">체계관계추적상관표.xlsx</a></td>
+										<td>체계관계 추적 매트릭스를 엑셀로 표현한 파일</td>
+									</tr>
+									<tr>
+										<td><a href="#a">체계인터페이스.hwp</a></td>
+										<td>체계 인터페이스의 상세설명이 들어있는 한글파일</td>
+									</tr>
+									<tr>
+										<td><a href="#a">체계관계추적상관표.xlsx</a></td>
+										<td>체계관계 추적 매트릭스를 엑셀로 표현한 파일</td>
+									</tr>
+									<tr>
+										<td><a href="#a">체계인터페이스.hwp</a></td>
+										<td>체계 인터페이스의 상세설명이 들어있는 한글파일</td>
+									</tr>
+									<tr>
+										<td><a href="#a">체계인터페이스.hwp</a></td>
+										<td>체계 인터페이스의 상세설명이 들어있는 한글파일</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="content02B">
+							<h2><img src="images/list_icon.png" alt="">데이터 요소 목록</h2>
+							<p class="upIcon"><a href="#a">
+								<img src="images/up_icon.png" alt="위로가기아이콘">
+							</a></p>
+							<table>
+								<colgroup>
+									<col>
+									<col>
+									<col>
+								</colgroup>
+								<thead class='content02TableHeader'>
+									<tr>
+										<td>인터페이스 명칭</td>
+										<td>인터페이스 상테</td>
+										<td>설명</td>
+									</tr>
+								</thead>
+
+								<tbody class="content02TableBody" id="content02TableB">
+									<tr>
+										<td><a href="#">체계1_체계2</td>
+										<td>계획확정</td>
+										<td>~와 ~ 체계간 인터페이스를 말한다….</a></td>
+									</tr>
+									<tr>
+										<td><a href="#">체계2_체계3</td>
+										<td>계획확정</td>
+										<td>~와 ~ 체계간 인터페이스를 말한다….</a></td>
+									</tr>
+									<tr>
+										<td><a href="#">체계2_체계4</td>
+										<td>계획확정</td>
+										<td>~와 ~ 체계간 인터페이스를 말한다….</a></td>
+									</tr>
+									<tr>
+										<td><a href="#">체계2_체계5</a></td>
+										<td>계획확정</td>
+										<td>~와 ~ 체계간 인터페이스를 말한다….</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="content03" class="content">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+
+	<footer>
+		<div id="footerC">
+			<h2><img src="images/logo_Footer.png" alt="푸터로고">국방아키텍처관리체계</h2>
+			<ul>
+				<li>
+					<span>(우편번호: 427-800)</span>
+					<span>경기도 과천시 별양동 과천우제국 사서함 89호</span>
+				</li>
+				<li>
+					<span>군) 970-6868</span>
+					<span>02-503-5535</span>
+					<span>mnd-arms@mnd.mil</span>
+				</li>
+				<li>
+					<span>본 홈페이지에 게시된 이메일 주소가 자동 수집되는 것을 거부하며, </span>
+					<span>이를 위반 시 정보통신망법에 의해 처벌됨을 유념하시기 바랍니다.</span>
+				</li>
+			</ul>
+		</div>
+	</footer>
+</body>
+</html>

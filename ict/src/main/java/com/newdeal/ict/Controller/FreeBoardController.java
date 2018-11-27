@@ -67,7 +67,7 @@ public class FreeBoardController {
 	
 	@RequestMapping("write.do")
 	public String write(){
-		return "freeboard/write"; //views/board/write.jsp
+		return ".freeboard.write"; //views/board/write.jsp
 	}
 	
 	
@@ -100,7 +100,7 @@ public class FreeBoardController {
 		
 		/*mav.addObject("list2",list2);*/
 		List<CommentVo> commentList=service.commentList();
-		mav.setViewName("freeboard/view");
+		mav.setViewName(".freeboard.view");
 		mav.addObject("vo", service.read(fbNum));
 		mav.addObject("commentList",commentList);
 		return mav;
@@ -112,7 +112,7 @@ public class FreeBoardController {
 		ModelAndView mav=new ModelAndView();
 		
 		
-		mav.setViewName("freeboard/modify");
+		mav.setViewName(".freeboard.modify");
 		mav.addObject("vo", service.read(fbNum));
 		return mav;
 	}

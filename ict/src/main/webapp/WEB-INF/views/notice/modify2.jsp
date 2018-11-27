@@ -1,107 +1,103 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-	<link rel="stylesheet" href="<c:url value='/resources/css/community_QNA03.css'/>">
-<section>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<%@ include file="../include/header.jsp"%>
+<%@ include file="../include/common_View.jsp"%>
+<script src="${path}/include/js/common.js"></script>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9c33dafb379eb8e557de8b4964389518&libraries=services"></script>
 <script>
 	$(function() {
 	
-		$(".btnUpdate").click(function() {
+		$("#btnUpdate").click(function() {
+					//첨부파일 이름들을 폼에 추가
 					var str = "";
+					$("#uploadedList .file").each(
+							function(i) {
+								str += "<input type='hidden' name='ntFiles["
+										+ i + "]' value='" + $(this).val()
+										+ "'>";
+							});
 					$("#form").append(str);
-					document.form.action = "/ict/notice/update.do";
+					document.form.action = "${path}/notice/update.do";
 					document.form.submit();
 				});
-		$(".btnList").click(function(){
+		$("#btnList").click(function(){
 			/*location.href="${path}/board/list.do";
 			//document.form.action="${path}/board/list.do";
 			//document.form.submit(); */
-			document.form.action="/ict/notice/list.do";
+			document.form.action="${path}/notice/list.do";
 			document.form.submit();
 		});
 
 
 	});
 </script>
-
-
-<div id="sectionC">
-<div id="subMenu">
-					<h2>공지사항</h2>
-					<ul>
-						<li><a href="<c:url value='/notice/list.do'/>" class="subActive">공지사항 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
-						<li><a href="<c:url value='/freeboard/list.do'/>">자유게시판<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
-						<li><a href="#">후기게시판</a></li>
-						<li><a href="<c:url value='/qaboard/list.do'/>">질문게시판<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
-					</ul>
-</div>
-
-<div id="sectionR">
-					<div id="contentHeader">
-						<h2>공지사항</h2>
-					</div>
-					
-					
+<style>
+.fileDrop {
+	width: 300px;
+	height: 80px;
+	border: 1px solid #ededed;
+}
+</style>
+</head>
+<body>
+	<%@ include file="../include/menu.jsp"%>
+	<h2>공지사항</h2>
 	<form id="form" name="form" method="post"
-		action="/ict/notice/insert.do">
-<div id="content">
-<table>
-							<colgroup>
-								<col>
-								<col>
-							</colgroup>
-							<tbody>
-								<tr>
-									<td>제목</td>
-									<td>
-										<input type="text" name="ntTitle" id="ntTitle" value="${vo.ntTitle}">
-									</td>
-								</tr>
-								<tr>
-									<td>작성자</td>
-									<td><input type="hidden" name="ntWriter" value="${member.memNickName}" /> ${member.memNickName}</td>
-								</tr>
-								<tr>
-									<td>내용</td>
-									<td><textarea name="ntContent" id="ntContent" cols="30" rows="10">${vo.ntContent}</textarea>
-									</td>
-								</tr>
-								<tr>
-									<td>지도첨부</td>
-									<td>
+		action="${path}/notice/insert.do">
+		<!-- 사용자 -->
+		<div>조회수 : ${vo.ntViewcnt}</div>
+		<div>
+			제목 <input name="ntTitle" value="${vo.ntTitle}" />
+		</div>
+		<div>
+			작성자 : <input type="hidden" name="ntWriter"
+				value="${member.memNickName}" /> ${member.memNickName}
+		</div>
+		<div>
+			작성일 :
+			<fmt:formatDate value="${vo.ntRegdate}" pattern="yyyy.MM.dd" />
+		</div>
+		<div style="width: 800px;">
+			내용
+			<textarea id="ntContent" name="ntContent" rows="3" cols="80">${vo.ntContent}</textarea>
+
+		</div>
+		<div>
 			<c:if test="${vo.ntMap != null}">
-									<input type="text" name="ntMap" id="searchWordBox" value="${vo.ntMap }" />
-										<label id="searchBtn">검색</label>
-										<div id="map" style="width: 720px; height: 210px;"></div>
+			지도첨부<input type="text" name="ntMap" id="searchWordBox" value="${vo.ntMap }" />
+				<button type="button" id="searchBtn">검색</button>
+				<div id="map" style="width: 300px; height: 350px;"></div>
 			</c:if>
 			<c:if test="${vo.ntMap == null }">
-									<input type="text" name="ntMap" id="searchWordBox"/>
-										<label id="searchBtn">검색</label>
-										<div id="mapDiv" style="display:none">
-											<div id="map" style="width:720px;height:210px;"></div>
-										</div>
-			</c:if>						
-									</td>
-								</tr>
-							</tbody>
-						</table>
-
-				
-						<ul>
-							<li>
-								<a id="input"  class="btnUpdate">저장</a>
-							</li>
-							<li>
-								<a id="cancel"  class="btnList">취소</a>
-							</li>
-						</ul>
-	
+			지도첨부<input type="text" name="ntMap" id="searchWordBox"/>
+				<button type="button" id="searchBtn">검색</button>
+				<div id="mapDiv" style="display: none">
+					<div id="map" style="width: 300px; height: 350px;"></div>
+				</div>
+			</c:if>
+		</div>
+		<!-- <div>
+			첨부 파일 :
+			첨부파일을 드래그할 영역
+			<div class="fileDrop"></div>
+			첨부파일 목록이 표시되는 영역
+			<div id="uploadedList"></div>
+		</div> -->
+		<div>
+			<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
 			<input type="hidden" name="ntNum" value="${vo.ntNum}" />
-</div>	
-		
+			<!-- 본인 게시물만 수정,삭제 버튼 표시 -->
+			<%-- <c:if test="${sessionScope.member == vo.ntWriter }"> --%>
+			<button type="button" id="btnUpdate">저장</button>
+			<%-- </c:if> --%>
+			<button type="button" id="btnList">취소</button>
+		</div>
 	</form>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 	<script>
@@ -209,6 +205,5 @@
 		 }
 		 /* } */ 
 	</script>
-</div>
-</div>	
-</section>
+</body>
+</html>

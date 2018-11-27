@@ -56,7 +56,7 @@ $(function(){
 						<h2>공지사항</h2>
 					</div>
 <form id="form" name="form" method="post"
-<%-- action="${path}/notice/insert.do" --%>>
+ action="/ict/notice/insert.do">
 <div id="content">
 						<div id="boardheader">
 							<h2>${vo.ntTitle}</h2>

@@ -62,7 +62,7 @@ public class NoticeController {
 	
 	@RequestMapping("write.do")
 	public String write(){
-		return "notice/write"; //views/board/write.jsp
+		return ".notice.write"; //views/board/write.jsp
 	}
 	
 	
