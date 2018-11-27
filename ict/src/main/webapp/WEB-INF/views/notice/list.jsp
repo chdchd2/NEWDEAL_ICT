@@ -8,7 +8,7 @@ $(function(){
 	$(".btnWrite").click(function(){
 		location.href="/ict/notice/write.do";
 	});
-});
+}); 
 function list(page){
 	location.href="${path}/notice/list.do?curPage="+page
 			+"&search_option=${map.search_option}"
