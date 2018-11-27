@@ -10,13 +10,13 @@ $(function(){
 	});
 });
 function list(page){
-	location.href="${path}/freeboard/list.do?curPage="+page
+	location.href="/ict/freeboard/list.do?curPage="+page
 	+"&search_option=${map.search_option}"
 	+"&keyword=${map.keyword}";
 }
 function view(fbNum){
 	document.form.fbNum.value=fbNum;
-	document.form.action="${path}/freeboard/view.do";
+	document.form.action="/ict/freeboard/view.do";
 	document.form.submit();
 }
 </script>

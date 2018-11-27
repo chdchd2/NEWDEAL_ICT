@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<link rel="stylesheet" href="<c:url value='/resources/css/community_QNA03.css'/>">
 <section>
 <script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
 <script>
@@ -24,6 +26,7 @@ $(function(){
 
 
 </script>
+
 <div id="sectionC">
 <div id="subMenu">
 					<h2>커뮤니티</h2>
@@ -60,15 +63,15 @@ action="/ict/freeboard/insert.do">
 								</tr>
 								<tr>
 									<td>첨부파일</td>
-									<td>
-										<input type="file" value="파일첨부" id="file" multiple="multiple" name="file">
-										<label for="file">파일첨부</label>
-										<span id="checkfile">선택된 파일이 없습니다.</span>
+									<td><input type="file" multiple="multiple" name="file">
+										<!-- <input type="file" value="파일첨부" id="file" multiple="multiple" name="file"> -->
+										<!-- <label for="file">파일첨부</label> -->
+										<!-- <span id="checkfile">선택된 파일이 없습니다.</span> -->
 										<p>
-											<input type="checkbox" id="checkbox01" ><label for="checkbox01" class="checkbox"></label>
-											<input type="checkbox" id="checkbox02" ><label for="checkbox02" class="checkbox"></label>
+											<!-- <input type="checkbox" id="checkbox01" ><label for="checkbox01" class="checkbox"></label>
+											<input type="checkbox" id="checkbox02" ><label for="checkbox02" class="checkbox"></label> -->
 										</p>
-										<a href="#a" id="fileDelete" ><img src="images/delete_icon.png" alt="삭제 아이콘"></a>
+										<!-- <a href="#a" id="fileDelete" ><img src="resources/images/delete_icon.png" alt="삭제 아이콘"></a> -->
 									</td>
 								</tr>
 								<tr>

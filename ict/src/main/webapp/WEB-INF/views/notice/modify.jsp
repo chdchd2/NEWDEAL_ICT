@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 	<link rel="stylesheet" href="<c:url value='/resources/css/community_QNA03.css'/>">
 <section>
+<script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9c33dafb379eb8e557de8b4964389518&libraries=services"></script>
 <script>
@@ -30,7 +31,7 @@
 
 <div id="sectionC">
 <div id="subMenu">
-					<h2>공지사항</h2>
+					<h2>커뮤니티</h2>
 					<ul>
 						<li><a href="<c:url value='/notice/list.do'/>" class="subActive">공지사항 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
 						<li><a href="<c:url value='/freeboard/list.do'/>">자유게시판<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>

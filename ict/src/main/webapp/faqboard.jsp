@@ -1,20 +1,23 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@include file="/WEB-INF/views/header.jsp" %>
+<!Doctype html>
 <html lang="ko">
-<head>
-	<meta charset="UTF-8">
-	<!-- <meta charset="utf-8"> -->
-	<!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
+<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-	<link rel="stylesheet" href="css/reset.css">
-	<link rel="stylesheet" href="css/header_02.css">
-	<link rel="stylesheet" href="css/footer.css">
-	<link rel="stylesheet" href="css/community_FAQ.css">
+	<script src="<c:url value='/resources/js/jquery-3.2.1.min.js'/>"></script>
+	<script src="<c:url value='/resources/js/jquery.easing.1.3.js'/>"></script>
+	<link rel="stylesheet" href="<c:url value='/resources/css/reset.css'/>">
+	<link rel="stylesheet" href="<c:url value='/resources/css/header_02.css'/>">
+	<link rel="stylesheet" href="<c:url value='/resources/css/footer.css'/>">
+	<link rel="stylesheet" href="<c:url value='/resources/css/community_FAQ.css'/>">
 	<title></title>
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script>
 		$(function(){
-		
 			$("#search > li").click(function(){
 				$("#detail li").slideToggle();
 			});
@@ -42,58 +45,85 @@
 
 			});	
 			
-			
-
-			//$("#table tbody tr").removeClass("bgcolor");
-			//	$(this).addClass("bgcolor");
-
 		});
-		
 	</script>
-</head>
-<body>
-	<header>
-		<div id="headerC">
-			<div id="topMenu">
-				<h1><a href="Home_01.html"><img src="images/logo.png" alt="국방아키텍처로고">국방아키텍처관리체계</a></h1>
-				<ul>
-					<li><a href="#">호국이 <img src="images/icon_01.png" alt=""></a></li>
-					<li><a href="#"><img src="images/icon_02.png" alt="">관리자 </a> </li>
-				</ul>
-			</div>
-			<nav>
-				<ul>
-					<li><a href="#a">아키텍처관리</a></li>
-					<li><a href="#a">아키텍처서비스</a></li>
-					<li><a href="#a">함목적뷰</a></li>
-					<li><a href="community_notice01.html" class="mainActive">커뮤니티</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
-	
-	<section>
-		
+	<script>
+
+
+	var $mainMenu
+	var $subMenu
+	var $menuBg
+	var $header
+
+	$(document).ready(function(){
+
+		$mainMenu=$(".mainmenu>a")
+		$subMenu=$(".submenu_list")
+		$menuBg=$("#menu_back")
+		$header=$("header")
+
+		$subMenu.css("opacity",0)
+		$subMenu.hide()
+		$menuBg.hide()
+
+		$mainMenu.bind("mouseenter",onOver)
+		$mainMenu.bind("mouseleave",onMainColor)
+		$header.bind("mouseleave",onOut)
+
+
+	})
+
+	function onMainColor(){
+
+		$mainMenu.css("color","black")
+	}
+
+
+	function onOver(){
+
+			$(this).css({"color":"#0131ca","font-family":"돋움"})
+
+			$menuBg.stop()
+			$menuBg.animate({"top":0},200,"easeOutCubic",function(){
+			$subMenu.show()
+			$subMenu.animate({opacity:1},200,"easeOutCubic")
+		})
+
+	}
+
+
+	function onOut(){
+
+		$menuBg.stop()
+
+		$subMenu.css("opacity",0)
+		$subMenu.hide()
+		//$menuBg.slideUp(200,"easeOutCubic")
+		$menuBg.animate({"top":-100},200,"easeOutCubic")
+	}
+
+</script>
+<section>	
+
 			<div id="sectionC">
-				<div id="subMenu">
+			<div id="subMenu">
 					<h2>커뮤니티</h2>
 					<ul>
-						<li><a href="community_notice01.html">공지사항</a></li>
-						<li><a href="#a">규정/지침</a></li>
-						<li><a href="community_FAQ.html" class="subActive">FAQ <img src="images/submenu_Active.png" alt="서브메뉴활성화알림버튼"></a></li>
-						<li><a href="community_QNA01.html">Q&A</a></li>
-						<li><a href="#a">자료실</a></li>
+						<li><a href="<c:url value='/notice/list.do'/>">공지사항 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
+						<li><a href="<c:url value='/freeboard/list.do'/>">자유게시판<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
+						<li><a href="#">후기게시판</a></li>
+						<li><a href="<c:url value='/qaboard/list.do'/>" class="subActive">질문게시판<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
 					</ul>
-				</div>
+			</div>
 					
 				<div id="sectionR">
 					<div id="contentHeader">
-						<h2>FAQ</h2>				
+						<h2>질문게시판</h2>				
 					</div>
 					<div id="content">
 						<p id="count">총<span>134건</span></p>
 						<ol id="search">
-							<li><a href="#a">전체 <img src="images/search_Active.png" alt="검색창더보기"></a>
+							<li><a href="#a">전체 <img src="resources/images/search_Active.png" alt="검색창더보기"></a>
 								<ul id="detail">
 									<li><a href="#a">전체</a></li>
 									<li><a href="#a">제목</a></li>
@@ -255,7 +285,7 @@
 						</table>
 
 						<div id="page">
-							<p><a href="#a"><img src="images/page_Leftbtn.png" alt="페이지왼쪽버튼"></a></p>
+							<p><a href="#a"><img src="resources/images/page_Leftbtn.png" alt="페이지왼쪽버튼"></a></p>
 							<ul>
 								<li><a href="#a" class="pageActive">1</a></li>
 								<li><a href="#a">2</a></li>
@@ -263,33 +293,13 @@
 								<li><a href="#a">4</a></li>
 								<li><a href="#a">5</a></li>
 							</ul>
-							<p><a href="#a"><img src="images/page_Rightbtn.png" alt="페이지오른쪽버튼"></a></p>
+							<p><a href="#a"><img src="resources/images/page_Rightbtn.png" alt="페이지오른쪽버튼"></a></p>
 						</div>
 					</div>
 				</div>
 			</div>
 		
-	</section>
+</section>
 
-	<footer>
-		<div id="footerC">
-			<h2><img src="images/logo_Footer.png" alt="푸터로고">국방아키텍처관리체계</h2>
-			<ul>
-				<li>
-					<span>(우편번호: 427-800)</span>
-					<span>경기도 과천시 별양동 과천우제국 사서함 89호</span>
-				</li>
-				<li>
-					<span>군) 970-6868</span>
-					<span>02-503-5535</span>
-					<span>mnd-arms@mnd.mil</span>
-				</li>
-				<li>
-					<span>본 홈페이지에 게시된 이메일 주소가 자동 수집되는 것을 거부하며, </span>
-					<span>이를 위반 시 정보통신망법에 의해 처벌됨을 유념하시기 바랍니다.</span>
-				</li>
-			</ul>
-		</div>
-	</footer>
-</body>
 </html>
+<%@include file="/WEB-INF/views/footer.jsp" %>
