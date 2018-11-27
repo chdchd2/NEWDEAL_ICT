@@ -69,6 +69,6 @@
 
   
    파일목록 : <c:forEach var="list" items="${vo.list }"><a href="<c:url value='/edu/fileDown?fileNum=${list.fileNum }'/>">${list.fileOrgName }</a><br></c:forEach>
- 
-
+   
+   
 </body>

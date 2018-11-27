@@ -12,7 +12,6 @@
 
 		
 
-
 	<definition name=".*.*.*" extends=".main">
 		<put-attribute name="main" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
 	</definition>

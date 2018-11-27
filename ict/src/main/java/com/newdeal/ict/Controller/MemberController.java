@@ -31,20 +31,20 @@ public class MemberController {
 			 session.removeAttribute("member");
 		 }
 		 HashMap<String, Object> map = new HashMap();
-		 System.out.println("±¸ºÐ°ªÀº?"+gubun);
-		 System.out.println("uid´Â?"+uid);
+		 System.out.println("êµ¬ë¶„ê°’ì€?"+gubun);
+		 System.out.println("uidëŠ”?"+uid);
 		 
 		 map.put("type", gubun);
 		 map.put("uid",uid);
 		 MemberVo vo=service.ismember(map);
 		 if(vo==null){
-			 System.out.println("°ªÀÌ ¾ø´Ù");
+			 System.out.println("ê°’ì´ ì—†ë‹¤");
 			 map.put("ismember","no");	
 		 }else if(vo!=null) {
-			 System.out.println("°ªÀÌ ÀÖ´Ù");
+			 System.out.println("ê°’ì´ ìžˆë‹¤");
 			 map.put("ismember", "yes");			
 			 session.setAttribute("member", vo);
-			 System.out.println("voÃâ·ÂÇØº¸±â"+vo.toString());
+			 System.out.println("voì¶œë ¥í•´ë³´ê¸°"+vo.toString());
 		 }
 		
 		 
@@ -62,10 +62,10 @@ public class MemberController {
 	    }
 	 @RequestMapping(value = "/signin", method = RequestMethod.POST)
 		public String signin(MemberVo vo,Model model) throws Exception {
-		 System.out.println("ÀÔ·Â°ª °ËÁõ"+vo.toString());
+		 System.out.println("ìž…ë ¥ê°’ ê²€ì¦"+vo.toString());
 		 	int a=service.signin(vo);
 		 	if(a==1) {
-		 		System.out.println("È¸¿ø°¡ÀÔ ¼º°ø");
+		 		System.out.println("íšŒì›ê°€ìž… ì„±ê³µ");
 		 	}
 			return "redirect:/";
 		}
@@ -74,7 +74,7 @@ public class MemberController {
 		public boolean nicknameChk(String nickname) throws Exception{
 		
 		nickname = nickname.replaceAll(" ", "").replaceAll("(^\\p{Z}+|\\p{Z}+$)", "");
-		System.out.println("´Ð³×ÀÓÀº====>"+nickname);
+		System.out.println("ë‹‰ë„¤ìž„ì€===>"+nickname);
 		boolean able =service.nickNameChk(nickname);
 			
 		return able;

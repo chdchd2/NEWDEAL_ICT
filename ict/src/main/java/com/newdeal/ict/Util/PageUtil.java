@@ -4,21 +4,21 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class PageUtil {
-	private int pageNum=1;//ÆäÀÌÁö¹øÈ£
-	private int startRow; //½ÃÀÛÇà
-	private int endRow;  //³¡Çà
-	private int totalPageCount; //ÃÑ ÆäÀÌÁö °¹¼ö
-	private int startPageNum; // ½ÃÀÛÆäÀÌÁö¹øÈ£
-	private int endPageNum; //³¡ ÆäÀÌÁö¹øÈ£
-	private int rowBlockCount; // ÇÑ ÆäÀÌÁö¿¡ º¸¿©ÁÙ ±ÛÀÇ °¹¼ö
-	private int pageBlockCount; //È­¸é¿¡ º¸¿©ÁÙ ÆäÀÌÁö °¹¼ö
-	private int totalRowCount; //ÃÑ ±Û °¹¼ö
+	private int pageNum=1;//í˜ì´ì§€ë²ˆí˜¸
+	private int startRow; //ì‹œì‘í–‰
+	private int endRow;  //ëí–‰
+	private int totalPageCount; //ì´ í˜ì´ì§€ ê°¯ìˆ˜
+	private int startPageNum; // ì‹œì‘í˜ì´ì§€ë²ˆí˜¸
+	private int endPageNum; //ë í˜ì´ì§€ë²ˆí˜¸
+	private int rowBlockCount; // í•œ í˜ì´ì§€ì— ë³´ì—¬ì¤„ ê¸€ì˜ ê°¯ìˆ˜
+	private int pageBlockCount; //í™”ë©´ì— ë³´ì—¬ì¤„ í˜ì´ì§€ ê°¯ìˆ˜
+	private int totalRowCount; //ì´ ê¸€ ê°¯ìˆ˜
 	private String searchKeyword;
 	private String searchCondition;
 	
 	public PageUtil() {
 		this.pageNum = 1;
-		this.rowBlockCount = 10; //ÇÑÆäÀÌÁö´ç º¸¿©ÁÖ´Â ÁÙ¼ö.
+		this.rowBlockCount = 10; //í•œí˜ì´ì§€ë‹¹ ë³´ì—¬ì£¼ëŠ” ì¤„ìˆ˜.
 		this.pageBlockCount = 10; //
 	}
 	public PageUtil(int pageNum,int rowBlockCount,int pageBlockCount,int totalRowCount) {

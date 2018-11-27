@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="freeboard">
+
+<resultMap type="com.newdeal.ict.Vo.FreeBoardVo" id="freeboard">
+	<result property="fbNum" column="fbNum"/>
+	<result property="fbTitle" column="fbTitle"/>
+	<result property="fbContent" column="fbContent"/>
+	<result property="fbRegdate" column="fbRegdate"/>
+	<result property="fbViewcnt" column="fbViewcnt"/>
+	<result property="fbWriter" column="fbWriter"/>
+	<result property="fbShow" column="fbShow"/>
+	<collection property="list" ofType="com.newdeal.ict.Vo.CommonFileVo">
+		<result property="fileNum" column="fileNum"/>
+		<result property="fileName" column="fileName"/>
+		<result property="fileOrgName" column="fileOrgName"/>
+		<result property="fileSize" column="fileSize"/>
+		<result property="filePath" column="filePath"/>
+		<result property="fileRefBoard" column="fileRefBoard"/>
+		<result property="fileRefNum" column="fileRefNum"/>
+	</collection>
+</resultMap>
+<!-- 게시물등록 -->
+	<insert id="insert" parameterType="freeboard" >
+		INSERT INTO FREEBOARD (FB_NUM,FB_TITLE,FB_CONTENT,FB_WRITER) 
+					   VALUES ( 
+					   			(SELECT NVL(MAX(FB_NUM)+1,1) FROM FREEBOARD),
+								#{fbTitle,jdbcType=VARCHAR}, 
+								#{fbContent,jdbcType=CLOB}, 
+								#{fbWriter,jdbcType=VARCHAR} 
+							   )
+	</insert>
+
+	<select id="fbmaxNum" resultType="int">
+		SELECT NVL(MAX(FB_NUM),1) AS MAXNUM 
+							 	 FROM FREEBOARD
+	</select>
+	
+	<insert id="fbfileWrite" parameterType="filevo">
+		INSERT INTO COMMON_FILE VALUES(
+										SEQ_COMMON_FILE_FILE_NUM.nextval,
+										#{fileName},
+										#{fileOrgName},
+										#{fileSize},
+										#{filePath},
+										'FREEBOARD',
+										#{fileRefNum}
+										)
+	</insert>
+	
+	<select id="fbCnt" resultType="int">
+	 			SELECT NVL(COUNT(*),0) CNT FROM FREEBOARD <!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
+	 			
+	</select>
+	
+<!-- 게시물 수정  -->
+	<update id="update" parameterType="freeboard">
+		UPDATE FREEBOARD
+		   SET FB_TITLE=#{fbTitle}, 
+		   	   FB_CONTENT=#{fbContent}
+		 WHERE FB_NUM=#{fbNum}
+	</update>
+
+<!-- 게시물 상세보기  -->	
+	<select id="view" parameterType="int" resultMap="freeboard">
+		SELECT FB_NUM AS fbNum,
+			   FB_TITLE AS fbTitle,
+			   FB_REGDATE AS fbRegdate,
+			   FB_CONTENT AS fbContent,
+			   FB_VIEWCNT AS fbViewcnt,
+			   FB_WRITER AS fbWriter,
+			   FILE_NUM AS fileNum ,
+			   FILE_NAME AS fileName,
+			   FILE_ORGNAME AS fileOrgName,
+		   	   FILE_SIZE AS fileSize,
+			   FILE_PATH AS filePath,
+			   FILE_REF_BOARD AS fileRefBoard,
+			   FILE_REF_NUM AS fileRefNum 
+		  FROM FREEBOARD FB, MEMBER M, COMMON_FILE CF
+	   	 WHERE FB.FB_WRITER=M.MEM_NICKNAME
+	   	   AND FB.FB_NUM=CF.FILE_REF_NUM(+) 
+	   	   AND FB.FB_NUM=#{fbNum}
+	</select>
+	
+<!-- 게시물삭제 -->
+	<delete id="deleteArticle">
+		DELETE FROM FREEBOARD
+			  WHERE FB_NUM=#{fbNum}
+	</delete>
+	
+<!-- 조회수 증가 처리 -->
+	<update id="increaseViewcnt">
+		UPDATE FREEBOARD 
+		   SET FB_VIEWCNT=FB_VIEWCNT+1 
+		 WHERE FB_NUM=#{fbNum}
+	</update>
+
+<!-- 게시물 목록 -->
+	<select id="listAll" resultType="com.newdeal.ict.Vo.FreeBoardVo">
+		<include refid="paging_header" />
+		SELECT FB_NUM,FB_TITLE,FB.FB_REGDATE,FB_VIEWCNT,FB_WRITER,FB_SHOW
+		  FROM FREEBOARD FB, MEMBER M
+		<include refid="search"></include>
+	  ORDER BY FB_NUM DESC
+		<include refid="paging_footer" />
+	</select>
+	
+<!-- 레코드 갯수 계산 -->
+	<select id="countArticle" resultType="int">
+		SELECT COUNT(*)
+		FROM FREEBOARD FB, MEMBER M
+	<include refid="search"></include>
+	</select>
+	
+<!-- 검색기능 -->	
+	<!-- #변수 - 따옴표를 처리(스트링 붙이고 숫자는 뺸다)
+	$변수 - 따옴표 무시 -->
+	<sql id="search">	
+		<choose>
+			<when test="search_option == 'all'">
+				WHERE FB.FB_WRITER=M.MEM_NICKNAME 
+				  AND FB_SHOW='Y'
+				  AND (
+				  		MEM_NICKNAME LIKE '%' || #{keyword} || '%'
+				  		OR FB_CONTENT LIKE '%' || #{keyword} || '%'
+				   		OR FB_TITLE LIKE '%' || #{keyword} || '%' 
+				   	   )
+			</when>
+			<when test="search_option == 'fbWriter'">
+				WHERE FB.FB_WRITER=M.MEM_NICKNAME 
+				  AND FB_SHOW='Y'
+				  AND ( 
+				  		MEM_NICKNAME LIKE '%' || #{keyword} || '%' 
+				  	  )
+			</when>
+			<when test="search_option == 'fbContent'">
+				WHERE FB.FB_WRITER=M.MEM_NICKNAME 
+				  AND FB_SHOW='Y'
+				  AND ( 
+				  		FB_CONTENT LIKE '%' || #{keyword} || '%'
+				  	  )
+			</when>
+			<when test="search_option == 'fbTitle'">
+				WHERE FB.FB_WRITER=M.MEM_NICKNAME 
+				  AND FB_SHOW='Y'
+				  AND ( 
+				  		FB_TITLE LIKE '%' || #{keyword} || '%'
+				  	  )
+			</when>
+			<otherwise>
+				WHERE ${search_option} LIKE '%' || #{keyword}||'%'
+			</otherwise>
+		</choose> 
+	</sql>
+
+<!-- 페이징처리  -->	
+	<sql id="paging_header">
+		SELECT *
+		FROM (
+			   SELECT ROWNUM AS RN, A.*
+				 FROM(
+	</sql>
+	<sql id="paging_footer">		
+				 ) A
+			  ) WHERE RN BETWEEN #{start} AND #{end}
+	</sql>
+
+	
+	<select id="fileinfo" parameterType="filevo" resultType="filevo">
+		SELECT FILE_NUM,
+			   FILE_NAME,
+			   FILE_ORGNAME,
+			   FILE_SIZE,
+			   FILE_PATH,
+			   FILE_REF_BOARD,
+			   FILE_REF_NUM
+		  FROM COMMON_FILE
+		 WHERE FILE_NUM=#{fileNum}
+	</select>	
+	
+	<delete id="fbFileDelete" parameterType="int">
+		DELETE COMMON_FILE 
+		 WHERE FILE_REF_BOARD='FREEBOARD' 
+		   AND FILE_REF_NUM=#{fbNum}
+	</delete>
+	
+	<select id="fbFileDelList" parameterType="int" resultType="filevo">
+		SELECT FILE_NUM,
+			   FILE_NAME,
+			   FILE_ORGNAME,
+			   FILE_SIZE,
+			   FILE_PATH,
+			   FILE_REF_BOARD,
+			   FILE_REF_NUM 
+		  FROM COMMON_FILE 
+		 WHERE FILE_REF_BOARD='FREEBOARD' AND FILE_REF_NUM=#{fbNum}
+	</select>
+	
+	<delete id="fileDel" parameterType="filevo">
+		DELETE COMMON_FILE 
+		 WHERE FILE_NUM=#{fileNum}
+	</delete>
+	
+	<insert id="comment" parameterType="commentvo">
+		INSERT INTO COMMENTS VALUES(SEQ_COMMENTS_COM_NUM.nextval,#{memNum},#{comContent},#{comType},#{comBnum},sysdate)
+	</insert>
+	
+	<select id="commentList" resultType="commentvo">
+		SELECT A.*,B.MEM_NICKNAME FROM COMMENTS A,MEMBER B WHERE A.MEM_NUM=B.MEM_NUM
+	</select>
+</mapper>

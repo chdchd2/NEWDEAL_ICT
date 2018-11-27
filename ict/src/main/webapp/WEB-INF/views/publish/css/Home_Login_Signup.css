@@ -1,0 +1,172 @@
+@charset "UTF-8";
+
+
+section {
+	background-color:#ebebeb;
+	overflow:hidden;
+	padding:185px 0 30px;
+}
+
+section #sectionC {
+	width:1260px;
+	margin:0 auto;
+	height:758px;
+	background-color:#fff;
+
+	box-shadow:0px 3px 8px rgba(12,11,12,0.1);
+}
+section #sectionC h2 {
+	height:70px;
+	line-height:70px;
+	font-size:18px;
+	font-weight:700px;
+	color:#000;
+	text-indent:23px;
+	border-bottom:1px solid #000;
+}
+
+#contentBox {
+	padding:30px 220px 30px 20px;
+	box-sizing:border-box;
+}
+#joinBox {
+	width:1020px;
+	height:550px;
+	border:1px solid #e5e5e5;
+	box-sizing:border-box;
+}
+#joinBox colgroup col:nth-of-type(1){ width:140px; }
+#joinBox colgroup col:nth-of-type(2){ width:352px; }
+#joinBox colgroup col:nth-of-type(3){ width:140px; }
+#joinBox colgroup col:nth-of-type(4){ width:388px; }
+#joinBox tr {
+	height:50px;
+}
+#joinBox tr:last-child {
+	height:150px;
+}
+#joinBox tr td {
+	border:1px solid #e5e5e5;
+	padding:7px 10px;
+	box-sizing:border-box;
+
+}
+#joinBox tr td:nth-of-type(1) {
+	background-color: #f7f7f7;
+	color:#262626;
+	font-size:14px;
+	font-weight:500;
+	text-indent:20px;
+}
+#joinBox tr td:nth-of-type(3) {
+	background-color: #f7f7f7;
+	color:#262626;
+	font-size:14px;
+	font-weight:500;
+	text-indent:20px;
+}
+#joinBox tr td input {
+	width:200px;
+	height:36px;
+	border-radius:0;
+	border:1px solid #e6e6e6;
+	box-sizing:border-box;
+	font-size:13px;
+	color:#4c4c4c;
+}
+#joinBox tr td select {
+	width:200px;
+	border-radius:0;
+	font-size:13px;
+	color:#4c4c4c;
+}
+#joinBox tr:nth-of-type(1) td button {
+	width:80px;
+	color:#fff;
+	background-color:#36ad7c;
+	height:36px;
+	line-height:36px;
+	font-size:13px;
+	font-weight:400;
+	margin-left:10px;
+	cursor:pointer;
+}
+#joinBox tr:nth-of-type(5) td input{
+	width:694px;
+} 
+
+#joinBox tr:nth-of-type(6) td input,#joinBox tr:nth-of-type(7) td input,#joinBox tr:nth-of-type(8) td input{
+	width:334px;
+}
+#joinBox tr:nth-of-type(9) td textarea {
+	width:100%;
+	height:136px;
+	border-radius:0;
+	resize:none;
+	font-size:13px;
+	color:#4c4c4c;
+	box-sizing:border-box;
+}
+#btnC{
+	width:1220px;
+	text-align:center;
+}
+#btn {
+	display:inline-block;
+	margin-top:30px;
+}
+#btn li {
+	float:left;
+}
+#btn a {
+	text-align:center;
+	display:inline-block;
+	width:150px;
+	height:44px;
+	line-height:44px;
+	box-sizing:border-box;
+	font-size:14px;
+	font-weight:400;
+}
+
+
+#cansel {
+ 	border:1px solid #262626;
+	color:#262626;
+	margin-right:10px;
+}
+#check{
+	background-color:#3158bc;
+	color:#fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+select {
+	text-indent:10px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none; 
+	appearance: none; 
+	 background:url(../images/select_arrow.png) no-repeat  95% 50%;
+}
+
+/* IE 10, 11의 네이티브 화살표 숨기기 */
+ select::-ms-expand { display: none; };
+
+
+
+
+
+

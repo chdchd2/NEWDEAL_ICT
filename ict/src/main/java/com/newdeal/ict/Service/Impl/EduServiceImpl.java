@@ -47,7 +47,7 @@ public class EduServiceImpl implements EduService{
 		List<IntroduceVo> list =dao.intList(pu);
 		map.put("list", list);
 		map.put("pu",pu);
-		System.out.println("pu³»¿ë====>"+pu.toString());
+		System.out.println("puë‚´ìš©====>"+pu.toString());
 		return map;
 	}
 	
@@ -59,7 +59,7 @@ public class EduServiceImpl implements EduService{
 		List<EduDetailVo> list =dao.detailList(pu);
 		map.put("list", list);
 		map.put("pu",pu);
-		System.out.println("pu³»¿ë====>"+pu.toString());
+		System.out.println("puï¿½ï¿½ï¿½ï¿½====>"+pu.toString());
 		return map;
 	}
 
@@ -89,19 +89,19 @@ public class EduServiceImpl implements EduService{
 	public int intDelete(int intNum) throws Exception {
 			
 			List<CommonFileVo> filelist = dao.intFileDelList(intNum);
-			System.out.println("ÆÄÀÏ¸®½ºÆ®Ãâ·Â"+filelist.toString());
+			System.out.println("íŒŒì¼ë¦¬ìŠ¤íŠ¸ì¶œë ¥"+filelist.toString());
 			for(CommonFileVo vo:filelist) {
 				String files=vo.getFilePath()+vo.getFileName();
-				System.out.println("ÆÄÀÏµğ·ºÅä¸®+ÆÄÀÏÀÌ¸§ Ãâ·ÂÇØº¸±â"+files);
+				System.out.println("íŒŒì¼ë””ë ‰í† ë¦¬+íŒŒì¼ì´ë¦„ ì¶œë ¥í•´ë³´ê¸°"+files);
 				File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 				if( file.exists() ){
 		            if(file.delete()){
-		                System.out.println("ÆÄÀÏ»èÁ¦ ¼º°ø");
+		                System.out.println("íŒŒì¼ì‚­ì œ ì„±ê³µ");
 		            }else{
-		                System.out.println("ÆÄÀÏ»èÁ¦ ½ÇÆĞ");
+		                System.out.println("íŒŒì¼ì‚­ì œ ì‹¤íŒ¨");
 		            }
 		        }else{
-		            System.out.println("ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+		            System.out.println("íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 		        }
 				dao.intFileDelete(intNum);
 				dao.intDelete(intNum);
@@ -123,13 +123,13 @@ public class EduServiceImpl implements EduService{
 		File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 		if( file.exists() ){
             if(file.delete()){
-                System.out.println("ÆÄÀÏ»èÁ¦ ¼º°ø");
+                System.out.println("íŒŒì¼ì‚­ì œ ì„±ê³µ");
                 dao.fileDel(filevo);
             }else{
-                System.out.println("ÆÄÀÏ»èÁ¦ ½ÇÆĞ");
+                System.out.println("íŒŒì¼ì‚­ì œ ì‹¤íŒ¨");
             }
         }else{
-            System.out.println("ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+            System.out.println("íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
         }
 		return 1;
 	}

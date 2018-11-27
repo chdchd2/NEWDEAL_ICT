@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="qaboard">
+
+<!-- 게시물등록 -->
+	<insert id="insert" parameterType="qaboard" >
+		INSERT INTO QABOARD ( QA_NUM,QA_REF, QA_STEP, QA_LEVEL, QA_TITLE,QA_CONTENT,QA_WRITER, QA_VIEWCNT, QA_REGDATE) 
+					 VALUES ( 
+							   QABOARD_SEQ.NEXTVAL,
+							   #{qaRef},
+							   '0',
+							   '0',
+							   #{qaTitle,jdbcType=VARCHAR}, 
+							   #{qaContent,jdbcType=CLOB}, 
+							   #{qaWriter,jdbcType=VARCHAR},
+							   '0',
+							   sysdate 
+							 )
+	<selectKey resultType="int" keyProperty="qaNum" order="AFTER">
+		SELECT MAX(QA_NUM) AS QA_NUM
+		  FROM QABOARD
+	</selectKey>						 
+	</insert>
+	
+<!-- 게시물 수정  -->
+	<update id="update" parameterType="qaboard">
+		UPDATE QABOARD SET QA_TITLE=#{qaTitle}, 
+		   	   			   QA_CONTENT=#{qaContent}
+		 			 WHERE QA_NUM=#{qaNum}
+	</update>
+	
+<!-- 게시물 상세보기  -->	
+	<select id="view" parameterType="int">
+		SELECT QA_NUM AS qaNum,
+			   QA_REF AS qaRef,
+			   QA_STEP AS qaStep,
+			   QA_LEVEL AS qaLevel,
+			   QA_TITLE AS qaTitle,
+			   QA_REGDATE AS qaRegdate,
+			   QA_CONTENT AS qaContent,
+			   QA_VIEWCNT AS qaViewcnt,
+			   QA_WRITER AS qaWriter
+		  FROM QABOARD QA, MEMBER M
+	   	 WHERE QA.QA_WRITER=M.MEM_NICKNAME
+	   	   AND QA.QA_NUM=#{qaNum}
+	</select>
+		
+<!-- 조회수 증가 처리 -->
+	<update id="increaseViewcnt">
+		UPDATE QABOARD 
+		   SET QA_VIEWCNT=QA_VIEWCNT+1 
+		 WHERE QA_NUM=#{qaNum}
+	</update>
+<!-- 게시물 목록 -->
+	<select id="listAll" resultType="com.newdeal.ict.Vo.QaBoardVo">
+		<include refid="paging_header" />
+		SELECT QA_NUM,QA_REF, QA_STEP, QA_LEVEL, QA_TITLE,QA.QA_REGDATE,QA_VIEWCNT,QA_WRITER,QA_SHOW
+		  FROM QABOARD QA, MEMBER M
+		<include refid="search"></include>
+	  ORDER BY QA_REF DESC, QA_STEP, QA_LEVEL
+		<include refid="paging_footer" />
+	</select>	
+	
+<!-- 레코드 갯수 계산 -->
+	<select id="countArticle" resultType="int">
+		SELECT COUNT(*)
+		FROM QABOARD QA, MEMBER M
+	<include refid="search"></include>
+	</select>
+	
+<!-- 검색기능 -->	
+	<!-- #변수 - 따옴표를 처리(스트링 붙이고 숫자는 뺸다)
+	$변수 - 따옴표 무시 -->
+	<sql id="search">	
+		<choose>
+			<when test="search_option == 'all'">
+				WHERE QA.QA_WRITER=M.MEM_NICKNAME 
+				  AND QA_SHOW='Y'
+				  AND (
+				  		MEM_NICKNAME LIKE '%' || #{keyword} || '%'
+				  		OR QA_CONTENT LIKE '%' || #{keyword} || '%'
+				   		OR QA_TITLE LIKE '%' || #{keyword} || '%' 
+				   	   )
+			</when>
+			<when test="search_option == 'qaWriter'">
+				WHERE QA.QA_WRITER=M.MEM_NICKNAME 
+				  AND QA_SHOW='Y'
+				  AND ( 
+				  		MEM_NICKNAME LIKE '%' || #{keyword} || '%' 
+				  	  )
+			</when>
+			<when test="search_option == 'qaContent'">
+				WHERE QA.QA_WRITER=M.MEM_NICKNAME 
+				  AND QA_SHOW='Y'
+				  AND ( 
+				  		QA_CONTENT LIKE '%' || #{keyword} || '%'
+				  	  )
+			</when>
+			<when test="search_option == 'qaTitle'">
+				WHERE QA.QA_WRITER=M.MEM_NICKNAME 
+				  AND QA_SHOW='Y'
+				  AND ( 
+				  		QA_TITLE LIKE '%' || #{keyword} || '%'
+				  	  )
+			</when>
+			<otherwise>
+				WHERE ${search_option} LIKE '%' || #{keyword}||'%'
+			</otherwise>
+		</choose> 
+	</sql>
+
+<!-- 페이징처리  -->	
+	<sql id="paging_header">
+		SELECT *
+		FROM (
+			   SELECT ROWNUM AS RN, A.*
+				 FROM(
+	</sql>
+	<sql id="paging_footer">		
+				 ) A
+			  ) WHERE RN BETWEEN #{start} AND #{end}
+	</sql>
+	
+<!-- 최상위 부모글 번호 생성(1부터 차례대로 최상위 부모글만 생성된다.)  -->
+	<select id="refMax" resultType="int">
+		SELECT NVL(MAX(QA_REF)+1,'1') AS QA_REF 
+		  FROM QABOARD
+	</select>
+	
+<!-- 같은 ref(최상위부모값)을 가진 것 중 현재 답글을 달 게시물의 순번보다 큰것을 +1로 하며 하나씩 밀리게 한다.  -->	
+	<update id="updateStep" parameterType="qaboard">
+		UPDATE QABOARD 
+		   SET QA_STEP = QA_STEP+1 
+		 WHERE QA_REF = #{qaRef} 
+		   AND QA_STEP > #{qaStep}
+	</update>
+	
+<!-- 현재 답글의 순번을 생성 -->	
+	<select id="stepMax" parameterType="qaboard" resultType="int">
+		SELECT DECODE (
+						#{qaStep},
+						'0',
+						(MAX(QA_STEP)+1),#{qaStep}+1
+					  ) 
+			AS QA_STEP 
+		  FROM QABOARD 
+		 WHERE QA_REF = #{qaRef}
+	</select>
+	
+<!-- 답글입력 -->	
+	<insert id="insertReply" parameterType="qaboard">
+		INSERT INTO QABOARD ( 
+							  QA_NUM,
+							  QA_REF,
+							  QA_SETP,
+							  QA_LEVEL,
+							  QA_WRITER,
+							  QA_TITLE,
+							  QA_CONTENT,
+							  QA_VIEWCNT,
+							  QA_REGDATE
+							 )
+		VALUES (
+				 QABOARD_SEQ.NEXTVAL,
+				 #{qaRef},
+				 #{qaStep},
+				 #{qaLevel}+1,
+				 #{qaWriter},
+				 #{qaTitle},
+				 #{qaContent},
+				 '0',
+				 sysdate
+	  		   )
+	  		   <selectKey resultType="int" keyProperty="qaNum" order="AFTER">
+	  		   		SELECT MAX(QA_NUM) AS QA_NUM FROM QABOARD
+	  		   </selectKey>	 
+	</insert>
+</mapper>

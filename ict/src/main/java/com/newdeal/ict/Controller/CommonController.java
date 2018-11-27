@@ -37,20 +37,20 @@ public class CommonController {
 	        	String path="C:\\Users\\haces\\git\\NEWDEAL_ICT\\";
 	            String fileName = upload.getOriginalFilename();
 	            byte[] bytes = upload.getBytes();
-	            String uploadPath = path + fileName;//ÀúÀå°æ·Î
+	            String uploadPath = path + fileName;//ì €ì¥ê²½ë¡œ
 	 
 	            out = new FileOutputStream(new File(uploadPath));
 	            out.write(bytes);
 	            String callback = request.getParameter("CKEditorFuncNum");
 	 
 	            printWriter = response.getWriter();
-	            String fileUrl = path+ fileName;//url°æ·Î
+	            String fileUrl = path+ fileName;//urlê²½ë¡œ
 	 
 	            printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("
 	                    + callback
 	                    + ",'"
 	                    + fileUrl
-	                    + "','ÀÌ¹ÌÁö¸¦ ¾÷·Îµå ÇÏ¿´½À´Ï´Ù.'"
+	                    + "','ì´ë¯¸ì§€ë¥¼ ì—…ë¡œë“œ í•˜ì˜€ìŠµë‹ˆë‹¤.'"
 	                    + ")</script>");
 	            printWriter.flush();
 	 

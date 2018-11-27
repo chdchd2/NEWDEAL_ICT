@@ -3,14 +3,12 @@
 	pageEncoding="UTF-8" errorPage="../../error/interror.jsp"
 	%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
 <%
 	
 	MemberVo vo = (MemberVo) session.getAttribute("member");
 
 	if (!(vo.getMemGrade() == 2)) {
 %>
-
 <script>
 	alert("기업회원만 글쓰기가 가능합니다");
 	history.back();
@@ -38,8 +36,3 @@
 		<input type="hidden" name="memNum" value="${member.memNum }">
 		<input type="submit" value="글작성하기">
 </form>
-<script>
-CKEDITOR.replace('intContent',{
-	filebrowserUploadUrl:"<c:url value='/ckImage'/>"
-});
-</script>
