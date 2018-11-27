@@ -40,7 +40,7 @@ function logout(){
 		<%
  		}
 		%>
- 			
+ 			<li><a href="<c:url value='/admin/'/>">관리자</a></li>
  		</ul>
  		
  	
