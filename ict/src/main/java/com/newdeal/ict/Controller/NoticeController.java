@@ -22,7 +22,7 @@ import com.newdeal.ict.Util.Pager;
 import com.newdeal.ict.Vo.NoticeVo;
 
 @Controller
-@RequestMapping("/notice/*")
+@RequestMapping("/notice/*")   
 public class NoticeController {
 	private static final Logger logger=
 			LoggerFactory.getLogger(NoticeController.class);
