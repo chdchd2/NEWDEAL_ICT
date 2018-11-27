@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.newdeal.ict.Vo.CommonFileVo;
 import com.newdeal.ict.Vo.QaBoardVo;
 
 @Repository
@@ -16,29 +17,26 @@ public class QaBoardDao {
 	
 	@Inject
 	SqlSession sqlSession;
-	
-	public int create(QaBoardVo vo) throws Exception {
+
+	public void create(QaBoardVo vo) throws Exception {
 		sqlSession.insert("qaboard.insert", vo);
-		int qaNum = vo.getQaNum();
-		return qaNum;
 
 	}
 
-	public int refMax() throws Exception {
-		return sqlSession.selectOne("qaboard.refMax");
+	public int qamaxNum() {
+		return sqlSession.selectOne("qaboard.qamaxNum");
 	}
 	
-	public int stepMax(QaBoardVo vo) throws Exception {
-		return sqlSession.selectOne("qaboard.stepMax", vo);
+	public int qaCnt() {
+		return sqlSession.selectOne("qaboard.qaCnt");
 	}
 	
-	public void updateStep(QaBoardVo vo) throws Exception {
-		sqlSession.selectOne("qaboard.updateStep", vo);
+	public int qafileWrite(CommonFileVo vo) {
+		return sqlSession.insert("qaboard.qafileWrite",vo);
 	}
-	
 	
 	public QaBoardVo read(int qaNum) throws Exception {
-		return sqlSession.selectOne("qaboard.view", qaNum );
+		return sqlSession.selectOne("qaboard.view", qaNum);
 	}
 	
 	public void update(QaBoardVo vo) throws Exception {
@@ -71,6 +69,29 @@ public class QaBoardDao {
 		map.put("search_option", search_option);
 		map.put("keyword", keyword);
 		return sqlSession.selectOne("qaboard.countArticle", map);
+	}
+	public CommonFileVo fileinfo(CommonFileVo filevo) {
+		return sqlSession.selectOne("qaboard.fileinfo",filevo);
+	}
+	public int qaFileDelete(int qaNum) {
+		return sqlSession.delete("qaboard.qaFileDelete",qaNum);
+	}
+	public List<CommonFileVo> qaFileDelList(int qaNum){
+		return sqlSession.selectList("qaboard.qaFileDelList",qaNum);
+	}
+	public int fileDel(CommonFileVo vo) {
+		return sqlSession.delete("qaboard.fileDel",vo);
+	}
+	public int refMax() throws Exception {
+		return sqlSession.selectOne("qaboard.refMax");
+	}
+	
+	public int stepMax(QaBoardVo vo) throws Exception {
+		return sqlSession.selectOne("qaboard.stepMax", vo);
+	}
+	
+	public void updateStep(QaBoardVo vo) throws Exception {
+		sqlSession.selectOne("qaboard.updateStep", vo);
 	}
 	
 	public int insertReply(QaBoardVo vo) throws Exception {

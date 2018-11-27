@@ -1,29 +1,27 @@
 package com.newdeal.ict.Vo;
 
 import java.util.Date;
+import java.util.List;
 
 public class QaBoardVo {
-	private int qaNum;
-	private String qaWriter;
-	private String qaTitle;
-	private String qaContent;
-	private Date qaRegdate;
-	private int qaViewcnt;
-	private String qaShow;
-	private int qaRef;
-	private int qaStep;
-	private int qaLevel;
+	private int qaNum; //번호
+	private String qaTitle; //제목
+	private String qaContent;//내용
+	private Date qaRegdate;//작성일
+	private int qaViewcnt;//조회수
+	private String qaWriter;//작성자
+	private int qaCnt;//댓글수
+	private String qaShow;//화면표시여부
+	private int qaRef;//최상위부모번호(신규입력시1부터차례대로증가)
+	private int qaStep;//리플의 순번
+	private int qaLevel;//리플의 depth
+	private List<CommonFileVo> list; //파일
+	
 	public int getQaNum() {
 		return qaNum;
 	}
 	public void setQaNum(int qaNum) {
 		this.qaNum = qaNum;
-	}
-	public String getQaWriter() {
-		return qaWriter;
-	}
-	public void setQaWriter(String qaWriter) {
-		this.qaWriter = qaWriter;
 	}
 	public String getQaTitle() {
 		return qaTitle;
@@ -49,6 +47,18 @@ public class QaBoardVo {
 	public void setQaViewcnt(int qaViewcnt) {
 		this.qaViewcnt = qaViewcnt;
 	}
+	public String getQaWriter() {
+		return qaWriter;
+	}
+	public void setQaWriter(String qaWriter) {
+		this.qaWriter = qaWriter;
+	}
+	public int getQaCnt() {
+		return qaCnt;
+	}
+	public void setQaCnt(int qaCnt) {
+		this.qaCnt = qaCnt;
+	}
 	public String getQaShow() {
 		return qaShow;
 	}
@@ -73,12 +83,17 @@ public class QaBoardVo {
 	public void setQaLevel(int qaLevel) {
 		this.qaLevel = qaLevel;
 	}
-	
+	public List<CommonFileVo> getList() {
+		return list;
+	}
+	public void setList(List<CommonFileVo> list) {
+		this.list = list;
+	}
 	@Override
 	public String toString() {
-		return "QaBoardVo [qaNum=" + qaNum + ", qaWriter=" + qaWriter + ", qaTitle=" + qaTitle + ", qaContent="
-				+ qaContent + ", qaRegdate=" + qaRegdate + ", qaViewcnt=" + qaViewcnt + ", qaShow=" + qaShow
-				+ ", qaRef=" + qaRef + ", qaStep=" + qaStep + ", qaLevel=" + qaLevel + "]";
+		return "QaBoardVo [qaNum=" + qaNum + ", qaTitle=" + qaTitle + ", qaContent=" + qaContent + ", qaRegdate="
+				+ qaRegdate + ", qaViewcnt=" + qaViewcnt + ", qaWriter=" + qaWriter + ", qaCnt=" + qaCnt + ", qaShow="
+				+ qaShow + ", qaRef=" + qaRef + ", qaStep=" + qaStep + ", qaLevel=" + qaLevel + ", list=" + list + "]";
 	}
 	
 	

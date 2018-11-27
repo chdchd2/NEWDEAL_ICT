@@ -35,15 +35,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 <!-- 게시물 상세보기  -->	
 	<select id="view" parameterType="int">
-		SELECT QA_NUM,
-			   QA_REF,
-			   QA_STEP,
-			   QA_LEVEL,
-			   QA_TITLE,
-			   QA_REGDATE,
-			   QA_CONTENT,
-			   QA_VIEWCNT,
-			   QA_WRITER
+		SELECT QA_NUM AS qaNum,
+			   QA_REF AS qaRef,
+			   QA_STEP AS qaStep,
+			   QA_LEVEL AS qaLevel,
+			   QA_TITLE AS qaTitle,
+			   QA_REGDATE AS qaRegdate,
+			   QA_CONTENT AS qaContent,
+			   QA_VIEWCNT AS qaViewcnt,
+			   QA_WRITER AS qaWriter
 		  FROM QABOARD QA, MEMBER M
 	   	 WHERE QA.QA_WRITER=M.MEM_NICKNAME
 	   	   AND QA.QA_NUM=#{qaNum}
