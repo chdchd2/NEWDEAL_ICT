@@ -14,7 +14,7 @@ function list(page){
 			+"&search_option=${map.search_option}"
 			+"&keyword=${map.keyword}";
 }
-function view(ntNum){
+function view(ntNum){ 
 	document.form.ntNum.value=ntNum;
 	document.form.action="${path}/notice/view.do";
 	document.form.submit();
