@@ -29,5 +29,5 @@ public interface FreeBoardService {
 	public int fileDel(CommonFileVo filevo) throws Exception;
 	public int fbCnt() throws Exception;
 	public int comment(CommentVo vo) throws Exception;
-	public List<CommentVo> commentList() throws Exception;
+	public List<CommentVo> commentList(int fbNum) throws Exception;
 }

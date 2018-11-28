@@ -99,7 +99,7 @@ public class FreeBoardController {
 		ModelAndView mav=new ModelAndView();
 		
 		/*mav.addObject("list2",list2);*/
-		List<CommentVo> commentList=service.commentList();
+		List<CommentVo> commentList=service.commentList(fbNum);
 		mav.setViewName(".freeboard.view");
 		mav.addObject("vo", service.read(fbNum));
 		mav.addObject("commentList",commentList);
@@ -162,7 +162,8 @@ public class FreeBoardController {
 		System.out.println("vodsafsdafsadfsdfaf"+vo.toString());
 		vo.setComType("FreeBoard");
 		service.comment(vo);
-		List<CommentVo> commentlist=service.commentList();
+		int fbNum=vo.getComBnum();
+		List<CommentVo> commentlist=service.commentList(fbNum);
 		map.put("commentList", commentlist);
 		System.out.println(commentlist.toString());
 		

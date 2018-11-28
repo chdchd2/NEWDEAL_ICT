@@ -166,7 +166,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 
 	@Override
-	public List<CommentVo> commentList() throws Exception {
-		return dao.commentList();
+	public List<CommentVo> commentList(int fbNum) throws Exception {
+		return dao.commentList(fbNum);
 	}
 }

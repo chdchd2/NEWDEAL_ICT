@@ -87,7 +87,7 @@ public class FreeBoardDao {
 		return sqlSession.insert("freeboard.comment",vo);
 	}
 	
-	public List<CommentVo> commentList(){
-		return sqlSession.selectList("freeboard.commentList");
+	public List<CommentVo> commentList(int fbNum){
+		return sqlSession.selectList("freeboard.commentList",fbNum);
 	}
 }
