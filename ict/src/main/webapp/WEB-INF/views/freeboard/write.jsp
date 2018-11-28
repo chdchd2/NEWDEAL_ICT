@@ -23,6 +23,57 @@ $(function(){
 		document.form.submit();
 	});
 });
+/* function fileselect(event){
+console.log(event.value);
+	   var filename=event.value.replace(/C:\\fakepath\\/i, '');
+	  console.log(filename);
+	} */
+
+	function fileselect(event,num){
+
+	   var filename=event.value.replace(/C:\\fakepath\\/i, '');
+	   $("#span"+num).remove();
+	   $("#li"+num).append("<span id='span"+num+"'>"+filename+""+
+	         "<button class='img_del' onclick='fileDel("+num+")'>x</button>"+
+	         "<button class='img_add' onclick='fileAdd()' type='button'>추가</button></span>");
+	if(event.files.length==0){
+	      $("#span"+num).remove();
+	   }
+	}
+	function fileAdd(){
+
+	   $("#fileul").append("<li id='li"+num+"'>"+
+	         "<div class='filebox dp_in vm mgr10'>"+
+	         "<label for='ex_filename"+num+"' class='ac btn_search'>Search</label>"+
+	         "<input type='file' id='ex_filename"+num+"' name='file"+num+"' class='upload_hidden' onchange='fileselect(this,"+num+")'>"+
+	         "</div>"+
+	         "</li>");
+	   num++;
+	}
+
+
+
+	function fileDel(num){
+	   console.log(num);
+	   //첫번째 파일일 경우 파일첨부하는 라벨과 input 박스가 날아가면 안되므로.
+	   if(num==0){
+	      $("#span"+num).remove();
+	      $("#filelabel"+num).prepend("<input type='file' id='ex_filename"+num+"' name='file"+num+"' class='upload_hidden' onchange='fileselect(this,"+num+")'>");
+	      
+	   }else if(num!=0){
+	      $("#li"+num).remove();
+	      }
+	}
+	function firstFileSelect(event,num){
+	   var filename=event.value.replace(/C:\\fakepath\\/i, '');
+	   $("#span"+num).remove();
+	   $("#li"+num).append("<span id='span"+num+"'>"+filename+""+
+	   "<button class='img_del' id='delbutton' onclick='fileDel("+num+")'>x</button>"+
+	   "<button class='img_add' id='addbutton' onclick='fileAdd()' type='button'>추가</button></span>");
+	   if(event.files.length==0){
+	      $("#span"+num).remove();
+	   }
+	}
 
 
 </script>
@@ -61,10 +112,11 @@ action="/ict/freeboard/insert.do">
 									<td>작성자</td>
 									<td><input type="hidden" name="fbWriter" value="${member.memNickName}" /> ${member.memNickName}</td>
 								</tr>
-								<tr>
+								<%-- <tr>
 									<td>첨부파일</td>
 									<td>
-										<input type="file" multiple="multiple" name="file" id="file"><label for="file">파일첨부</label>
+									<label for="file">파일첨부</label>
+										<input type="file" multiple="multiple" name="file" id="file" onchange="fileselect(this)">
 										<c:if test=""></c:if>
 										<span id="checkfile">선택된 파일이 없습니다.</span>
 										<!-- <p>
@@ -73,7 +125,22 @@ action="/ict/freeboard/insert.do">
 										</p> -->
 										<a href="#a" id="fileDelete" ><img src="<c:url value='/resources/images/delete_icon.png'/>"  alt="삭제 아이콘"></a>
 									</td>
-								</tr>
+								</tr> --%>
+								<tr>
+		                        <td>첨부파일</td>
+		                        <td>
+		                           <div class="img_upload_list">
+		                              <ul id="fileul">
+		                                 <li id="li0">
+		                                    <div class="filebox dp_in vm mgr10">
+		                                       <label id="filelabel" for="ex_filename0" class="ac btn_search">파일첨부</label>
+		                                        <input type="file" id="ex_filename0" id="file" name="file0" class="upload-hidden" onchange="firstFileSelect(this,0)">
+		                                     </div>
+		                                 </li>
+		                              </ul>
+		                           </div>
+		                        </td>
+		                       </tr>
 								<tr>
 									<td>내용</td>
 									<td><textarea name="fbContent" id="fbContent" cols="30" rows="10"></textarea>
