@@ -16,7 +16,7 @@ public class QaBoardVo {
 	private int qaStep;//리플의 순번
 	private int qaLevel;//리플의 depth
 	private List<CommonFileVo> list; //파일
-	
+	  
 	public int getQaNum() {
 		return qaNum;
 	}
