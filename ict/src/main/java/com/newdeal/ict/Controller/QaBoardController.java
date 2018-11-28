@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -152,7 +154,7 @@ public class QaBoardController {
 	public void fileDel(CommonFileVo vo) throws Exception {
 		System.out.println("파일번호는?"+vo);
 		service.fileDel(vo);
-	}
+	}/*
 	
 	@RequestMapping("reply.do")
 	public String reply() throws Exception{
@@ -166,4 +168,39 @@ public class QaBoardController {
 		service.insertReply(vo);
 		return "redirect:/qaboard/list.do";
 	}
+	*/
+	@RequestMapping(value="/reply.do", method=RequestMethod.GET)
+	public ModelAndView replyBoard(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		if(request.getParameter("qaNum") != null && !request.getParameter("qaNum") .equals("")) {
+			try {		
+				QaBoardVo vo = service.read(Integer.parseInt(request.getParameter("qaNum")));
+				String qaContent = vo.getQaContent();
+				qaContent = qaContent.replaceAll ("\"", "'");
+				vo.setQaContent(qaContent);
+				mav.addObject("vo", vo);
+			}catch(Exception e) {
+			
+			}
+		}
+		mav.setViewName(".qaboard.reply");
+		return mav;
+	}
+	
+	@RequestMapping(value="/reply.do", method=RequestMethod.POST)
+	public void insertReplyBoard(HttpServletRequest request, HttpServletResponse response, QaBoardVo vo) {
+			
+		try {		
+			int qaNum = 0;			
+			if(request.getParameter("qaNum") != null && !request.getParameter("qaNum") .equals("")) {				
+				String qaContent = request.getParameter("qaContent");
+				vo.setQaContent(qaContent);
+				qaNum = service.insertReply(vo);
+			}
+			response.sendRedirect("/qaboard/view.do?qaNum="+qaNum);
+		}catch(Exception e) {
+			logger.info("insert Fail...");
+			e.printStackTrace();
+		}
+	}	
 }

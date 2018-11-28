@@ -58,7 +58,6 @@ function comment(){
 }); 
 }
 </script>
-<body>
 <section>
 <div id="sectionC">
 <div id="subMenu">
@@ -121,9 +120,23 @@ function comment(){
 	</div>
 	<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
 		<input type="hidden" name="fbNum" value="${vo.fbNum}" />
+		
+	<!-- 댓글 -->	
 	<span id="commentlist">
 	<c:forEach var="comment" items="${commentList}">
-		${comment.memNickName} ===>${comment.comContent} ${comment.comDate } <br> 
+		<%-- <colgroup>
+			<col>
+			<col>
+			<col>
+		</colgroup>
+		<thead>
+			<tr>
+				<td>${comment.memNickName} |</td>
+				<td>${comment.comContent} |</td>
+				<td><span><fmt:formatDate value="${comment.comDate}" pattern="yyyy-MM-dd"/></span></td><br>
+			</tr>
+		</thead> --%>
+		 ${comment.memNickName} ===>${comment.comContent} <span><fmt:formatDate value="${comment.comDate}" pattern="yyyy-MM-dd"/></span> <br> 
 	</c:forEach>
 	</span>
 	<div id="comment">

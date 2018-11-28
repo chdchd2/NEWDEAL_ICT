@@ -91,7 +91,8 @@ public class QaBoardDao {
 	}
 	
 	public void updateStep(QaBoardVo vo) throws Exception {
-		sqlSession.selectOne("qaboard.updateStep", vo);
+/*		sqlSession.selectOne("qaboard.updateStep", vo);*/
+		sqlSession.update("qaboard.updateStep", vo);
 	}
 	
 	public int insertReply(QaBoardVo vo) throws Exception {

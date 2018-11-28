@@ -29,8 +29,9 @@ section #sectionC #subMenu h2 {
 	color:#000;
 	line-height:70px;
 	padding-left:22px;
-	font-size:18px;	
+	font-size:18px;
 	font-weight:700;
+	border-bottom: 1px solid #e6e6e6;
 }
 
 section #sectionC #subMenu ul {

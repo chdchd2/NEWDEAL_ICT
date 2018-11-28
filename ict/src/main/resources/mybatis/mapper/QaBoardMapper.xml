@@ -116,8 +116,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT QA_NUM,QA_REF, QA_STEP, QA_LEVEL, QA_TITLE,QA.QA_REGDATE,QA_VIEWCNT,QA_WRITER,QA_SHOW
 		  FROM QABOARD QA, MEMBER M
 		<include refid="search"></include>
-	  ORDER BY QA_REF DESC, QA_STEP, QA_LEVEL
-		<include refid="paging_footer" />
+	  ORDER BY QA_NUM DESC
+	  	<include refid="paging_footer" />
 	</select>	
 	
 <!-- 레코드 갯수 계산 -->
@@ -246,7 +246,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO QABOARD ( 
 							  QA_NUM,
 							  QA_REF,
-							  QA_SETP,
+							  QA_STEP,
 							  QA_LEVEL,
 							  QA_WRITER,
 							  QA_TITLE,

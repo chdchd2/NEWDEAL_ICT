@@ -10,13 +10,13 @@ $(function(){
 	}); 
 });
 function list(page){
-	location.href="${path}/notice/list.do?curPage="+page
+	location.href="/ict/notice/list.do?curPage="+page
 			+"&search_option=${map.search_option}"
 			+"&keyword=${map.keyword}";
 }
 function view(ntNum){ 
 	document.form.ntNum.value=ntNum;
-	document.form.action="${path}/notice/view.do";
+	document.form.action="/ict/notice/view.do";
 	document.form.submit();
 }
 </script>

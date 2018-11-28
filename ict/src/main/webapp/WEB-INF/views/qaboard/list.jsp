@@ -73,7 +73,7 @@ function view(qaNum){
 									<tr>
 										<td>${row.qaNum}</td>
 										<td>
-										<a href="<c:url value='/freeboard/view.do?qaNum=${row.qaNum}'/>">${row.qaTitle}</a> 
+										<a href="<c:url value='/qaboard/view.do?qaNum=${row.qaNum}'/>">${row.qaTitle}</a> 
 										<%-- <a href="#" onclick="view('${row.bno}')">${row.title}</a> --%>
 										</td>
 										<td>${row.qaWriter}</td>
