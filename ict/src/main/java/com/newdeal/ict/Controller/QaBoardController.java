@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -41,10 +43,10 @@ public class QaBoardController {
 			@RequestParam(defaultValue="1") int curPage,
 			@RequestParam(defaultValue="all") String search_option
 			, @RequestParam(defaultValue="") String keyword) throws Exception{
-		//ë ˆì½”ë“œ ê°¯ìˆ˜ ê³„ì‚°
+		//·¹ÄÚµå °¹¼ö °è»ê
 		int count = service.countArticle(
 				search_option, keyword);
-		//í˜ì´ì§€ì˜ ì‹œì‘ë²ˆí˜¸, ëë²ˆí˜¸ ê³„ì‚°
+		//ÆäÀÌÁöÀÇ ½ÃÀÛ¹øÈ£, ³¡¹øÈ£ °è»ê
 		Pager pager = new Pager(count, curPage);
 		int start = pager.getPageBegin();
 		int end=pager.getPageEnd();
@@ -59,10 +61,10 @@ public class QaBoardController {
 		map.put("keyword", keyword);
 		map.put("pager", pager);
 		mav.addObject("map", map);
-		/*mapìœ¼ë¡œ ë¬¶ì§€ ì•Šì•˜ì„ ê²½ìš°
+		/*mapÀ¸·Î ¹­Áö ¾Ê¾ÒÀ» °æ¿ì
 		 * mav.addObject("list", list);
 		mav.addObject("count", list.size());*/
-		//list.jspë¡œ í¬ì›Œë”©
+		//list.jsp·Î Æ÷¿öµù
 		return mav;
 	}
 	
@@ -77,10 +79,10 @@ public class QaBoardController {
 		/*vo.setFbWriter((String)session.getAttribute("member"));*/
 		System.out.println("=====================>"+vo.toString());
 		service.create(vo);
-		//ì²¨ë¶€íŒŒì¼ ì²˜ë¦¬í•˜ê¸°
+		//Ã·ºÎÆÄÀÏ Ã³¸®ÇÏ±â
 		List<MultipartFile> filelist = req.getFiles("file"); 
-		System.out.println("íŒŒì¼ë¦¬ìŠ¤íŠ¸"+filelist.toString());
-		System.out.println("íŒŒì¼ì‚¬ì´ì¦ˆ"+filelist.size());
+		System.out.println("ÆÄÀÏ¸®½ºÆ®"+filelist.toString());
+		System.out.println("ÆÄÀÏ»çÀÌÁî"+filelist.size());
 		int num=service.qamaxNum();
 		service.qafileWrite(filelist, num);
 		return "redirect:/qaboard/list.do";
@@ -89,14 +91,14 @@ public class QaBoardController {
 	@RequestMapping("view.do")
 	public ModelAndView view(@RequestParam int qaNum
 			,HttpSession session) throws Exception {
-		//ì¡°íšŒìˆ˜ ì¦ê°€ ì²˜ë¦¬
+		//Á¶È¸¼ö Áõ°¡ Ã³¸®
 		service.increaseViewcnt(qaNum, session);
 		
-		/*//0718ì¶”ê°€
+		/*//0718Ãß°¡
 		List<BoardDTO> list2=boardService.PNList(bno);
 		//
 */		
-		//ë ˆì½”ë“œë¥¼ ë¦¬í„´ë°›ìŒ
+		//·¹ÄÚµå¸¦ ¸®ÅÏ¹ŞÀ½
 		ModelAndView mav=new ModelAndView();
 		
 		/*mav.addObject("list2",list2);*/
@@ -116,7 +118,7 @@ public class QaBoardController {
 		return mav;
 	}
 	
-	//ê²Œì‹œë¬¼ë‚´ìš©ìˆ˜ì •
+	//°Ô½Ã¹°³»¿ë¼öÁ¤
 	@RequestMapping("update.do")
 	public String update(@ModelAttribute QaBoardVo vo, MultipartHttpServletRequest req) throws Exception {
 		if(vo != null){
@@ -124,9 +126,9 @@ public class QaBoardController {
 			List<MultipartFile> filelist = req.getFiles("file"); 
 			int num=service.qamaxNum();
 			service.qafileWrite(filelist, num);
-			service.update(vo);//ë ˆì½”ë“œìˆ˜ì •
+			service.update(vo);//·¹ÄÚµå¼öÁ¤
 		}
-		//ìˆ˜ì •ìƒì„¸í™”ë©´
+		//¼öÁ¤»ó¼¼È­¸é
 		//return "redirect:/qaboard/view.do?qaNum="+vo.getFbNum();
 		return "redirect:/qaboard/list.do";
 	}
@@ -139,7 +141,7 @@ public class QaBoardController {
 
 	@RequestMapping(value="/fileDown" )
 	public ModelAndView contactoDownload(@ModelAttribute CommonFileVo filevo) throws Exception{
-		System.out.println("ì»¨íŠ¸ë¡¤ëŸ¬ íŒŒì¼ë‹¤ìš´ë¶€ë¶„ê¹Œì§€ ì˜¨ë‹¤.");
+		System.out.println("ÄÁÆ®·Ñ·¯ ÆÄÀÏ´Ù¿îºÎºĞ±îÁö ¿Â´Ù.");
 		CommonFileVo fileVo=service.fileinfo(filevo);
 		ModelAndView mv= new ModelAndView("FileDownView");
 		File file=new File(fileVo.getFilePath()+File.separator+fileVo.getFileName());
@@ -150,13 +152,12 @@ public class QaBoardController {
 	@RequestMapping(value = "/fileDel",method = RequestMethod.POST)
 	@ResponseBody
 	public void fileDel(CommonFileVo vo) throws Exception {
-		System.out.println("íŒŒì¼ë²ˆí˜¸ëŠ”?"+vo);
+		System.out.println("ÆÄÀÏ¹øÈ£´Â?"+vo);
 		service.fileDel(vo);
-	}
+	}/*
 	
 	@RequestMapping("reply.do")
 	public String reply() throws Exception{
-
 		return ".qaboard.reply";
 	}
 	
@@ -166,4 +167,39 @@ public class QaBoardController {
 		service.insertReply(vo);
 		return "redirect:/qaboard/list.do";
 	}
+	*/
+	@RequestMapping(value="/reply.do", method=RequestMethod.GET)
+	public ModelAndView replyBoard(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		if(request.getParameter("qaNum") != null && !request.getParameter("qaNum") .equals("")) {
+			try {		
+				QaBoardVo vo = service.read(Integer.parseInt(request.getParameter("qaNum")));
+				String qaContent = vo.getQaContent();
+				qaContent = qaContent.replaceAll ("\"", "'");
+				vo.setQaContent(qaContent);
+				mav.addObject("vo", vo);
+			}catch(Exception e) {
+			
+			}
+		}
+		mav.setViewName(".qaboard.reply");
+		return mav;
+	}
+	
+	@RequestMapping(value="/reply.do", method=RequestMethod.POST)
+	public void insertReplyBoard(HttpServletRequest request, HttpServletResponse response, QaBoardVo vo) {
+			
+		try {		
+			int qaNum = 0;			
+			if(request.getParameter("qaNum") != null && !request.getParameter("qaNum") .equals("")) {				
+				String qaContent = request.getParameter("qaContent");
+				vo.setQaContent(qaContent);
+				qaNum = service.insertReply(vo);
+			}
+			response.sendRedirect("/qaboard/view.do?qaNum="+qaNum);
+		}catch(Exception e) {
+			logger.info("insert Fail...");
+			e.printStackTrace();
+		}
+	}	
 }

@@ -58,10 +58,15 @@ public class NoticeDao {
 		map.put("keyword", keyword);
 		return sqlSession.selectOne("notice.countArticle", map);
 	}
+	
+	public List<NoticeVo> listAll() throws Exception {
+		
+		return sqlSession.selectList("notice.listAlll");
+	}
 
 
 
-	/*//0718추가
+	/*//0718異붽�
 	@Override
 	public List<Boardvo> PNList(int bno) throws Exception {
 		return sqlSession.selectList("board.PNList", bno);

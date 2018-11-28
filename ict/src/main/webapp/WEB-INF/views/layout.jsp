@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="<c:url value='/resources/css/footer.css'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/community_notice01.css'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/community_notice02.css'/>">
+	<c:set var="path" value="${pageContext.request.contextPath }" />
 	<script>
 		$(function(){
 			$("#search > li").eq(0).click(function(){

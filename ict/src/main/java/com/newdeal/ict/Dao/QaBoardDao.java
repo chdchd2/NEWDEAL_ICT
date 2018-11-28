@@ -91,12 +91,17 @@ public class QaBoardDao {
 	}
 	
 	public void updateStep(QaBoardVo vo) throws Exception {
-		sqlSession.selectOne("qaboard.updateStep", vo);
+/*		sqlSession.selectOne("qaboard.updateStep", vo);*/
+		sqlSession.update("qaboard.updateStep", vo);
 	}
 	
 	public int insertReply(QaBoardVo vo) throws Exception {
 		sqlSession.insert("qaboard.insertReply", vo);
 		int qaNum = vo.getQaNum();
 		return qaNum;
+	}
+	
+	public List<QaBoardVo> listAll() throws Exception {
+		return sqlSession.selectList("qaboard.qaListAll");
 	}
 }

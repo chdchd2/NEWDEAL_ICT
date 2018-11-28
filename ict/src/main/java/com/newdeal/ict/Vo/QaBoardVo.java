@@ -4,19 +4,25 @@ import java.util.Date;
 import java.util.List;
 
 public class QaBoardVo {
-	private int qaNum; //번호
-	private String qaTitle; //제목
-	private String qaContent;//내용
-	private Date qaRegdate;//작성일
-	private int qaViewcnt;//조회수
-	private String qaWriter;//작성자
-	private int qaCnt;//댓글수
-	private String qaShow;//화면표시여부
-	private int qaRef;//최상위부모번호(신규입력시1부터차례대로증가)
-	private int qaStep;//리플의 순번
-	private int qaLevel;//리플의 depth
-	private List<CommonFileVo> list; //파일
+	private int qaNum; //踰덊샇
+	private String qaTitle; //�젣紐�
+	private String qaContent;//�궡�슜
+	private Date qaRegdate;//�옉�꽦�씪
+	private int qaViewcnt;//議고쉶�닔
+	private String qaWriter;//�옉�꽦�옄
+	private int qaCnt;//�뙎湲��닔
+	private String qaShow;//�솕硫댄몴�떆�뿬遺�
+	private int qaRef;//理쒖긽�쐞遺�紐⑤쾲�샇(�떊洹쒖엯�젰�떆1遺��꽣李⑤���濡쒖쬆媛�)
+	private String qaGubun;
+	private List<CommonFileVo> list; //�뙆�씪
 	
+	
+	public String getQaGubun() {
+		return qaGubun;
+	}
+	public void setQaGubun(String qaGubun) {
+		this.qaGubun = qaGubun;
+	}
 	public int getQaNum() {
 		return qaNum;
 	}
@@ -71,18 +77,7 @@ public class QaBoardVo {
 	public void setQaRef(int qaRef) {
 		this.qaRef = qaRef;
 	}
-	public int getQaStep() {
-		return qaStep;
-	}
-	public void setQaStep(int qaStep) {
-		this.qaStep = qaStep;
-	}
-	public int getQaLevel() {
-		return qaLevel;
-	}
-	public void setQaLevel(int qaLevel) {
-		this.qaLevel = qaLevel;
-	}
+	
 	public List<CommonFileVo> getList() {
 		return list;
 	}
@@ -93,8 +88,9 @@ public class QaBoardVo {
 	public String toString() {
 		return "QaBoardVo [qaNum=" + qaNum + ", qaTitle=" + qaTitle + ", qaContent=" + qaContent + ", qaRegdate="
 				+ qaRegdate + ", qaViewcnt=" + qaViewcnt + ", qaWriter=" + qaWriter + ", qaCnt=" + qaCnt + ", qaShow="
-				+ qaShow + ", qaRef=" + qaRef + ", qaStep=" + qaStep + ", qaLevel=" + qaLevel + ", list=" + list + "]";
+				+ qaShow + ", qaRef=" + qaRef + ", qaGubun=" + qaGubun + ", list=" + list + "]";
 	}
+	
 	
 	
 	

@@ -17,6 +17,7 @@ public interface QaBoardService {
 	public List<QaBoardVo> listAll(
 			int start, int end, String search_option,
 			String keyword) throws Exception;
+	public List<QaBoardVo> listAll() throws Exception;
 	public void increaseViewcnt(
 			int qaNum, HttpSession session) throws Exception;
 	public int countArticle(String search_option,
@@ -26,5 +27,4 @@ public interface QaBoardService {
 	public CommonFileVo fileinfo(CommonFileVo filevo) throws Exception;
 	public int fileDel(CommonFileVo filevo) throws Exception;
 	public int qaCnt() throws Exception;
-	public int insertReply(QaBoardVo vo) throws Exception;
 }

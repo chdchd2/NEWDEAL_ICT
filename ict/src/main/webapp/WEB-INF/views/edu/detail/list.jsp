@@ -105,40 +105,4 @@
 </div>
 </section>
 
-<ul>
-		<c:choose>
-				<c:when test="${pu.startPageNum>9 }">
-				 <li><a href="<c:url value='/edu/detailList?pageNum=${pu.startPageNum-1 }&fieldnum=${fieldnum }&classnum=${classnum }'/>"><span aria-hidden="true">&laquo;</span></a></li>
-				</c:when>
-				<c:otherwise>
-		<li><a href="#"><span>&laquo;</span></a> </li>
-	</c:otherwise>
-			</c:choose>
-			
-
-				<c:forEach var="i" begin="${pu.startPageNum }"
-				end="${pu.endPageNum }">
-				<c:choose>
-					<c:when test="${i==pu.pageNum }">
-						<!-- 현재페이지 색상 다르게 표시하기 -->
-						 <li class="active"><a href="<c:url value='/edu/detailList?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }'/>">${i }</a></li>
-					</c:when>
-					<c:otherwise>
-					 <li><a href="<c:url value='/edu/detailList?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }'/>">${i }</a></li>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-	
-
-		<c:choose>
-			<c:when test="${pu.endPageNum<pu.totalPageCount }">
-				  <li><a href="<c:url value='/edu/detailList?pageNum=${pu.endPageNum+1 }&classnum=${classnum }&fieldnum=${fieldnum }'/>" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-			</c:when>
-			<c:otherwise>
-		  <li><a href="#"><span>&raquo;</span></a></li>
-	</c:otherwise>
-		</c:choose>
-</ul>
-
-
 

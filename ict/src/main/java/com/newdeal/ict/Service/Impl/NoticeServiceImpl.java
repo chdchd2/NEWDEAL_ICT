@@ -29,10 +29,10 @@ public class NoticeServiceImpl implements NoticeService {
 		return dao.read(ntNum);
 	}
 	
-	@Transactional//트랜잭션처리
+	@Transactional//�듃�옖�옲�뀡泥섎━
 	@Override
 	public void update(NoticeVo vo) throws Exception {
-		dao.update(vo);//board테이블 수정
+		dao.update(vo);//board�뀒�씠釉� �닔�젙
 	}
 
 	@Override
@@ -49,14 +49,14 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public void increaseViewcnt(int ntNum, HttpSession session) throws Exception {
 		long update_time = 0;
-		//세션에 저장된 게시물의 조회시간 검색
+		//�꽭�뀡�뿉 ���옣�맂 寃뚯떆臾쇱쓽 議고쉶�떆媛� 寃��깋
 		if(session.getAttribute("update_time_"+ntNum)!=null){
 			update_time=(Long)session.getAttribute(
 					"update_time_"+ntNum);
 		}
-		//현재 시간
+		//�쁽�옱 �떆媛�
 		long current_time=System.currentTimeMillis();
-		//일정 시간이 경과된 후 조회수 증가 처리
+		//�씪�젙 �떆媛꾩씠 寃쎄낵�맂 �썑 議고쉶�닔 利앷� 泥섎━
 		if(current_time - update_time > 5*1000){
 			dao.increaseViewcnt(ntNum);
 			session.setAttribute(
@@ -69,7 +69,13 @@ public class NoticeServiceImpl implements NoticeService {
 		return dao.countArticle(search_option, keyword);
 	}
 
-	/*//0718추가
+	@Override
+	public List<NoticeVo> listAll() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.listAll();
+	}
+
+	/*//0718異붽�
 	@Override
 	public List<Boardvo> PNList(int bno) throws Exception {
 		return boardDao.PNList(bno);

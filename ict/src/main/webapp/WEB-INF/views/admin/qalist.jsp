@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
   <head>
 
 
@@ -19,17 +20,8 @@
     <!-- Custom styles for this template-->
     <link href="<c:url value='/resources/css/sb-admin.css'/>" rel="stylesheet">
 	<script>
-	function memGrade(memNum){
-		var memGrade=$("#grade"+memNum).val();
-		console.log(memGrade);
-		location.href="<c:url value='/admin/memGrade?memNum="+memNum+"&memGrade="+memGrade+"'/>";
-	}
 	
-	function memState(memNum){
-		var memState=$("#memState"+memNum).val();
-		console.log(memState);
-		location.href="<c:url value='/admin/memState?memNum="+memNum+"&memState="+memState+"'/>";
-	}
+	
 	</script>
   </head>
 
@@ -69,8 +61,8 @@
             <span>게시판 관리</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                  <a class="dropdown-item" href="<c:url value='/admin/notice'/>">공지사항 관리</a>
-             <a class="dropdown-item" href="<c:url value='/admin/qalist'/>">Q&A 답변달기</a>
+            <a class="dropdown-item" href="<c:url value='/admin/notice'/>">공지사항 관리</a>
+         <a class="dropdown-item" href="<c:url value='/admin/qalist'/>">Q&A 답변달기</a>
           </div> 
         </li>
         
@@ -99,55 +91,42 @@
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-             	회원목록</div>
+             	답변달기</div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  
                   <thead>
+                  
                     <tr>
-                      <th>회원번호</th>
-                      <th>닉네임</th>
-                      <th>전화번호</th>
-                      <th>가입구분</th>
-                      <th>회원등급</th>
-                      <th>가입일자</th>
-                      <th>고유ID</th>
-                      <th>가입허용</th>
+                      	<th>번호</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>날짜</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>회원번호</th>
-                      <th>닉네임</th>
-                      <th>전화번호</th>
-                      <th>가입구분</th>
-                      <th>회원등급</th>
-                      <th>가입일자</th>
-                      <th>고유ID</th>
-                      <th>가입허용</th>
+                     	<th>번호</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>날짜</th>
                     </tr>
+                  
                   </tfoot>
                   <tbody>
                  
-                  <c:forEach var="memberlist" items="${memberlist }">
+                 	<c:forEach var="row" items="${map.list}">
                     <tr>
-                      <td>${memberlist.memNum }</td>
-                      <td>${memberlist.memNickName }</td>
-                      <td>${memberlist.memTel }</td>
-                      <td>${memberlist.memGubun }</td>
-                      <td><input type="text" id="grade${memberlist.memNum }" value="${memberlist.memGrade }" id="memGrade" style="width: 50px;"><input type="button" value="변경" onclick="memGrade(${memberlist.memNum})"></td>
-                      <td>${memberlist.memJoinDate}</td>
-                      <td>${memberlist.memUid }</td>
-                      <td>
-                      <select id="memState${memberlist.memNum }" >
-                      <option value="allow"  <c:if test="${memberlist.memState =='allow' }">selected="selected"</c:if>>allow</option>
-                      <option value="denined"  <c:if test="${memberlist.memState =='denined' }">selected="selected"</c:if>>denined</option>
-                      </select>
-                      <input type="button" value="변경" onclick="memState(${memberlist.memNum})">
-                      </td>
+                      <td>${row.qaNum}</td>
+										<td>
+										<a href="<c:url value='/notice/view.do?ntNum=${row.qaNum}'/>">${row.qaTitle}</a> 
+										<%-- <a href="#" onclick="view('${row.bno}')">${row.title}</a> --%>
+										</td>
+										<td>${row.qaWriter}</td>
+										<td><fmt:formatDate value="${row.qaRegdate}" pattern="yyyy.MM.dd "/></td>
                     </tr>
                     </c:forEach>
-                    
                   </tbody>
                 </table>
               </div>

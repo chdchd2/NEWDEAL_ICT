@@ -56,8 +56,8 @@
             <span>게시판 관리</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="<c:url value='/admin/notice'/>">공지사항 관리</a>
-            <a class="dropdown-item" href="register.html">Q&A 답변달기</a>
+               <a class="dropdown-item" href="<c:url value='/admin/notice'/>">공지사항 관리</a>
+            <a class="dropdown-item" href="<c:url value='/admin/qalist'/>">Q&A 답변달기</a>
           </div> 
         </li>
         

@@ -11,12 +11,10 @@
 </settings>
 
 	<typeAliases>
-	 	<typeAlias type="com.newdeal.ict.Vo.MemberVo" alias="member"/>
-
 	 	<typeAlias type="com.newdeal.ict.Vo.FreeBoardVo" alias="freeboard"/>
+	 	<typeAlias type="com.newdeal.ict.Vo.MemberVo" alias="member"/>
 	 	<typeAlias type="com.newdeal.ict.Vo.NoticeVo" alias="notice"/>
 	 	<typeAlias type="com.newdeal.ict.Vo.QaBoardVo" alias="qaboard"/>
-
 		<typeAlias type="com.newdeal.ict.Vo.IntroduceVo" alias="intvo"/>
 		<typeAlias type="com.newdeal.ict.Vo.CommonFileVo" alias="filevo"/>
 		<typeAlias type="com.newdeal.ict.Vo.EduDetailVo" alias="edudetailvo"/>

@@ -6,6 +6,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="qaboard">
 
+<resultMap type="com.newdeal.ict.Vo.QaBoardVo" id="qaboard">
+	<result property="qaNum" column="qaNum"/>
+	<result property="qaTitle" column="qaTitle"/>
+	<result property="qaContent" column="qaContent"/>
+	<result property="qaRegdate" column="qaRegdate"/>
+	<result property="qaViewcnt" column="qaViewcnt"/>
+	<result property="qaWriter" column="qaWriter"/>
+	<result property="qaShow" column="qaShow"/>
+	<collection property="list" ofType="com.newdeal.ict.Vo.CommonFileVo">
+		<result property="fileNum" column="fileNum"/>
+		<result property="fileName" column="fileName"/>
+		<result property="fileOrgName" column="fileOrgName"/>
+		<result property="fileSize" column="fileSize"/>
+		<result property="filePath" column="filePath"/>
+		<result property="fileRefBoard" column="fileRefBoard"/>
+		<result property="fileRefNum" column="fileRefNum"/>
+	</collection>
+</resultMap>
+
 <!-- 게시물등록 -->
 	<insert id="insert" parameterType="qaboard" >
 		INSERT INTO QABOARD ( QA_NUM,QA_REF, QA_STEP, QA_LEVEL, QA_TITLE,QA_CONTENT,QA_WRITER, QA_VIEWCNT, QA_REGDATE) 
@@ -25,7 +44,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM QABOARD
 	</selectKey>						 
 	</insert>
+
+	<select id="qamaxNum" resultType="int">
+		SELECT NVL(MAX(QA_NUM),1) AS MAXNUM 
+							 	 FROM QABOARD
+	</select>
 	
+	<insert id="qafileWrite" parameterType="filevo">
+		INSERT INTO COMMON_FILE VALUES(
+										SEQ_COMMON_FILE_FILE_NUM.nextval,
+										#{fileName},
+										#{fileOrgName},
+										#{fileSize},
+										#{filePath},
+										'FREEBOARD',
+										#{fileRefNum}
+										)
+	</insert>
+	
+	<select id="qaCnt" resultType="int">
+	 			SELECT NVL(COUNT(*),0) CNT FROM QABOARD <!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
+	 			
+	</select>
 <!-- 게시물 수정  -->
 	<update id="update" parameterType="qaboard">
 		UPDATE QABOARD SET QA_TITLE=#{qaTitle}, 
@@ -34,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 <!-- 게시물 상세보기  -->	
-	<select id="view" parameterType="int">
+	<select id="view" parameterType="int" resultMap="qaboard">
 		SELECT QA_NUM AS qaNum,
 			   QA_REF AS qaRef,
 			   QA_STEP AS qaStep,
@@ -43,11 +83,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			   QA_REGDATE AS qaRegdate,
 			   QA_CONTENT AS qaContent,
 			   QA_VIEWCNT AS qaViewcnt,
-			   QA_WRITER AS qaWriter
-		  FROM QABOARD QA, MEMBER M
+			   QA_WRITER AS qaWriter,
+			   FILE_NUM AS fileNum ,
+			   FILE_NAME AS fileName,
+			   FILE_ORGNAME AS fileOrgName,
+		   	   FILE_SIZE AS fileSize,
+			   FILE_PATH AS filePath,
+			   FILE_REF_BOARD AS fileRefBoard,
+			   FILE_REF_NUM AS fileRefNum 
+		  FROM QABOARD QA, MEMBER M, COMMON_FILE CF
 	   	 WHERE QA.QA_WRITER=M.MEM_NICKNAME
+	   	   AND QA.QA_NUM=CF.FILE_REF_NUM(+) 
 	   	   AND QA.QA_NUM=#{qaNum}
 	</select>
+	
+<!-- 게시물삭제 -->
+	<delete id="deleteArticle">
+		DELETE FROM QABOARD
+			  WHERE QA_NUM=#{qaNum}
+	</delete>
 		
 <!-- 조회수 증가 처리 -->
 	<update id="increaseViewcnt">
@@ -55,14 +109,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   SET QA_VIEWCNT=QA_VIEWCNT+1 
 		 WHERE QA_NUM=#{qaNum}
 	</update>
+	
 <!-- 게시물 목록 -->
 	<select id="listAll" resultType="com.newdeal.ict.Vo.QaBoardVo">
 		<include refid="paging_header" />
-		SELECT QA_NUM,QA_REF, QA_STEP, QA_LEVEL, QA_TITLE,QA.QA_REGDATE,QA_VIEWCNT,QA_WRITER,QA_SHOW
+		SELECT QA_NUM,QA_REF, QA_TITLE,QA.QA_REGDATE,QA_VIEWCNT,QA_WRITER
 		  FROM QABOARD QA, MEMBER M
 		<include refid="search"></include>
-	  ORDER BY QA_REF DESC, QA_STEP, QA_LEVEL
-		<include refid="paging_footer" />
+	  ORDER BY QA_NUM DESC
+	  	<include refid="paging_footer" />
+	</select>	
+	
+	<select id="qaListAll" resultType="com.newdeal.ict.Vo.QaBoardVo">
+		 SELECT QA_NUM,QA_WRITER, QA_TITLE,QA_CONTENT,QA_REGDATE,QA_VIEWCNT,QA_REF,QA_GUBUN
+		  FROM QABOARD QA
+	  ORDER BY QA_NUM DESC
 	</select>	
 	
 <!-- 레코드 갯수 계산 -->
@@ -79,7 +140,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<choose>
 			<when test="search_option == 'all'">
 				WHERE QA.QA_WRITER=M.MEM_NICKNAME 
-				  AND QA_SHOW='Y'
 				  AND (
 				  		MEM_NICKNAME LIKE '%' || #{keyword} || '%'
 				  		OR QA_CONTENT LIKE '%' || #{keyword} || '%'
@@ -88,21 +148,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</when>
 			<when test="search_option == 'qaWriter'">
 				WHERE QA.QA_WRITER=M.MEM_NICKNAME 
-				  AND QA_SHOW='Y'
 				  AND ( 
 				  		MEM_NICKNAME LIKE '%' || #{keyword} || '%' 
 				  	  )
 			</when>
 			<when test="search_option == 'qaContent'">
 				WHERE QA.QA_WRITER=M.MEM_NICKNAME 
-				  AND QA_SHOW='Y'
 				  AND ( 
 				  		QA_CONTENT LIKE '%' || #{keyword} || '%'
 				  	  )
 			</when>
 			<when test="search_option == 'qaTitle'">
 				WHERE QA.QA_WRITER=M.MEM_NICKNAME 
-				  AND QA_SHOW='Y'
 				  AND ( 
 				  		QA_TITLE LIKE '%' || #{keyword} || '%'
 				  	  )
@@ -131,6 +188,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM QABOARD
 	</select>
 	
+	<select id="fileinfo" parameterType="filevo" resultType="filevo">
+		SELECT FILE_NUM,
+			   FILE_NAME,
+			   FILE_ORGNAME,
+			   FILE_SIZE,
+			   FILE_PATH,
+			   FILE_REF_BOARD,
+			   FILE_REF_NUM
+		  FROM COMMON_FILE
+		 WHERE FILE_NUM=#{fileNum}
+	</select>	
+	
+	<delete id="fbFileDelete" parameterType="int">
+		DELETE COMMON_FILE 
+		 WHERE FILE_REF_BOARD='QABOARD' 
+		   AND FILE_REF_NUM=#{qaNum}
+	</delete>
+	
+	<select id="qaFileDelList" parameterType="int" resultType="filevo">
+		SELECT FILE_NUM,
+			   FILE_NAME,
+			   FILE_ORGNAME,
+			   FILE_SIZE,
+			   FILE_PATH,
+			   FILE_REF_BOARD,
+			   FILE_REF_NUM 
+		  FROM COMMON_FILE 
+		 WHERE FILE_REF_BOARD='QABOARD' AND FILE_REF_NUM=#{qaNum}
+	</select>
+	
+	<delete id="fileDel" parameterType="filevo">
+		DELETE COMMON_FILE 
+		 WHERE FILE_NUM=#{fileNum}
+	</delete>
+	
 <!-- 같은 ref(최상위부모값)을 가진 것 중 현재 답글을 달 게시물의 순번보다 큰것을 +1로 하며 하나씩 밀리게 한다.  -->	
 	<update id="updateStep" parameterType="qaboard">
 		UPDATE QABOARD 
@@ -156,7 +248,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO QABOARD ( 
 							  QA_NUM,
 							  QA_REF,
-							  QA_SETP,
+							  QA_STEP,
 							  QA_LEVEL,
 							  QA_WRITER,
 							  QA_TITLE,
