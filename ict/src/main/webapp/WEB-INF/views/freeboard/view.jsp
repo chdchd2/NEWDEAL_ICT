@@ -32,7 +32,7 @@ $(function(){
 			document.form.submit();
 		});
 	
-	
+	  
 });
 function comment(){
 	var comContent=$("#comContent").val();
@@ -124,7 +124,7 @@ function comment(){
 	<!-- 댓글 -->	
 	<span id="commentlist">
 	<c:forEach var="comment" items="${commentList}">
-		<%-- <colgroup>
+	 	<colgroup>
 			<col>
 			<col>
 			<col>
@@ -135,8 +135,8 @@ function comment(){
 				<td>${comment.comContent} |</td>
 				<td><span><fmt:formatDate value="${comment.comDate}" pattern="yyyy-MM-dd"/></span></td><br>
 			</tr>
-		</thead> --%>
-		 ${comment.memNickName} ===>${comment.comContent} <span><fmt:formatDate value="${comment.comDate}" pattern="yyyy-MM-dd"/></span> <br> 
+		</thead>
+		<%-- ${comment.memNickName} ===>${comment.comContent} ${comment.comDate} <br>  --%>
 	</c:forEach>
 	</span>
 	<div id="comment">
