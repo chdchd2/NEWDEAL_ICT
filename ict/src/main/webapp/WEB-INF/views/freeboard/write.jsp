@@ -63,15 +63,15 @@ action="/ict/freeboard/insert.do">
 								</tr>
 								<tr>
 									<td>첨부파일</td>
-									<td><input type="file" multiple="multiple" name="file">
-										<!-- <input type="file" value="파일첨부" id="file" multiple="multiple" name="file"> -->
-										<!-- <label for="file">파일첨부</label> -->
-										<!-- <span id="checkfile">선택된 파일이 없습니다.</span> -->
-										<p>
-											<!-- <input type="checkbox" id="checkbox01" ><label for="checkbox01" class="checkbox"></label>
-											<input type="checkbox" id="checkbox02" ><label for="checkbox02" class="checkbox"></label> -->
-										</p>
-										<!-- <a href="#a" id="fileDelete" ><img src="resources/images/delete_icon.png" alt="삭제 아이콘"></a> -->
+									<td>
+										<input type="file" multiple="multiple" name="file" id="file"><label for="file">파일첨부</label>
+										<c:if test=""></c:if>
+										<span id="checkfile">선택된 파일이 없습니다.</span>
+										<!-- <p>
+											<input type="checkbox" id="checkbox01" ><label for="checkbox01" class="checkbox"></label>
+											<input type="checkbox" id="checkbox02" ><label for="checkbox02" class="checkbox"></label>
+										</p> -->
+										<a href="#a" id="fileDelete" ><img src="<c:url value='/resources/images/delete_icon.png'/>"  alt="삭제 아이콘"></a>
 									</td>
 								</tr>
 								<tr>

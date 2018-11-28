@@ -11,7 +11,6 @@
 </settings>
 
 	<typeAliases>
-   	    <typeAlias type="com.newdeal.ict.Vo.TestVo" alias="testvo"/>
 	 	<typeAlias type="com.newdeal.ict.Vo.MemberVo" alias="member"/>
 
 	 	<typeAlias type="com.newdeal.ict.Vo.FreeBoardVo" alias="freeboard"/>
