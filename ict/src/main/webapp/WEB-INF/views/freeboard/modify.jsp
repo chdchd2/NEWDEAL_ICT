@@ -5,6 +5,7 @@
 <section>
 <script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
 <script>
+var num=1;
 $(function(){
 	
 		
@@ -147,13 +148,13 @@ action="/ict/freeboard/insert.do">
 								<tr>
 		                        <td>첨부파일</td>
 		                        <td>
-		                        <c:forEach var="list" items="${vo.list }">
+		                        <%-- <c:forEach var="list" items="${vo.list }">
 		                        	<span id="span${list.fileNum }">${list.fileOrgName }
 		                        		<span>&nbsp;
 		                        			<a href="#" onclick="fileDel(${list.fileNum})" style="width:20px;height:20px;display:inline-block;vertical-align:middle;font-size:16px;color:#cf2f0f;">x</a>
 		                        		</span><br>
 		                        	</span>
-		                        </c:forEach>
+		                        </c:forEach> --%>
 		                           <div class="img_upload_list">
 		                              <ul id="fileul">
 		                                 <li id="li0">

@@ -29,7 +29,6 @@ $(function(){
 });
 
 function fileselect(event,num){
-
 	   var filename=event.value.replace(/C:\\fakepath\\/i, '');
 	   $("#span"+num).remove();
 	   $("#li"+num).append("<span id='span"+num+"'>"+filename+""+
