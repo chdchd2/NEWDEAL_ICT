@@ -24,14 +24,14 @@ $(function(){
 			document.form.submit();
 		});
 		
-		$(".btnSave").click(function(){
+	 	$(".btnSave").click(function(){
 			//태그.each(function(){})모든 태그 반복
 			var str="";
 			//폼에 hidden 태그들을 추가
 			$("#form").append(str);
 			document.form.submit();
 		});
-	
+	 
 	  
 });
 function comment(){
@@ -56,6 +56,15 @@ function comment(){
 
 	}
 }); 
+}
+
+function comDel(comNum){
+	if(!comfirm("댓글을 삭제하시겠습니까?")){
+		return;
+	}
+	if(comNum==0){
+		$(comNum).remove();
+	}
 }
 </script>
 <section>
@@ -110,6 +119,8 @@ function comment(){
 						</div>
 
 	<div>
+	<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
+		<input type="hidden" name="fbNum" value="${vo.fbNum}" />
 	<!-- 본인 게시물만 수정,삭제 버튼 표시 -->	
 		<a id="list" class="btnList">목록</a>
 	<c:if test="${sessionScope.member.memNickName == vo.fbWriter }"> 
@@ -118,8 +129,6 @@ function comment(){
 	</c:if> 
 	</div>
 	</div>
-	<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
-		<input type="hidden" name="fbNum" value="${vo.fbNum}" />
 		
 	<!-- 댓글 -->	
 	<span id="commentlist">

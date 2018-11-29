@@ -13,7 +13,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<result property="fbRegdate" column="fbRegdate"/>
 	<result property="fbViewcnt" column="fbViewcnt"/>
 	<result property="fbWriter" column="fbWriter"/>
-	<result property="fbShow" column="fbShow"/>
 	<collection property="list" ofType="com.newdeal.ict.Vo.CommonFileVo">
 		<result property="fileNum" column="fileNum"/>
 		<result property="fileName" column="fileName"/>
@@ -28,11 +27,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insert" parameterType="freeboard" >
 		INSERT INTO FREEBOARD (FB_NUM,FB_TITLE,FB_CONTENT,FB_WRITER) 
 					   VALUES ( 
-					   			(SELECT NVL(MAX(FB_NUM)+1,1) FROM FREEBOARD),
+					   			SEQ_FREEBOARD.nextval,
 								#{fbTitle,jdbcType=VARCHAR}, 
 								#{fbContent,jdbcType=CLOB}, 
 								#{fbWriter,jdbcType=VARCHAR} 
 							   )
+	<selectKey keyProperty="fbNum" resultType="int" order="AFTER">
+	SELECT SEQ_FREEBOARD.currval as fbNum FROM dual
+	</selectKey>						   
 	</insert>
 
 	<select id="fbmaxNum" resultType="int">
@@ -102,7 +104,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 게시물 목록 -->
 	<select id="listAll" resultType="com.newdeal.ict.Vo.FreeBoardVo">
 		<include refid="paging_header" />
-		SELECT FB_NUM,FB_TITLE,FB.FB_REGDATE,FB_VIEWCNT,FB_WRITER,FB_SHOW
+		SELECT FB_NUM AS fbNum,
+			   FB_TITLE AS fbTitle,
+			   FB_REGDATE AS fbRegdate,
+			   FB_VIEWCNT AS fbViewcnt,
+			   FB_WRITER AS fbWriter
 		  FROM FREEBOARD FB, MEMBER M
 		<include refid="search"></include>
 	  ORDER BY FB_NUM DESC
@@ -123,7 +129,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<choose>
 			<when test="search_option == 'all'">
 				WHERE FB.FB_WRITER=M.MEM_NICKNAME 
-				  AND FB_SHOW='Y'
 				  AND (
 				  		MEM_NICKNAME LIKE '%' || #{keyword} || '%'
 				  		OR FB_CONTENT LIKE '%' || #{keyword} || '%'
@@ -132,21 +137,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</when>
 			<when test="search_option == 'fbWriter'">
 				WHERE FB.FB_WRITER=M.MEM_NICKNAME 
-				  AND FB_SHOW='Y'
 				  AND ( 
 				  		MEM_NICKNAME LIKE '%' || #{keyword} || '%' 
 				  	  )
 			</when>
 			<when test="search_option == 'fbContent'">
 				WHERE FB.FB_WRITER=M.MEM_NICKNAME 
-				  AND FB_SHOW='Y'
 				  AND ( 
 				  		FB_CONTENT LIKE '%' || #{keyword} || '%'
 				  	  )
 			</when>
 			<when test="search_option == 'fbTitle'">
 				WHERE FB.FB_WRITER=M.MEM_NICKNAME 
-				  AND FB_SHOW='Y'
 				  AND ( 
 				  		FB_TITLE LIKE '%' || #{keyword} || '%'
 				  	  )
@@ -171,13 +173,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	
 	<select id="fileinfo" parameterType="filevo" resultType="filevo">
-		SELECT FILE_NUM,
-			   FILE_NAME,
-			   FILE_ORGNAME,
-			   FILE_SIZE,
-			   FILE_PATH,
-			   FILE_REF_BOARD,
-			   FILE_REF_NUM
+		SELECT FILE_NUM AS fileNum,
+			   FILE_NAME AS fileName,
+			   FILE_ORGNAME AS fileOrgname,
+			   FILE_SIZE AS fileSize,
+			   FILE_PATH AS filePath,
+			   FILE_REF_BOARD AS fileRefBoard,
+			   FILE_REF_NUM AS fileRefNum
 		  FROM COMMON_FILE
 		 WHERE FILE_NUM=#{fileNum}
 	</select>	
@@ -189,13 +191,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<select id="fbFileDelList" parameterType="int" resultType="filevo">
-		SELECT FILE_NUM,
-			   FILE_NAME,
-			   FILE_ORGNAME,
-			   FILE_SIZE,
-			   FILE_PATH,
-			   FILE_REF_BOARD,
-			   FILE_REF_NUM 
+		SELECT FILE_NUM AS fileNum,
+			   FILE_NAME AS fileName,
+			   FILE_ORGNAME AS fileOrgname,
+			   FILE_SIZE AS fileSize,
+			   FILE_PATH AS filePath,
+			   FILE_REF_BOARD AS fileRefBoard,
+			   FILE_REF_NUM AS fileRefNum
 		  FROM COMMON_FILE 
 		 WHERE FILE_REF_BOARD='FREEBOARD' AND FILE_REF_NUM=#{fbNum}
 	</select>

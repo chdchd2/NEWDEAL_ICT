@@ -6,6 +6,7 @@
 <section>
 <script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
 <script>
+var num=1;
 $(function(){
 	
 	$(".btnSave").click(function(){
@@ -22,14 +23,12 @@ $(function(){
 		document.form.action="/ict/freeboard/list.do";
 		document.form.submit();
 	});
-});
-/* function fileselect(event){
-console.log(event.value);
-	   var filename=event.value.replace(/C:\\fakepath\\/i, '');
-	  console.log(filename);
-	} */
+	
+	
 
-	function fileselect(event,num){
+});
+
+function fileselect(event,num){
 
 	   var filename=event.value.replace(/C:\\fakepath\\/i, '');
 	   $("#span"+num).remove();
@@ -44,8 +43,8 @@ console.log(event.value);
 
 	   $("#fileul").append("<li id='li"+num+"'>"+
 	         "<div class='filebox dp_in vm mgr10'>"+
-	         "<label for='ex_filename"+num+"' class='ac btn_search'>Search</label>"+
-	         "<input type='file' id='ex_filename"+num+"' name='file"+num+"' class='upload_hidden' onchange='fileselect(this,"+num+")'>"+
+	         "<label for='filename"+num+"' class='btn_search'>파일첨부</label>"+
+	         "<input type='file' id='filename"+num+"' name='file"+num+"' class='upload_hidden' onchange='fileselect(this,"+num+")'>"+
 	         "</div>"+
 	         "</li>");
 	   num++;
@@ -58,7 +57,7 @@ console.log(event.value);
 	   //첫번째 파일일 경우 파일첨부하는 라벨과 input 박스가 날아가면 안되므로.
 	   if(num==0){
 	      $("#span"+num).remove();
-	      $("#filelabel"+num).prepend("<input type='file' id='ex_filename"+num+"' name='file"+num+"' class='upload_hidden' onchange='fileselect(this,"+num+")'>");
+	      $("#filelabel"+num).prepend("<input type='file' id='filename"+num+"' name='file"+num+"' class='upload_hidden' onchange='fileselect(this,"+num+")'>");
 	      
 	   }else if(num!=0){
 	      $("#li"+num).remove();
@@ -74,7 +73,13 @@ console.log(event.value);
 	      $("#span"+num).remove();
 	   }
 	}
+/* function fileselect(event){
+console.log(event.value);
+	   var filename=event.value.replace(/C:\\fakepath\\/i, '');
+	  console.log(filename);
+	} */
 
+	
 
 </script>
 
@@ -133,8 +138,8 @@ action="/ict/freeboard/insert.do">
 		                              <ul id="fileul">
 		                                 <li id="li0">
 		                                    <div class="filebox dp_in vm mgr10">
-		                                       <label id="filelabel" for="ex_filename0" class="ac btn_search">파일첨부</label>
-		                                        <input type="file" id="ex_filename0" id="file" name="file0" class="upload-hidden" onchange="firstFileSelect(this,0)">
+		                                       <label id="filelabel" for="filename0" class="btn_search">파일첨부</label>
+		                                        <input type="file" id="filename0" id="file" name="file0" class="upload-hidden" onchange="firstFileSelect(this,0)">
 		                                     </div>
 		                                 </li>
 		                              </ul>

@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class CommonController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	   public String home() {
-	      System.out.println("È¨À¸·ÎÀÌµ¿ÇÏ±â");
+	      System.out.println("È¨ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ï¿½Ï±ï¿½");
 	      return ".main";
 	   }
 	   
@@ -34,7 +34,7 @@ public class CommonController {
 	        response.setContentType("text/html;charset=utf-8");
 	 
 	        try{
-	        	String path="C:\\Users\\haces\\git\\NEWDEAL_ICT\\";
+	        	String path="C:\\Users\\Lenovo\\git\\NEWDEAL_ICT\\";
 	            String fileName = upload.getOriginalFilename();
 	            byte[] bytes = upload.getBytes();
 	            String uploadPath = path + fileName;//ì €ìž¥ê²½ë¡œ

@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.newdeal.ict.Service.CommonService;
 import com.newdeal.ict.Service.FreeBoardService;
 import com.newdeal.ict.Util.Pager;
 import com.newdeal.ict.Vo.CommentVo;
@@ -34,6 +35,8 @@ public class FreeBoardController {
 	
 	@Inject
 	FreeBoardService service;
+	@Inject
+	CommonService commonservice;
 	
 	@RequestMapping("list.do")
 	public ModelAndView list(
@@ -80,8 +83,9 @@ public class FreeBoardController {
 		List<MultipartFile> filelist = req.getFiles("file"); 
 		System.out.println("파일리스트"+filelist.toString());
 		System.out.println("파일사이즈"+filelist.size());
-		int num=service.fbmaxNum();
-		service.fbfileWrite(filelist, num);
+		int fileRefNum = service.fbmaxNum();
+		String fileRefBoard = "FREEBOARD";
+		commonservice.fileWrite(filelist, fileRefNum, fileRefBoard);
 		return "redirect:/freeboard/list.do";
 	}
 	
@@ -123,8 +127,9 @@ public class FreeBoardController {
 		if(vo != null){
 			System.out.println("=====================>"+vo.toString());
 			List<MultipartFile> filelist = req.getFiles("file"); 
-			int num=service.fbmaxNum();
-			service.fbfileWrite(filelist, num);
+			String fileRefBoard = "FREEBOARD";
+			int num = vo.getFbNum();
+			commonservice.fileWrite(filelist, num, fileRefBoard);
 			service.update(vo);//레코드수정
 		}
 		//수정상세화면
@@ -135,6 +140,7 @@ public class FreeBoardController {
 	@RequestMapping("delete.do")
 	public String delete(@RequestParam int fbNum) throws Exception {
 		service.delete(fbNum);
+		System.out.println(fbNum);
 		return "redirect:/freeboard/list.do";
 	}
 
