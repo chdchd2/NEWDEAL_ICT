@@ -38,8 +38,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<select id="fbmaxNum" resultType="int">
-		SELECT NVL(MAX(FB_NUM),1) AS MAXNUM 
-							 	 FROM FREEBOARD
+				SELECT NVL(MAX(FB_NUM),1) AS MAXNUM 
+									 	 FROM FREEBOARD
 	</select>
 	
 	<insert id="fbfileWrite" parameterType="filevo">

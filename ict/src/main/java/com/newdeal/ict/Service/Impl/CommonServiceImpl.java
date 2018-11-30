@@ -27,14 +27,17 @@ public class CommonServiceImpl implements CommonService{
 		System.out.println("������� ������ �׽�Ʈ�ϱ�");
 		InputStream is = null;
 		FileOutputStream fos = null;
-		String filePath="C:\\Users\\Lenovo\\git";
+		String filePath="C:\\Users\\LG\\git";
 		CommonFileVo filevo=new CommonFileVo();
 		try {
 			if(filelist.size()>0) {
+				System.out.println(filelist.size()+"파일리스트사이즈");
 			for(int i=0;i<filelist.size();i++) {
+				
 				is=filelist.get(i).getInputStream();
 				UUID uuid=UUID.randomUUID();
 				String fileOrgName=filelist.get(i).getOriginalFilename();
+				System.out.println(fileOrgName+"파일이름");
 				String fileName=uuid+"_"+fileOrgName;
 				String fileSize=filevo.byteCalculation(String.valueOf(filelist.get(i).getSize()));
 				filevo.setFileName(fileName);

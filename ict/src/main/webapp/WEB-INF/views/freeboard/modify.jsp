@@ -52,7 +52,7 @@ function fileselect(event,num){
 	   $("#fileul").append("<li id='li"+num+"'>"+
 	         "<div class='filebox dp_in vm mgr10'>"+
 	         "<label for='filename"+num+"' class='btn_search'>파일첨부</label>"+
-	         "<input type='file' id='filename"+num+"' name='file"+num+"' class='upload_hidden' onchange='fileselect(this,"+num+")'>"+
+	         "<input type='file' id='filename"+num+"' name='file' class='upload_hidden' onchange='fileselect(this,"+num+")'>"+
 	         "</div>"+
 	         "</li>");
 	   num++;
@@ -65,7 +65,7 @@ function fileselect(event,num){
 	   //첫번째 파일일 경우 파일첨부하는 라벨과 input 박스가 날아가면 안되므로.
 	   if(num==0){
 	      $("#span"+num).remove();
-	      $("#filelabel"+num).prepend("<input type='file' id='filename"+num+"' name='file"+num+"' class='upload_hidden' onchange='fileselect(this,"+num+")'>");
+	      $("#filelabel"+num).prepend("<input type='file' id='filename"+num+"' name='file' class='upload_hidden' onchange='fileselect(this,"+num+")'>");
 	      
 	   }else if(num!=0){
 	      $("#li"+num).remove();
@@ -160,7 +160,7 @@ action="/ict/freeboard/insert.do">
 		                                 <li id="li0">
 		                                    <div class="filebox dp_in vm mgr10">
 		                                       <label id="filelabel" for="filename0" class="btn_search">파일첨부</label>
-		                                        <input type="file" id="filename0" id="file" name="file" name="file0" class="upload-hidden" onchange="firstFileSelect(this,0)">
+		                                        <input type="file" id="filename0" id="file" name="file" class="upload-hidden" onchange="firstFileSelect(this,0)">
 		                                     </div>
 		                                 </li>
 		                              </ul>

@@ -34,7 +34,7 @@ public class CommonController {
 	        response.setContentType("text/html;charset=utf-8");
 	 
 	        try{
-	        	String path="C:\\Users\\Lenovo\\git\\NEWDEAL_ICT\\";
+	        	String path="C:\\Users\\LG\\git\\NEWDEAL_ICT\\";
 	            String fileName = upload.getOriginalFilename();
 	            byte[] bytes = upload.getBytes();
 	            String uploadPath = path + fileName;//저장경로
