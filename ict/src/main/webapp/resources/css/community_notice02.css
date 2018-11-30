@@ -107,6 +107,10 @@ section #sectionC #sectionR #content #board ul li a {
 }
 
 
+section #sectionC #sectionR #content #board ul li a.add_file{
+	font-weight:600;
+}
+
 section #sectionC #sectionR #content #list {
 	display:inline-block;
 	margin-top:30px;
@@ -121,6 +125,11 @@ section #sectionC #sectionR #content #list {
 	background-color:#fff;
 	float:right;
 	margin-right:10px;
+}
+
+section #sectionC #sectionR #content #list:hover{
+	background-color:#012185;
+	color:white;
 }
 
 section #sectionC #sectionR #content #list:nth-child(3){
@@ -187,7 +196,7 @@ section #sectionC #subMenu ul li a {
 
 /*submeun 활성화*/
 section #sectionC #subMenu ul li a.subActive {
-	background-color:#3a3e4c;
+	background-color:#012185;
 	color:white;
 }
 section #sectionC #subMenu ul li a.subActive img{

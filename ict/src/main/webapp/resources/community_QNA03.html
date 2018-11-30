@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/header_02.css">
 	<link rel="stylesheet" href="css/footer.css">
-	<link rel="stylesheet" href="css/community_notice01.css">
+	<link rel="stylesheet" href="css/community_QNA03.css">
 	<title></title>
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/jquery.easing.1.3.js"></script>
@@ -19,10 +19,7 @@
 		});
 	</script>
 	
-	
 	<script>
-	
-	
 	var $mainMenu
 	var $subMenu
 	var $menuBg
@@ -77,11 +74,8 @@
 
 </script>
 
-	
 </head>
-
 <body>
-	
 	<div id="header_wrap">
  	<header>
  		
@@ -154,10 +148,8 @@
  	</div>
  	
   </div>	
-	
-	<section>
-		
-			<div id="sectionC">
+  <section>
+  <div id="sectionC">
 				<div id="subMenu">
 					<h2>취업지원센터</h2>
 					<ul>
@@ -171,114 +163,67 @@
 						<h2>취업행사안내</h2>				
 					</div>
 					<div id="content">
-							<p id="count">총<span>134건</span></p>
-							<ul id="search">
-							<li>
-								<select>
-								    <li><option value="">전체</option></li>
-								    <li><option value="제목">제목</option></li>
-								    <li><option value="내용">내용</option></li>
-								</select>
-							</li>
-							<li><input type="text"></li>
-							<li><a href="#a">조회</a></li>
-							</ul>
-						
-						<table id ="table">
+						<table>
 							<colgroup>
 								<col>
 								<col>
-								<col>
-								<col>
 							</colgroup>
-							<thead>
-								<tr>
-									<td>번호</td>
-									<td>제목</td>
-									<td>작성자</td>
-									<td>작성일</td>
-								</tr>
-							</thead>
 							<tbody>
 								<tr>
-									<td>공지</td>
-									<td><a href="community_notice02.html">국방 아키텍처 관리체계 사용방법</a></td>
-									<td>관리자</td>
-									<td>2018.01.01</td>
+									<td>제목</td>
+									<td>
+										<input type="text">
+									</td>
 								</tr>
 								<tr>
-									<td>1</td>
-									<td><a href="#a">[타 체계 인터페이스 등록] 카탈로그 생성 API 추가</a></td>
-									<td>관리자</td>
-									<td>2018.01.01</td>
+									<td>작성자</td>
+									<td><input type="text"></td>
 								</tr>
 								<tr>
-									<td>2</td>
-									<td><a href="#a">[메타규격] 메타규격 삭제공지</a></td>
-									<td>관리자</td>
-									<td>2018.01.01</td>
+									<td>첨부파일</td>
+									<td>
+										<div class=img_upload_list">
+			                              <ul id="fileul">
+			                                 <li id="li0">
+			                                    <div class="filebox dp_in vm mgr10">
+			                                       <label for="file">파일첨부</label>
+			                                        <input type="file"" id="file">
+			                                     </div>
+			                                 </li>
+			                              </ul>
+		                              </div>
+									</td>
 								</tr>
 								<tr>
-									<td>3</td>
-									<td><a href="#a">[서비스점검] 육군 인터페이스 점검안내</a></td>
-									<td>관리자</td>
-									<td>2018.01.01</td>
+									<td>내용</td>
+									<td><textarea name="" id="" cols="30" rows="10"></textarea>
+									</td>
 								</tr>
 								<tr>
-									<td>4</td>
-									<td><a href="#a">[서비스점검] 해군 인터페이스 점검안내</a></td>
-									<td>관리자</td>
-									<td>2018.01.01</td>
-								</tr>
-								<tr>
-									<td>5</td>
-									<td><a href="#a">[서비스점검] 상호운용성센터 관리체계 점검 안내</a></td>
-									<td>관리자</td>
-									<td>2018.01.01</td>
-								</tr>
-								<tr>
-									<td>6</td>
-									<td><a href="#a">[서비스점검] 국방 아키텍처 관리체계 시스템 점검 안내</a></td>
-									<td>관리자</td>
-									<td>2018.01.01</td>
-								</tr>
-								<tr>
-									<td>7</td>
-									<td><a href="#a">관리체계 권한에 대한 안내</a></td>
-									<td>관리자</td>
-									<td>2018.01.01</td>
-								</tr>
-								<tr>
-									<td>8</td>
-									<td><a href="#a">국방 아키텍처 관리체계 사용방법</a></td>
-									<td>관리자</td>
-									<td>2018.01.01</td>
-								</tr>
-								<tr>
-									<td>9</td>
-									<td><a href="#a">해군 관리체계 서비스 시행 안내</a></td>
-									<td>관리자</td>
-									<td>2018.01.01</td>
+									<td>지도첨부</td>
+									<td>
+										<input type="text" id="searchWordBox" />
+										<label id="searchBtn">검색</label>
+										<div id="mapDiv" style="display:none">
+											<div id="map" style="width:720px;height:210px;"></div>
+										</div>
+									</td>
 								</tr>
 							</tbody>
 						</table>
 
-						<div id="page">
-							<p><a href="#a"><img src="images/page_Leftbtn.png" alt="페이지왼쪽버튼"></a></p>
-							<ul>
-								<li><a href="#a" class="pageActive">1</a></li>
-								<li><a href="#a">2</a></li>
-								<li><a href="#a">3</a></li>
-								<li><a href="#a">4</a></li>
-								<li><a href="#a">5</a></li>
-							</ul>
-							<p><a href="#a"><img src="images/page_Rightbtn.png" alt="페이지오른쪽버튼"></a></p>
-						</div>
+				
+						<ul>
+							<li>
+								<a href="#a" id="input"  class="btn">등록</a>
+							</li>
+							<li>
+								<a href="#a" id="cancel"  class="btn">취소</a>
+							</li>
+						</ul>
 						
-						<p id="submit">
-							<a href="#">등록</a>
-						</p>
 					</div>
+					
 				</div>
 			</div>
 		

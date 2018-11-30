@@ -148,19 +148,19 @@ action="/ict/freeboard/insert.do">
 								<tr>
 		                        <td>첨부파일</td>
 		                        <td>
-		                        <%-- <c:forEach var="list" items="${vo.list }">
-		                        	<span id="span${list.fileNum }">${list.fileOrgName }
-		                        		<span>&nbsp;
-		                        			<a href="#" onclick="fileDel(${list.fileNum})" style="width:20px;height:20px;display:inline-block;vertical-align:middle;font-size:16px;color:#cf2f0f;">x</a>
-		                        		</span><br>
-		                        	</span>
-		                        </c:forEach> --%>
 		                           <div class="img_upload_list">
+			                        <c:forEach var="list" items="${vo.list }">
+			                        	<span id="span${list.fileNum }">${list.fileOrgName }
+			                        		<span>&nbsp;
+			                        			<a href="#" onclick="fileDel(${list.fileNum})" style="width:20px;height:20px;display:inline-block;vertical-align:middle;font-size:16px;color:#cf2f0f;">x</a>
+			                        		</span><br>
+			                        	</span>
+			                        </c:forEach> 
 		                              <ul id="fileul">
 		                                 <li id="li0">
 		                                    <div class="filebox dp_in vm mgr10">
 		                                       <label id="filelabel" for="filename0" class="btn_search">파일첨부</label>
-		                                        <input type="file" id="filename0" id="file" name="file0" class="upload-hidden" onchange="firstFileSelect(this,0)">
+		                                        <input type="file" id="filename0" id="file" name="file" name="file0" class="upload-hidden" onchange="firstFileSelect(this,0)">
 		                                     </div>
 		                                 </li>
 		                              </ul>

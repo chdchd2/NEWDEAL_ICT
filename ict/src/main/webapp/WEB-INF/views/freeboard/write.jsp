@@ -138,7 +138,7 @@ action="/ict/freeboard/insert.do">
 		                                 <li id="li0">
 		                                    <div class="filebox dp_in vm mgr10">
 		                                       <label id="filelabel" for="filename0" class="btn_search">파일첨부</label>
-		                                        <input type="file" id="filename0" id="file" name="file0" class="upload-hidden" onchange="firstFileSelect(this,0)">
+		                                        <input type="file" id="filename0" id="file" name="file" name="file0" class="upload-hidden" onchange="firstFileSelect(this,0)">
 		                                     </div>
 		                                 </li>
 		                              </ul>

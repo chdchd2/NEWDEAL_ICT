@@ -24,10 +24,10 @@ public class CommonServiceImpl implements CommonService{
 
 	@Override
 	public int fileWrite(List<MultipartFile> filelist,int fileRefNum,String fileRefBoard) throws Exception {
-		System.out.println("¿©±â±îÁö ¿À´ÂÁö Å×½ºÆ®ÇÏ±â");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ®ï¿½Ï±ï¿½");
 		InputStream is = null;
 		FileOutputStream fos = null;
-		String filePath="C:\\Users\\haces\\git";
+		String filePath="C:\\Users\\Lenovo\\git";
 		CommonFileVo filevo=new CommonFileVo();
 		try {
 			if(filelist.size()>0) {
@@ -43,7 +43,7 @@ public class CommonServiceImpl implements CommonService{
 				filevo.setFilePath(filePath);
 				filevo.setFileRefBoard(fileRefBoard);
 				filevo.setFileRefNum(fileRefNum);
-				System.out.println("ÆÄÀÏºêÀÌ¿À ³»¿ëµé==>"+filevo.toString());
+				System.out.println("ï¿½ï¿½ï¿½Ïºï¿½ï¿½Ì¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½==>"+filevo.toString());
 				dao.fileWrite(filevo);
 				fos=new FileOutputStream(filePath+"\\"+fileName);
 				FileCopyUtils.copy(is, fos);

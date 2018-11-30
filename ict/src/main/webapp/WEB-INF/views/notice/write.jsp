@@ -62,6 +62,21 @@ action="/ict/notice/insert.do">
 									<td><input type="hidden" name="ntWriter" value="${member.memNickName}" /> ${member.memNickName}</td>
 								</tr>
 								<tr>
+		                        <td>첨부파일</td>
+		                        <td>
+		                           <div class="img_upload_list">
+		                              <ul id="fileul">
+		                                 <li id="li0">
+		                                    <div class="filebox dp_in vm mgr10">
+		                                       <label id="filelabel" for="filename0" class="btn_search">파일첨부</label>
+		                                        <input type="file" id="filename0" id="file" name="file" name="file0" class="upload-hidden" onchange="firstFileSelect(this,0)">
+		                                     </div>
+		                                 </li>
+		                              </ul>
+		                           </div>
+		                        </td>
+		                       </tr>
+								<tr>
 									<td>내용</td>
 									<td><textarea name="ntContent" id="ntContent" cols="30" rows="10"></textarea>
 									</td>
