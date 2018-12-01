@@ -51,24 +51,6 @@
  			
 </select>
 
-<select id="intList" parameterType="pagevo" resultType="intvo">
-      SELECT INT_NUM AS INTNUM,
-      		 MEM_NUM AS MEMNUM,
-      		 INT_TITLE AS INTTITLE,
-      		 INT_CONTENT AS INTCONTENT,
-      		 INT_WRITER AS INTWRITER,
-      		 INT_DATE AS INTDATE,
-      		 INT_HIT AS INTHIT,
-      		 RNUM RNUM
-       FROM(
-                    SELECT AA.*,ROWNUM RNUM FROM(
-                                 SELECT * FROM EDU_INTRODUCE
-                                 ORDER BY INT_NUM DESC
-                                				 )AA
-                     )
-      <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
-	
-</select>
 
 <select id="detailList" parameterType="pagevo" resultType="edudetailvo">
       SELECT DET_NUM AS DETNUM,
@@ -88,6 +70,26 @@
       <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
 	
 </select>
+
+<select id="intList" parameterType="pagevo" resultType="intvo">
+      SELECT INT_NUM AS INTNUM,
+      		 MEM_NUM AS MEMNUM,
+      		 INT_TITLE AS INTTITLE,
+      		 INT_CONTENT AS INTCONTENT,
+      		 INT_WRITER AS INTWRITER,
+      		 INT_DATE AS INTDATE,
+      		 INT_HIT AS INTHIT,
+      		 RNUM RNUM
+       FROM(
+                    SELECT AA.*,ROWNUM RNUM FROM(
+                                 SELECT * FROM EDU_INTRODUCE
+                                 ORDER BY INT_NUM DESC
+                                				 )AA
+                     )
+      <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
+	
+</select>
+
 
 <select id="intDetail" parameterType="int" resultMap="intjoinvo">
 	SELECT  INT_NUM AS INTNUM,

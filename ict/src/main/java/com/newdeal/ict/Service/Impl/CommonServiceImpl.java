@@ -27,7 +27,7 @@ public class CommonServiceImpl implements CommonService{
 		System.out.println("여기까지 오는지 테스트하기");
 		InputStream is = null;
 		FileOutputStream fos = null;
-		String filePath="C:\\Users\\haces\\git";
+		String filePath="C:\\Users\\git";
 		CommonFileVo filevo=new CommonFileVo();
 		try {
 			if(filelist.size()>0) {

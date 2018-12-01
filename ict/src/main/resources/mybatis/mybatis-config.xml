@@ -11,6 +11,8 @@
 		<typeAlias type="com.newdeal.ict.Vo.EduDetailVo" alias="edudetailvo"/>
 		<typeAlias type="com.newdeal.ict.Vo.IntDetailJoinVo" alias="intjoinvo"/>
 		<typeAlias type="com.newdeal.ict.Util.PageUtil" alias="pagevo"/>
+		<typeAlias alias="fesvo" type="com.newdeal.ict.Vo.FestivalVo"/>
+		<typeAlias alias="fesDevo" type="com.newdeal.ict.Vo.FesDetailVo"/>
 	</typeAliases>
 </configuration>
 

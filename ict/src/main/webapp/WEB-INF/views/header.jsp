@@ -63,8 +63,8 @@ function logout(){
  			<li class="mainmenu">
  				<a href="#">취업지원센터</a>
  			 	<ul class="submenu_list">
- 				<li><a href="#">취업행사안내</a></li>
- 			 	<li><a href="#">채용정보공유</a></li>
+ 				<li><a href="<c:url value='/festival/list'/>">취업행사안내</a></li>
+ 			 	<li><a href="<c:url value='/festival/detailList'/>">채용정보공유</a></li>
  			 	</ul>
  			</li>
 
