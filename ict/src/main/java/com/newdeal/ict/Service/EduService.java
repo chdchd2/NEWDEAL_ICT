@@ -18,6 +18,8 @@ public interface EduService {
 	public HashMap<String, Object> detailList(int pageNum) throws Exception;
 	public int intCnt(HashMap<String, Object> map) throws Exception;
 	public IntDetailJoinVo intDetail(int intNum) throws Exception;
+	public IntDetailJoinVo intPrev(int intNum) throws Exception;
+	public IntDetailJoinVo intNext(int intNum) throws Exception;
 	public CommonFileVo fileinfo(CommonFileVo filevo) throws Exception;
 	public IntroduceVo getWriter(int intNum) throws Exception;
 	public int intDelete(int intNum) throws Exception;

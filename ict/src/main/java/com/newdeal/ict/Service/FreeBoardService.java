@@ -23,11 +23,11 @@ public interface FreeBoardService {
 			int fbNum, HttpSession session) throws Exception;
 	public int countArticle(String search_option,
 			String keyword) throws Exception;
-	public int fbfileWrite(List<MultipartFile> filelist,int num) throws Exception;
+	/*public int fbfileWrite(List<MultipartFile> filelist,int num) throws Exception;*/
 	public int fbmaxNum() throws Exception;
 	public CommonFileVo fileinfo(CommonFileVo filevo) throws Exception;
 	public int fileDel(CommonFileVo filevo) throws Exception;
 	public int fbCnt() throws Exception;
 	public int comment(CommentVo vo) throws Exception;
-	public List<CommentVo> commentList() throws Exception;
+	public List<CommentVo> commentList(int fbNum) throws Exception;
 }

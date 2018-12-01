@@ -21,7 +21,7 @@ function searchs(){
 				</div>
 <div id="sectionR">
 					<div id="contentHeader">
-						<h2>교육신청안내</h2>				
+						<h2>교육신청안내 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="유니에스">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="KSA"></h2>				
 					</div>
 						<div id="content">
 							<p id="count">총<span>${pu.totalRowCount}건</span></p>

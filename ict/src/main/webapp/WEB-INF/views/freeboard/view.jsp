@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <script>
 $(function(){
 	
@@ -24,15 +26,15 @@ $(function(){
 			document.form.submit();
 		});
 		
-		$(".btnSave").click(function(){
+	 	$(".btnSave").click(function(){
 			//태그.each(function(){})모든 태그 반복
 			var str="";
 			//폼에 hidden 태그들을 추가
 			$("#form").append(str);
 			document.form.submit();
 		});
-	
-	
+	 
+	  
 });
 function comment(){
 	var comContent=$("#comContent").val();
@@ -57,8 +59,16 @@ function comment(){
 	}
 }); 
 }
+
+function comDel(comNum){
+	if(!comfirm("댓글을 삭제하시겠습니까?")){
+		return;
+	}
+	if(comNum==0){
+		$(comNum).remove();
+	}
+}
 </script>
-<body>
 <section>
 <div id="sectionC">
 <div id="subMenu">
@@ -91,8 +101,19 @@ function comment(){
 							 <c:out value="${vo.fbContent}" escapeXml="false"/>
 							</div>
 							<ul>
-								
-								
+								<li>
+									<span>첨부파일</span>
+								<c:choose>
+								<c:when test="${fn:length(vo.list) > 0 }">
+								<c:forEach var="list" items="${vo.list }">
+								<a class="add_file" href="<c:url value='/freeboard/fileDown?fileNum=${list.fileNum }'/>">${list.fileOrgName }</a>
+								</c:forEach>																
+								</c:when>
+								<c:otherwise>
+								<a href="#a">첨부파일이 없습니다.</a>
+								</c:otherwise>
+								</c:choose>
+								</li>
 								<li>
 									<span>이전 글</span>
 									<a href="#a">이전 글이 없습니다.</a>
@@ -101,16 +122,13 @@ function comment(){
 									<span>다음 글</span>
 									<a href="#a">다음 글이 없습니다.</a>
 								</li>
-								<li>
-									<span>첨부파일</span>
-								<c:forEach var="list" items="${vo.list }">
-								<a href="<c:url value='/freeboard/fileDown?fileNum=${list.fileNum }'/>">${list.fileOrgName }</a>
-								</c:forEach>
-								</li>
+								
 							</ul>
 						</div>
 
 	<div>
+	<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
+		<input type="hidden" name="fbNum" value="${vo.fbNum}" />
 	<!-- 본인 게시물만 수정,삭제 버튼 표시 -->	
 		<a id="list" class="btnList">목록</a>
 	<c:if test="${sessionScope.member.memNickName == vo.fbWriter }"> 
@@ -119,11 +137,23 @@ function comment(){
 	</c:if> 
 	</div>
 	</div>
-	<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
-		<input type="hidden" name="fbNum" value="${vo.fbNum}" />
+		
+	<!-- 댓글 -->	
 	<span id="commentlist">
 	<c:forEach var="comment" items="${commentList}">
-		${comment.memNickName} ===>${comment.comContent} ${comment.comDate } <br> 
+	 	<colgroup>
+			<col>
+			<col>
+			<col>
+		</colgroup>
+		<thead>
+			<tr>
+				<td>${comment.memNickName} |</td>
+				<td>${comment.comContent} |</td>
+				<td><span><fmt:formatDate value="${comment.comDate}" pattern="yyyy-MM-dd"/></span></td><br>
+			</tr>
+		</thead>
+		<%-- ${comment.memNickName} ===>${comment.comContent} ${comment.comDate} <br>  --%>
 	</c:forEach>
 	</span>
 	<div id="comment">

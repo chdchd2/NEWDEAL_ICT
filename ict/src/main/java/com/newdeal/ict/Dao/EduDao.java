@@ -47,6 +47,13 @@ public class EduDao {
 	public IntDetailJoinVo intDetail(int intNum) {
 		return session.selectOne(NAMESPACE+".intDetail",intNum);
 	}
+	
+	public IntDetailJoinVo intNext(int intNum) {
+		return session.selectOne(NAMESPACE+".intNext",intNum);
+	}
+	public IntDetailJoinVo intPrev(int intNum) {
+		return session.selectOne(NAMESPACE+".intPrev",intNum);
+	}
 	public CommonFileVo fileinfo(CommonFileVo filevo) {
 		return session.selectOne(NAMESPACE+".fileinfo",filevo);
 	}

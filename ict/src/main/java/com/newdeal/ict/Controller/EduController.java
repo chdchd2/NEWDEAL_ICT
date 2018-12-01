@@ -74,14 +74,18 @@ public class EduController {
 	public String intDetail(int intNum,Model model) throws Exception {
 		
 		IntDetailJoinVo vo=service.intDetail(intNum);
-		System.out.println("===>out"+vo.toString());
+		IntDetailJoinVo prev=service.intPrev(intNum);
+		IntDetailJoinVo next=service.intNext(intNum);
+		
 		model.addAttribute("vo",vo);
+		model.addAttribute("prev",prev);
+		model.addAttribute("next",next);
+		
 		return ".edu.introduce.detail";
 	}
 	
 	@RequestMapping(value="/fileDown" )
 	public ModelAndView contactoDownload(@ModelAttribute CommonFileVo filevo) throws Exception{
-		System.out.println("而⑦듃濡ㅻ윭 �뙆�씪�떎�슫遺�遺꾧퉴吏� �삩�떎.");
 		CommonFileVo fileVo=service.fileinfo(filevo);
 		ModelAndView mv= new ModelAndView("FileDownView");
 		File file=new File(fileVo.getFilePath()+File.separator+fileVo.getFileName());

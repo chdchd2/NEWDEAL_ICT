@@ -5,18 +5,18 @@
 <section>
 <script>
 $(function(){
-	$("#btnWrite").click(function(){
-		location.href="${path}/freeboard/write.do";
+	$(".btnWrite").click(function(){
+		location.href="/ict/freeboard/write.do";
 	});
 });
 function list(page){
-	location.href="${path}/freeboard/list.do?curPage="+page
+	location.href="/ict/freeboard/list.do?curPage="+page
 	+"&search_option=${map.search_option}"
 	+"&keyword=${map.keyword}";
 }
 function view(fbNum){
 	document.form.fbNum.value=fbNum;
-	document.form.action="${path}/freeboard/view.do";
+	document.form.action="/ict/freeboard/view.do";
 	document.form.submit();
 }
 </script>
@@ -35,8 +35,6 @@ function view(fbNum){
 					<div id="contentHeader">
 						<h2>자유게시판</h2>
 					</div>
-
-
 
 					<div id="content">
 						<p id="count">총<span>${map.count}건</span></p>

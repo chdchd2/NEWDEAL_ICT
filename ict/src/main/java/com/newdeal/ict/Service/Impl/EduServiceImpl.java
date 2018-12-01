@@ -74,6 +74,14 @@ public class EduServiceImpl implements EduService{
 		dao.detailCntUp(intNum);
 		return dao.intDetail(intNum);
 	}
+	
+	public IntDetailJoinVo intNext(int intNum) throws Exception {
+		return dao.intNext(intNum);
+	}
+	
+	public IntDetailJoinVo intPrev(int intNum) throws Exception {
+		return dao.intPrev(intNum);
+	}
 
 	@Override
 	public CommonFileVo fileinfo(CommonFileVo filevo) throws Exception {

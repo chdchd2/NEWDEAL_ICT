@@ -37,6 +37,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		/*dao.increaseViewcnt(fbNum);*/
 		return dao.read(fbNum);
 	}
+	
 
 	@Transactional // 트랜잭션처리
 	@Override
@@ -92,7 +93,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		return dao.countArticle(search_option, keyword);
 	}
 
-	@Override
+	/*@Override
 	public int fbfileWrite(List<MultipartFile> filelist, int num) throws Exception {
 		InputStream is = null;
 		FileOutputStream fos = null;
@@ -123,7 +124,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 		}
 		return 0;
-	}
+	}*/
 
 	@Override
 	public int fbmaxNum() throws Exception {
@@ -166,7 +167,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 
 	@Override
-	public List<CommentVo> commentList() throws Exception {
-		return dao.commentList();
+	public List<CommentVo> commentList(int fbNum) throws Exception {
+		return dao.commentList(fbNum);
 	}
 }
