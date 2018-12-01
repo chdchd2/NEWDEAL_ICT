@@ -1,11 +1,9 @@
 <%@page import="com.newdeal.ict.Vo.MemberVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" errorPage="../../error/interror.jsp"
+	pageEncoding="UTF-8" errorPage="../../error/feserror.jsp"
 	%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
- <script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
- <%
+<%
 	
 	MemberVo vo = (MemberVo) session.getAttribute("member");
 
@@ -18,28 +16,99 @@
 <%
 	}
 %>
+<link rel="stylesheet" href="<c:url value='/resources/css/community_QNA03.css'/>">
+<section>
+<script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
+<script>
+$(function(){
+	
+	$(".btnSave").click(function(){
+		//태그.each(function(){})모든 태그 반복
+		var str="";
+		//폼에 hidden 태그들을 추가
+		$("#form").append(str);
+		document.form.submit();
+	});
+	$(".btnList").click(function(){
+		/*location.href="${path}/board/list.do";
+		//document.form.action="${path}/board/list.do";
+		//document.form.submit(); */
+		document.form.action="<c:url value='/festival/list'/>";
+		document.form.submit();
+	});
+});
+</script>
+<div id="sectionC">
+<div id="subMenu">
+						<h2>취업지원센터</h2>
+					<ul>
+						<li><a href="<c:url value='/festival/list'/>" class="subActive">행사안내 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
+						<li><a href="<c:url value='/festival/detailList'/>">채용정보</a></li>
+					</ul>
+				</div>
 
-취업정보게시판 글쓰기
-<form action="<c:url value='/festival/write'/>" method="POST" enctype="multipart/form-data">
-	<table border="1">
-		<tr>
-			<td>제목 : <input type="text" name="fesTitle" id="title">
-		</tr>
-		<tr>
-			<td>내용:<textarea rows="" cols="" id="content" name="fesContent"></textarea></td>
-		</tr>
-		<tr>
-			<td>작성자 : <input type="text" id="write" name="fesWrite" value="${member.memNickName }"></td>
-		</tr>
-		<tr>
-			<td>첨부파일: <input type="file" multiple="multiple" name="file">
-		</tr>
-	</table>
-		<input type="hidden" name="memNum" value="${member.memNum }"> 
-		<input type="submit" value="글작성하기">
+
+<div id="sectionR">
+					<div id="contentHeader">
+						<h2>취업행사 안내게시판</h2>
+					</div>
+					
+<form id="form" name="form" method="post" enctype="multipart/form-data" action="<c:url value='/festival/write'/>">
+<div id="content">
+<table>
+							<colgroup>
+								<col>
+								<col>
+							</colgroup>
+							<tbody>
+								<tr>
+									<td>제목</td>
+									<td>
+										<input type="text" name="fesTitle" id="fesTitle">
+									</td>
+								</tr>
+								<tr>
+									<td>작성자</td>
+									<td><input type="hidden" name="fesWriter" value="${member.memNickName}" />
+										<input type="hidden" name="memNum" value="${member.memNum }"/>${member.memNickName}</td>
+								</tr>
+								<tr>
+									<td>첨부파일</td>
+									<td>
+										 <input type="file" value="파일첨부" id="file" multiple="multiple" name="file">
+										<label for="file">파일첨부</label> 
+										 <span id="checkfile">선택된 파일이 없습니다.</span> 
+										<p>
+											<input type="checkbox" id="checkbox01" ><label for="checkbox01" class="checkbox"></label>
+											<input type="checkbox" id="checkbox02" ><label for="checkbox02" class="checkbox"></label>
+										</p>
+										<a href="#a" id="fileDelete" ><img src="resources/images/delete_icon.png" alt="삭제 아이콘"></a> 
+									</td>
+								</tr>
+								<tr>
+									<td>내용</td>
+									<td><textarea name="fesContent" id="fesContent" cols="30" rows="10"></textarea>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+	
+						<ul>
+							<li>
+								<a id="input"  class="btnSave">등록</a>
+							</li>
+							<li>
+								<a id="cancel"  class="btnList">취소</a>
+							</li>
+						</ul>
+	
+</div>	
 </form>
 <script>
 CKEDITOR.replace('fesContent',{
 	filebrowserUploadUrl:"<c:url value='/ckImage'/>"
 });
 </script>
+</div>
+</div>
+</section>
