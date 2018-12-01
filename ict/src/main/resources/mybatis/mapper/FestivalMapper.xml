@@ -20,6 +20,8 @@
 		<result property="filePath" column="filePath"/>
 		<result property="fileRefBoard" column="fileRefBoard"/>
 		<result property="fileRefNum" column="fileRefNum"/>
+		<result property="intPrev" column="intPrev"/>
+		<result property="intNext" column="intNext"/>
 	</collection>
 </resultMap>
 <resultMap type="com.newdeal.ict.Vo.FestivalVo" id="fesvo"/>
@@ -107,7 +109,7 @@ SELECT SEQ_FESTIVALDEL_FES_NUMD.currval as detNum FROM dual
 </select> 
 
 
-<select id="fesDetail" parameterType="int" resultMap="fesDevo">
+<select id="fesDetail" parameterType="int" resultMap="fesvo">
 	SELECT  FES_NUM AS fesNum,
       		 FES_TITLE AS fesTitle,
       		 FES_CONTENT AS fesContent,
@@ -121,10 +123,61 @@ SELECT SEQ_FESTIVALDEL_FES_NUMD.currval as detNum FROM dual
 			FILE_SIZE AS FILESIZE,
 			FILE_PATH AS FILEPATH,
 			FILE_REF_BOARD AS FILEREFBOARD,
-			FILE_REF_NUM AS FILEREFNUM FROM 
+			FILE_REF_NUM AS FILEREFNUM 
+	FROM 
 		FESTIVAL A,COMMON_FILE B 
 	WHERE A.FES_NUM=B.FILE_REF_NUM(+)
 	AND A.FES_NUM=#{fesNum}
+</select>
+
+<select id="intPrev" parameterType="int" resultMap="fesvo">
+SELECT * FROM
+		  (SELECT  FES_NUM AS fesNum,
+      		 FES_TITLE AS fesTitle,
+      		 FES_CONTENT AS fesContent,
+      		 FES_DATE AS fesDate,
+      		 FES_WRITE AS fesWrite,
+      		 FES_HIT AS fesHit,
+      		 MEM_NUM AS memNum,
+			FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM,
+			ROWNUM 
+			FROM FESTIVAL A,COMMON_FILE B 
+	 <![CDATA[ 
+	 WHERE A.FES_NUM=B.FILE_REF_NUM(+)
+	AND A.FES_NUM<#{fesNum} ORDER BY FES_NUM DESC)
+	WHERE ROWNUM=1
+	]]>
+</select>
+
+ <select id="intNext" parameterType="int" resultMap="fesvo">
+SELECT * FROM
+		  (SELECT  FES_NUM AS fesNum,
+      		 FES_TITLE AS fesTitle,
+      		 FES_CONTENT AS fesContent,
+      		 FES_DATE AS fesDate,
+      		 FES_WRITE AS fesWrite,
+      		 FES_HIT AS fesHit,
+      		 MEM_NUM AS memNum,
+			FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM,
+			ROWNUM 
+			FROM FESTIVAL A,COMMON_FILE B 
+	 <![CDATA[ 
+	 WHERE A.FES_NUM=B.FILE_REF_NUM(+)
+	AND A.FES_NUM>#{fesNum} ORDER BY FES_NUM ASC)
+	WHERE ROWNUM=1
+	]]>
 </select>
 
 <select id="fileinfo" parameterType="int" resultType="filevo">

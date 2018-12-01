@@ -28,6 +28,14 @@ public class FestivalServiceImpl  implements FestivalService {
 	public int fesWrite(FestivalVo vo) {
 		return dao.fesWrite(vo);
 	}
+	
+	public FestivalVo intNext(int fesNum) throws Exception {
+		return dao.intNext(fesNum);
+	}
+	
+	public FestivalVo intPrev(int fesNum) throws Exception {
+		return dao.intPrev(fesNum);
+	}
 
 	@Override
 	public HashMap<String, Object> list(int pageNum) throws Exception {
@@ -81,7 +89,7 @@ public class FestivalServiceImpl  implements FestivalService {
 	}
 
 	@Override
-	public FesDetailVo fesDetail(int fesNum) throws Exception {
+	public FestivalVo fesDetail(int fesNum) throws Exception {
 		dao.detailCntUp(fesNum);
 		System.out.println("==============>dao.detailCntUp(fesNum) :" + fesNum);
 		return dao.fesDetail(fesNum);

@@ -25,6 +25,13 @@ public class FestivalDao {
 		return session.insert(NAMESPACE+".fesWrite",vo);
 	}
 	
+	public FestivalVo intNext(int fesNum) {
+		return session.selectOne(NAMESPACE+".intNext",fesNum);
+	}
+	public FestivalVo intPrev(int fesNum) {
+		return session.selectOne(NAMESPACE+".intPrev",fesNum);
+	}
+	
 	public List<FestivalVo> list(PageUtil vo){
 		return session.selectList(NAMESPACE+".list",vo);
 	}
@@ -33,7 +40,7 @@ public class FestivalDao {
 		return session.selectOne(NAMESPACE+".fesCnt");
 	}
 	
-	public FesDetailVo fesDetail(int fesNum) {
+	public FestivalVo fesDetail(int fesNum) {
 		return session.selectOne(NAMESPACE+".fesDetail",fesNum);
 	}
 	

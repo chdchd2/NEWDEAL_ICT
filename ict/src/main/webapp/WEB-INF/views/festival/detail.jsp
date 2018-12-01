@@ -37,11 +37,25 @@
 								
 								<li>
 									<span>이전 글</span>
-									<a href="#a">이전 글이 없습니다.</a>
+									<c:choose>
+									<c:when test="${prev.fesTitle eq null}">
+									<a href="#">이전글이 없습니다.</a>
+									</c:when>
+									<c:otherwise>
+										<a href="<c:url value='/festival/fesDetail?fesNum=${prev.fesNum }'/>">${prev.fesTitle }</a>
+									</c:otherwise>
+									</c:choose>
 								</li>
 								<li>
 									<span>다음 글</span>
-									<a href="#a">다음 글이 없습니다.</a>
+									<c:choose>
+									<c:when test="${next.fesTitle eq null}">
+									<a href="#">다음글이 없습니다.</a>
+									</c:when>
+									<c:otherwise>
+										<a href="<c:url value='/festival/fesDetail?fesNum=${next.fesNum }'/>">${next.fesTitle }</a>
+									</c:otherwise>
+									</c:choose>
 								</li>
 								<li>
 									<span>첨부파일</span>

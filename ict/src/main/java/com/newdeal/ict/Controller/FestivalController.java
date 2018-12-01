@@ -70,9 +70,14 @@ public class FestivalController {
 	@RequestMapping(value = "/fesDetail",method = RequestMethod.GET)
 	public String fesDetail(int fesNum,Model model) throws Exception {
 		
-		FesDetailVo vo=service.fesDetail(fesNum);
-		System.out.println("===>out"+vo.toString());
+		FestivalVo vo=service.fesDetail(fesNum);
+		FestivalVo prev=service.intPrev(fesNum);
+		FestivalVo next=service.intNext(fesNum);
+		
 		model.addAttribute("FestivalVo",vo);
+		model.addAttribute("prev",prev);
+		model.addAttribute("next",next);
+		
 		return ".festival.detail";
 	}
 	
@@ -112,7 +117,7 @@ public class FestivalController {
 		
 		if(fesvo.getMemNum()==vo.getMemNum()) {
 			System.out.println("작성자와 로그인한 사용자가 같으니까 수정으로 넘겨줌");
-			FesDetailVo edit=service.fesDetail(fesNum);
+			FestivalVo edit=service.fesDetail(fesNum);
 			model.addAttribute("vo",edit);
 		}else {
 			System.out.println("같지않다.");

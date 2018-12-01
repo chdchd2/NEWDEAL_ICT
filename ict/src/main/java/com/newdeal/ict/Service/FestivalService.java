@@ -19,7 +19,7 @@ public interface FestivalService {
 	public int fesCnt() throws Exception;
 	public int fesmaxNum() throws Exception;
 	public int intfileWrite(List<MultipartFile> filelist, int num) throws Exception;
-	public FesDetailVo fesDetail(int fesNum) throws Exception ;
+	public FestivalVo fesDetail(int fesNum) throws Exception ;
 	public CommonFileVo fileinfo(CommonFileVo filevo) throws Exception;
 	public FesDetailVo getWriter(int fesNum) throws Exception;
 	public int fesDelete(int fesNum) throws Exception;
@@ -27,6 +27,7 @@ public interface FestivalService {
 	public int fileDel(CommonFileVo filevo) throws Exception;
 	public int detailWrite(FesDetailVo vo) throws Exception;
 	public HashMap<String, Object> detailList(int pageNum) throws Exception;
-	
+	public FestivalVo intPrev(int fesNum) throws Exception;
+	public FestivalVo intNext(int fesNum) throws Exception;
 
 }
