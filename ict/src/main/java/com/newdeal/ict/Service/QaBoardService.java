@@ -12,6 +12,7 @@ import com.newdeal.ict.Vo.QaBoardVo;
 public interface QaBoardService {
 	public void create(QaBoardVo vo) throws Exception;
 	public QaBoardVo read(int qaNum) throws Exception;
+	public QaBoardVo view(int qaNum) throws Exception;
 	public void update(QaBoardVo vo) throws Exception;
 	public void delete(int qaNum) throws Exception;
 	public List<QaBoardVo> listAll(
@@ -27,4 +28,5 @@ public interface QaBoardService {
 	public CommonFileVo fileinfo(CommonFileVo filevo) throws Exception;
 	public int fileDel(CommonFileVo filevo) throws Exception;
 	public int qaCnt() throws Exception;
+	public int answer(QaBoardVo vo) throws Exception;
 }

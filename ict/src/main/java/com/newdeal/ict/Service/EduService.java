@@ -14,9 +14,9 @@ import com.newdeal.ict.Vo.IntroduceVo;
 public interface EduService {
 	public int intWrite(IntroduceVo vo) throws Exception;
 	public int intmaxNum() throws Exception;
-	public HashMap<String, Object> intList(int pageNum) throws Exception;
+	public HashMap<String, Object> intList(HashMap<String, Object> map) throws Exception;
 	public HashMap<String, Object> detailList(int pageNum) throws Exception;
-	public int intCnt() throws Exception;
+	public int intCnt(HashMap<String, Object> map) throws Exception;
 	public IntDetailJoinVo intDetail(int intNum) throws Exception;
 	public CommonFileVo fileinfo(CommonFileVo filevo) throws Exception;
 	public IntroduceVo getWriter(int intNum) throws Exception;

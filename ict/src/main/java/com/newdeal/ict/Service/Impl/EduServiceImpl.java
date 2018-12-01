@@ -40,14 +40,14 @@ public class EduServiceImpl implements EduService{
 	}
 
 	@Override
-	public HashMap<String, Object> intList(int pageNum) throws Exception {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		int totalRowCount = dao.intCnt();
+	public HashMap<String, Object> intList(HashMap<String, Object> map) throws Exception {
+		int totalRowCount = dao.intCnt(map);
+		int pageNum=Integer.parseInt(map.get("pageNum").toString());
 		PageUtil pu=new PageUtil(pageNum, 10, 10, totalRowCount);
-		List<IntroduceVo> list =dao.intList(pu);
-		map.put("list", list);
 		map.put("pu",pu);
-		System.out.println("pu내용====>"+pu.toString());
+		List<IntroduceVo> list =dao.intList(map);
+		map.put("list", list);
+		System.out.println("pu�궡�슜====>"+pu.toString());
 		return map;
 	}
 	
@@ -59,14 +59,14 @@ public class EduServiceImpl implements EduService{
 		List<EduDetailVo> list =dao.detailList(pu);
 		map.put("list", list);
 		map.put("pu",pu);
-		System.out.println("pu����====>"+pu.toString());
+		System.out.println("pu占쏙옙占쏙옙====>"+pu.toString());
 		return map;
 	}
 
 	@Override
-	public int intCnt() throws Exception {
+	public int intCnt(HashMap<String, Object> map) throws Exception {
 		
-		return dao.intCnt();
+		return dao.intCnt(map);
 	}
 
 	@Override
@@ -89,19 +89,19 @@ public class EduServiceImpl implements EduService{
 	public int intDelete(int intNum) throws Exception {
 			
 			List<CommonFileVo> filelist = dao.intFileDelList(intNum);
-			System.out.println("파일리스트출력"+filelist.toString());
+			System.out.println("�뙆�씪由ъ뒪�듃異쒕젰"+filelist.toString());
 			for(CommonFileVo vo:filelist) {
 				String files=vo.getFilePath()+vo.getFileName();
-				System.out.println("파일디렉토리+파일이름 출력해보기"+files);
+				System.out.println("�뙆�씪�뵒�젆�넗由�+�뙆�씪�씠由� 異쒕젰�빐蹂닿린"+files);
 				File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 				if( file.exists() ){
 		            if(file.delete()){
-		                System.out.println("파일삭제 성공");
+		                System.out.println("�뙆�씪�궘�젣 �꽦怨�");
 		            }else{
-		                System.out.println("파일삭제 실패");
+		                System.out.println("�뙆�씪�궘�젣 �떎�뙣");
 		            }
 		        }else{
-		            System.out.println("파일이 존재하지 않습니다.");
+		            System.out.println("�뙆�씪�씠 議댁옱�븯吏� �븡�뒿�땲�떎.");
 		        }
 				dao.intFileDelete(intNum);
 				dao.intDelete(intNum);
@@ -123,13 +123,13 @@ public class EduServiceImpl implements EduService{
 		File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 		if( file.exists() ){
             if(file.delete()){
-                System.out.println("파일삭제 성공");
+                System.out.println("�뙆�씪�궘�젣 �꽦怨�");
                 dao.fileDel(filevo);
             }else{
-                System.out.println("파일삭제 실패");
+                System.out.println("�뙆�씪�궘�젣 �떎�뙣");
             }
         }else{
-            System.out.println("파일이 존재하지 않습니다.");
+            System.out.println("�뙆�씪�씠 議댁옱�븯吏� �븡�뒿�땲�떎.");
         }
 		return 1;
 	}

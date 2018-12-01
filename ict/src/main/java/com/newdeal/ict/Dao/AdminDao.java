@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.newdeal.ict.Vo.LinkListVo;
 import com.newdeal.ict.Vo.MemberVo;
 
 
@@ -29,5 +30,15 @@ public class AdminDao {
 	
 	public int memState(MemberVo vo) {
 		return session.update(NAMESPACE+".memState",vo);
+	}
+	public List<LinkListVo> linklist(){
+		return session.selectList(NAMESPACE+".linklist");
+	}
+	public int dellink(int linkNum) {
+		return session.delete(NAMESPACE+".dellink",linkNum);
+	}
+	
+	public int linkadd(LinkListVo vo) {
+		return session.insert(NAMESPACE+".linkadd",vo);
 	}
 }

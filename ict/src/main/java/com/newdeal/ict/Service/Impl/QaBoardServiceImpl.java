@@ -187,4 +187,19 @@ public class QaBoardServiceImpl implements QaBoardService{
 	public List<QaBoardVo> listAll() throws Exception {
 		return dao.listAll();
 	}
+
+
+
+	@Override
+	public QaBoardVo view(int qaNum) throws Exception {
+		
+		return dao.view(qaNum);
+	}
+
+
+
+	@Override
+	public int answer(QaBoardVo vo) throws Exception {
+		return dao.answer(vo);
+	}
 }

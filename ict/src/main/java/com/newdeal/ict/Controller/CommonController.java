@@ -5,21 +5,32 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.newdeal.ict.Service.AdminService;
+import com.newdeal.ict.Vo.LinkListVo;
+
 @Controller
 public class CommonController {
+	@Autowired
+	private AdminService service;
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	   public String home() {
-	      System.out.println("Ȩ�����̵��ϱ�");
+	   public String home(HttpSession session) throws Exception {
+		  List<LinkListVo> linklist = service.linklist();
+		  
+		  session.setAttribute("linklist", linklist);
+	      System.out.println("홈으로이동하기");
 	      return ".main";
 	   }
 	   
@@ -37,20 +48,20 @@ public class CommonController {
 	        	String path="C:\\Users\\haces\\git\\NEWDEAL_ICT\\";
 	            String fileName = upload.getOriginalFilename();
 	            byte[] bytes = upload.getBytes();
-	            String uploadPath = path + fileName;//저장경로
+	            String uploadPath = path + fileName;//���옣寃쎈줈
 	 
 	            out = new FileOutputStream(new File(uploadPath));
 	            out.write(bytes);
 	            String callback = request.getParameter("CKEditorFuncNum");
 	 
 	            printWriter = response.getWriter();
-	            String fileUrl = path+ fileName;//url경로
+	            String fileUrl = path+ fileName;//url寃쎈줈
 	 
 	            printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("
 	                    + callback
 	                    + ",'"
 	                    + fileUrl
-	                    + "','이미지를 업로드 하였습니다.'"
+	                    + "','�씠誘몄�瑜� �뾽濡쒕뱶 �븯���뒿�땲�떎.'"
 	                    + ")</script>");
 	            printWriter.flush();
 	 

@@ -18,6 +18,13 @@
 			   MEM_STATE AS memState
 			   FROM MEMBER
 	</select>
+	
+	<select id="linklist" resultType="linkvo">
+		SELECT LINK_NUM AS linkNum,
+			   LINK_NAME AS linkName,
+			   LINK_URL AS linkUrl
+			   FROM EDU_LINKLIST
+	</select>
 
 	<update id="memGrade" parameterType="member">
 		UPDATE MEMBER SET MEM_GRADE=#{memGrade} WHERE MEM_NUM=#{memNum}
@@ -26,6 +33,14 @@
 	<update id="memState" parameterType="member">
 		UPDATE MEMBER SET MEM_State=#{memState} WHERE MEM_NUM=#{memNum}
 	</update>
+	
+	<delete id="dellink" parameterType="int">
+		DELETE EDU_LINKLIST WHERE LINK_NUM=#{linkNum}
+	</delete>
+	
+	<insert id="linkadd" parameterType="linkvo">
+		INSERT INTO EDU_LINKLIST VALUES(SEQ_EDU_LINKLIST_LINK_NUM.nextval,#{linkUrl},#{linkName})
+	</insert>
 
 
 

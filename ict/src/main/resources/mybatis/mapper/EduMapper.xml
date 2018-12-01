@@ -23,6 +23,12 @@
 	</collection>
 </resultMap>
 
+ <sql id="search">
+ 	<if test="searchType!=null and searchWord!=''">
+ 	where ${searchType} like '%' ||#{searchWord} ||'%'
+	</if>
+ </sql>
+
 <insert id="intWrite" parameterType="intvo">
 	INSERT INTO EDU_INTRODUCE VALUES(
 									SEQ_EDU_INTRODUCE_INT_NUM.nextval,
@@ -41,8 +47,10 @@
 </select>
 
 
-<select id="intCnt" resultType="int">
- 			SELECT NVL(COUNT(*),0) CNT from EDU_INTRODUCE <!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
+<select id="intCnt" parameterType="hashmap" resultType="int">
+ 			SELECT NVL(COUNT(*),0) CNT from EDU_INTRODUCE 
+ 			  <include refid="search"/>
+ 			<!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
  			
 </select>
 
@@ -51,7 +59,7 @@
  			
 </select>
 
-<select id="intList" parameterType="pagevo" resultType="intvo">
+<select id="intList" parameterType="hashmap" resultType="intvo">
       SELECT INT_NUM AS INTNUM,
       		 MEM_NUM AS MEMNUM,
       		 INT_TITLE AS INTTITLE,
@@ -63,10 +71,11 @@
        FROM(
                     SELECT AA.*,ROWNUM RNUM FROM(
                                  SELECT * FROM EDU_INTRODUCE
+                                 <include refid="search"/>
                                  ORDER BY INT_NUM DESC
                                 				 )AA
                      )
-      <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
+      <![CDATA[where rnum >=#{pu.startRow} and rnum <=#{pu.endRow}]]>
 	
 </select>
 

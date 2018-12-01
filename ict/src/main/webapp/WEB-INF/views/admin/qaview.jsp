@@ -19,16 +19,29 @@
 
     <!-- Custom styles for this template-->
     <link href="<c:url value='/resources/css/sb-admin.css'/>" rel="stylesheet">
+    	<script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
+    		<script src="<c:url value='/resources/js/jquery-3.2.1.min.js'/>"></script>
 	<script>
-	function noticeWrite(){
-		alert("실행");
-		location.href="<c:url value='/admin/noticeWrite'/>";
+	function memGrade(memNum){
+		var memGrade=$("#grade"+memNum).val();
+		console.log(memGrade);
+		location.href="<c:url value='/admin/memGrade?memNum="+memNum+"&memGrade="+memGrade+"'/>";
 	}
 	
-	function del(ntNum){
-		location.href="<c:url value='/admin/noticeDel?ntNum="+ntNum+"'/>";
+	function memState(memNum){
+		var memState=$("#memState"+memNum).val();
+		console.log(memState);
+		location.href="<c:url value='/admin/memState?memNum="+memNum+"&memState="+memState+"'/>";
 	}
 	
+	function showDiv(){
+		console.log("click");
+		$("#hidediv").css("display","block");
+	}
+	function formSubmit(){
+		console.log("dasfsafsadf");
+		$("#answerform").submit();
+	}
 	</script>
   </head>
 
@@ -68,8 +81,8 @@
             <span>게시판 관리</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="<c:url value='/admin/notice'/>">공지사항 관리</a>
-         <a class="dropdown-item" href="<c:url value='/admin/qalist'/>">Q&A 답변달기</a>
+                  <a class="dropdown-item" href="<c:url value='/admin/notice'/>">공지사항 관리</a>
+             <a class="dropdown-item" href="<c:url value='/admin/qalist'/>">Q&A 답변달기</a>
           </div> 
         </li>
         
@@ -80,7 +93,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <a class="dropdown-item" href="login.html">메인바꾸기</a>
-      <a class="dropdown-item" href="<c:url value='/admin/linklist'/>">교육신청 링크추가</a>
+            <a class="dropdown-item" href="register.html">교육신청 링크추가</a>
           </div>
         </li>
       </ul>
@@ -91,59 +104,102 @@
 
         <div class="container-fluid">
 
-
         
-
-          <!-- DataTables Example -->
-          <div class="card mb-3">
-            <div class="card-header">
-              <i class="fas fa-table"></i>
-             	공지사항 관리</div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  
-                  <thead>
-                  
-                    <tr>
-                      	<th>번호</th>
-								<th>제목</th>
-								<th>이름</th>
-								<th>날짜</th>
-								<th>조회수</th>
-                    </tr>
-                  </thead>
-                  <tfoot>
-                    <tr>
-                   	<th>번호</th>
-					<th>제목</th>
-					<th>이름</th>
-					<th>날짜</th>
-					<th>조회수</th>
-                    </tr>
-                  </tfoot>
-                  <tbody>
-                 
-                 	<c:forEach var="row" items="${map.list}">
-                    <tr>
-                      <td>${row.ntNum}</td>
-										<td>
-										<a href="<c:url value='/notice/view.do?ntNum=${row.ntNum}'/>">${row.ntTitle}</a> 
-										<%-- <a href="#" onclick="view('${row.bno}')">${row.title}</a> --%>
-										</td>
-										<td>${row.ntWriter}</td>
-										<td><fmt:formatDate value="${row.ntRegdate}" pattern="yyyy.MM.dd "/></td>
-										<td>${row.ntViewcnt}&nbsp; <button onclick="del(${row.ntNum })">삭제</button></td>
-                    </tr>
-                    </c:forEach>
-                    
-                  </tbody>
-                </table>
-                <button onclick="noticeWrite()">공지사항 쓰기</button>
+        <div class="container">
+      <div class="card card-register mx-auto mt-5">
+        <div class="card-header">${vo.qaTitle}  </div>
+        <div class="card-body">
+          
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6">
+              
+                </div>
+                <div class="col-md-10">
+                  <div class="form-label-group">
+               작성자 :${vo.qaWriter} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               질문날짜 :<fmt:formatDate value="${vo.qaRegdate}" pattern="yyyy-MM-dd"/>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="card-footer small text-muted"></div>
-          </div>
+            
+            <div class="form-group">
+              <div>
+            <c:out value="${vo.qaContent}" escapeXml="false"/>
+              </div>
+            </div>
+            첨부파일 목록: <c:forEach var="list" items="${vo.list }">
+								<a href="<c:url value='/qaboard/fileDown?fileNum=${list.fileNum }'/>">${list.fileOrgName }</a>
+								</c:forEach>
+								<br><br>
+            <a class="btn btn-primary btn-block" onclick="showDiv()">답변달기</a>
+         
+          
+          
+         
+        </div>
+      </div>
+      
+      
+    
+      <div id="hidediv" style="display: none;">
+       <div class="card card-register mx-auto mt-5">
+          <form id="answerform" action="<c:url value='/admin/answer'/>" method="POST">
+        <div class="card-header">답변제목입력 <input type="text" id="qaTitle" name="qaTitle"style="width:500px; margin-top: 5px;">  </div>
+        <div class="card-body">
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6">
+              
+                </div>
+              </div>
+            </div>
+              <div>
+          <textarea name="qaContent" id="qaContent" cols="30" rows="10"></textarea>
+              </div>
+            <a class="btn btn-primary btn-block" onclick="formSubmit()">완료</a>
+        </div>
+        <input type="hidden" name="qaNum" value="${vo.qaNum }">
+          </form>
+      </div>
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </div>
+    
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+          
 
         </div>
         <!-- /.container-fluid -->
@@ -181,6 +237,10 @@
     <!-- Demo scripts for this page-->
     <script src="<c:url value='/resources/js/demo/datatables-demo.js'/>"></script>
     <script src="<c:url value='/resources/js/demo/chart-area-demo.js'/>"></script>
-
+	<script>
+CKEDITOR.replace('qaContent',{
+	filebrowserUploadUrl:"<c:url value='/ckImage'/>"
+});
+</script>
   </body>
 

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
   <head>
 
 
@@ -20,15 +19,24 @@
     <!-- Custom styles for this template-->
     <link href="<c:url value='/resources/css/sb-admin.css'/>" rel="stylesheet">
 	<script>
-	function noticeWrite(){
-		alert("실행");
-		location.href="<c:url value='/admin/noticeWrite'/>";
+	function memGrade(memNum){
+		var memGrade=$("#grade"+memNum).val();
+		console.log(memGrade);
+		location.href="<c:url value='/admin/memGrade?memNum="+memNum+"&memGrade="+memGrade+"'/>";
 	}
 	
-	function del(ntNum){
-		location.href="<c:url value='/admin/noticeDel?ntNum="+ntNum+"'/>";
+	function memState(memNum){
+		var memState=$("#memState"+memNum).val();
+		console.log(memState);
+		location.href="<c:url value='/admin/memState?memNum="+memNum+"&memState="+memState+"'/>";
 	}
 	
+	function linkadd(){
+		var linkName=$("#linkName").val();
+		var linkUrl=$("#linkUrl").val();
+		
+		location.href="<c:url value='/admin/linkadd?linkName="+linkName+"&linkUrl="+linkUrl+"'/>";
+	}
 	</script>
   </head>
 
@@ -68,8 +76,8 @@
             <span>게시판 관리</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="<c:url value='/admin/notice'/>">공지사항 관리</a>
-         <a class="dropdown-item" href="<c:url value='/admin/qalist'/>">Q&A 답변달기</a>
+                  <a class="dropdown-item" href="<c:url value='/admin/notice'/>">공지사항 관리</a>
+             <a class="dropdown-item" href="<c:url value='/admin/qalist'/>">Q&A 답변달기</a>
           </div> 
         </li>
         
@@ -80,7 +88,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <a class="dropdown-item" href="login.html">메인바꾸기</a>
-      <a class="dropdown-item" href="<c:url value='/admin/linklist'/>">교육신청 링크추가</a>
+                 <a class="dropdown-item" href="<c:url value='/admin/linklist'/>">교육신청 링크추가</a>
           </div>
         </li>
       </ul>
@@ -98,48 +106,39 @@
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-             	공지사항 관리</div>
+             	회원목록</div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  
                   <thead>
-                  
                     <tr>
-                      	<th>번호</th>
-								<th>제목</th>
-								<th>이름</th>
-								<th>날짜</th>
-								<th>조회수</th>
+                      <th>표시 될 이름 (EX:문화/교육신청 바로가기)</th>
+                      <th>링크의 주소</th>
+                     
+                      
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                   	<th>번호</th>
-					<th>제목</th>
-					<th>이름</th>
-					<th>날짜</th>
-					<th>조회수</th>
+                      <th>표시 될 이름 (EX:문화/교육신청 바로가기)</th>
+                      <th>링크의 주소</th>
                     </tr>
                   </tfoot>
                   <tbody>
                  
-                 	<c:forEach var="row" items="${map.list}">
+                  <c:forEach var="linklist" items="${linklist }">
                     <tr>
-                      <td>${row.ntNum}</td>
-										<td>
-										<a href="<c:url value='/notice/view.do?ntNum=${row.ntNum}'/>">${row.ntTitle}</a> 
-										<%-- <a href="#" onclick="view('${row.bno}')">${row.title}</a> --%>
-										</td>
-										<td>${row.ntWriter}</td>
-										<td><fmt:formatDate value="${row.ntRegdate}" pattern="yyyy.MM.dd "/></td>
-										<td>${row.ntViewcnt}&nbsp; <button onclick="del(${row.ntNum })">삭제</button></td>
+                      <td>${linklist.linkName }</td>
+                      <td>${linklist.linkUrl }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<c:url value='/admin/dellink?linkNum=${linklist.linkNum }'/>">x</a></td>
+                 	  
                     </tr>
                     </c:forEach>
-                    
+                    <tr>
+                    <td><input type="text" name="linkName" id="linkName"style="width: 500px;"></td>
+                    <td><input type="text" name="linkUrl" id="linkUrl" style="width:500px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"onclick="linkadd()">+</a></td>
+                    </tr>
                   </tbody>
                 </table>
-                <button onclick="noticeWrite()">공지사항 쓰기</button>
               </div>
             </div>
             <div class="card-footer small text-muted"></div>

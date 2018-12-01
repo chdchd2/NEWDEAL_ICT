@@ -44,23 +44,28 @@ public class EduController {
 	
 	@RequestMapping(value = "/intWrite", method = RequestMethod.POST)
 	public String intWriteOk(IntroduceVo vo,MultipartHttpServletRequest req) throws Exception {
-		//글 작성하기
+		//湲� �옉�꽦�븯湲�
 		service.intWrite(vo); 
-		//첨부파일 처리하기
+		//泥⑤��뙆�씪 泥섎━�븯湲�
 		List<MultipartFile> filelist = req.getFiles("file"); 
 		int fileRefNum=service.intmaxNum();
 		String fileRefBoard="EDU_INTRODUCE";
 		commonservice.fileWrite(filelist, fileRefNum,fileRefBoard);
-		System.out.println("���Ͼ��ºκ� ���� ������");
 		return "redirect:/edu/intList";
 	}
 	
 	@RequestMapping(value = "/intList",method = RequestMethod.GET)
-	public String intList(@RequestParam(value="pageNum",defaultValue="1")int pageNum,Model model) throws Exception {
-	
-		HashMap<String, Object> map=service.intList(pageNum);
+	public String intList(@RequestParam(value="pageNum",defaultValue="1")int pageNum,Model model,String searchType,String searchWord) throws Exception {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pageNum", pageNum);
+		map.put("searchType",searchType);
+		map.put("searchWord",searchWord);
+		map = service.intList(map);
 		model.addAttribute("list",map.get("list"));
 		model.addAttribute("pu",map.get("pu"));
+		model.addAttribute("searchType",searchType);
+		model.addAttribute("searchWord",searchWord);
 		
 		return ".edu.introduce.list";
 	}
@@ -76,7 +81,7 @@ public class EduController {
 	
 	@RequestMapping(value="/fileDown" )
 	public ModelAndView contactoDownload(@ModelAttribute CommonFileVo filevo) throws Exception{
-		System.out.println("컨트롤러 파일다운부분까지 온다.");
+		System.out.println("而⑦듃濡ㅻ윭 �뙆�씪�떎�슫遺�遺꾧퉴吏� �삩�떎.");
 		CommonFileVo fileVo=service.fileinfo(filevo);
 		ModelAndView mv= new ModelAndView("FileDownView");
 		File file=new File(fileVo.getFilePath()+File.separator+fileVo.getFileName());
@@ -91,10 +96,10 @@ public class EduController {
 		IntroduceVo intvo=service.getWriter(intNum);
 		
 		if(intvo.getMemNum()==vo.getMemNum()) {
-			System.out.println("작성자와 로그인한 사용자가 같으니까 삭제처리");
+			System.out.println("�옉�꽦�옄�� 濡쒓렇�씤�븳 �궗�슜�옄媛� 媛숈쑝�땲源� �궘�젣泥섎━");
 			int n=service.intDelete(intNum);
 		}else {
-			System.out.println("같지않다.");
+			System.out.println("媛숈��븡�떎.");
 		}
 		
 		
@@ -107,11 +112,11 @@ public class EduController {
 		IntroduceVo intvo=service.getWriter(intNum);
 		
 		if(intvo.getMemNum()==vo.getMemNum()) {
-			System.out.println("작성자와 로그인한 사용자가 같으니까 수정으로 넘겨줌");
+			System.out.println("�옉�꽦�옄�� 濡쒓렇�씤�븳 �궗�슜�옄媛� 媛숈쑝�땲源� �닔�젙�쑝濡� �꽆寃⑥쨲");
 			IntDetailJoinVo editvo=service.intDetail(intNum);
 			model.addAttribute("vo",editvo);
 		}else {
-			System.out.println("같지않다.");
+			System.out.println("媛숈��븡�떎.");
 		}
 		
 		return ".edu.introduce.edit";
@@ -119,7 +124,7 @@ public class EduController {
 	
 	@RequestMapping(value = "/intEdit",method = RequestMethod.POST)
 	public String intEditOk(IntroduceVo vo,MultipartHttpServletRequest req) throws Exception {
-		System.out.println("수정시 정보들"+vo.toString());
+		System.out.println("�닔�젙�떆 �젙蹂대뱾"+vo.toString());
 		List<MultipartFile> filelist = req.getFiles("file"); 
 		String fileRefBoard="EDU_INTRODUCE";
 		int num=vo.getIntNum();
@@ -131,7 +136,7 @@ public class EduController {
 	@RequestMapping(value = "/fileDel",method = RequestMethod.POST)
 	@ResponseBody
 	public void fileDel(CommonFileVo vo) throws Exception {
-		System.out.println("파일번호는?"+vo);
+		System.out.println("�뙆�씪踰덊샇�뒗?"+vo);
 		service.fileDel(vo);
 	}
 	
@@ -143,11 +148,11 @@ public class EduController {
 	
 	@RequestMapping(value = "/detailwrite", method = RequestMethod.POST)
 	public String DetailWriteOk(EduDetailVo vo,MultipartHttpServletRequest req) throws Exception {
-		System.out.println("�����ϳ���=>"+vo.toString());
+		System.out.println("占쏙옙占쏙옙占싹놂옙占쏙옙=>"+vo.toString());
 		List<MultipartFile> filelist = req.getFiles("file"); 
 		service.detailWrite(vo);
 		int detNum = vo.getDetNum();
-		System.out.println("���Ϲ�ȣ��?"+detNum);
+		System.out.println("占쏙옙占싹뱄옙호占쏙옙?"+detNum);
 		String fileRefBoard="EDU_DETAIL";
 		commonservice.fileWrite(filelist, detNum,fileRefBoard);
 		

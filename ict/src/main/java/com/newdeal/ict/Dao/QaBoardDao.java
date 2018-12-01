@@ -104,4 +104,15 @@ public class QaBoardDao {
 	public List<QaBoardVo> listAll() throws Exception {
 		return sqlSession.selectList("qaboard.qaListAll");
 	}
+	
+	public QaBoardVo view(int qaNum) throws Exception {
+		return sqlSession.selectOne("qaboard.adminView", qaNum);
+	} 
+	
+	public int answer(QaBoardVo vo) throws Exception{
+		System.out.println("dao¿¡¼­ Âï¾îº» vo"+vo.toString());
+		sqlSession.update("qaboard.answercomplete",vo);
+		return sqlSession.insert("qaboard.answer",vo);
+	}
+	
 }

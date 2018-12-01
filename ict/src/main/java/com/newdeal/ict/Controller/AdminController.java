@@ -20,6 +20,7 @@ import com.newdeal.ict.Service.AdminService;
 import com.newdeal.ict.Service.NoticeService;
 import com.newdeal.ict.Service.QaBoardService;
 import com.newdeal.ict.Util.Pager;
+import com.newdeal.ict.Vo.LinkListVo;
 import com.newdeal.ict.Vo.MemberVo;
 import com.newdeal.ict.Vo.NoticeVo;
 import com.newdeal.ict.Vo.QaBoardVo;
@@ -63,7 +64,10 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/member",method = RequestMethod.GET)
-	public String member(Model model) throws Exception {
+	public String member(Model model,HttpSession session) throws Exception {
+		 if(session.getAttribute("admin") != "admin"){
+			 return "admin/login";
+		 }
 		List<MemberVo> memberlist = service.memberList();
 		model.addAttribute("memberlist",memberlist);
 		System.out.println(memberlist.toString());
@@ -71,24 +75,32 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/memGrade",method = RequestMethod.GET)
-	public String grade(MemberVo vo) throws Exception {
-		
+	public String grade(MemberVo vo,HttpSession session) throws Exception {
+		 if(session.getAttribute("admin") != "admin"){
+			 return "admin/login";
+		 }
 		service.memGrade(vo);
 		 return "redirect:/admin/member";
 	}
 	
 	@RequestMapping(value = "/memState",method = RequestMethod.GET)
-	public String state(MemberVo vo) throws Exception {
+	public String state(MemberVo vo,HttpSession session) throws Exception {
+		 if(session.getAttribute("admin") != "admin"){
+			 return "admin/login";
+		 }
 		System.out.println(vo.toString());
 		service.memState(vo);
 		 return "redirect:/admin/member";
 	}
 	
 	@RequestMapping(value="/notice",method = RequestMethod.GET)
-	public ModelAndView list() throws Exception{
-
-		List<NoticeVo> list=noticeService.listAll();
+	public ModelAndView list(HttpSession session) throws Exception{
 		ModelAndView mav=new ModelAndView();
+		if(session.getAttribute("admin") != "admin"){
+			mav.setViewName("admin/login");
+			 return mav;
+		 }
+		List<NoticeVo> list=noticeService.listAll();
 		mav.setViewName("admin/noticelist");
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("list", list);
@@ -99,13 +111,19 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/noticeWrite",method = RequestMethod.GET)
-	public String noticeWrite() throws Exception {
+	public String noticeWrite(HttpSession session) throws Exception {
+		 if(session.getAttribute("admin") != "admin"){
+			 return "admin/login";
+		 }
 		System.out.println("noticeWrite");
 		 return "admin/noticewrite";
 	}
 	
 	@RequestMapping(value="/noticeWrite",method=RequestMethod.POST)
-	public String insert(@ModelAttribute NoticeVo vo) throws Exception{
+	public String insert(@ModelAttribute NoticeVo vo,HttpSession session) throws Exception{
+		 if(session.getAttribute("admin") != "admin"){
+			 return "admin/login";
+		 }
 		System.out.println("=====================>"+vo.toString());
 		noticeService.create(vo);
 		return "redirect:/admin/notice";
@@ -120,10 +138,13 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/qalist",method = RequestMethod.GET)
-	public ModelAndView qalist() throws Exception{
-
-		List<QaBoardVo> list=qaService.listAll();
+	public ModelAndView qalist(HttpSession session) throws Exception{
 		ModelAndView mav=new ModelAndView();
+		 if(session.getAttribute("admin") != "admin"){
+			 mav.setViewName("admin/login");
+			 return mav;
+		 }
+		List<QaBoardVo> list=qaService.listAll();
 		mav.setViewName("admin/qalist");
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("list", list);
@@ -131,6 +152,65 @@ public class AdminController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/qaview",method = RequestMethod.GET)
+	public ModelAndView qaview(int qaNum,HttpSession session)throws Exception{
+		ModelAndView mv=new ModelAndView("admin/qaview");
+		
+		mv.addObject("vo", qaService.view(qaNum));
+		return mv;
+	}
+	
+	@RequestMapping(value="/answer",method = RequestMethod.POST)
+	public String answer(QaBoardVo vo,HttpSession session)throws Exception{
+		 if(session.getAttribute("admin") != "admin"){
+			 return "admin/login";
+		 }
+		vo.setQaTitle("[답변]"+vo.getQaTitle());
+		vo.setQaRef(vo.getQaNum());
+		System.out.println("브이오갑숯ㄹ력"+vo.toString());
+		qaService.answer(vo);
+		
+		return "redirect:/admin/qalist";
+	}
+	
+	@RequestMapping(value = "/linklist",method = RequestMethod.GET)
+	public String linklist(Model model,HttpSession session) throws Exception {
+		System.out.println("링크리스트통과");
+		 if(session.getAttribute("admin") != "admin"){
+			 return "admin/login";
+		 }
+		 List<LinkListVo> list = service.linklist();
+		 list.toString();
+		 model.addAttribute("linklist",list);
+		 return "admin/linklist";
+	}
+	
+	@RequestMapping(value = "/dellink",method = RequestMethod.GET)
+	public String dellink(Model model,HttpSession session,int linkNum) throws Exception {
+		 if(session.getAttribute("admin") != "admin"){
+			 return "admin/login";
+		 }
+		 service.dellink(linkNum);
+		 List<LinkListVo> list = service.linklist();
+		 list.toString();
+		 model.addAttribute("linklist",list);
+		 return "admin/linklist";
+	}
+	
+	@RequestMapping(value = "/linkadd",method = RequestMethod.GET)
+	public String linkadd(Model model,HttpSession session,LinkListVo vo) throws Exception {
+		 if(session.getAttribute("admin") != "admin"){
+			 return "admin/login";
+		 }
+		 service.linkadd(vo);
+		 List<LinkListVo> list = service.linklist();
+		 list.toString();
+		 model.addAttribute("linklist",list);
+		 return "admin/linklist";
+	}
+	
+	
 	
 	
 	

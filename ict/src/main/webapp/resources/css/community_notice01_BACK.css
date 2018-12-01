@@ -53,7 +53,7 @@ section #sectionC #subMenu ul li a {
 
 /*submeun 활성화*/
 section #sectionC #subMenu ul li a.subActive {
-	background-color:#012185;
+	background-color:#3a3e4c;
 	color:white;
 }
 section #sectionC #subMenu ul li a.subActive img{
@@ -152,9 +152,16 @@ section #sectionC #sectionR #content #search > li:nth-of-type(1) > a{
 	font-size:14px;
 
 }
-section #sectionC #sectionR #content #search > li:nth-of-type(1) > a img{
-	margin-left:24px;
-	margin-top:-4px;
+section #sectionC #sectionR #content #search > li:nth-of-type(1) select{
+	display:inline-block;
+	width:80px;
+	height:35px;
+	line-height:35px;
+	font-size:14px;
+	font-weight:400;
+	border: 1px solid #e6e6e6;
+    background: #fff;
+    border-radius: 0px;
 }
 section #sectionC #sectionR #content #search li:nth-of-type(2) input{
 	width:184px;
@@ -170,7 +177,7 @@ section #sectionC #sectionR #content #search > li:nth-of-type(3) > a{
 	height:35px;
 	line-height:35px;
 	color:white;
-	background-color:#2d2d2d;
+	background-color:#262626;
 	font-size:14px;
 	font-weight:400;
 }
@@ -222,8 +229,6 @@ section #sectionC #sectionR #content #search {
 #table {
 	clear:left;
 	border:1px solid #dfdfdf;
-	border-top:1px solid #000000;
-	border-bottom:1px solid #000000;
 }
 #table thead {
 
@@ -325,7 +330,7 @@ section #sectionC #sectionR #content #page ul li a{
 
 /*페이지버튼 활성화*/
 section #sectionC #sectionR #content #page ul li a.pageActive {
-	background-color:#012185;
+	background-color:#4d4d4d;
 	color:white;
 	border-radius:25px;
 
@@ -338,7 +343,7 @@ div#content>p#submit{
 	width:80px;
 	height:35px;
 	line-height:35px;
-	background-color:#2d2d2d;
+	background-color:#262626;
 	margin-top:10px;
 
 }

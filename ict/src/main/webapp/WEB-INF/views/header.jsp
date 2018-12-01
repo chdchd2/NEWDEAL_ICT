@@ -73,7 +73,9 @@ function logout(){
  			 	<ul class="submenu_list">
   				<li><a href="<c:url value='/edu/intList'/>">교육신청안내</a></li>
  			 	<li><a href="<c:url value='/edu/detailList'/>">프로그램상세</a></li>
- 			 	<li><a href="#">교육신청바로가기</a></li>
+ 			 	<c:forEach items="${linklist }" var="linklist">
+ 			 	<li><a href="${linklist.linkUrl }">${linklist.linkName }</a>
+ 			 	</c:forEach>
  			 	</ul>
  			</li>
  			

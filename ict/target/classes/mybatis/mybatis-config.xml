@@ -21,6 +21,7 @@
 		<typeAlias type="com.newdeal.ict.Vo.IntDetailJoinVo" alias="intjoinvo"/>
 		<typeAlias type="com.newdeal.ict.Util.PageUtil" alias="pagevo"/>
 		<typeAlias type="com.newdeal.ict.Vo.CommentVo" alias="commentvo"/>
+		<typeAlias type="com.newdeal.ict.Vo.LinkListVo" alias="linkvo"/>
 	</typeAliases>
 </configuration>
 

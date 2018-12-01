@@ -1,6 +1,7 @@
 package com.newdeal.ict.Dao;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -31,14 +32,14 @@ public class EduDao {
 	public int intfileWrite(CommonFileVo vo) {
 		return session.insert(NAMESPACE+".intfileWrite",vo);
 	}
-	public List<IntroduceVo> intList(PageUtil vo){
-		return session.selectList(NAMESPACE+".intList",vo);
+	public List<IntroduceVo> intList(HashMap<String, Object> map){
+		return session.selectList(NAMESPACE+".intList",map);
 	}
 	public List<EduDetailVo> detailList(PageUtil vo){
 		return session.selectList(NAMESPACE+".detailList",vo);
 	}
-	public int intCnt() {
-		return session.selectOne(NAMESPACE+".intCnt");
+	public int intCnt(HashMap<String, Object> map) {
+		return session.selectOne(NAMESPACE+".intCnt",map);
 	}
 	public int detailCnt() {
 		return session.selectOne(NAMESPACE+".detailCnt");

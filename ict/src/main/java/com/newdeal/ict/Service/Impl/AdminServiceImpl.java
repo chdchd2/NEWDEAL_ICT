@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.newdeal.ict.Dao.AdminDao;
 import com.newdeal.ict.Service.AdminService;
+import com.newdeal.ict.Vo.LinkListVo;
 import com.newdeal.ict.Vo.MemberVo;
 
 @Service
@@ -27,6 +28,21 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int memState(MemberVo vo) throws Exception {
 		return dao.memState(vo);
+	}
+
+	@Override
+	public List<LinkListVo> linklist() throws Exception {
+		return dao.linklist();
+	}
+
+	@Override
+	public int dellink(int linkNum) throws Exception {
+		return dao.dellink(linkNum);
+	}
+
+	@Override
+	public int linkadd(LinkListVo vo) throws Exception {
+		return dao.linkadd(vo);
 	}
 
 
