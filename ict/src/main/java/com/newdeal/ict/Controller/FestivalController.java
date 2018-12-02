@@ -88,6 +88,20 @@ public class FestivalController {
 		return ".festival.detail";
 	}
 	
+	@RequestMapping(value = "/detDetail",method = RequestMethod.GET)
+	public String detDetail(int detNum,Model model) throws Exception {
+		
+		FesDetailVo vo=service.detDetail(detNum);
+		FesDetailVo prev=service.detPrev(detNum);
+		FesDetailVo next=service.detNext(detNum);
+		
+		model.addAttribute("FestivalVo",vo);
+		model.addAttribute("prev",prev);
+		model.addAttribute("next",next);
+		
+		return ".festival.detail.detail";
+	}
+	
 	@RequestMapping(value="/fileDown" )
 	public ModelAndView contactoDownload(@ModelAttribute CommonFileVo filevo) throws Exception{
 		System.out.println("컨트롤러 파일다운부분까지 온다.");
@@ -145,18 +159,6 @@ public class FestivalController {
 		return "redirect:/festival/list";
 	}
 	
-	/*@RequestMapping(value = "/fesEdit",method = RequestMethod.POST)
-	public String fesEditOk(FestivalVo vo,MultipartHttpServletRequest req) throws Exception {
-		System.out.println("수정시 정보들"+vo.toString());
-		List<MultipartFile> filelist = req.getFiles("file"); 
-		String fileRefBoard="FESTIVAL";
-		int num=vo.getFesNum();
-		commonservice.fileWrite(filelist, num,fileRefBoard);
-		service.fesEdit(vo);
-	
-		
-		return "redirect:/festival/list";
-	}*/
 	
 	@RequestMapping(value = "/fileDel",method = RequestMethod.POST)
 	@ResponseBody
@@ -193,6 +195,37 @@ public class FestivalController {
 		
 		return ".festival.detail.list";
 	}
+	
+	@RequestMapping(value = "/detEdit",method = RequestMethod.GET)
+	public String detEdit(int detNum,HttpSession session,Model model) throws Exception {
+		MemberVo vo=(MemberVo)session.getAttribute("member");
+		System.out.println("===========================vo"+vo);
+		FesDetailVo detvo=service.detailWriter(detNum);
+		System.out.println("======================fesvo:"+detvo.toString());
+		
+		if(detvo.getMemNum()==vo.getMemNum()) {
+			System.out.println("작성자와 로그인한 사용자가 같으니까 수정으로 넘겨줌");
+			FesDetailVo edit=service.detDetail(detNum);
+			model.addAttribute("vo",edit);
+		}else {
+			System.out.println("같지않다.");
+		}
+		
+		return ".festival.detail.edit";
+	}
+	
+	@RequestMapping(value = "/detEdit",method = RequestMethod.POST)
+	public String detEditOk(FesDetailVo vo,MultipartHttpServletRequest req) throws Exception {
+		String fileRefBoard="FESTIVAL";
+		int num=vo.getDetNum();
+		
+		commonservice.fileWrite(num,fileRefBoard,req);
+		service.detEdit(vo);
+	
+		
+		return "redirect:/festival/list";
+	}
+	
 	
 	
 }

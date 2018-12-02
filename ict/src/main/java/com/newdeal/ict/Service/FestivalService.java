@@ -29,5 +29,10 @@ public interface FestivalService {
 	public HashMap<String, Object> detailList(int pageNum) throws Exception;
 	public FestivalVo intPrev(int fesNum) throws Exception;
 	public FestivalVo intNext(int fesNum) throws Exception;
+	public FesDetailVo detPrev(int detNum) throws Exception;
+	public FesDetailVo detNext(int detNum) throws Exception;
+	public FesDetailVo detailWriter(int detNum)throws Exception ;
+	public FesDetailVo detDetail(int detNum)throws Exception ;
+	public int detEdit(FesDetailVo vo)throws Exception;
 
 }

@@ -175,4 +175,32 @@ public class FestivalServiceImpl  implements FestivalService {
 		System.out.println("pu내용====>"+pu.toString());
 		return map;
 	}
+
+	@Override
+	public FesDetailVo detailWriter(int detNum) throws Exception {
+		return dao.detailWriter(detNum);
+	}
+
+	@Override
+	public FesDetailVo detDetail(int detNum) throws Exception {
+		dao.detailCntUp(detNum);
+		System.out.println("==============>dao.detailCntUp(detNum) :" +detNum);
+		return dao.detDetail(detNum);
+	}
+
+	@Override
+	public int detEdit(FesDetailVo vo) throws Exception {
+		return dao.detEdit(vo);
+	}
+
+	@Override
+	public FesDetailVo detPrev(int detNum) throws Exception {
+		return dao.detPrev(detNum);
+	}
+
+	@Override
+	public FesDetailVo detNext(int detNum) throws Exception {
+		return dao.detNext(detNum);
+	}
+	
 }

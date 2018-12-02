@@ -93,6 +93,26 @@ public class FestivalDao {
 	public List<FesDetailVo> detailList(PageUtil vo) {
 		return session.selectList(NAMESPACE+".detailList",vo);
 	}
+
+	public FesDetailVo detailWriter(int detNum) {
+		return session.selectOne(NAMESPACE+".detailWriter",detNum);
+	}
+
+	public FesDetailVo detDetail(int detNum) {
+		return session.selectOne(NAMESPACE+".detDetail",detNum);
+	}
+
+	public int detEdit(FesDetailVo vo) {
+		return session.update(NAMESPACE+".detEdit",vo);
+	}
+
+	public FesDetailVo detPrev(int detNum) {
+		return session.selectOne(NAMESPACE+".detPrev",detNum);
+	}
+
+	public FesDetailVo detNext(int detNum) {
+		return session.selectOne(NAMESPACE+".detNext",detNum);
+	}
 	
 	
 	

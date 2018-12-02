@@ -8,21 +8,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class FestivalVo {
 	
-	public FestivalVo(int fesNum, String fesTitle, String fesContent, Date fesDate, String fesWrite,
-			int fesHit, int memNum, List<CommonFileVo> list) {
-		super();
-	
-		this.fesNum = fesNum;
-		this.fesTitle = fesTitle;
-		this.fesContent = fesContent;
-		this.fesDate = fesDate;
-		this.fesWrite = fesWrite;
-		this.fesHit = fesHit;
-		this.memNum = memNum;
-		this.list = list;
-	}
-
-
 
 	private int fesNum;
 	private String fesTitle;
@@ -32,7 +17,33 @@ public class FestivalVo {
 	private int fesHit;
 	private int memNum;
 	private List<CommonFileVo> list;
+	public FestivalVo(int fesNum, String fesTitle, String fesContent, Date fesDate, String fesWrite, int fesHit,
+			int memNum, List<CommonFileVo> list, String fesMap) {
+		super();
+		this.fesNum = fesNum;
+		this.fesTitle = fesTitle;
+		this.fesContent = fesContent;
+		this.fesDate = fesDate;
+		this.fesWrite = fesWrite;
+		this.fesHit = fesHit;
+		this.memNum = memNum;
+		this.list = list;
+		this.fesMap = fesMap;
+	}
+
+
+	private String fesMap;
 	
+	public String getFesMap() {
+		return fesMap;
+	}
+
+
+	public void setFesMap(String fesMap) {
+		this.fesMap = fesMap;
+	}
+
+
 	public FestivalVo() {}
 	
 

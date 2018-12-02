@@ -48,7 +48,7 @@
 							 <c:forEach var="FesDetailVo" items="${list}">
 								<tr>
 									<td>${FesDetailVo.detNum}</td>
-									<td><a href="<c:url value='/festival/detail?detNum=${FesDetailVo.detNum }'/>">${FesDetailVo.detTitle}</a></td>
+									<td><a href="<c:url value='/festival/detDetail?detNum=${FesDetailVo.detNum }'/>">${FesDetailVo.detTitle}</a></td>
 									 <td>${FesDetailVo.detWriter}</td>
       								  <td>${FesDetailVo.detDate}</td>
        								 <td>${FesDetailVo.hit}</td>
