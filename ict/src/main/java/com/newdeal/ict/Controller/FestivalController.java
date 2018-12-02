@@ -58,11 +58,18 @@ public class FestivalController {
 	}
 	
 	@RequestMapping(value = "/list",method = RequestMethod.GET)
-	public String List(@RequestParam(value="pageNum",defaultValue="1")int pageNum,Model model) throws Exception {
+	public String List(@RequestParam(value="pageNum",defaultValue="1")int pageNum,Model model,String searchType,String searchWord) throws Exception {
 	
-		HashMap<String, Object> map=service.list(pageNum);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pageNum", pageNum);
+		map.put("searchType",searchType);
+		map.put("searchWord",searchWord);
+		map = service.list(map);
+		
 		model.addAttribute("list",map.get("list"));
 		model.addAttribute("pu",map.get("pu"));
+		model.addAttribute("searchType",searchType);
+		model.addAttribute("searchWord",searchWord);
 		
 		return ".festival.list";
 	}

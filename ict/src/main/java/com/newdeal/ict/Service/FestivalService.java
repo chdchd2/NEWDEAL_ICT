@@ -15,8 +15,8 @@ import com.newdeal.ict.Vo.IntroduceVo;
 
 public interface FestivalService {
 	public int fesWrite(FestivalVo vo);
-	public HashMap<String, Object> list(int pageNum) throws Exception;
-	public int fesCnt() throws Exception;
+	public HashMap<String, Object> list(HashMap<String, Object> map) throws Exception;
+	public int fesCnt(HashMap<String, Object> map) throws Exception;
 	public int fesmaxNum() throws Exception;
 	public int intfileWrite(List<MultipartFile> filelist, int num) throws Exception;
 	public FestivalVo fesDetail(int fesNum) throws Exception ;

@@ -1,6 +1,7 @@
 package com.newdeal.ict.Dao;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -32,12 +33,12 @@ public class FestivalDao {
 		return session.selectOne(NAMESPACE+".intPrev",fesNum);
 	}
 	
-	public List<FestivalVo> list(PageUtil vo){
-		return session.selectList(NAMESPACE+".list",vo);
+	public List<FestivalVo> list(HashMap<String, Object> map){
+		return session.selectList(NAMESPACE+".list",map);
 	}
 
-	public int fesCnt() {
-		return session.selectOne(NAMESPACE+".fesCnt");
+	public int fesCnt(HashMap<String, Object> map) {
+		return session.selectOne(NAMESPACE+".fesCnt",map);
 	}
 	
 	public FestivalVo fesDetail(int fesNum) {

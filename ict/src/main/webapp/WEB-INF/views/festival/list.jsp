@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
+<script>
+function searchs(){
+	var searchType=$("#searchType option:selected").val();
+	var searchWord=$("#searchWord").val();
+ 	location.href="<c:url value='/festival/list?searchType="+searchType+"&searchWord="+searchWord+"'/>";
+}
+</script>
 <section>
 <div id="sectionC">
  <div id="subMenu">
@@ -16,17 +23,16 @@
 					</div>
 						<div id="content">
 						<!-- 	<p id="count">총<span>134건</span></p> -->
-							<ol id="search">
-								<li><a href="#a">전체 <img src="<c:url value='/resources/images/search_Active.png'/>" alt="검색창더보기"></a>
-									<ul id="detail">
-										<li><a href="#a">전체</a></li>
-										<li><a href="#a">제목</a></li>
-										<li><a href="#a">내용</a></li>
-									</ul>
-								</li>
-								<li><input type="text"></li>
-								 <li><a href="#a">조회</a></li> 
-							</ol>
+							<ul id="search">
+							<li>
+								<select id="searchType">
+								    <option value="FES_TITLE">제목</option>
+								    <option value="FES_CONTENT">내용</option>
+								</select>
+							</li>
+							<li><input type="text" name="searchWord" id="searchWord" value="${searchWord }"></li>
+							<li><a onclick="searchs()">조회</a></li>
+							</ul>
 							
 							<table id ="table">
 							<colgroup>
@@ -68,8 +74,7 @@
 							<!-- <p><a href="#a"><img src="images/page_Leftbtn.png" alt="페이지왼쪽버튼"></a></p> -->
 			<c:choose>
 				<c:when test="${pu.startPageNum>9 }">
-					<p><a href="<c:url value='/festival/list?pageNum=${pu.startPageNum-1 }&fieldnum=${fieldnum }&classnum=${classnum }'/>"><img src="<c:url value='/resources/images/page_Leftbtn.png'/>" alt="페이지왼쪽버튼"></a></p>
-						
+				<p><a href="<c:url value='/festival/list?pageNum=${pu.startPageNum-1 }&fieldnum=${fieldnum }&classnum=${classnum }&searchWord=${searchWord }&searchType=${searchType }'/>"><img src="<c:url value='/resources/images/page_Leftbtn.png'/>" alt="페이지왼쪽버튼"></a></p>		
 				</c:when>
 				<c:otherwise>
 			<p><a href="#"><img src="<c:url value='/resources/images/page_Leftbtn.png'/>" alt="페이지왼쪽버튼"></a></p>			
@@ -81,8 +86,8 @@
 				<c:choose>
 					<c:when test="${i==pu.pageNum }">
 						<!-- 현재페이지 색상 다르게 표시하기 -->
-						 <li><a href="<c:url value='/festival/list?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }'/>" class="pageActive">${i }</a></li>
-					</c:when>
+						 <li><a href="<c:url value='/festival/list?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }&searchWord=${searchWord }&searchType=${searchType }'/>" class="pageActive">${i }</a></li>
+						</c:when>
 					<c:otherwise>
 					 <li><a href="<c:url value='/festival/list?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }'/>">${i }</a></li>
 					</c:otherwise> 
@@ -92,7 +97,7 @@
 			
 		<c:choose>
 			<c:when test="${pu.endPageNum<pu.totalPageCount }">
-				<p><a href="<c:url value='/festival/list?pageNum=${pu.endPageNum+1 }&classnum=${classnum }&fieldnum=${fieldnum }'/>"><img src="images/page_Rightbtn.png" alt="페이지오른쪽버튼"></a></p>
+			<p><a href="<c:url value='/festival/list?pageNum=${pu.endPageNum+1 }&classnum=${classnum }&fieldnum=${fieldnum }&searchWord=${searchWord }&searchType=${searchType }'/>"><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
 			</c:when>
 			<c:otherwise>
 			<p><a href="#"><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>

@@ -38,20 +38,21 @@ public class FestivalServiceImpl  implements FestivalService {
 	}
 
 	@Override
-	public HashMap<String, Object> list(int pageNum) throws Exception {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		int totalRowCount = dao.fesCnt();
+	public HashMap<String, Object> list(HashMap<String, Object> map) throws Exception {
+		int totalRowCount = dao.fesCnt(map);
+		int pageNum=Integer.parseInt(map.get("pageNum").toString());
 		PageUtil pu=new PageUtil(pageNum, 10, 10, totalRowCount);
-		List<FestivalVo> list =dao.list(pu);
-		map.put("list", list);
 		map.put("pu",pu);
-		System.out.println("pu³»¿ë====>"+pu.toString());
+		List<FestivalVo> list =dao.list(map);
+		map.put("list", list);
+		System.out.println("puë‚´ìš©====>"+pu.toString());
 		return map;
 	}
 
 	@Override
-	public int fesCnt() throws Exception {
-		return dao.fesCnt();
+	public int fesCnt(HashMap<String, Object> map) throws Exception {
+		
+		return dao.fesCnt(map);
 	}
 
 
@@ -114,23 +115,23 @@ public class FestivalServiceImpl  implements FestivalService {
 	public int fesDelete(int fesNum) throws Exception {
 
 		List<CommonFileVo> filelist = dao.intFileDelList(fesNum);
-		System.out.println("ÆÄÀÏ¸®½ºÆ®Ãâ·Â"+filelist.toString());
+		System.out.println("íŒŒì¼ë¦¬ìŠ¤íŠ¸ì¶œë ¥"+filelist.toString());
 		for(CommonFileVo vo:filelist) {
 			String files=vo.getFilePath()+vo.getFileName();
-			System.out.println("ÆÄÀÏµğ·ºÅä¸®+ÆÄÀÏÀÌ¸§ Ãâ·ÂÇØº¸±â"+files);
+			System.out.println("íŒŒì¼ë””ë ‰í† ë¦¬+íŒŒì¼ì´ë¦„ ì¶œë ¥í•´ë³´ê¸°"+files);
 			File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 			if( file.exists() ){
 	            if(file.delete()){
-	                System.out.println("ÆÄÀÏ»èÁ¦ ¼º°ø");
+	                System.out.println("íŒŒì¼ì‚­ì œ ì„±ê³µ");
 	            }else{
-	                System.out.println("ÆÄÀÏ»èÁ¦ ½ÇÆĞ");
+	                System.out.println("íŒŒì¼ì‚­ì œ ì‹¤íŒ¨");
 	            }
 	        }else{
-	            System.out.println("ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+	            System.out.println("íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 	        }
 			dao.intFileDelete(fesNum);
 			dao.fesDelete(fesNum);
-			 System.out.println("ÀÓÇÃ¿¡¼­µµ»èÁ¦ ¼º°ø :"+dao.fesDelete(fesNum));
+			 System.out.println("ì„í”Œì—ì„œë„ì‚­ì œ ì„±ê³µ :"+dao.fesDelete(fesNum));
 		}
 		dao.fesDelete(fesNum);
 	return 0;
@@ -147,13 +148,13 @@ public class FestivalServiceImpl  implements FestivalService {
 		File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 		if( file.exists() ){
             if(file.delete()){
-                System.out.println("ÆÄÀÏ»èÁ¦ ¼º°ø");
+                System.out.println("íŒŒì¼ì‚­ì œ ì„±ê³µ");
                 dao.fileDel(filevo);
             }else{
-                System.out.println("ÆÄÀÏ»èÁ¦ ½ÇÆĞ");
+                System.out.println("íŒŒì¼ì‚­ì œ ì‹¤íŒ¨");
             }
         }else{
-            System.out.println("ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+            System.out.println("íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
         }
 		return 1;
 	}
@@ -171,7 +172,7 @@ public class FestivalServiceImpl  implements FestivalService {
 		List<FesDetailVo> list =dao.detailList(pu);
 		map.put("list", list);
 		map.put("pu",pu);
-		System.out.println("pu³»¿ë====>"+pu.toString());
+		System.out.println("puë‚´ìš©====>"+pu.toString());
 		return map;
 	}
 }

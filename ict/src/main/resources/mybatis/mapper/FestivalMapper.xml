@@ -32,6 +32,11 @@
  			
 </select>
 
+ <sql id="search">
+ 	<if test="searchType!=null and searchWord!=''">
+ 	where ${searchType} like '%' ||#{searchWord} ||'%'
+	</if>
+ </sql>
 
 <select id="detailList" parameterType="pagevo" resultType="fesDevo">
       SELECT FES_NUMD AS detNum,
@@ -80,7 +85,7 @@ SELECT SEQ_FESTIVALDEL_FES_NUMD.currval as detNum FROM dual
 </insert>
 
 
-<select id="list" parameterType="pagevo" resultType="fesvo">
+<select id="list" parameterType="hashmap" resultType="fesvo">
       SELECT FES_NUM AS fesNum,
       		 FES_TITLE AS fesTitle,
       		 FES_CONTENT AS fesContent,
@@ -92,15 +97,18 @@ SELECT SEQ_FESTIVALDEL_FES_NUMD.currval as detNum FROM dual
        FROM(
                     SELECT AA.*,ROWNUM RNUM FROM(
                                  SELECT * FROM FESTIVAL
+                                       <include refid="search"/>
                                  ORDER BY FES_NUM DESC
                                 				 )AA
                      )
-      <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
-	
+         <![CDATA[where rnum >=#{pu.startRow} and rnum <=#{pu.endRow}]]>
 </select>
 
-<select id="fesCnt" resultType="int">
- 			SELECT NVL(COUNT(*),0) CNT from FESTIVAL <!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->			
+<select id="fesCnt" parameterType="hashmap" resultType="int">
+ 			SELECT NVL(COUNT(*),0) CNT from FESTIVAL
+ 			  <include refid="search"/>
+ 			<!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
+ 			
 </select>
 
  <select id="fesmaxNum" resultType="int">

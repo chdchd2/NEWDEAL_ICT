@@ -32,7 +32,7 @@ public class EduServiceImpl implements EduService{
 		return dao.intWrite(vo);
 	}
 
-
+    
 	@Override
 	public int intmaxNum() throws Exception {
 		
