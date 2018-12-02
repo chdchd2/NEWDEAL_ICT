@@ -60,8 +60,7 @@
 								</li>
 								<li>
 									<span>첨부파일</span>
-									<a href="#">abcd</a>
-									<a href="#">bcde</a>
+									
 								<c:forEach var="list" items="${vo.list }">
 								<a href="<c:url value='/edu/fileDown?fileNum=${list.fileNum }'/>">${list.fileOrgName }</a>
 								</c:forEach>
@@ -71,7 +70,7 @@
 						</div>
 						 <a id="list" href="<c:url value='/edu/intEdit?intNum=${vo.intNum }'/>">수정</a>
 						 <a id="list" href="<c:url value='/edu/intDelete?intNum=${vo.intNum }'/>">삭제</a>
-						 <a id="list"href="<c:url value='/edu/intDelete?intNum=${vo.intNum }'/>" >목록</a>
+						 <a id="list"href="<c:url value='/edu/intList'/>" >목록</a>
 					</div>
 					        <input type="hidden" name="bno" value="${vo.intNum}">
 					</form>
@@ -82,7 +81,6 @@
 	</section>
 
   
-   파일목록 : <c:forEach var="list" items="${vo.list }"><a href="<c:url value='/edu/fileDown?fileNum=${list.fileNum }'/>">${list.fileOrgName }</a><br></c:forEach>
    
    
 </body>

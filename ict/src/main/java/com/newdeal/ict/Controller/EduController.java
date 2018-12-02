@@ -3,8 +3,11 @@ package com.newdeal.ict.Controller;
 import java.io.File;
 import java.lang.reflect.Member;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,14 +46,11 @@ public class EduController {
 	}
 	
 	@RequestMapping(value = "/intWrite", method = RequestMethod.POST)
-	public String intWriteOk(IntroduceVo vo,MultipartHttpServletRequest req) throws Exception {
-		//湲� �옉�꽦�븯湲�
+	public String intWriteOk(IntroduceVo vo,MultipartHttpServletRequest multiRequest) throws Exception {
 		service.intWrite(vo); 
-		//泥⑤��뙆�씪 泥섎━�븯湲�
-		List<MultipartFile> filelist = req.getFiles("file"); 
 		int fileRefNum=service.intmaxNum();
 		String fileRefBoard="EDU_INTRODUCE";
-		commonservice.fileWrite(filelist, fileRefNum,fileRefBoard);
+		commonservice.fileWrite(fileRefNum,fileRefBoard,multiRequest);
 		return "redirect:/edu/intList";
 	}
 	
@@ -128,11 +128,9 @@ public class EduController {
 	
 	@RequestMapping(value = "/intEdit",method = RequestMethod.POST)
 	public String intEditOk(IntroduceVo vo,MultipartHttpServletRequest req) throws Exception {
-		System.out.println("�닔�젙�떆 �젙蹂대뱾"+vo.toString());
-		List<MultipartFile> filelist = req.getFiles("file"); 
 		String fileRefBoard="EDU_INTRODUCE";
 		int num=vo.getIntNum();
-		commonservice.fileWrite(filelist, num,fileRefBoard);
+		commonservice.fileWrite(num,fileRefBoard,req);
 		service.intEdit(vo);
 		
 		return "redirect:/edu/intList";
@@ -156,9 +154,8 @@ public class EduController {
 		List<MultipartFile> filelist = req.getFiles("file"); 
 		service.detailWrite(vo);
 		int detNum = vo.getDetNum();
-		System.out.println("占쏙옙占싹뱄옙호占쏙옙?"+detNum);
 		String fileRefBoard="EDU_DETAIL";
-		commonservice.fileWrite(filelist, detNum,fileRefBoard);
+		commonservice.fileWrite(detNum,fileRefBoard,req);
 		
 		return "";
 	}

@@ -76,14 +76,13 @@ $(function(){
 								<tr>
 									<td>첨부파일</td>
 									<td>
-										 <input type="file" value="파일첨부" id="file" multiple="multiple" name="file">
-										<label for="file">파일첨부</label> 
-										 <span id="checkfile">선택된 파일이 없습니다.</span> 
-										<p>
-											<input type="checkbox" id="checkbox01" ><label for="checkbox01" class="checkbox"></label>
-											<input type="checkbox" id="checkbox02" ><label for="checkbox02" class="checkbox"></label>
-										</p>
-										<a href="#a" id="fileDelete" ><img src="resources/images/delete_icon.png" alt="삭제 아이콘"></a> 
+										 <input type="file" value="파일첨부" id="file" name="file">
+										 <label for="file">파일첨부1</label>
+										 <input type="file" value="파일첨부" id="file2" name="file2">
+										 <label for="file2">파일첨부2</label>
+										 <input type="file" value="파일첨부" id="file3" name="file3">
+										 <label for="file3">파일첨부3</label>
+									
 									</td>
 								</tr>
 								<tr>
