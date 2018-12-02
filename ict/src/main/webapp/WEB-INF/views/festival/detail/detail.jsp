@@ -68,9 +68,9 @@
 							</ul>
 						</div>
 						 <c:if test="${sessionScope.member != null }"> 
-						 <a id="list" href="<c:url value='/festival/fesDelete?fesNum=${FesDetailVo.detNum }'/>">삭제</a>
+						 <a id="list" href="<c:url value='/festival/detDelete?detNum=${FesDetailVo.detNum }'/>">삭제</a>
 						  </c:if>
-						 <a id="list" href="<c:url value='/festival/fesDelete?fesNum=${FesDetailVo.detNum }'/>" >목록</a>
+						 <a id="list"href="<c:url value='/festival/detailList'/>">목록</a>
 					</div>
 					        <input type="hidden" name="fesNum" value="${FesDetailVo.detNum}">
 					</form>

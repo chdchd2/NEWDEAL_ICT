@@ -45,12 +45,17 @@ public class FestivalDao {
 		return session.selectOne(NAMESPACE+".fesDetail",fesNum);
 	}
 	
+	
 	public int fesmaxNum() {
 		return session.selectOne(NAMESPACE+".fesmaxNum");
 	}
 
 	public int detailCntUp(int fesNum) {
 		return session.update(NAMESPACE+".detailCntUp",fesNum);
+	}
+	
+	public int DeldetailCntUp(int detNum) {
+		return session.update(NAMESPACE+".DeldetailCntUp",detNum);
 	}
 
 	public FestivalVo getWriter(int fesNum) {
@@ -114,6 +119,8 @@ public class FestivalDao {
 		return session.selectOne(NAMESPACE+".detNext",detNum);
 	}
 	
-	
+	public int detDelete(int detNum) {
+		return session.delete(NAMESPACE+".fesDelete",detNum);
+	}
 	
 }

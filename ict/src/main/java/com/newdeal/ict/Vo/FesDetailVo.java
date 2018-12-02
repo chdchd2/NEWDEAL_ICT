@@ -8,23 +8,26 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class FesDetailVo {
 	private int detNum;
-	private int memNum;
 	private String detTitle;
 	private String detContent;
 	private Date detDate;
 	private String detWriter;
 	private int hit;
+	private int memNum;
 	
-	public FesDetailVo(int detNum, int memNum, String detTitle, String detContent, Date detDate, String detWriter,
-			int hit, List<CommonFileVo> list) {
+	
+	
+
+	public FesDetailVo(int detNum, String detTitle, String detContent, Date detDate, String detWriter, int hit,
+			int memNum, List<CommonFileVo> list) {
 		super();
 		this.detNum = detNum;
-		this.memNum = memNum;
 		this.detTitle = detTitle;
 		this.detContent = detContent;
 		this.detDate = detDate;
 		this.detWriter = detWriter;
 		this.hit = hit;
+		this.memNum = memNum;
 		this.list = list;
 	}
 

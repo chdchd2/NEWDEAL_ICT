@@ -16,6 +16,14 @@
 						<h2>교육신청안내</h2>				
 					</div>
 						<div id="content">
+						
+						<a href="javascript:fnWmTab('0');">경제/교육</a>&emsp;|  
+						&emsp;<a href="">IT/혁신</a>&emsp;|
+						&emsp;<a href="">문화/복지</a>&emsp;|
+						&emsp;<a href="">환경/안전</a>&emsp;|
+						&emsp;<a href="">기타</a>&emsp;
+		
+						
 							<p id="count">총<span>${pu.totalRowCount}건</span></p>
 							<ol id="search">
 								<li><a href="#a">전체 <img src="<c:url value='/resources/images/search_Active.png'/>" alt="검색창더보기"></a>

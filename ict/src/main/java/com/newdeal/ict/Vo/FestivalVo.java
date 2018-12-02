@@ -17,6 +17,8 @@ public class FestivalVo {
 	private int fesHit;
 	private int memNum;
 	private List<CommonFileVo> list;
+	
+	
 	public FestivalVo(int fesNum, String fesTitle, String fesContent, Date fesDate, String fesWrite, int fesHit,
 			int memNum, List<CommonFileVo> list, String fesMap) {
 		super();

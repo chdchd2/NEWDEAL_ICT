@@ -28,11 +28,12 @@
 
 <resultMap type="com.newdeal.ict.Vo.FesDetailVo" id="fesDevo">
 	<result property="detNum" column="detNum"/>
-	<result property="memNum" column="memNum"/>
 	<result property="detTitle" column="detTitle"/>
 	<result property="detContent" column="detContent"/>
 	<result property="detWriter" column="detWriter"/>
 	<result property="detDate" column="detDate"/>
+	<result property="hit" column="hit"/>
+	<result property="memNum" column="memNum"/>
 	<collection property="list" ofType="com.newdeal.ict.Vo.CommonFileVo">
 		<result property="fileNum" column="fileNum"/>
 		<result property="fileName" column="fileName"/>
@@ -318,9 +319,16 @@ SELECT * FROM
 	UPDATE FESTIVAL SET FES_HIT=FES_HIT+1 WHERE FES_NUM=#{fesNum}
 </update>
 
+<update id="DeldetailCntUp" parameterType="int">
+	UPDATE FESTIVALDEL SET FES_HITD=FES_HITD+1 WHERE FES_NUMD=#{detNum}
+</update>
 
 <delete id="fesDelete" parameterType="int">
 	DELETE FESTIVAL WHERE FES_NUM=#{fesNum}
+</delete>
+
+<delete id="detDelete" parameterType="int">
+	DELETE FESTIVALDEL WHERE FES_NUMD=#{detNum}
 </delete>
 
 <delete id="intFileDelete" parameterType="int">

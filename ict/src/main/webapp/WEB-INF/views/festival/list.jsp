@@ -21,8 +21,10 @@ function searchs(){
 					<div id="contentHeader">
 						<h2>취업행사게시판</h2>				
 					</div>
+					
 						<div id="content">
-						<!-- 	<p id="count">총<span>134건</span></p> -->
+				
+						<p id="count">총<span>${pu.totalRowCount}건</span></p>
 							<ul id="search">
 							<li>
 								<select id="searchType">
@@ -57,7 +59,7 @@ function searchs(){
 			<tr>
 				<td>${FestivalVo.fesNum}</td>
 				<td>
-				<a href="<c:url value='/festival/fesDetail?fesNum=${FestivalVo.fesNum}'/>">${FestivalVo.fesTitle}</a> 
+				<a href="<c:url value='/festival/fesDetail?fesNum=${FestivalVo.fesNum}'/>"> ${FestivalVo.fesTitle}</a> 
 				</td>
 				<td>${FestivalVo.fesWrite}</td>
 				<td>${FestivalVo.fesDate}</td>

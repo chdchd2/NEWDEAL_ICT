@@ -20,7 +20,7 @@
 <section>
 <script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
 <script>
-var num=1;
+
 $(function(){
 	
 	$(".btnSave").click(function(){
@@ -31,15 +31,8 @@ $(function(){
 		document.form.submit();
 	});
 	$(".btnList").click(function(){
-		/*location.href="${path}/board/list.do";
-		//document.form.action="${path}/board/list.do";
-		//document.form.submit(); */
-		document.form.action="/ict/freeboard/list.do";
-		document.form.submit();
+		location.href="<c:url value='/festival/detailList'/>";
 	});
-	
-	
-
 });
 
 function fileselect(event,num){
@@ -107,7 +100,7 @@ console.log(event.value);
 
 <div id="sectionR">
 					<div id="contentHeader">
-						<h2>취업정보 공유게시판</h2>
+						<h2>채용정보 공유게시판</h2>
 					</div>
 					
 <form id="form" name="form" method="post" enctype="multipart/form-data" action="<c:url value='/festival/detailwrite'/>">
@@ -121,6 +114,15 @@ console.log(event.value);
 								<tr>
 									<td>제목</td>
 									<td>
+									<select name="boardId">
+								 	<option value="0">선택</option>
+								 	<option value="1">경제/교육</option>
+								 	<option value="2">IT/혁신</option>
+								 	<option value="3">문화/복지</option>
+								 	<option value="4">환경/안전</option>
+								 	<option value="5">기타</option>
+								 	</select>
+								 	
 										 <input type="text" name="detTitle" id="detTitle">
 									</td>
 								</tr>

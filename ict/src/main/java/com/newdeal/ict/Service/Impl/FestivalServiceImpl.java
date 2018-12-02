@@ -183,8 +183,8 @@ public class FestivalServiceImpl  implements FestivalService {
 
 	@Override
 	public FesDetailVo detDetail(int detNum) throws Exception {
-		dao.detailCntUp(detNum);
-		System.out.println("==============>dao.detailCntUp(detNum) :" +detNum);
+		dao.DeldetailCntUp(detNum);
+		System.out.println("==============>dao.DeldetailCntUp(detNum) :" +detNum);
 		return dao.detDetail(detNum);
 	}
 
@@ -201,6 +201,31 @@ public class FestivalServiceImpl  implements FestivalService {
 	@Override
 	public FesDetailVo detNext(int detNum) throws Exception {
 		return dao.detNext(detNum);
+	}
+
+	@Override
+	public int detDelete(int detNum) throws Exception {
+		List<CommonFileVo> filelist = dao.intFileDelList(detNum);
+		System.out.println("파일리스트출력"+filelist.toString());
+		for(CommonFileVo vo:filelist) {
+			String files=vo.getFilePath()+vo.getFileName();
+			System.out.println("파일디렉토리+파일이름 출력해보기"+files);
+			File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
+			if( file.exists() ){
+	            if(file.delete()){
+	                System.out.println("파일삭제 성공");
+	            }else{
+	                System.out.println("파일삭제 실패");
+	            }
+	        }else{
+	            System.out.println("파일이 존재하지 않습니다.");
+	        }
+			dao.intFileDelete(detNum);
+			dao.fesDelete(detNum);
+			 System.out.println("임플에서도삭제 성공 :"+dao.detDelete(detNum));
+		}
+		dao.fesDelete(detNum);
+	return 0;
 	}
 	
 }

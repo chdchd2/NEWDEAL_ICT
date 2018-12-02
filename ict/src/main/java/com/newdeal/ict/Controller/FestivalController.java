@@ -180,10 +180,10 @@ public class FestivalController {
 		service.detailWrite(vo);
 		int detNum = vo.getDetNum();
 		
-		String fileRefBoard="FESTIVAL";
+		String fileRefBoard="FESTIVALDEL";
 		commonservice.fileWrite(detNum,fileRefBoard,req);
 		
-		return "";
+		return "redirect:/festival/detailList";
 	}
 	
 	@RequestMapping(value = "/detailList",method = RequestMethod.GET)
@@ -226,6 +226,20 @@ public class FestivalController {
 		return "redirect:/festival/list";
 	}
 	
-	
+	@RequestMapping(value = "/detDelete",method = RequestMethod.GET)
+	public String detDelete(int detNum,HttpSession session) throws Exception {
+		MemberVo vo=(MemberVo)session.getAttribute("member");
+		FesDetailVo fesvo=service.detailWriter(detNum);
+		System.out.println("==========>fesvo :" + fesvo);
+		if(fesvo.getMemNum()==vo.getMemNum()) {
+			System.out.println("작성자와 로그인한 사용자가 같으니까 삭제처리");
+			int n=service.fesDelete(detNum);
+			System.out.println("==========>삭제성공 :" +  n);
+		}else {
+			System.out.println("같지않다.");
+			System.out.println("=================>삭제실패 ");
+		}
+		return "redirect:/festival/list";
+	}
 	
 }

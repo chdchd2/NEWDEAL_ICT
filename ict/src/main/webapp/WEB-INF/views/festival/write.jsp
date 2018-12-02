@@ -32,11 +32,7 @@ $(function(){
 		document.form.submit();
 	});
 	$(".btnList").click(function(){
-		/*location.href="${path}/board/list.do";
-		//document.form.action="${path}/board/list.do";
-		//document.form.submit(); */
-		document.form.action="<c:url value='/festival/list'/>";
-		document.form.submit();
+		location.href="<c:url value='/festival/list'/>";
 	});
 });
 </script>
@@ -66,7 +62,8 @@ $(function(){
 								<tr>
 									<td>제목</td>
 									<td>
-										<input type="text" name="fesTitle" id="fesTitle">
+						
+								 <input type="text" name="fesTitle" id="fesTitle">
 									</td>
 								</tr>
 								<tr>
@@ -74,6 +71,7 @@ $(function(){
 									<td><input type="hidden" name="fesWrite" value="${member.memNickName}" />
 										<input type="hidden" name="memNum" value="${member.memNum }"/>${member.memNickName}</td>
 								</tr>
+								 
 								<tr>
 		                        <td>첨부파일</td>
 		                        <td>
@@ -86,6 +84,7 @@ $(function(){
 										 <label for="file3">파일첨부3</label>
 		                        </td>
 		                       </tr>
+		                     
 								<tr>
 									<td>내용</td>
 									<td><textarea name="fesContent" id="fesContent" cols="30" rows="10"></textarea>
