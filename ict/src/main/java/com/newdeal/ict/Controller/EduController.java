@@ -55,13 +55,18 @@ public class EduController {
 	}
 	
 	@RequestMapping(value = "/intList",method = RequestMethod.GET)
-	public String intList(@RequestParam(value="pageNum",defaultValue="1")int pageNum,Model model,String searchType,String searchWord) throws Exception {
-		
+	public String intList(@RequestParam(value="pageNum",defaultValue="1")int pageNum,Model model,String searchType,String searchWord,String companygubun) throws Exception {
+		System.out.println("회원구분은?=>"+companygubun);
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("companygubun", companygubun);
 		map.put("pageNum", pageNum);
 		map.put("searchType",searchType);
 		map.put("searchWord",searchWord);
+		List<MemberVo> companymember=service.companymember();
+		
 		map = service.intList(map);
+		model.addAttribute("companygubun",companygubun);
+		model.addAttribute("companymember",companymember);
 		model.addAttribute("list",map.get("list"));
 		model.addAttribute("pu",map.get("pu"));
 		model.addAttribute("searchType",searchType);

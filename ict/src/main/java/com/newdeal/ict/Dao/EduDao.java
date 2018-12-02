@@ -13,6 +13,7 @@ import com.newdeal.ict.Vo.CommonFileVo;
 import com.newdeal.ict.Vo.EduDetailVo;
 import com.newdeal.ict.Vo.IntDetailJoinVo;
 import com.newdeal.ict.Vo.IntroduceVo;
+import com.newdeal.ict.Vo.MemberVo;
 
 
 
@@ -81,6 +82,10 @@ public class EduDao {
 	public int detailWrite(EduDetailVo vo) {
 		System.out.println("디테일까지오는지확인"+vo.toString());
 		return session.insert(NAMESPACE+".detailWrite",vo);
+	}
+	
+	public List<MemberVo> companymember(){
+		return session.selectList(NAMESPACE+".companymember");
 	}
 	
 }

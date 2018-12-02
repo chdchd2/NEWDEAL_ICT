@@ -20,6 +20,7 @@ import com.newdeal.ict.Vo.CommonFileVo;
 import com.newdeal.ict.Vo.EduDetailVo;
 import com.newdeal.ict.Vo.IntDetailJoinVo;
 import com.newdeal.ict.Vo.IntroduceVo;
+import com.newdeal.ict.Vo.MemberVo;
 
 @Service
 public class EduServiceImpl implements EduService{
@@ -47,7 +48,6 @@ public class EduServiceImpl implements EduService{
 		map.put("pu",pu);
 		List<IntroduceVo> list =dao.intList(map);
 		map.put("list", list);
-		System.out.println("pu�궡�슜====>"+pu.toString());
 		return map;
 	}
 	
@@ -145,6 +145,12 @@ public class EduServiceImpl implements EduService{
 	@Override
 	public int detailWrite(EduDetailVo vo) throws Exception {
 		return dao.detailWrite(vo);
+	}
+
+
+	@Override
+	public List<MemberVo> companymember() throws Exception {
+		return dao.companymember();
 	}
 	
 	

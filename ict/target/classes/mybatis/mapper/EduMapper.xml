@@ -25,8 +25,19 @@
 
  <sql id="search">
  	<if test="searchType!=null and searchWord!=''">
- 	where ${searchType} like '%' ||#{searchWord} ||'%'
+ 	 ${searchType} like '%' ||#{searchWord} ||'%'
 	</if>
+ </sql>
+ 
+
+  <sql id="company">
+ 	<if test="companygubun!=null and searchType!=null and searchWord!=''">
+ 	AND INT_WRITER='${companygubun}'
+	</if>
+	<if test="companygubun!=null and searchWord==null">
+		INT_WRITER='${companygubun}'
+	</if>
+	
  </sql>
 
 <insert id="intWrite" parameterType="intvo">
@@ -49,7 +60,11 @@
 
 <select id="intCnt" parameterType="hashmap" resultType="int">
  			SELECT NVL(COUNT(*),0) CNT from EDU_INTRODUCE 
+ 			<where>
  			  <include refid="search"/>
+ 			  	  <include refid="company"/>
+ 			
+ 			</where>
  			<!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
  			
 </select>
@@ -71,7 +86,10 @@
        FROM(
                     SELECT AA.*,ROWNUM RNUM FROM(
                                  SELECT * FROM EDU_INTRODUCE
-                                 <include refid="search"/>
+                                 <where>
+                                   <include refid="search"/>
+                                 	  <include refid="company"/>
+                                 </where>
                                  ORDER BY INT_NUM DESC
                                 				 )AA
                      )
@@ -240,6 +258,10 @@ SELECT * FROM
 SELECT SEQ_EDU_DETAIL_DET_NUM.currval as detNum FROM dual
 </selectKey>
 </insert>
+
+<select id="companymember" resultType="member">
+SELECT * FROM MEMBER WHERE MEM_GRADE=2
+</select>
 
 
 </mapper>
