@@ -21,7 +21,7 @@ public interface FestivalService {
 	public int intfileWrite(List<MultipartFile> filelist, int num) throws Exception;
 	public FestivalVo fesDetail(int fesNum) throws Exception ;
 	public CommonFileVo fileinfo(CommonFileVo filevo) throws Exception;
-	public FesDetailVo getWriter(int fesNum) throws Exception;
+	public FestivalVo getWriter(int fesNum) throws Exception;
 	public int fesDelete(int fesNum) throws Exception;
 	public int fesEdit(FestivalVo vo) throws Exception;
 	public int fileDel(CommonFileVo filevo) throws Exception;

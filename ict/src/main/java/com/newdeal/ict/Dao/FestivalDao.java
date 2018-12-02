@@ -53,7 +53,7 @@ public class FestivalDao {
 		return session.update(NAMESPACE+".detailCntUp",fesNum);
 	}
 
-	public FesDetailVo getWriter(int fesNum) {
+	public FestivalVo getWriter(int fesNum) {
 		return session.selectOne(NAMESPACE+".getWriter",fesNum);
 	}
 

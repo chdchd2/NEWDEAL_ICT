@@ -42,7 +42,7 @@ public class EduController {
 		return ".edu.introduce.write";
 	}
 	
-	@RequestMapping(value = "/intWrite", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/intWrite", method = RequestMethod.POST)
 	public String intWriteOk(IntroduceVo vo,MultipartHttpServletRequest req) throws Exception {
 		//글 작성하기
 		service.intWrite(vo); 
@@ -53,7 +53,7 @@ public class EduController {
 		commonservice.fileWrite(filelist, fileRefNum,fileRefBoard);
 		System.out.println("파일쓰는부분 여기 오는지");
 		return "redirect:/edu/intList";
-	}
+	}*/
 	
 	@RequestMapping(value = "/intList",method = RequestMethod.GET)
 	public String intList(@RequestParam(value="pageNum",defaultValue="1")int pageNum,Model model) throws Exception {
@@ -117,7 +117,7 @@ public class EduController {
 		return ".edu.introduce.edit";
 	}
 	
-	@RequestMapping(value = "/intEdit",method = RequestMethod.POST)
+	/*@RequestMapping(value = "/intEdit",method = RequestMethod.POST)
 	public String intEditOk(IntroduceVo vo,MultipartHttpServletRequest req) throws Exception {
 		System.out.println("수정시 정보들"+vo.toString());
 		List<MultipartFile> filelist = req.getFiles("file"); 
@@ -127,7 +127,7 @@ public class EduController {
 		service.intEdit(vo);
 		
 		return "redirect:/edu/intList";
-	}
+	}*/
 	@RequestMapping(value = "/fileDel",method = RequestMethod.POST)
 	@ResponseBody
 	public void fileDel(CommonFileVo vo) throws Exception {
@@ -141,7 +141,7 @@ public class EduController {
 		return ".edu.detail.write";
 	}
 	
-	@RequestMapping(value = "/detailwrite", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/detailwrite", method = RequestMethod.POST)
 	public String DetailWriteOk(EduDetailVo vo,MultipartHttpServletRequest req) throws Exception {
 		System.out.println("디테일내용=>"+vo.toString());
 		List<MultipartFile> filelist = req.getFiles("file"); 
@@ -153,7 +153,7 @@ public class EduController {
 		
 		return "";
 	}
-	
+	*/
 	@RequestMapping(value = "/detailList",method = RequestMethod.GET)
 	public String detailList(@RequestParam(value="pageNum",defaultValue="1")int pageNum,Model model) throws Exception {
 	

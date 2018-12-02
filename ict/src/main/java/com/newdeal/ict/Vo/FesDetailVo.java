@@ -1,6 +1,6 @@
 package com.newdeal.ict.Vo;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;

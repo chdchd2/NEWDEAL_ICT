@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.mapper.FestivalMapper">
 
-<resultMap type="com.newdeal.ict.Vo.FesDetailVo" id="fesDevo">
+<resultMap type="com.newdeal.ict.Vo.FestivalVo" id="fesvo">
 	<result property="fesNum" column="fesNum"/>
 	<result property="memNum" column="memNum"/>
 	<result property="fesTitle" column="fesTitle"/>
@@ -24,8 +24,27 @@
 		<result property="intNext" column="intNext"/>
 	</collection>
 </resultMap>
-<resultMap type="com.newdeal.ict.Vo.FestivalVo" id="fesvo"/>
 
+<resultMap type="com.newdeal.ict.Vo.FesDetailVo" id="fesDevo">
+	<result property="detNum" column="detNum"/>
+	<result property="memNum" column="memNum"/>
+	<result property="detTitle" column="detTitle"/>
+	<result property="detContent" column="detContent"/>
+	<result property="detWriter" column="detWriter"/>
+	<result property="detDate" column="detDate"/>
+	<result property="hit" column="hit"/>
+	<collection property="list" ofType="com.newdeal.ict.Vo.CommonFileVo">
+		<result property="fileNum" column="fileNum"/>
+		<result property="fileName" column="fileName"/>
+		<result property="fileOrgName" column="fileOrgName"/>
+		<result property="fileSize" column="fileSize"/>
+		<result property="filePath" column="filePath"/>
+		<result property="fileRefBoard" column="fileRefBoard"/>
+		<result property="fileRefNum" column="fileRefNum"/>
+		<result property="intPrev" column="intPrev"/>
+		<result property="intNext" column="intNext"/>
+	</collection>
+</resultMap>
 
 <select id="detailCnt" resultType="int">
  			SELECT NVL(COUNT(*),0) CNT from FESTIVALDEL <!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
@@ -38,7 +57,7 @@
 	</if>
  </sql>
 
-<select id="detailList" parameterType="pagevo" resultType="fesDevo">
+<select id="detailList" parameterType="pagevo" resultMap="fesDevo">
       SELECT FES_NUMD AS detNum,
       		 FES_TITLED AS detTitle,
       		 FES_CONTENTD AS detContent,
@@ -57,7 +76,7 @@
 	
 </select>
 
-<insert id="detailWrite" parameterType="fesDevo">
+<insert id="detailWrite" parameterType="fesvo">
 	INSERT INTO FESTIVALDEL VALUES(
 									SEQ_FESTIVALDEL_FES_NUMD.nextval,
 									#{detTitle},
@@ -125,13 +144,13 @@ SELECT SEQ_FESTIVALDEL_FES_NUMD.currval as detNum FROM dual
       		 FES_WRITE AS fesWrite,
       		 FES_HIT AS fesHit,
       		 MEM_NUM AS memNum,
-			FILE_NUM AS FILENUM,
-			FILE_NAME AS FILENAME,
-			FILE_ORGNAME AS FILEORGNAME,
-			FILE_SIZE AS FILESIZE,
-			FILE_PATH AS FILEPATH,
-			FILE_REF_BOARD AS FILEREFBOARD,
-			FILE_REF_NUM AS FILEREFNUM 
+			FILE_NUM AS fileNum,
+			FILE_NAME AS fileName,
+			FILE_ORGNAME AS fileOrgName,
+			FILE_SIZE AS fileSize,
+			FILE_PATH AS filePath,
+			FILE_REF_BOARD AS fileRefBoard,
+			FILE_REF_NUM AS fileRefNum
 	FROM 
 		FESTIVAL A,COMMON_FILE B 
 	WHERE A.FES_NUM=B.FILE_REF_NUM(+)

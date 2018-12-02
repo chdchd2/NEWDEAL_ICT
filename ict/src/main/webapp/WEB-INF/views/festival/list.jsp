@@ -19,7 +19,7 @@ function searchs(){
 				</div> 
 <div id="sectionR">
 					<div id="contentHeader">
-						<h2>취업정보</h2>				
+						<h2>취업행사게시판</h2>				
 					</div>
 						<div id="content">
 						<!-- 	<p id="count">총<span>134건</span></p> -->

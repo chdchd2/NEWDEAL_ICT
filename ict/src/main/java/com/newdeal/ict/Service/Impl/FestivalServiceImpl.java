@@ -107,7 +107,7 @@ public class FestivalServiceImpl  implements FestivalService {
 	}
 
 	@Override
-	public FesDetailVo getWriter(int fesNum) throws Exception {
+	public FestivalVo getWriter(int fesNum) throws Exception {
 		return dao.getWriter(fesNum);
 	}
 

@@ -21,7 +21,7 @@
 					<form name="form" method="post">
 					<div id="content">
 						<div id="boardheader">
-							<h2>${vo.intTitle }</h2>
+							<h2>제목 :${FestivalVo.fesTitle }</h2>
 							<ul>
 								<li>작성자<span> ${member.memNickName}</span></li>
 								<li>게시일자<span><fmt:formatDate value="${FestivalVo.fesDate}" pattern="yyyy-MM-dd"/></span></li>
@@ -59,8 +59,7 @@
 								</li>
 								<li>
 									<span>첨부파일</span>
-									<a href="#">abcd</a>
-									<a href="#">bcde</a>
+								
 								<c:forEach var="list" items="${FestivalVo.list}">
 								<a href="<c:url value='/festival/fileDown?fileNum=${list.fileNum }'/>">${list.fileOrgName }</a>
 								</c:forEach>
@@ -69,7 +68,7 @@
 							</ul>
 						</div>
 						 <a id="list" href="<c:url value='/festival/fesDelete?fesNum=${FestivalVo.fesNum }'/>">삭제</a>
-						 <a id="list"href="<c:url value='/festival/fesDelete?fesNum=${FestivalVo.fesNum }'/>" >목록</a>
+						 <a id="list"href="<c:url value='/festival/list'/>">목록</a>
 					</div>
 					        <input type="hidden" name="fesNum" value="${FestivalVo.fesNum}">
 					</form>

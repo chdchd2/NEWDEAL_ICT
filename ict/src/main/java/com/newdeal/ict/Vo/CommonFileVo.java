@@ -30,21 +30,6 @@ public class CommonFileVo {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public int getFileNum() {
 		return fileNum;
 	}

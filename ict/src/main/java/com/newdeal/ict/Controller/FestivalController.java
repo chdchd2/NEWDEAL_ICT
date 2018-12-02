@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.newdeal.ict.Service.CommonService;
 import com.newdeal.ict.Service.FestivalService;
 import com.newdeal.ict.Vo.CommonFileVo;
-import com.newdeal.ict.Vo.EduDetailVo;
 import com.newdeal.ict.Vo.FesDetailVo;
 import com.newdeal.ict.Vo.FestivalVo;
 import com.newdeal.ict.Vo.MemberVo;
@@ -41,17 +40,18 @@ public class FestivalController {
 	}
 	
 	@RequestMapping(value="/write", method = RequestMethod.POST)
-	public String writePOST(FestivalVo vo, MultipartHttpServletRequest req)  
+	public String writePOST(FestivalVo vo, MultipartHttpServletRequest multiRequest)  
 			throws Exception{
 
 	//글 작성하기
 	 service.fesWrite(vo);
 	 System.out.println("service.write======>"+vo.toString());
 	//첨부파일 처리하기
-			List<MultipartFile> filelist = req.getFiles("file"); 
+			
 			int fileRefNum=service.fesmaxNum();
-			String fileRefBoard="EDU_INTRODUCE";
-			commonservice.fileWrite(filelist, fileRefNum,fileRefBoard);
+			String fileRefBoard="FESTIVAL";
+			
+			commonservice.fileWrite(fileRefNum,fileRefBoard,multiRequest);
 			System.out.println("파일쓰는부분 여기 오는지");
 		
 			return "redirect:/festival/list";
@@ -102,7 +102,7 @@ public class FestivalController {
 	@RequestMapping(value = "/fesDelete",method = RequestMethod.GET)
 	public String fesDelete(int fesNum,HttpSession session) throws Exception {
 		MemberVo vo=(MemberVo)session.getAttribute("member");
-		FesDetailVo fesvo=service.getWriter(fesNum);
+		FestivalVo fesvo=service.getWriter(fesNum);
 		System.out.println("==========>fesvo :" + fesvo);
 		if(fesvo.getMemNum()==vo.getMemNum()) {
 			System.out.println("작성자와 로그인한 사용자가 같으니까 삭제처리");
@@ -119,7 +119,7 @@ public class FestivalController {
 	public String fesEdit(int fesNum,HttpSession session,Model model) throws Exception {
 		MemberVo vo=(MemberVo)session.getAttribute("member");
 		System.out.println("===========================vo"+vo);
-		FesDetailVo fesvo=service.getWriter(fesNum);
+		FestivalVo fesvo=service.getWriter(fesNum);
 		System.out.println("======================fesvo:"+fesvo.toString());
 		
 		if(fesvo.getMemNum()==vo.getMemNum()) {
@@ -135,11 +135,10 @@ public class FestivalController {
 	
 	@RequestMapping(value = "/fesEdit",method = RequestMethod.POST)
 	public String fesEditOk(FestivalVo vo,MultipartHttpServletRequest req) throws Exception {
-		System.out.println("수정시 정보들"+vo.toString());
-		List<MultipartFile> filelist = req.getFiles("file"); 
 		String fileRefBoard="FESTIVAL";
 		int num=vo.getFesNum();
-		commonservice.fileWrite(filelist, num,fileRefBoard);
+		
+		commonservice.fileWrite(num,fileRefBoard,req);
 		service.fesEdit(vo);
 	
 		
@@ -178,9 +177,9 @@ public class FestivalController {
 		List<MultipartFile> filelist = req.getFiles("file"); 
 		service.detailWrite(vo);
 		int detNum = vo.getDetNum();
-		System.out.println("파일번호는?"+detNum);
+		
 		String fileRefBoard="FESTIVAL";
-		commonservice.fileWrite(filelist, detNum,fileRefBoard);
+		commonservice.fileWrite(detNum,fileRefBoard,req);
 		
 		return "";
 	}
