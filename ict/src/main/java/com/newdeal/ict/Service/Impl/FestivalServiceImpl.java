@@ -45,7 +45,7 @@ public class FestivalServiceImpl  implements FestivalService {
 		map.put("pu",pu);
 		List<FestivalVo> list =dao.list(map);
 		map.put("list", list);
-		System.out.println("pu내용====>"+pu.toString());
+		System.out.println("pu�궡�슜====>"+pu.toString());
 		return map;
 	}
 
@@ -53,6 +53,12 @@ public class FestivalServiceImpl  implements FestivalService {
 	public int fesCnt(HashMap<String, Object> map) throws Exception {
 		
 		return dao.fesCnt(map);
+	}
+	
+	@Override
+	public int detCnt(HashMap<String, Object> map) throws Exception {
+		
+		return dao.detCnt(map);
 	}
 
 
@@ -115,23 +121,23 @@ public class FestivalServiceImpl  implements FestivalService {
 	public int fesDelete(int fesNum) throws Exception {
 
 		List<CommonFileVo> filelist = dao.intFileDelList(fesNum);
-		System.out.println("파일리스트출력"+filelist.toString());
+		System.out.println("�뙆�씪由ъ뒪�듃異쒕젰"+filelist.toString());
 		for(CommonFileVo vo:filelist) {
 			String files=vo.getFilePath()+vo.getFileName();
-			System.out.println("파일디렉토리+파일이름 출력해보기"+files);
+			System.out.println("�뙆�씪�뵒�젆�넗由�+�뙆�씪�씠由� 異쒕젰�빐蹂닿린"+files);
 			File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 			if( file.exists() ){
 	            if(file.delete()){
-	                System.out.println("파일삭제 성공");
+	                System.out.println("�뙆�씪�궘�젣 �꽦怨�");
 	            }else{
-	                System.out.println("파일삭제 실패");
+	                System.out.println("�뙆�씪�궘�젣 �떎�뙣");
 	            }
 	        }else{
-	            System.out.println("파일이 존재하지 않습니다.");
+	            System.out.println("�뙆�씪�씠 議댁옱�븯吏� �븡�뒿�땲�떎.");
 	        }
 			dao.intFileDelete(fesNum);
 			dao.fesDelete(fesNum);
-			 System.out.println("임플에서도삭제 성공 :"+dao.fesDelete(fesNum));
+			 System.out.println("�엫�뵆�뿉�꽌�룄�궘�젣 �꽦怨� :"+dao.fesDelete(fesNum));
 		}
 		dao.fesDelete(fesNum);
 	return 0;
@@ -148,13 +154,13 @@ public class FestivalServiceImpl  implements FestivalService {
 		File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 		if( file.exists() ){
             if(file.delete()){
-                System.out.println("파일삭제 성공");
+                System.out.println("�뙆�씪�궘�젣 �꽦怨�");
                 dao.fileDel(filevo);
             }else{
-                System.out.println("파일삭제 실패");
+                System.out.println("�뙆�씪�궘�젣 �떎�뙣");
             }
         }else{
-            System.out.println("파일이 존재하지 않습니다.");
+            System.out.println("�뙆�씪�씠 議댁옱�븯吏� �븡�뒿�땲�떎.");
         }
 		return 1;
 	}
@@ -165,14 +171,15 @@ public class FestivalServiceImpl  implements FestivalService {
 	}
 	
 	@Override
-	public HashMap<String, Object> detailList(int pageNum) throws Exception {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		int totalRowCount = dao.detailCnt();
+	public HashMap<String, Object> detailList(HashMap<String, Object> map) throws Exception {
+		int totalRowCount = dao.detCnt(map);
+		System.out.println("totalRowCount :" + totalRowCount);
+		int pageNum=Integer.parseInt(map.get("pageNum").toString());
 		PageUtil pu=new PageUtil(pageNum, 10, 10, totalRowCount);
-		List<FesDetailVo> list =dao.detailList(pu);
-		map.put("list", list);
 		map.put("pu",pu);
-		System.out.println("pu내용====>"+pu.toString());
+		System.out.println("pu : " + pu);
+		List<FesDetailVo> list =dao.detailList(map);
+		map.put("list", list);
 		return map;
 	}
 
@@ -207,27 +214,33 @@ public class FestivalServiceImpl  implements FestivalService {
 	public int detDelete(int detNum) throws Exception {
 		
 		List<CommonFileVo> filelist = dao.intFileDelList(detNum);
-		System.out.println("파일리스트출력"+filelist.toString());
+		System.out.println("�뙆�씪由ъ뒪�듃異쒕젰"+filelist.toString());
 		
 		for(CommonFileVo vo:filelist) {
 			String files=vo.getFilePath()+vo.getFileName();
-			System.out.println("파일디렉토리+파일이름 출력해보기"+files);
+			System.out.println("�뙆�씪�뵒�젆�넗由�+�뙆�씪�씠由� 異쒕젰�빐蹂닿린"+files);
 			File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 			if( file.exists() ){
 	            if(file.delete()){
-	                System.out.println("파일삭제 성공");
+	                System.out.println("�뙆�씪�궘�젣 �꽦怨�");
 	            }else{
-	                System.out.println("파일삭제 실패");
+	                System.out.println("�뙆�씪�궘�젣 �떎�뙣");
 	            }
 	        }else{
-	            System.out.println("파일이 존재하지 않습니다.");
+	            System.out.println("�뙆�씪�씠 議댁옱�븯吏� �븡�뒿�땲�떎.");
 	        }
 			dao.intFileDelete(detNum);
 			dao.fesDelete(detNum);
-			 System.out.println("임플에서도삭제 성공 :"+dao.detDelete(detNum));
+			 System.out.println("�엫�뵆�뿉�꽌�룄�궘�젣 �꽦怨� :"+dao.detDelete(detNum));
 		}
 		dao.detDelete(detNum);
 	return 0;
+	}
+
+
+	@Override
+	public List<FesDetailVo> detPart() throws Exception {
+		return dao.detPart();
 	}
 	
 }

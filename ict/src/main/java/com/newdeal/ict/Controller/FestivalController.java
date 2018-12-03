@@ -44,16 +44,16 @@ public class FestivalController {
 	public String writePOST(FestivalVo vo, MultipartHttpServletRequest multiRequest)  
 			throws Exception{
 
-	//�� �ۼ��ϱ�
+	//占쏙옙 占쌜쇽옙占싹깍옙
 	 service.fesWrite(vo);
 	 System.out.println("service.write======>"+vo.toString());
-	//÷������ ó���ϱ�
+	//첨占쏙옙占쏙옙占쏙옙 처占쏙옙占싹깍옙
 			
 			int fileRefNum=service.fesmaxNum();
 			String fileRefBoard="FESTIVAL";
 			
 			commonservice.fileWrite(fileRefNum,fileRefBoard,multiRequest);
-			System.out.println("���Ͼ��ºκ� ���� ������");
+			System.out.println("占쏙옙占싹억옙占승부븝옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙");
 		
 			return "redirect:/festival/list";
 	}
@@ -107,7 +107,7 @@ public class FestivalController {
 	
 	@RequestMapping(value="/fileDown" )
 	public ModelAndView contactoDownload(@ModelAttribute CommonFileVo filevo) throws Exception{
-		System.out.println("��Ʈ�ѷ� ���ϴٿ�κб��� �´�.");
+		System.out.println("占쏙옙트占싼뤄옙 占쏙옙占싹다울옙觀閨占쏙옙占� 占승댐옙.");
 		CommonFileVo fileVo=service.fileinfo(filevo);
 		ModelAndView mv= new ModelAndView("FileDownView");
 		File file=new File(fileVo.getFilePath()+File.separator+fileVo.getFileName());
@@ -122,12 +122,12 @@ public class FestivalController {
 		FestivalVo fesvo=service.getWriter(fesNum);
 		System.out.println("==========>fesvo :" + fesvo);
 		if(fesvo.getMemNum()==vo.getMemNum()) {
-			System.out.println("작성자와 로그인한 사용자가 같으니까 삭제처리");
+			System.out.println("�옉�꽦�옄�� 濡쒓렇�씤�븳 �궗�슜�옄媛� 媛숈쑝�땲源� �궘�젣泥섎━");
 			int n=service.fesDelete(fesNum);
-			System.out.println("==========>삭제완료 :" +  n);
+			System.out.println("==========>�궘�젣�셿猷� :" +  n);
 		}else {
-			System.out.println("같지 않음.");
-			System.out.println("=================>삭제실패 ");
+			System.out.println("媛숈� �븡�쓬.");
+			System.out.println("=================>�궘�젣�떎�뙣 ");
 		}
 		return "redirect:/festival/list";
 	}
@@ -140,11 +140,11 @@ public class FestivalController {
 		System.out.println("======================fesvo:"+fesvo.toString());
 		
 		if(fesvo.getMemNum()==vo.getMemNum()) {
-			System.out.println("�ۼ��ڿ� �α����� ����ڰ� �����ϱ� �������� �Ѱ���");
+			System.out.println("占쌜쇽옙占쌘울옙 占싸깍옙占쏙옙占쏙옙 占쏙옙占쏙옙微占� 占쏙옙占쏙옙占싹깍옙 占쏙옙占쏙옙占쏙옙占쏙옙 占싼곤옙占쏙옙");
 			FestivalVo edit=service.fesDetail(fesNum);
 			model.addAttribute("vo",edit);
 		}else {
-			System.out.println("�����ʴ�.");
+			System.out.println("占쏙옙占쏙옙占십댐옙.");
 		}
 		
 		return ".festival.edit";
@@ -166,7 +166,7 @@ public class FestivalController {
 	@RequestMapping(value = "/fileDel",method = RequestMethod.POST)
 	@ResponseBody
 	public void fileDel(CommonFileVo vo) throws Exception{
-		System.out.println("���Ϲ�ȣ��?"+vo);
+		System.out.println("占쏙옙占싹뱄옙호占쏙옙?"+vo);
 		service.fileDel(vo);
 	}
 	
@@ -178,7 +178,7 @@ public class FestivalController {
 	
 	@RequestMapping(value = "/detailwrite", method = RequestMethod.POST)
 	public String DetailWriteOk(FesDetailVo vo,MultipartHttpServletRequest req, HttpServletRequest request) throws Exception {
-		System.out.println("�����ϳ���=>"+vo.toString());
+		System.out.println("占쏙옙占쏙옙占싹놂옙占쏙옙=>"+vo.toString());
 		List<MultipartFile> filelist = req.getFiles("file"); 
 		
 		String detPart = request.getParameter("detPart");
@@ -193,11 +193,24 @@ public class FestivalController {
 	}
 	
 	@RequestMapping(value = "/detailList",method = RequestMethod.GET)
-	public String detailList(@RequestParam(value="pageNum",defaultValue="1")int pageNum,Model model) throws Exception {
+	public String detailList(@RequestParam(value="pageNum",defaultValue="1")int pageNum,Model model,String searchType,String searchWord,String detPart) throws Exception {
 	
-		HashMap<String, Object> map=service.detailList(pageNum);
+		System.out.println("분야구분은?=>"+detPart);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		/*map.put("detPartgubun", detPartgubun);*/
+		map.put("pageNum", pageNum);
+		map.put("searchType",searchType);
+		map.put("searchWord",searchWord);
+		map.put("detPart", detPart);
+		//List<FesDetailVo> detPart=service.detPart();
+		
+		map = service.detailList(map);
+		//model.addAttribute("detPart",detPart);
 		model.addAttribute("list",map.get("list"));
 		model.addAttribute("pu",map.get("pu"));
+		model.addAttribute("searchType",searchType);
+		model.addAttribute("searchWord",searchWord);
 		
 		return ".festival.detail.list";
 	}
@@ -210,11 +223,11 @@ public class FestivalController {
 		System.out.println("======================fesvo:"+detvo.toString());
 		
 		if(detvo.getMemNum()==vo.getMemNum()) {
-			System.out.println("�ۼ��ڿ� �α����� ����ڰ� �����ϱ� �������� �Ѱ���");
+			System.out.println("占쌜쇽옙占쌘울옙 占싸깍옙占쏙옙占쏙옙 占쏙옙占쏙옙微占� 占쏙옙占쏙옙占싹깍옙 占쏙옙占쏙옙占쏙옙占쏙옙 占싼곤옙占쏙옙");
 			FesDetailVo edit=service.detDetail(detNum);
 			model.addAttribute("vo",edit);
 		}else {
-			System.out.println("�����ʴ�.");
+			System.out.println("占쏙옙占쏙옙占십댐옙.");
 		}
 		
 		return ".festival.detail.edit";
@@ -241,12 +254,12 @@ public class FestivalController {
 		
 		System.out.println("==========>fesvo :" + fesvo);
 		if(fesvo.getMemNum()==vo.getMemNum()) {
-			System.out.println("작성자와 로그인한 사용자가 같으니까 삭제처리");
+			System.out.println("�옉�꽦�옄�� 濡쒓렇�씤�븳 �궗�슜�옄媛� 媛숈쑝�땲源� �궘�젣泥섎━");
 			int n=service.fesDelete(detNum);
-			System.out.println("==========>�������� :" +  n);
+			System.out.println("==========>占쏙옙占쏙옙占쏙옙占쏙옙 :" +  n);
 		}else {
-			System.out.println("�����ʴ�.");
-			System.out.println("=================>�������� ");
+			System.out.println("占쏙옙占쏙옙占십댐옙.");
+			System.out.println("=================>占쏙옙占쏙옙占쏙옙占쏙옙 ");
 		}
 		return "redirect:/festival/detailList";
 	}

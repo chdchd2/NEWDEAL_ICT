@@ -95,8 +95,10 @@ public class FestivalDao {
 		return session.selectOne(NAMESPACE+".detailCnt");
 	}
 
-	public List<FesDetailVo> detailList(PageUtil vo) {
-		return session.selectList(NAMESPACE+".detailList",vo);
+	public List<FesDetailVo> detailList(HashMap<String,Object> map) {
+		String sss=(String)map.get("detPart");
+		System.out.println("asdfsadfsadfsadf===>"+sss);
+		return session.selectList(NAMESPACE+".detailList",map);
 	}
 
 	public FesDetailVo getWriterD(int detNum) {
@@ -121,6 +123,15 @@ public class FestivalDao {
 	
 	public int detDelete(int detNum) {
 		return session.delete(NAMESPACE+".detDelete",detNum);
+	}
+
+
+	public List<FesDetailVo> detPart() {
+		return session.selectList(NAMESPACE+".detPart");
+	}
+
+	public int detCnt(HashMap<String, Object> map) {
+		return session.selectOne(NAMESPACE+".detCnt",map);
 	}
 	
 }

@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
+<script>
+		function fnWmTab(detPart){
+			console.log(detPart);
+		/* 	var searchType=$("#searchType option:selected").val();
+			var searchWord=$("#searchWord").val(); */
+			//var detPartgubun=$("#detPartgubun").val();
+	
+			location.href="<c:url value='/festival/detailList?detPart="+detPart+"'/>";
+		}
+		</script>
 <section>
 <div id="sectionC">
  <div id="subMenu">
@@ -16,13 +26,14 @@
 					</div>
 						<div id="content">
 						
-						<a href="">[ 전체 ]</a>&emsp;|
-						&emsp;<a href="javascript:fnWmTab('0');">경제/교육</a>&emsp;|  
-						&emsp;<a href="">IT/혁신</a>&emsp;|
-						&emsp;<a href="">문화/복지</a>&emsp;|
-						&emsp;<a href="">환경/안전</a>&emsp;|
-						&emsp;<a href="">[ 기타 ]</a>&emsp;
-		
+				
+						<a href="javascript:fnWmTab('전체');">[ 전체 ]</a>&emsp;|
+						&emsp;<a href="javascript:fnWmTab('경제/교육');">경제/교육</a>&emsp;|  
+						&emsp;<a href="javascript:fnWmTab('IT/혁신');">IT/혁신</a>&emsp;|
+						&emsp;<a href="javascript:fnWmTab('문화/복지');">문화/복지</a>&emsp;|
+						&emsp;<a href="javascript:fnWmTab('환경/안전');">환경/안전</a>&emsp;|
+						&emsp;<a href="javascript:fnWmTab('기타');">[ 기타 ]</a>&emsp;
+					
 						
 							<p id="count">총<span>${pu.totalRowCount}건</span></p>
 							<ol id="search">
@@ -34,7 +45,7 @@
 									</ul>
 								</li>
 								<li><input type="text"></li>
-								<li><a href="#a">조회</a></li>
+								<li><a onclick="searchs()">조회</a></li>
 							</ol>
 							
 							<table id ="table">

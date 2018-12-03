@@ -17,6 +17,7 @@ public interface FestivalService {
 	public int fesWrite(FestivalVo vo);
 	public HashMap<String, Object> list(HashMap<String, Object> map) throws Exception;
 	public int fesCnt(HashMap<String, Object> map) throws Exception;
+	public int detCnt(HashMap<String, Object> map) throws Exception;
 	public int fesmaxNum() throws Exception;
 	public int intfileWrite(List<MultipartFile> filelist, int num) throws Exception;
 	public FestivalVo fesDetail(int fesNum) throws Exception ;
@@ -26,7 +27,8 @@ public interface FestivalService {
 	public int fesEdit(FestivalVo vo) throws Exception;
 	public int fileDel(CommonFileVo filevo) throws Exception;
 	public int detailWrite(FesDetailVo vo) throws Exception;
-	public HashMap<String, Object> detailList(int pageNum) throws Exception;
+	public HashMap<String, Object> detailList(HashMap<String,Object> map) throws Exception;
+	
 	public FestivalVo intPrev(int fesNum) throws Exception;
 	public FestivalVo intNext(int fesNum) throws Exception;
 	public FesDetailVo detPrev(int detNum) throws Exception;
@@ -35,5 +37,7 @@ public interface FestivalService {
 	public FesDetailVo detDetail(int detNum)throws Exception ;
 	public int detEdit(FesDetailVo vo)throws Exception;
 	public int detDelete(int detNum) throws Exception;
+	public List<FesDetailVo> detPart()throws Exception;
+
 
 }

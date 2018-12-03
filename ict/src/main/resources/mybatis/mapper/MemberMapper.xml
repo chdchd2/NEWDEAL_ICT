@@ -12,14 +12,13 @@
 		MEM_GRADE AS memGrade,
 		MEM_JOINDATE AS memJoinDate,
 		MEM_UID AS memUid,
-		MEM_FIELD AS memField,
 		MEM_STATE AS memState
 	 FROM MEMBER 
 	 WHERE MEM_GUBUN=#{type} AND MEM_UID=#{uid}
 </select>
 
 <insert id="signin" parameterType="member">
-	INSERT INTO MEMBER VALUES(SEQ_MEMBER_NUM.nextval,#{memNickName},#{memTel},#{memGubun},1,sysdate,#{memUid},#{memField},'allow')
+	INSERT INTO MEMBER VALUES(SEQ_MEMBER_NUM.nextval,#{memNickName},#{memTel},#{memGubun},1,sysdate,#{memUid},'allow')
 </insert>
 
 <select id="nickNameChk" parameterType="String" resultType="String">
