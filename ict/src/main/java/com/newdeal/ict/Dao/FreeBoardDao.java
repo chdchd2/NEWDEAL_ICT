@@ -99,13 +99,13 @@ public class FreeBoardDao {
 	public List<CommentVo> commentList(int fbNum){
 		return sqlSession.selectList("freeboard.commentList",fbNum);
 	}
-	public void cmtUpdate(CommentVo vo) throws Exception {
-		sqlSession.update("freeboard.cmtUpdate", vo);
+	
+	public void comUpdate(CommentVo vo) throws Exception {
+		sqlSession.update("freeboard.comUpdate", vo);
+    }
 
-	}
 
-	public void cmtDelete(int comNum) throws Exception {
-		sqlSession.delete("freeboard.cmtDelete", comNum);
-
+	public void comDel(int comNum) throws Exception {
+		sqlSession.delete("freeboard.comDel", comNum);
 	}
 }

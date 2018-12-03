@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -179,5 +180,14 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		return dao.commentList(fbNum);
 	}
 
+	@Override
+	public void comUpdate(CommentVo vo) throws Exception {
+		dao.comUpdate(vo);
+	}
+	
+	@Override
+	public void comDel(int comNum) throws Exception {
+		dao.comDel(comNum);
+	}
 	
 }

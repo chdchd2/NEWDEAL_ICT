@@ -61,24 +61,33 @@ function comment(){
 }); 
 }
 
-function comDel(comNum){
-    if (!confirm("댓글을 삭제하시겠습니까?")) {
-        return;
-    }
-    $.ajax({
-        url: encodeURI("<c:url value='/freeboard/comDelete.do?comNum="+comNum+"'/>"),
-        type:"post", 
-        data: {"fbNum": $("#fbNum").val(), "comNum": comNum},
-        success: function(result){
-            if (result=="OK") {
-                $("#comContent"+comNum).remove();
-                alert("삭제되었습니다.");
-            } else{
-                alert("댓글이 있어서 삭제할 수 있습니다.");
-            }
-        }
-    })
+
+function comDel(comNum) {
+	var comBNum=${vo.fbNum};
+	if(comNum==$("#comNum")){
+	$("#commentList").remove();
+		
+	}
+	/* $.ajax({
+		type:"POST",
+		url:encodeURI("<c:url value='/freeboard/comDel.do'/>"),
+		dataType:"json",
+		success:function(data){
+			console.log(data)
+		}
+	}); */
 }
+	
+
+
+
+
+
+
+
+
+
+
 
 </script>
 <section>
@@ -174,11 +183,18 @@ function comDel(comNum){
 		</colgroup>
 		<thead>
 			<tr>
+			<td><input type="hidden" id="comNum" value="${comment.comNum }" /></td>
 				<td>${comment.memNickName} |</td>
 				<td>${comment.comContent} |</td>
 				<td><span><fmt:formatDate value="${comment.comDate}" pattern="yyyy-MM-dd"/></span></td>
-				<td><a class="cmtUpdateBtn">수정</a></td>
-				<td><a class="cmtDeleteBtn">삭제</a></td><br>
+				<c:if test="${sessionScope.member.memNickName == comment.memNickName }"> 
+					<td><input type="button" value="삭제" onclick="comDel(comNum);" /></td><br>
+					<!--<td><a class="comDel">삭제</a></td><br> -->
+				</c:if>
+				<c:if test="${sessionScope.member.memNickName != comment.memNickName }"> 
+					<br>
+				</c:if>
+				
 			</tr>
 		</thead>
 		<%-- ${comment.memNickName} ===>${comment.comContent} ${comment.comDate} <br>  --%>

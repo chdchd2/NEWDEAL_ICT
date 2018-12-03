@@ -261,4 +261,17 @@ SELECT * FROM
 	<select id="commentList" resultType="commentvo" parameterType="int">
 		SELECT A.*,B.MEM_NICKNAME FROM COMMENTS A,MEMBER B WHERE A.MEM_NUM=B.MEM_NUM AND A.COM_BNUM=#{fbNum} ORDER BY COM_NUM ASC
 	</select>
+	
+	<delete id="comDel" parameterType="java.util.HashMap">
+        DELETE
+          FROM  COMMENTS
+         WHERE  COM_NUM = #{comNum}
+    </delete>
+    <update id="comUpdate" parameterType="java.util.HashMap">
+        UPDATE  COMMENTS
+           SET  COM_CONTENT = #{comContent}
+         WHERE  COM_NUM = #{comNum}
+    </update>
+    
+    
 </mapper>
