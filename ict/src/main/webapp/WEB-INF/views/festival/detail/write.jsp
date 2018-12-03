@@ -114,13 +114,15 @@ console.log(event.value);
 								<tr>
 									<td>제목</td>
 									<td>
-									<select name="boardId">
-								 	<option value="0">선택</option>
-								 	<option value="1">경제/교육</option>
-								 	<option value="2">IT/혁신</option>
-								 	<option value="3">문화/복지</option>
-								 	<option value="4">환경/안전</option>
-								 	<option value="5">기타</option>
+							
+									
+									<select name="detPart" id="detPart">
+								 	<option value="선택">선택</option>
+								 	<option value="경제/교육">경제/교육</option>
+								 	<option value="IT/혁신">IT/혁신</option>
+								 	<option value="문화/복지">문화/복지</option>
+								 	<option value="환경/안전">환경/안전</option>
+								 	<option value="기타">기타</option>
 								 	</select>
 								 	
 										 <input type="text" name="detTitle" id="detTitle">

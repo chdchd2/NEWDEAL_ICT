@@ -21,7 +21,7 @@
 					<form name="form" method="post">
 					<div id="content">
 						<div id="boardheader">
-							<h2>제목 :${FesDetailVo.detTitle }</h2>
+							<h2>제목 :[ ${FesDetailVo.detPart} ] ${FesDetailVo.detTitle }</h2>
 							<ul>
 								<li>작성자<span>${FesDetailVo.detWriter} </span></li>
 								<li>게시일자<span><fmt:formatDate value="${FesDetailVo.detDate}" pattern="yyyy-MM-dd"/></span></li>

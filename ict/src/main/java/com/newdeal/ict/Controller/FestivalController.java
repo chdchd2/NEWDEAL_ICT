@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,16 +44,16 @@ public class FestivalController {
 	public String writePOST(FestivalVo vo, MultipartHttpServletRequest multiRequest)  
 			throws Exception{
 
-	//±Û ÀÛ¼ºÇÏ±â
+	//ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½Ï±ï¿½
 	 service.fesWrite(vo);
 	 System.out.println("service.write======>"+vo.toString());
-	//Ã·ºÎÆÄÀÏ Ã³¸®ÇÏ±â
+	//Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ï±ï¿½
 			
 			int fileRefNum=service.fesmaxNum();
 			String fileRefBoard="FESTIVAL";
 			
 			commonservice.fileWrite(fileRefNum,fileRefBoard,multiRequest);
-			System.out.println("ÆÄÀÏ¾²´ÂºÎºÐ ¿©±â ¿À´ÂÁö");
+			System.out.println("ï¿½ï¿½ï¿½Ï¾ï¿½ï¿½ÂºÎºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		
 			return "redirect:/festival/list";
 	}
@@ -104,7 +105,7 @@ public class FestivalController {
 	
 	@RequestMapping(value="/fileDown" )
 	public ModelAndView contactoDownload(@ModelAttribute CommonFileVo filevo) throws Exception{
-		System.out.println("ÄÁÆ®·Ñ·¯ ÆÄÀÏ´Ù¿îºÎºÐ±îÁö ¿Â´Ù.");
+		System.out.println("ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½ï¿½ï¿½Ï´Ù¿ï¿½ÎºÐ±ï¿½ï¿½ï¿½ ï¿½Â´ï¿½.");
 		CommonFileVo fileVo=service.fileinfo(filevo);
 		ModelAndView mv= new ModelAndView("FileDownView");
 		File file=new File(fileVo.getFilePath()+File.separator+fileVo.getFileName());
@@ -119,12 +120,12 @@ public class FestivalController {
 		FestivalVo fesvo=service.getWriter(fesNum);
 		System.out.println("==========>fesvo :" + fesvo);
 		if(fesvo.getMemNum()==vo.getMemNum()) {
-			System.out.println("ÀÛ¼ºÀÚ¿Í ·Î±×ÀÎÇÑ »ç¿ëÀÚ°¡ °°À¸´Ï±î »èÁ¦Ã³¸®");
+			System.out.println("ï¿½Û¼ï¿½ï¿½Ú¿ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½");
 			int n=service.fesDelete(fesNum);
-			System.out.println("==========>»èÁ¦¼º°ø :" +  n);
+			System.out.println("==========>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ :" +  n);
 		}else {
-			System.out.println("°°Áö¾Ê´Ù.");
-			System.out.println("=================>»èÁ¦½ÇÆÐ ");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½.");
+			System.out.println("=================>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ");
 		}
 		return "redirect:/festival/list";
 	}
@@ -137,11 +138,11 @@ public class FestivalController {
 		System.out.println("======================fesvo:"+fesvo.toString());
 		
 		if(fesvo.getMemNum()==vo.getMemNum()) {
-			System.out.println("ÀÛ¼ºÀÚ¿Í ·Î±×ÀÎÇÑ »ç¿ëÀÚ°¡ °°À¸´Ï±î ¼öÁ¤À¸·Î ³Ñ°ÜÁÜ");
+			System.out.println("ï¿½Û¼ï¿½ï¿½Ú¿ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½ï¿½");
 			FestivalVo edit=service.fesDetail(fesNum);
 			model.addAttribute("vo",edit);
 		}else {
-			System.out.println("°°Áö¾Ê´Ù.");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½.");
 		}
 		
 		return ".festival.edit";
@@ -163,7 +164,7 @@ public class FestivalController {
 	@RequestMapping(value = "/fileDel",method = RequestMethod.POST)
 	@ResponseBody
 	public void fileDel(CommonFileVo vo) throws Exception{
-		System.out.println("ÆÄÀÏ¹øÈ£´Â?"+vo);
+		System.out.println("ï¿½ï¿½ï¿½Ï¹ï¿½È£ï¿½ï¿½?"+vo);
 		service.fileDel(vo);
 	}
 	
@@ -174,9 +175,12 @@ public class FestivalController {
 	}
 	
 	@RequestMapping(value = "/detailwrite", method = RequestMethod.POST)
-	public String DetailWriteOk(FesDetailVo vo,MultipartHttpServletRequest req) throws Exception {
-		System.out.println("µðÅ×ÀÏ³»¿ë=>"+vo.toString());
+	public String DetailWriteOk(FesDetailVo vo,MultipartHttpServletRequest req, HttpServletRequest request) throws Exception {
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ï³ï¿½ï¿½ï¿½=>"+vo.toString());
 		List<MultipartFile> filelist = req.getFiles("file"); 
+		
+		String detPart = request.getParameter("detPart");
+		
 		service.detailWrite(vo);
 		int detNum = vo.getDetNum();
 		
@@ -204,11 +208,11 @@ public class FestivalController {
 		System.out.println("======================fesvo:"+detvo.toString());
 		
 		if(detvo.getMemNum()==vo.getMemNum()) {
-			System.out.println("ÀÛ¼ºÀÚ¿Í ·Î±×ÀÎÇÑ »ç¿ëÀÚ°¡ °°À¸´Ï±î ¼öÁ¤À¸·Î ³Ñ°ÜÁÜ");
+			System.out.println("ï¿½Û¼ï¿½ï¿½Ú¿ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½ï¿½");
 			FesDetailVo edit=service.detDetail(detNum);
 			model.addAttribute("vo",edit);
 		}else {
-			System.out.println("°°Áö¾Ê´Ù.");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½.");
 		}
 		
 		return ".festival.detail.edit";
@@ -232,12 +236,12 @@ public class FestivalController {
 		FesDetailVo fesvo=service.detailWriter(detNum);
 		System.out.println("==========>fesvo :" + fesvo);
 		if(fesvo.getMemNum()==vo.getMemNum()) {
-			System.out.println("ÀÛ¼ºÀÚ¿Í ·Î±×ÀÎÇÑ »ç¿ëÀÚ°¡ °°À¸´Ï±î »èÁ¦Ã³¸®");
+			System.out.println("ï¿½Û¼ï¿½ï¿½Ú¿ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½");
 			int n=service.fesDelete(detNum);
-			System.out.println("==========>»èÁ¦¼º°ø :" +  n);
+			System.out.println("==========>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ :" +  n);
 		}else {
-			System.out.println("°°Áö¾Ê´Ù.");
-			System.out.println("=================>»èÁ¦½ÇÆÐ ");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½.");
+			System.out.println("=================>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ");
 		}
 		return "redirect:/festival/list";
 	}

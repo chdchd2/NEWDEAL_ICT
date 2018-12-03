@@ -34,6 +34,7 @@
 	<result property="detDate" column="detDate"/>
 	<result property="hit" column="hit"/>
 	<result property="memNum" column="memNum"/>
+	<result property="detPart" column="detPart"/>
 	<collection property="list" ofType="com.newdeal.ict.Vo.CommonFileVo">
 		<result property="fileNum" column="fileNum"/>
 		<result property="fileName" column="fileName"/>
@@ -66,6 +67,8 @@
       		 FES_WRITE AS detWriter,
       		 FES_HITD AS hit,
       		 MEM_NUM AS memNum,
+      		 FES_PART AS detPart,
+      		 
       		 RNUM RNUM
        FROM(
                     SELECT AA.*,ROWNUM RNUM FROM(
@@ -85,7 +88,8 @@
 									sysdate,
 									#{detWriter},
 									0,
-									#{memNum}
+									#{memNum},
+									#{detPart}
 									)
 <selectKey keyProperty="detNum" resultType="int" order="AFTER"> 
 SELECT SEQ_FESTIVALDEL_FES_NUMD.currval as detNum FROM dual

@@ -14,12 +14,14 @@ public class FesDetailVo {
 	private String detWriter;
 	private int hit;
 	private int memNum;
-	
+	private String detPart;
 	
 	
 
+
+
 	public FesDetailVo(int detNum, String detTitle, String detContent, Date detDate, String detWriter, int hit,
-			int memNum, List<CommonFileVo> list) {
+			int memNum, String detPart, List<CommonFileVo> list) {
 		super();
 		this.detNum = detNum;
 		this.detTitle = detTitle;
@@ -28,7 +30,20 @@ public class FesDetailVo {
 		this.detWriter = detWriter;
 		this.hit = hit;
 		this.memNum = memNum;
+		this.detPart = detPart;
 		this.list = list;
+	}
+
+
+
+	public String getDetPart() {
+		return detPart;
+	}
+
+
+
+	public void setDetPart(String detPart) {
+		this.detPart = detPart;
 	}
 
 
