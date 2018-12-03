@@ -44,14 +44,14 @@ public class EduController {
 	
 	/*@RequestMapping(value = "/intWrite", method = RequestMethod.POST)
 	public String intWriteOk(IntroduceVo vo,MultipartHttpServletRequest req) throws Exception {
-		//±Û ÀÛ¼ºÇÏ±â
+		//ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½Ï±ï¿½
 		service.intWrite(vo); 
-		//Ã·ºÎÆÄÀÏ Ã³¸®ÇÏ±â
+		//Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ï±ï¿½
 		List<MultipartFile> filelist = req.getFiles("file"); 
 		int fileRefNum=service.intmaxNum();
 		String fileRefBoard="EDU_INTRODUCE";
 		commonservice.fileWrite(filelist, fileRefNum,fileRefBoard);
-		System.out.println("ÆÄÀÏ¾²´ÂºÎºÐ ¿©±â ¿À´ÂÁö");
+		System.out.println("ï¿½ï¿½ï¿½Ï¾ï¿½ï¿½ÂºÎºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		return "redirect:/edu/intList";
 	}*/
 	
@@ -76,7 +76,7 @@ public class EduController {
 	
 	@RequestMapping(value="/fileDown" )
 	public ModelAndView contactoDownload(@ModelAttribute CommonFileVo filevo) throws Exception{
-		System.out.println("ÄÁÆ®·Ñ·¯ ÆÄÀÏ´Ù¿îºÎºÐ±îÁö ¿Â´Ù.");
+		System.out.println("ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½ï¿½ï¿½Ï´Ù¿ï¿½ÎºÐ±ï¿½ï¿½ï¿½ ï¿½Â´ï¿½.");
 		CommonFileVo fileVo=service.fileinfo(filevo);
 		ModelAndView mv= new ModelAndView("FileDownView");
 		File file=new File(fileVo.getFilePath()+File.separator+fileVo.getFileName());
@@ -91,10 +91,10 @@ public class EduController {
 		IntroduceVo intvo=service.getWriter(intNum);
 		
 		if(intvo.getMemNum()==vo.getMemNum()) {
-			System.out.println("ÀÛ¼ºÀÚ¿Í ·Î±×ÀÎÇÑ »ç¿ëÀÚ°¡ °°À¸´Ï±î »èÁ¦Ã³¸®");
+			System.out.println("ï¿½Û¼ï¿½ï¿½Ú¿ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½");
 			int n=service.intDelete(intNum);
 		}else {
-			System.out.println("°°Áö¾Ê´Ù.");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½.");
 		}
 		
 		
@@ -107,11 +107,11 @@ public class EduController {
 		IntroduceVo intvo=service.getWriter(intNum);
 		
 		if(intvo.getMemNum()==vo.getMemNum()) {
-			System.out.println("ÀÛ¼ºÀÚ¿Í ·Î±×ÀÎÇÑ »ç¿ëÀÚ°¡ °°À¸´Ï±î ¼öÁ¤À¸·Î ³Ñ°ÜÁÜ");
+			System.out.println("ï¿½Û¼ï¿½ï¿½Ú¿ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½ï¿½");
 			IntDetailJoinVo editvo=service.intDetail(intNum);
 			model.addAttribute("vo",editvo);
 		}else {
-			System.out.println("°°Áö¾Ê´Ù.");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½.");
 		}
 		
 		return ".edu.introduce.edit";
@@ -119,7 +119,7 @@ public class EduController {
 	
 	/*@RequestMapping(value = "/intEdit",method = RequestMethod.POST)
 	public String intEditOk(IntroduceVo vo,MultipartHttpServletRequest req) throws Exception {
-		System.out.println("¼öÁ¤½Ã Á¤º¸µé"+vo.toString());
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"+vo.toString());
 		List<MultipartFile> filelist = req.getFiles("file"); 
 		String fileRefBoard="EDU_INTRODUCE";
 		int num=vo.getIntNum();
@@ -131,7 +131,7 @@ public class EduController {
 	@RequestMapping(value = "/fileDel",method = RequestMethod.POST)
 	@ResponseBody
 	public void fileDel(CommonFileVo vo) throws Exception {
-		System.out.println("ÆÄÀÏ¹øÈ£´Â?"+vo);
+		System.out.println("ï¿½ï¿½ï¿½Ï¹ï¿½È£ï¿½ï¿½?"+vo);
 		service.fileDel(vo);
 	}
 	
@@ -141,19 +141,7 @@ public class EduController {
 		return ".edu.detail.write";
 	}
 	
-	/*@RequestMapping(value = "/detailwrite", method = RequestMethod.POST)
-	public String DetailWriteOk(EduDetailVo vo,MultipartHttpServletRequest req) throws Exception {
-		System.out.println("µðÅ×ÀÏ³»¿ë=>"+vo.toString());
-		List<MultipartFile> filelist = req.getFiles("file"); 
-		service.detailWrite(vo);
-		int detNum = vo.getDetNum();
-		System.out.println("ÆÄÀÏ¹øÈ£´Â?"+detNum);
-		String fileRefBoard="EDU_DETAIL";
-		commonservice.fileWrite(filelist, detNum,fileRefBoard);
-		
-		return "";
-	}
-	*/
+
 	@RequestMapping(value = "/detailList",method = RequestMethod.GET)
 	public String detailList(@RequestParam(value="pageNum",defaultValue="1")int pageNum,Model model) throws Exception {
 	

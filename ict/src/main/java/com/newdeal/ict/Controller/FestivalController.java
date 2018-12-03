@@ -90,13 +90,15 @@ public class FestivalController {
 	}
 	
 	@RequestMapping(value = "/detDetail",method = RequestMethod.GET)
-	public String detDetail(int detNum,Model model) throws Exception {
+	public String detDetail(int detNum,Model model,HttpServletRequest request) throws Exception {
 		
 		FesDetailVo vo=service.detDetail(detNum);
 		FesDetailVo prev=service.detPrev(detNum);
 		FesDetailVo next=service.detNext(detNum);
 		
-		model.addAttribute("FestivalVo",vo);
+		String detPart = request.getParameter("detPart");
+		
+		model.addAttribute("FesDetailVo",vo);
 		model.addAttribute("prev",prev);
 		model.addAttribute("next",next);
 		

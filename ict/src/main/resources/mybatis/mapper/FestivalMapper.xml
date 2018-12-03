@@ -173,6 +173,8 @@ SELECT SEQ_FESTIVALDEL_FES_NUMD.currval as detNum FROM dual
       		 FES_WRITE AS detWriter,
       		 FES_HITD AS hit,
       		 MEM_NUM AS memNum,
+      		 FES_PART AS detPart,
+      		 
 			FILE_NUM AS fileNum,
 			FILE_NAME AS fileName,
 			FILE_ORGNAME AS fileOrgName,
