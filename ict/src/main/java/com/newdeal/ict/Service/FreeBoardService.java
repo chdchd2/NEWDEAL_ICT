@@ -14,6 +14,8 @@ public interface FreeBoardService {
 	//CRUD(Create, Read, Update, Delete)
 	public void create(FreeBoardVo vo) throws Exception;
 	public FreeBoardVo read(int fbNum) throws Exception;
+	public FreeBoardVo fbPrev(int fbNum) throws Exception;
+	public FreeBoardVo fbNext(int fbNum) throws Exception;
 	public void update(FreeBoardVo vo) throws Exception;
 	public void delete(int fbNum) throws Exception;
 	public List<FreeBoardVo> listAll(

@@ -34,8 +34,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 게시물 상세보기  -->	
 	<select id="view" resultType="com.newdeal.ict.Vo.NoticeVo">
 		SELECT NT_NUM,NT_TITLE,NT_REGDATE,NT_CONTENT,NT_VIEWCNT,NT_WRITER,NT_MAP
-		FROM NOTICE NT, MEMBER M
-		WHERE NT.NT_WRITER=M.MEM_NICKNAME AND NT_NUM=#{ntNum}
+		FROM NOTICE NT
+		WHERE NT_NUM=#{ntNum}
 	</select>
 	
 <!-- 게시물삭제 -->
@@ -58,6 +58,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<include refid="search" /> 
 	ORDER BY NT_NUM DESC
 	<include refid="paging_footer" />
+	</select>
+	
+		<select id="listAlll" resultType="com.newdeal.ict.Vo.NoticeVo">
+	SELECT NT_NUM,NT_TITLE, NT_REGDATE,NT_VIEWCNT,NT_WRITER,NT_SHOW
+		FROM NOTICE NT
 	</select>
 	
 <!-- 레코드 갯수 계산 -->

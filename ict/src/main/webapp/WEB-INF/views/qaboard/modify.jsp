@@ -19,7 +19,6 @@ $(function(){
 			document.form.action="/ict/qaboard/list.do";
 			document.form.submit();
 		});
-
 		$(".btnUpdate").click(function(){
 		//첨부파일 이름들을 폼에 추가
 			var str="";
@@ -36,7 +35,6 @@ $(function(){
 			document.form.submit();
 		});
 });
-
 function fileDel(fileNum){
 	$("#span"+fileNum).remove();
 	 $.ajax({

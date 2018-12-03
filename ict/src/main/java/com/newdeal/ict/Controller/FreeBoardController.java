@@ -106,6 +106,8 @@ public class FreeBoardController {
 		List<CommentVo> commentList=service.commentList(fbNum);
 		mav.setViewName(".freeboard.view");
 		mav.addObject("vo", service.read(fbNum));
+		mav.addObject("prev", service.fbPrev(fbNum));
+		mav.addObject("next", service.fbNext(fbNum));
 		mav.addObject("commentList",commentList);
 		return mav;
 	}

@@ -19,6 +19,7 @@ import com.newdeal.ict.Service.FreeBoardService;
 import com.newdeal.ict.Vo.CommentVo;
 import com.newdeal.ict.Vo.CommonFileVo;
 import com.newdeal.ict.Vo.FreeBoardVo;
+import com.newdeal.ict.Vo.IntDetailJoinVo;
 
 @Service
 public class FreeBoardServiceImpl implements FreeBoardService {
@@ -37,7 +38,14 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		/*dao.increaseViewcnt(fbNum);*/
 		return dao.read(fbNum);
 	}
+
+	public FreeBoardVo fbNext(int fbNum) throws Exception {
+		return dao.fbNext(fbNum);
+	}
 	
+	public FreeBoardVo fbPrev(int fbNum) throws Exception {
+		return dao.fbPrev(fbNum);
+	}
 
 	@Transactional // 트랜잭션처리
 	@Override
@@ -170,4 +178,6 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public List<CommentVo> commentList(int fbNum) throws Exception {
 		return dao.commentList(fbNum);
 	}
+
+	
 }

@@ -21,10 +21,7 @@ $(function(){
 		document.form.action="/ict/qaboard/list.do";
 		document.form.submit();
 	});
-
 });
-
-
 </script>
 
 <div id="sectionC">

@@ -88,6 +88,53 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   	   AND FB.FB_NUM=#{fbNum}
 	</select>
 	
+<select id="fbPrev" parameterType="int" resultMap="freeboard">
+SELECT * FROM
+		  (SELECT  FB_NUM AS fbNum,
+			  	   FB_TITLE AS fbTitle,
+			  	   FB_REGDATE AS fbRegdate,
+				   FB_CONTENT AS fbContent,
+			 	   FB_VIEWCNT AS fbViewcnt,
+				   FB_WRITER AS fbWriter,
+				   FILE_NUM AS fileNum ,
+				   FILE_NAME AS fileName,
+				   FILE_ORGNAME AS fileOrgName,
+		 	  	   FILE_SIZE AS fileSize,
+				   FILE_PATH AS filePath,
+				   FILE_REF_BOARD AS fileRefBoard,
+				   FILE_REF_NUM AS fileRefNum, 
+				   ROWNUM 
+			  FROM FREEBOARD FB, COMMON_FILE CF 
+	 <![CDATA[ 
+		 WHERE FB.FB_NUM=CF.FILE_REF_NUM(+)
+		   AND FB.FB_NUM<#{fbNum} ORDER BY FB_NUM DESC)
+		 WHERE ROWNUM=1
+	]]>
+</select>
+
+<select id="fbNext" parameterType="int" resultMap="freeboard">
+SELECT * FROM
+		  (SELECT  FB_NUM AS fbNum,
+			  	   FB_TITLE AS fbTitle,
+			  	   FB_REGDATE AS fbRegdate,
+				   FB_CONTENT AS fbContent,
+			 	   FB_VIEWCNT AS fbViewcnt,
+				   FB_WRITER AS fbWriter,
+				   FILE_NUM AS fileNum ,
+				   FILE_NAME AS fileName,
+				   FILE_ORGNAME AS fileOrgName,
+		 	  	   FILE_SIZE AS fileSize,
+				   FILE_PATH AS filePath,
+				   FILE_REF_BOARD AS fileRefBoard,
+				   FILE_REF_NUM AS fileRefNum, 
+				   ROWNUM 
+			 FROM  FREEBOARD FB,COMMON_FILE CF 
+	 <![CDATA[ 
+		 WHERE FB.FB_NUM=CF.FILE_REF_NUM(+)
+		   AND FB.FB_NUM>#{fbNum} ORDER BY FB_NUM ASC)
+		 WHERE ROWNUM=1
+	]]>
+</select>
 <!-- 게시물삭제 -->
 	<delete id="deleteArticle">
 		DELETE FROM FREEBOARD

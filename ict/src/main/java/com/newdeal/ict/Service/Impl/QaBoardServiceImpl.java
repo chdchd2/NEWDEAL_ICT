@@ -43,7 +43,7 @@ public class QaBoardServiceImpl implements QaBoardService{
 	@Transactional
 	@Override
 	public void update(QaBoardVo vo) throws Exception {
-		dao.update(vo);// boardí…Œì´ë¸” ìˆ˜ì •
+		dao.update(vo);// boardÅ×ÀÌºí ¼öÁ¤
 		
 	}
 
@@ -52,19 +52,19 @@ public class QaBoardServiceImpl implements QaBoardService{
 	@Override
 	public void delete(int qaNum) throws Exception {
 		List<CommonFileVo> filelist = dao.qaFileDelList(qaNum);
-		System.out.println("íŒŒì¼ë¦¬ìŠ¤íŠ¸ì¶œë ¥"+filelist.toString());
+		System.out.println("ÆÄÀÏ¸®½ºÆ®Ãâ·Â"+filelist.toString());
 		for(CommonFileVo vo:filelist) {
 			String files=vo.getFilePath()+vo.getFileName();
-			System.out.println("íŒŒì¼ë””ë ‰í† ë¦¬+íŒŒì¼ì´ë¦„ ì¶œë ¥í•´ë³´ê¸°"+files);
+			System.out.println("ÆÄÀÏµğ·ºÅä¸®+ÆÄÀÏÀÌ¸§ Ãâ·ÂÇØº¸±â"+files);
 			File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 			if( file.exists() ){
 	            if(file.delete()){
-	                System.out.println("íŒŒì¼ì‚­ì œ ì„±ê³µ");
+	                System.out.println("ÆÄÀÏ»èÁ¦ ¼º°ø");
 	            }else{
-	                System.out.println("íŒŒì¼ì‚­ì œ ì‹¤íŒ¨");
+	                System.out.println("ÆÄÀÏ»èÁ¦ ½ÇÆĞ");
 	            }
 	        }else{
-	            System.out.println("íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+	            System.out.println("ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
 	        }
 		dao.qaFileDelete(qaNum);
 		dao.delete(qaNum);
@@ -84,13 +84,13 @@ public class QaBoardServiceImpl implements QaBoardService{
 	@Override
 	public void increaseViewcnt(int qaNum, HttpSession session) throws Exception {
 		long update_time = 0;
-		// ì„¸ì…˜ì— ì €ì¥ëœ ê²Œì‹œë¬¼ì˜ ì¡°íšŒì‹œê°„ ê²€ìƒ‰
+		// ¼¼¼Ç¿¡ ÀúÀåµÈ °Ô½Ã¹°ÀÇ Á¶È¸½Ã°£ °Ë»ö
 		if (session.getAttribute("update_time_" + qaNum) != null) {
 			update_time = (Long) session.getAttribute("update_time_" + qaNum);
 		}
-		// í˜„ì¬ ì‹œê°„
+		// ÇöÀç ½Ã°£
 		long current_time = System.currentTimeMillis();
-		// ì¼ì • ì‹œê°„ì´ ê²½ê³¼ëœ í›„ ì¡°íšŒìˆ˜ ì¦ê°€ ì²˜ë¦¬
+		// ÀÏÁ¤ ½Ã°£ÀÌ °æ°úµÈ ÈÄ Á¶È¸¼ö Áõ°¡ Ã³¸®
 		if (current_time - update_time > 5 * 1000) {
 			dao.increaseViewcnt(qaNum);
 			session.setAttribute("update_time_" + qaNum, current_time);
@@ -164,13 +164,13 @@ public class QaBoardServiceImpl implements QaBoardService{
 		File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 		if( file.exists() ){
             if(file.delete()){
-                System.out.println("íŒŒì¼ì‚­ì œ ì„±ê³µ");
+                System.out.println("ÆÄÀÏ»èÁ¦ ¼º°ø");
                 dao.fileDel(filevo);
             }else{
-                System.out.println("íŒŒì¼ì‚­ì œ ì‹¤íŒ¨");
+                System.out.println("ÆÄÀÏ»èÁ¦ ½ÇÆĞ");
             }
         }else{
-            System.out.println("íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+            System.out.println("ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
         }
 		return 1;
 	}
@@ -182,13 +182,24 @@ public class QaBoardServiceImpl implements QaBoardService{
 		return dao.qaCnt();
 	}	
 	
-	@Transactional
+
 	@Override
-	public int insertReply(QaBoardVo vo) throws Exception {
-		this.dao.updateStep(vo);
+	public List<QaBoardVo> listAll() throws Exception {
+		return dao.listAll();
+	}
+
+
+
+	@Override
+	public QaBoardVo view(int qaNum) throws Exception {
 		
-		int qaStep = this.dao.stepMax(vo);
-		vo.setQaStep(qaStep);
-		return this.dao.insertReply(vo);
+		return dao.view(qaNum);
+	}
+
+
+
+	@Override
+	public int answer(QaBoardVo vo) throws Exception {
+		return dao.answer(vo);
 	}
 }

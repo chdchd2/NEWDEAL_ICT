@@ -33,7 +33,8 @@ $(function(){
 			$("#form").append(str);
 			document.form.submit();
 		});
-	 
+	 	
+	 	
 	  
 });
 function comment(){
@@ -61,13 +62,24 @@ function comment(){
 }
 
 function comDel(comNum){
-	if(!comfirm("댓글을 삭제하시겠습니까?")){
-		return;
-	}
-	if(comNum==0){
-		$(comNum).remove();
-	}
+    if (!confirm("댓글을 삭제하시겠습니까?")) {
+        return;
+    }
+    $.ajax({
+        url: encodeURI("<c:url value='/freeboard/comDelete.do?comNum="+comNum+"'/>"),
+        type:"post", 
+        data: {"fbNum": $("#fbNum").val(), "comNum": comNum},
+        success: function(result){
+            if (result=="OK") {
+                $("#comContent"+comNum).remove();
+                alert("삭제되었습니다.");
+            } else{
+                alert("댓글이 있어서 삭제할 수 있습니다.");
+            }
+        }
+    })
 }
+
 </script>
 <section>
 <div id="sectionC">
@@ -116,11 +128,25 @@ function comDel(comNum){
 								</li>
 								<li>
 									<span>이전 글</span>
-									<a href="#a">이전 글이 없습니다.</a>
+									<c:choose>
+									<c:when test="${prev.fbTitle eq null}">
+									<a href="#">이전글이 없습니다.</a>
+									</c:when>
+									<c:otherwise>
+										<a href="<c:url value='/freeboard/view.do?fbNum=${prev.fbNum }'/>">${prev.fbTitle }</a>
+									</c:otherwise>
+									</c:choose>
 								</li>
 								<li>
 									<span>다음 글</span>
-									<a href="#a">다음 글이 없습니다.</a>
+									<c:choose>
+									<c:when test="${next.fbTitle eq null}">
+									<a href="#">다음글이 없습니다.</a>
+									</c:when>
+									<c:otherwise>
+										<a href="<c:url value='/freeboard/view.do?fbNum=${next.fbNum }'/>">${next.fbTitle }</a>
+									</c:otherwise>
+									</c:choose>
 								</li>
 								
 							</ul>
@@ -150,7 +176,9 @@ function comDel(comNum){
 			<tr>
 				<td>${comment.memNickName} |</td>
 				<td>${comment.comContent} |</td>
-				<td><span><fmt:formatDate value="${comment.comDate}" pattern="yyyy-MM-dd"/></span></td><br>
+				<td><span><fmt:formatDate value="${comment.comDate}" pattern="yyyy-MM-dd"/></span></td>
+				<td><a class="cmtUpdateBtn">수정</a></td>
+				<td><a class="cmtDeleteBtn">삭제</a></td><br>
 			</tr>
 		</thead>
 		<%-- ${comment.memNickName} ===>${comment.comContent} ${comment.comDate} <br>  --%>

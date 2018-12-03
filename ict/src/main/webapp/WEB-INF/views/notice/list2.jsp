@@ -14,6 +14,8 @@ $(function(){
 	});
 });
 function list(page){
+	
+	
 	location.href="${path}/notice/list.do?curPage="+page
 			+"&search_option=${map.search_option}"
 			+"&keyword=${map.keyword}";

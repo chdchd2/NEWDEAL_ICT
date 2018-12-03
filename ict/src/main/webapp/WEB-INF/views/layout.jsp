@@ -15,8 +15,9 @@
 	<link rel="stylesheet" href="<c:url value='/resources/css/reset.css'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/header_02.css'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/footer.css'/>">
-	<link rel="stylesheet" href="<c:url value='/resources/css/community_notice01.css'/>">
+	<link rel="stylesheet" href="<c:url value='/resources/css/community_notice01.css?ver=1'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/community_notice02.css'/>">
+	<c:set var="path" value="${pageContext.request.contextPath }" />
 	<script>
 		$(function(){
 			$("#search > li").eq(0).click(function(){
@@ -78,7 +79,7 @@
 		//$menuBg.slideUp(200,"easeOutCubic")
 		$menuBg.animate({"top":-100},200,"easeOutCubic")
 	}
-
+ 
 </script>
 </head>
 <body>

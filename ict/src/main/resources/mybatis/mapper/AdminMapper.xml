@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.AdminMapper">
+	
+	
+	
+	<select id="memberList" resultType="member">
+		SELECT MEM_NUM AS memNum,
+			   MEM_NICKNAME AS memNickName,
+			   MEM_TEL AS memTel,
+			   MEM_GUBUN AS memGubun,
+			   MEM_GRADE AS memGrade,
+			   MEM_JOINDATE AS memJoinDate,
+			   MEM_UID AS memUid,
+			   MEM_FIELD AS memField,
+			   MEM_STATE AS memState
+			   FROM MEMBER
+	</select>
+	
+	<select id="linklist" resultType="linkvo">
+		SELECT LINK_NUM AS linkNum,
+			   LINK_NAME AS linkName,
+			   LINK_URL AS linkUrl
+			   FROM EDU_LINKLIST
+	</select>
+
+	<update id="memGrade" parameterType="member">
+		UPDATE MEMBER SET MEM_GRADE=#{memGrade} WHERE MEM_NUM=#{memNum}
+	</update>
+	
+	<update id="memState" parameterType="member">
+		UPDATE MEMBER SET MEM_State=#{memState} WHERE MEM_NUM=#{memNum}
+	</update>
+	
+	<delete id="dellink" parameterType="int">
+		DELETE EDU_LINKLIST WHERE LINK_NUM=#{linkNum}
+	</delete>
+	
+	<insert id="linkadd" parameterType="linkvo">
+		INSERT INTO EDU_LINKLIST VALUES(SEQ_EDU_LINKLIST_LINK_NUM.nextval,#{linkUrl},#{linkName})
+	</insert>
+
+
+
+
+
+
+
+
+
+</mapper>
+

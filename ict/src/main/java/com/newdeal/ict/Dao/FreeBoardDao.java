@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.newdeal.ict.Vo.CommentVo;
 import com.newdeal.ict.Vo.CommonFileVo;
 import com.newdeal.ict.Vo.FreeBoardVo;
+import com.newdeal.ict.Vo.IntDetailJoinVo;
 
 @Repository
 
@@ -38,6 +39,13 @@ public class FreeBoardDao {
 	
 	public FreeBoardVo read(int fbNum) throws Exception {
 		return sqlSession.selectOne("freeboard.view", fbNum);
+	}
+	
+	public FreeBoardVo fbNext(int fbNum) {
+		return sqlSession.selectOne("freeboard.fbNext",fbNum);
+	}
+	public FreeBoardVo fbPrev(int fbNum) {
+		return sqlSession.selectOne("freeboard.fbPrev",fbNum);
 	}
 	
 	public void update(FreeBoardVo vo) throws Exception {
@@ -83,11 +91,21 @@ public class FreeBoardDao {
 	public int fileDel(CommonFileVo vo) {
 		return sqlSession.delete("freeboard.fileDel",vo);
 	}
+	
 	public int comment(CommentVo vo) {
 		return sqlSession.insert("freeboard.comment",vo);
 	}
 	
 	public List<CommentVo> commentList(int fbNum){
 		return sqlSession.selectList("freeboard.commentList",fbNum);
+	}
+	public void cmtUpdate(CommentVo vo) throws Exception {
+		sqlSession.update("freeboard.cmtUpdate", vo);
+
+	}
+
+	public void cmtDelete(int comNum) throws Exception {
+		sqlSession.delete("freeboard.cmtDelete", comNum);
+
 	}
 }

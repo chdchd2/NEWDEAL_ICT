@@ -10,7 +10,6 @@
 	<link rel="stylesheet" href="css/community_notice01.css">
 	<title></title>
 	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/jquery.easing.1.3.js"></script>
 	<script>
 		$(function(){
 			$("#search > li").eq(0).click(function(){
@@ -145,6 +144,9 @@
  			 	</ul>
  			</li>
  			
+
+ 			</li>
+ 			
  		</ul>
  		
 	 </div>
@@ -172,17 +174,17 @@
 					</div>
 					<div id="content">
 							<p id="count">총<span>134건</span></p>
-							<ul id="search">
-							<li>
-								<select>
-								    <li><option value="">전체</option></li>
-								    <li><option value="제목">제목</option></li>
-								    <li><option value="내용">내용</option></li>
-								</select>
-							</li>
-							<li><input type="text"></li>
-							<li><a href="#a">조회</a></li>
-							</ul>
+							<ol id="search">
+								<li><a href="#a">전체 <img src="images/search_Active.png" alt="검색창더보기"></a>
+									<ul id="detail">
+										<li><a href="#a">전체</a></li>
+										<li><a href="#a">제목</a></li>
+										<li><a href="#a">내용</a></li>
+									</ul>
+								</li>
+								<li><input type="text"></li>
+								<li><a href="#a">조회</a></li>
+							</ol>
 						
 						<table id ="table">
 							<colgroup>

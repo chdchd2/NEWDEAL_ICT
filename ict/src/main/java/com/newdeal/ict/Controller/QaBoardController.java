@@ -158,7 +158,6 @@ public class QaBoardController {
 	
 	@RequestMapping("reply.do")
 	public String reply() throws Exception{
-
 		return ".qaboard.reply";
 	}
 	
@@ -187,20 +186,5 @@ public class QaBoardController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/reply.do", method=RequestMethod.POST)
-	public void insertReplyBoard(HttpServletRequest request, HttpServletResponse response, QaBoardVo vo) {
-			
-		try {		
-			int qaNum = 0;			
-			if(request.getParameter("qaNum") != null && !request.getParameter("qaNum") .equals("")) {				
-				String qaContent = request.getParameter("qaContent");
-				vo.setQaContent(qaContent);
-				qaNum = service.insertReply(vo);
-			}
-			response.sendRedirect("/qaboard/view.do?qaNum="+qaNum);
-		}catch(Exception e) {
-			logger.info("insert Fail...");
-			e.printStackTrace();
-		}
-	}	
+	
 }
