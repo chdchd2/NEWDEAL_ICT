@@ -32,7 +32,7 @@ function searchs(){
 								    <option value="FES_CONTENT">내용</option>
 								</select>
 							</li>
-							<li><input type="text" name="searchWord" id="searchWord" value="${searchWord }"></li>
+							<li><input type="text" name="searchWord" id="searchWord" value="${searchWord}"></li>
 							<li><a onclick="searchs()">조회</a></li>
 							</ul>
 							

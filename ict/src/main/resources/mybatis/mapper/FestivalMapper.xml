@@ -321,6 +321,20 @@ SELECT * FROM
 	WHERE FES_NUM=#{fesNum}
 </select>
 
+<select id="getWriterD" parameterType="int" resultMap="fesDevo">
+	SELECT  
+		     FES_NUMD AS detNum,
+      		 FES_TITLED AS detTitle,
+      		 FES_CONTENTD AS detContent,
+      		 FES_DATED AS detDate,
+      		 FES_WRITE AS detWriter,
+      		 FES_HITD AS hit,
+      		 MEM_NUM AS memNum,
+      		 FES_PART AS detPart
+	FROM	FESTIVALDEL
+	WHERE FES_NUMD=#{detNum}
+</select>
+
 <update id="detailCntUp" parameterType="int">
 	UPDATE FESTIVAL SET FES_HIT=FES_HIT+1 WHERE FES_NUM=#{fesNum}
 </update>
@@ -337,9 +351,13 @@ SELECT * FROM
 	DELETE FESTIVALDEL WHERE FES_NUMD=#{detNum}
 </delete>
 
-<delete id="intFileDelete" parameterType="int">
+<delete id="intFileDelete" parameterType="int" >
 	DELETE COMMON_FILE WHERE FILE_REF_BOARD='FESTIVAL' AND FILE_REF_NUM=#{fesNum}
 </delete>
+
+<!--  <delete id="intFileDelete" parameterType="int" >
+	DELETE COMMON_FILE WHERE FILE_REF_BOARD='FESTIVALDEL' AND FILE_REF_NUM=#{detNum}
+</delete>  -->
 
 <select id="intFileDelList" parameterType="int" resultType="filevo">
 	SELECT  FILE_NUM AS FILENUM,
@@ -353,6 +371,18 @@ SELECT * FROM
 	 WHERE FILE_REF_BOARD='FESTIVAL' AND FILE_REF_NUM=#{fesNum}
 </select>
 
+<!-- <select id="intFileDelList" parameterType="int" resultType="filevo">
+	SELECT  FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM 
+	 FROM COMMON_FILE 
+	 WHERE FILE_REF_BOARD='FESTIVALDEL' AND FILE_REF_NUM=#{detNum}
+</select>
+ -->
 <update id="fesEdit" parameterType="fesvo">
 	UPDATE FESTIVAL SET FES_TITLE=#{fesTitle},FES_CONTENT=#{fesContent} WHERE FES_NUM=#{fesNum}
 </update>
@@ -364,6 +394,8 @@ SELECT * FROM
 <delete id="fileDel" parameterType="filevo">
 	DELETE COMMON_FILE WHERE FILE_NUM=#{fileNum}
 </delete>
+
+
 
 </mapper>
 

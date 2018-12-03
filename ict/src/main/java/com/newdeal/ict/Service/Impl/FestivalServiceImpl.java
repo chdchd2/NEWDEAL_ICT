@@ -177,8 +177,8 @@ public class FestivalServiceImpl  implements FestivalService {
 	}
 
 	@Override
-	public FesDetailVo detailWriter(int detNum) throws Exception {
-		return dao.detailWriter(detNum);
+	public FesDetailVo getWriterD(int detNum) throws Exception {
+		return dao.getWriterD(detNum);
 	}
 
 	@Override
@@ -205,8 +205,10 @@ public class FestivalServiceImpl  implements FestivalService {
 
 	@Override
 	public int detDelete(int detNum) throws Exception {
+		
 		List<CommonFileVo> filelist = dao.intFileDelList(detNum);
 		System.out.println("파일리스트출력"+filelist.toString());
+		
 		for(CommonFileVo vo:filelist) {
 			String files=vo.getFilePath()+vo.getFileName();
 			System.out.println("파일디렉토리+파일이름 출력해보기"+files);
@@ -224,7 +226,7 @@ public class FestivalServiceImpl  implements FestivalService {
 			dao.fesDelete(detNum);
 			 System.out.println("임플에서도삭제 성공 :"+dao.detDelete(detNum));
 		}
-		dao.fesDelete(detNum);
+		dao.detDelete(detNum);
 	return 0;
 	}
 	

@@ -31,7 +31,7 @@ public interface FestivalService {
 	public FestivalVo intNext(int fesNum) throws Exception;
 	public FesDetailVo detPrev(int detNum) throws Exception;
 	public FesDetailVo detNext(int detNum) throws Exception;
-	public FesDetailVo detailWriter(int detNum)throws Exception ;
+	public FesDetailVo getWriterD(int detNum)throws Exception ;
 	public FesDetailVo detDetail(int detNum)throws Exception ;
 	public int detEdit(FesDetailVo vo)throws Exception;
 	public int detDelete(int detNum) throws Exception;

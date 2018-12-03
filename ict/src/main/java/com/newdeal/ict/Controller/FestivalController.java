@@ -122,12 +122,12 @@ public class FestivalController {
 		FestivalVo fesvo=service.getWriter(fesNum);
 		System.out.println("==========>fesvo :" + fesvo);
 		if(fesvo.getMemNum()==vo.getMemNum()) {
-			System.out.println("�ۼ��ڿ� �α����� ����ڰ� �����ϱ� ����ó��");
+			System.out.println("작성자와 로그인한 사용자가 같으니까 삭제처리");
 			int n=service.fesDelete(fesNum);
-			System.out.println("==========>�������� :" +  n);
+			System.out.println("==========>삭제완료 :" +  n);
 		}else {
-			System.out.println("�����ʴ�.");
-			System.out.println("=================>�������� ");
+			System.out.println("같지 않음.");
+			System.out.println("=================>삭제실패 ");
 		}
 		return "redirect:/festival/list";
 	}
@@ -206,7 +206,7 @@ public class FestivalController {
 	public String detEdit(int detNum,HttpSession session,Model model) throws Exception {
 		MemberVo vo=(MemberVo)session.getAttribute("member");
 		System.out.println("===========================vo"+vo);
-		FesDetailVo detvo=service.detailWriter(detNum);
+		FesDetailVo detvo=service.getWriterD(detNum);
 		System.out.println("======================fesvo:"+detvo.toString());
 		
 		if(detvo.getMemNum()==vo.getMemNum()) {
@@ -233,19 +233,22 @@ public class FestivalController {
 	}
 	
 	@RequestMapping(value = "/detDelete",method = RequestMethod.GET)
-	public String detDelete(int detNum,HttpSession session) throws Exception {
+	public String detDelete(int detNum,HttpSession session, HttpServletRequest request) throws Exception {
 		MemberVo vo=(MemberVo)session.getAttribute("member");
-		FesDetailVo fesvo=service.detailWriter(detNum);
+		FesDetailVo fesvo=service.getWriterD(detNum);
+		
+		String detPart = request.getParameter("detPart");
+		
 		System.out.println("==========>fesvo :" + fesvo);
 		if(fesvo.getMemNum()==vo.getMemNum()) {
-			System.out.println("�ۼ��ڿ� �α����� ����ڰ� �����ϱ� ����ó��");
+			System.out.println("작성자와 로그인한 사용자가 같으니까 삭제처리");
 			int n=service.fesDelete(detNum);
 			System.out.println("==========>�������� :" +  n);
 		}else {
 			System.out.println("�����ʴ�.");
 			System.out.println("=================>�������� ");
 		}
-		return "redirect:/festival/list";
+		return "redirect:/festival/detailList";
 	}
 	
 }

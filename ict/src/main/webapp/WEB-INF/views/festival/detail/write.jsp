@@ -117,7 +117,7 @@ console.log(event.value);
 							
 									
 									<select name="detPart" id="detPart">
-								 	<option value="선택">선택</option>
+								 	<option value="전체">전체</option>
 								 	<option value="경제/교육">경제/교육</option>
 								 	<option value="IT/혁신">IT/혁신</option>
 								 	<option value="문화/복지">문화/복지</option>

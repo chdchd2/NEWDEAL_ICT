@@ -87,7 +87,7 @@ public class FestivalDao {
 	}
 
 	public int detailWrite(FesDetailVo vo) {
-		System.out.println("µðÅ×ÀÏ±îÁö¿À´ÂÁöÈ®ÀÎ"+vo.toString());
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½"+vo.toString());
 		return session.insert(NAMESPACE+".detailWrite",vo);
 	}
 
@@ -99,8 +99,8 @@ public class FestivalDao {
 		return session.selectList(NAMESPACE+".detailList",vo);
 	}
 
-	public FesDetailVo detailWriter(int detNum) {
-		return session.selectOne(NAMESPACE+".detailWriter",detNum);
+	public FesDetailVo getWriterD(int detNum) {
+		return session.selectOne(NAMESPACE+".getWriterD",detNum);
 	}
 
 	public FesDetailVo detDetail(int detNum) {
@@ -120,7 +120,7 @@ public class FestivalDao {
 	}
 	
 	public int detDelete(int detNum) {
-		return session.delete(NAMESPACE+".fesDelete",detNum);
+		return session.delete(NAMESPACE+".detDelete",detNum);
 	}
 	
 }
