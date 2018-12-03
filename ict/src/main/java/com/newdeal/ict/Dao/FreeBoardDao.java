@@ -100,12 +100,12 @@ public class FreeBoardDao {
 		return sqlSession.selectList("freeboard.commentList",fbNum);
 	}
 	
-	public void comUpdate(CommentVo vo) throws Exception {
+	/*public void comUpdate(CommentVo vo) throws Exception {
 		sqlSession.update("freeboard.comUpdate", vo);
     }
+*/
 
-
-	public void comDel(int comNum) throws Exception {
-		sqlSession.delete("freeboard.comDel", comNum);
+	public int comDel(int comNum) throws Exception {
+		return sqlSession.delete("freeboard.comDel", comNum);
 	}
 }

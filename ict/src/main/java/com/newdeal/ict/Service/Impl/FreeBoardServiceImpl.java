@@ -180,14 +180,14 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		return dao.commentList(fbNum);
 	}
 
-	@Override
+	/*@Override
 	public void comUpdate(CommentVo vo) throws Exception {
 		dao.comUpdate(vo);
-	}
+	}*/
 	
 	@Override
-	public void comDel(int comNum) throws Exception {
-		dao.comDel(comNum);
+	public int comDel(int comNum) throws Exception {
+		return dao.comDel(comNum);
 	}
 	
 }

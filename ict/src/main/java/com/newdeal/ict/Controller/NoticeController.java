@@ -1,5 +1,6 @@
 package com.newdeal.ict.Controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,12 +14,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.newdeal.ict.Service.CommonService;
 import com.newdeal.ict.Service.NoticeService;
 import com.newdeal.ict.Util.Pager;
+import com.newdeal.ict.Vo.CommonFileVo;
 import com.newdeal.ict.Vo.NoticeVo;
 
 @Controller
@@ -29,6 +35,8 @@ public class NoticeController {
 	
 	@Inject
 	NoticeService service;
+	@Inject
+	CommonService commonservice;
 	
 	@RequestMapping("list.do")
 	public ModelAndView list(
@@ -67,9 +75,16 @@ public class NoticeController {
 	
 	
 	@RequestMapping("insert.do")
-	public String insert(@ModelAttribute NoticeVo vo ,HttpSession session) throws Exception{
+	public String insert(@ModelAttribute NoticeVo vo ,HttpSession session, MultipartHttpServletRequest req) throws Exception{
 		System.out.println("=====================>"+vo.toString());
 		service.create(vo);
+		//첨부파일 처리하기
+				List<MultipartFile> filelist = req.getFiles("file"); 
+				System.out.println("파일리스트"+filelist.toString());
+				System.out.println("파일사이즈"+filelist.size());
+				int fileRefNum = service.ntmaxNum();
+				String fileRefBoard = "NOTICE";
+				commonservice.fileWrite(filelist, fileRefNum, fileRefBoard);
 		return "redirect:/notice/list.do";
 	}
 	
@@ -90,6 +105,8 @@ public class NoticeController {
 		
 		mav.setViewName(".notice.view");
 		mav.addObject("vo", service.read(ntNum));
+		mav.addObject("prev", service.ntPrev(ntNum));
+		mav.addObject("next", service.ntNext(ntNum));
 		return mav;
 	}
 
@@ -106,8 +123,13 @@ public class NoticeController {
 	
 	//게시물내용수정
 	@RequestMapping("update.do")
-	public String update(@ModelAttribute NoticeVo vo) throws Exception {
+	public String update(@ModelAttribute NoticeVo vo, MultipartHttpServletRequest req) throws Exception {
 		if(vo != null){
+			System.out.println("=====================>"+vo.toString());
+			List<MultipartFile> filelist = req.getFiles("file"); 
+			String fileRefBoard = "NOTICE";
+			int num = vo.getNtNum();
+			commonservice.fileWrite(filelist, num, fileRefBoard);
 			service.update(vo);//레코드수정
 		}
 		//수정상세화면
@@ -121,4 +143,22 @@ public class NoticeController {
 		service.delete(ntNum);
 		return "redirect:/notice/list.do";
 	}
+	
+	@RequestMapping(value="/fileDown" )
+	public ModelAndView contactoDownload(@ModelAttribute CommonFileVo filevo) throws Exception{
+		System.out.println("컨트롤러 파일다운부분까지 온다.");
+		CommonFileVo fileVo=service.fileinfo(filevo);
+		ModelAndView mv= new ModelAndView("FileDownView");
+		File file=new File(fileVo.getFilePath()+File.separator+fileVo.getFileName());
+		mv.addObject("file",file);
+		mv.addObject("fileName",fileVo.getFileOrgName());
+		return mv;
+	}
+	@RequestMapping(value = "/fileDel",method = RequestMethod.POST)
+	@ResponseBody
+	public void fileDel(CommonFileVo vo) throws Exception {
+		System.out.println("파일번호는?"+vo);
+		service.fileDel(vo);
+	}
+	
 }

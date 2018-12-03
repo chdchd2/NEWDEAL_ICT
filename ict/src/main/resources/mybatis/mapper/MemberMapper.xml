@@ -12,7 +12,6 @@
 		MEM_GRADE AS memGrade,
 		MEM_JOINDATE AS memJoinDate,
 		MEM_UID AS memUid,
-		MEM_FIELD AS memField,
 		MEM_STATE AS memState
 	 FROM MEMBER 
 	 WHERE MEM_GUBUN=#{type} AND MEM_UID=#{uid}

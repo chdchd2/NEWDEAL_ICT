@@ -1,7 +1,5 @@
 package com.newdeal.ict.Vo;
 
-import java.sql.Date;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -12,13 +10,13 @@ public class CommentVo {
 	private String comType;
 	private int comBnum;
 	private String memNickName;
-	private Date comDate;
+	private String comDate;
 	
 	
-	public Date getComDate() {
+	public String getComDate() {
 		return comDate;
 	}
-	public void setComDate(Date comDate) {
+	public void setComDate(String comDate) {
 		this.comDate = comDate;
 	}
 	public String getMemNickName() {
@@ -92,7 +90,7 @@ public class CommentVo {
 		this.comBnum = comBnum;
 	}
 	public CommentVo(int comNum, int memNum, String comContent, String comType, int comBnum, String memNickName,
-			Date comDate) {
+			String comDate) {
 		super();
 		this.comNum = comNum;
 		this.memNum = memNum;

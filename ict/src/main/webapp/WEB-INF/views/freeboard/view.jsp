@@ -53,7 +53,7 @@ function comment(){
 		$("#comContent").val("");
 		$("#commentlist").text("");
 		for(var i=0; i<data.commentList.length; i++){
-		$("#commentlist").append(data.commentList[i].memNickName+"===>"+data.commentList[i].comContent+data.commentList[i].comDate+"<br>");	
+		$("#commentlist").append(data.commentList[i].memNickName+"♥♥♥"+data.commentList[i].comContent+data.commentList[i].comDate+"<br>");	
 			
 		}
 
@@ -61,33 +61,23 @@ function comment(){
 }); 
 }
 
-
+var fbNum = '${vo.fbNum}';
 function comDel(comNum) {
-	var comBNum=${vo.fbNum};
-	if(comNum==$("#comNum")){
-	$("#commentList").remove();
-		
-	}
-	/* $.ajax({
+    if (!confirm("댓글을 삭제하시겠습니까?")) {
+        return;
+    }
+	console.log(comNum);
+	location.href="/ict/freeboard/view.do?fbNum="+fbNum;
+	 $.ajax({
 		type:"POST",
-		url:encodeURI("<c:url value='/freeboard/comDel.do'/>"),
+		url:encodeURI("<c:url value='/freeboard/comDel?comNum="+comNum+"'/>"),
 		dataType:"json",
 		success:function(data){
-			console.log(data)
+			if(data == 1)commentList(fbNum);
 		}
-	}); */
+	}); 
 }
 	
-
-
-
-
-
-
-
-
-
-
 
 </script>
 <section>
@@ -186,9 +176,9 @@ function comDel(comNum) {
 			<td><input type="hidden" id="comNum" value="${comment.comNum }" /></td>
 				<td>${comment.memNickName} |</td>
 				<td>${comment.comContent} |</td>
-				<td><span><fmt:formatDate value="${comment.comDate}" pattern="yyyy-MM-dd"/></span></td>
+				<td><span>${comment.comDate}</span></td>
 				<c:if test="${sessionScope.member.memNickName == comment.memNickName }"> 
-					<td><input type="button" value="삭제" onclick="comDel(comNum);" /></td><br>
+					<td><input type="button" value="삭제" onclick="comDel(${comment.comNum});" /></td><br>
 					<!--<td><a class="comDel">삭제</a></td><br> -->
 				</c:if>
 				<c:if test="${sessionScope.member.memNickName != comment.memNickName }"> 

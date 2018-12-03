@@ -31,6 +31,6 @@ public interface FreeBoardService {
 	public int fbCnt() throws Exception;
 	public int comment(CommentVo vo) throws Exception;
 	public List<CommentVo> commentList(int fbNum) throws Exception;
-	public void comUpdate(CommentVo vo) throws Exception;
-	public void comDel(int comNum) throws Exception;
+/*	public void comUpdate(CommentVo vo) throws Exception;*/
+	public int comDel(int comNum) throws Exception;
 }

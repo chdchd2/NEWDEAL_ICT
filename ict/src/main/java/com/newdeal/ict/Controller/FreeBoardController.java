@@ -179,6 +179,9 @@ public class FreeBoardController {
 		service.comment(vo);
 		int fbNum=vo.getComBnum();
 		List<CommentVo> commentlist=service.commentList(fbNum);
+		for(CommentVo vo2:commentlist){
+			System.out.println(vo2.toString());
+		}
 		map.put("commentList", commentlist);
 		System.out.println(commentlist.toString());
 		
@@ -186,11 +189,17 @@ public class FreeBoardController {
 	}
    
 
-    @RequestMapping("comDel.do")
+    @RequestMapping("/comDel")
     @ResponseBody
-    public void comDel(@RequestParam int comNum, @ModelAttribute FreeBoardVo vo ) throws Exception {
-		service.delete(comNum);
-		System.out.println(comNum);
+    public HashMap<String, Object> comDel(int comNum) throws Exception {
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+    	FreeBoardVo vo = null;
+    	service.comDel(comNum);
+    	List<CommentVo> commentlist=service.commentList(vo.getFbNum());
+    
+    	map.put("commentList", commentlist);
+    	System.out.println(commentlist.toString());
+		return map;
     }
     
 }

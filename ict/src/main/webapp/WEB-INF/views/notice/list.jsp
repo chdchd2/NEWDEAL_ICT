@@ -38,23 +38,51 @@ function view(ntNum){
 					<div id="contentHeader">
 						<h2>공지사항</h2>
 					</div>
-<%-- <!-- 검색폼 -->
 <form name="form" method="post" 
-action="${path}/notice/list.do"> --%>
+action="/ict/notice/list.do">
 					<div id="content">
 						<p id="count">총<span>${map.count}건</span></p>
-						<ol id="search">
-								<li><a href="#a">전체 <img src="<c:url value='/resources/images/search_Active.png'/>" alt="검색창더보기"></a>
-									<ul id="detail">
-										<li><a href="#a">전체</a></li>
-										<li><a href="#a">제목</a></li>
-										<li><a href="#a">내용</a></li>
-									</ul>
+							<ul id="search">
+								<li>
+									<select id="searchType" name="search_option">
+									<c:choose>
+										<c:when test="${map.search_option == 'all' }">
+											<option value="all" selected>전체</option>
+											<option value="ntWriter">이름</option>
+											<option value="ntContent">내용</option>
+											<option value="ntTitle">제목</option>
+										</c:when>
+										<c:when test="${map.search_option == 'ntWriter' }">
+											<option value="all">전체</option>
+											<option value="ntWriter" selected>이름</option>
+											<option value="ntContent">내용</option>
+											<option value="ntTitle">제목</option>
+										</c:when>
+										<c:when test="${map.search_option == 'ntContent' }">
+											<option value="all">전체</option>
+											<option value="ntWriter">이름</option>
+											<option value="ntContent" selected>내용</option>
+											<option value="ntTitle">제목</option>
+										</c:when>
+										<c:when test="${map.search_option == 'ntTitle' }">
+											<option value="all">전체</option>
+											<option value="ntWriter">이름</option>
+											<option value="ntContent">내용</option>
+											<option value="ntTitle" selected>제목</option>
+										</c:when>
+										<c:otherwise>
+											<option value="all" selected>전체</option>
+											<option value="ntWriter">이름</option>
+											<option value="ntContent">내용</option>
+											<option value="ntTitle">제목</option>
+										</c:otherwise>
+									</c:choose>	
+									</select>
 								</li>
-								<li><input type="text"></li>
-								<li><a href="#a">조회</a></li>
+								<li><input type="text" name="keyword" id="searchWord" value="${searchWord }"></li>
+								<li><a><input type="submit" value="조회"></a></li>
 							
-							</ol>
+							</ul>
 
 						<table id="table">
 						<colgroup>
@@ -125,12 +153,12 @@ action="${path}/notice/list.do"> --%>
 </c:if>
 <!-- <button type="button" id="btnWrite">등록</button> -->
 
-<form name="form" method="post">
+
 	<input type="hidden" name="ntNum" />
-</form>
 
 </div>	
 </div>
+</form>
 </div>
 </div>
 </section>

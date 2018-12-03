@@ -259,19 +259,31 @@ SELECT * FROM
 	</insert>
 	
 	<select id="commentList" resultType="commentvo" parameterType="int">
-		SELECT A.*,B.MEM_NICKNAME FROM COMMENTS A,MEMBER B WHERE A.MEM_NUM=B.MEM_NUM AND A.COM_BNUM=#{fbNum} ORDER BY COM_NUM ASC
+		<!-- SELECT A.*,B.MEM_NICKNAME FROM COMMENTS A,MEMBER B WHERE A.MEM_NUM=B.MEM_NUM AND A.COM_BNUM=#{fbNum} ORDER BY COM_NUM ASC -->
+		SELECT  C.COM_NUM AS comNum,
+			   C.MEM_NUM AS memNum,
+			   C.COM_CONTENT AS comContent,
+			   C.COM_TYPE AS comType,
+			   C.COM_BNUM AS comBnum,
+			   TO_CHAR(C.COM_DATE,'YYYY-MM-DD') AS comDate,
+			   C.MEM_NUM AS memNum,
+			   M.MEM_NICKNAME AS MemNickName
+		 FROM  COMMENTS C, MEMBER M   
+		WHERE  C.MEM_NUM=M.MEM_NUM 
+		  AND  C.COM_BNUM=#{fbNum} 
+	 ORDER BY  COM_NUM ASC
 	</select>
 	
-	<delete id="comDel" parameterType="java.util.HashMap">
+	<delete id="comDel" parameterType="int">
         DELETE
           FROM  COMMENTS
          WHERE  COM_NUM = #{comNum}
     </delete>
-    <update id="comUpdate" parameterType="java.util.HashMap">
+   <!--  <update id="comUpdate" parameterType="int">
         UPDATE  COMMENTS
            SET  COM_CONTENT = #{comContent}
          WHERE  COM_NUM = #{comNum}
-    </update>
+    </update> -->
     
     
 </mapper>

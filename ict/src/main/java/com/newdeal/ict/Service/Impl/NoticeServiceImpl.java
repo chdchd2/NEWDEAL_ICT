@@ -1,5 +1,6 @@
 package com.newdeal.ict.Service.Impl;
 
+import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.newdeal.ict.Dao.NoticeDao;
 import com.newdeal.ict.Service.NoticeService;
+import com.newdeal.ict.Vo.CommonFileVo;
+import com.newdeal.ict.Vo.FreeBoardVo;
 import com.newdeal.ict.Vo.NoticeVo;
 
 @Service
@@ -33,6 +36,14 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public void update(NoticeVo vo) throws Exception {
 		dao.update(vo);//board�뀒�씠釉� �닔�젙
+	}
+
+	public NoticeVo ntNext(int ntNum) throws Exception {
+		return dao.ntNext(ntNum);
+	}
+	
+	public NoticeVo ntPrev(int ntNum) throws Exception {
+		return dao.ntPrev(ntNum);
 	}
 
 	@Override
@@ -70,15 +81,38 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<NoticeVo> listAll() throws Exception {
-		// TODO Auto-generated method stub
-		return dao.listAll();
+	public int ntmaxNum() throws Exception {
+		return dao.ntmaxNum();
 	}
 
-	/*//0718異붽�
 	@Override
-	public List<Boardvo> PNList(int bno) throws Exception {
-		return boardDao.PNList(bno);
+	public CommonFileVo fileinfo(CommonFileVo filevo) throws Exception {
+		return dao.fileinfo(filevo);
 	}
-	//
-*/}
+
+	@Override
+	public int fileDel(CommonFileVo filevo) throws Exception {
+		
+		CommonFileVo vo=dao.fileinfo(filevo);
+		File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
+		if( file.exists() ){
+            if(file.delete()){
+                System.out.println("파일삭제 성공");
+                dao.fileDel(filevo);
+            }else{
+                System.out.println("파일삭제 실패");
+            }
+        }else{
+            System.out.println("파일이 존재하지 않습니다.");
+        }
+		return 1;
+	}
+
+	@Override
+	public int ntCnt() throws Exception {
+		return dao.ntCnt();
+	}
+
+	
+
+}

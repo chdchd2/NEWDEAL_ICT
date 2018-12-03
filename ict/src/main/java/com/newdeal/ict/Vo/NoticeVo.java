@@ -1,10 +1,9 @@
 package com.newdeal.ict.Vo;
 
 import java.util.Date;
+import java.util.List;
 
 public class NoticeVo {
-
-
 	private int ntNum; //번호
 	private String ntTitle; //제목
 	private String ntContent;//내용
@@ -14,6 +13,8 @@ public class NoticeVo {
 	private String ntMap;
 	private int ntCnt;//댓글수
 	private String ntShow;//화면표시여부
+	private List<CommonFileVo> list;
+	
 	//getter, setter, toString(), 기본생성자
 	public int getNtNum() {
 		return ntNum;
@@ -75,12 +76,20 @@ public class NoticeVo {
 	public void setNtShow(String ntShow) {
 		this.ntShow = ntShow;
 	}
+	
+	public List<CommonFileVo> getList() {
+		return list;
+	}
+	public void setList(List<CommonFileVo> list) {
+		this.list = list;
+	}
 	@Override
 	public String toString() {
 		return "NoticeVo [ntNum=" + ntNum + ", ntTitle=" + ntTitle + ", ntContent=" + ntContent + ", ntRegdate="
 				+ ntRegdate + ", ntViewcnt=" + ntViewcnt + ", ntWriter=" + ntWriter + ", ntMap=" + ntMap + ", ntCnt="
-				+ ntCnt + ", ntShow=" + ntShow + "]";
+				+ ntCnt + ", ntShow=" + ntShow + ", list=" + list + "]";
 	}
+	
 	
 	
 }

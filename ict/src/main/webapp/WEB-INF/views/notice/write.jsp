@@ -6,6 +6,7 @@
 <script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9c33dafb379eb8e557de8b4964389518&libraries=services"></script>
 <script>
+var num=1;
 $(function(){
 	
 	$(".btnSave").click(function(){
@@ -24,6 +25,50 @@ $(function(){
 	});
 
 });
+function fileselect(event,num){
+	   var filename=event.value.replace(/C:\\fakepath\\/i, '');
+	   $("#span"+num).remove();
+	   $("#li"+num).append("<span id='span"+num+"'>"+filename+""+
+	         "<button class='img_del' onclick='fileDel("+num+")'>x</button>"+
+	         "<button class='img_add' onclick='fileAdd()' type='button'>추가</button></span>");
+	if(event.files.length==0){
+	      $("#span"+num).remove();
+	   }
+	}
+	function fileAdd(){
+
+	   $("#fileul").append("<li id='li"+num+"'>"+
+	         "<div class='filebox dp_in vm mgr10'>"+
+	         "<label for='filename"+num+"' class='btn_search'>파일첨부</label>"+
+	         "<input type='file' id='filename"+num+"' name='file' class='upload_hidden' onchange='fileselect(this,"+num+")'>"+
+	         "</div>"+
+	         "</li>");
+	   num++;
+	}
+
+
+
+	function fileDel(num){
+	   console.log(num);
+	   //첫번째 파일일 경우 파일첨부하는 라벨과 input 박스가 날아가면 안되므로.
+	   if(num==0){
+	      $("#span"+num).remove();
+	      $("#filelabel"+num).prepend("<input type='file' id='filename"+num+"' name='file' class='upload_hidden' onchange='fileselect(this,"+num+")'>");
+	      
+	   }else if(num!=0){
+	      $("#li"+num).remove();
+	      }
+	}
+	function firstFileSelect(event,num){
+	   var filename=event.value.replace(/C:\\fakepath\\/i, '');
+	   $("#span"+num).remove();
+	   $("#li"+num).append("<span id='span"+num+"'>"+filename+""+
+	   "<button class='img_del' id='delbutton' onclick='fileDel("+num+")'>x</button>"+
+	   "<button class='img_add' id='addbutton' onclick='fileAdd()' type='button'>추가</button></span>");
+	   if(event.files.length==0){
+	      $("#span"+num).remove();
+	   }
+	}
 </script>
 
 <div id="sectionC">
@@ -42,7 +87,7 @@ $(function(){
 						<h2>공지사항</h2>
 					</div>
 					
-<form id="form" name="form" method="post"
+<form id="form" name="form" method="post" enctype="multipart/form-data"
 action="/ict/notice/insert.do">
 <div id="content">
 <table>
