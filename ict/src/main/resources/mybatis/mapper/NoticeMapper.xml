@@ -13,6 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<result property="ntRegdate" column="ntRegdate"/>
 	<result property="ntViewcnt" column="ntViewcnt"/>
 	<result property="ntWriter" column="ntWriter"/>
+	<result property="ntMap" column="ntMap"/>
 	<collection property="list" ofType="com.newdeal.ict.Vo.CommonFileVo">
 		<result property="fileNum" column="fileNum"/>
 		<result property="fileName" column="fileName"/>
@@ -69,7 +70,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 <!-- 게시물 상세보기  -->	
-	<select id="view" resultType="com.newdeal.ict.Vo.NoticeVo">
+	<select id="view" parameterType="int" resultMap="notice">
 		SELECT  NT_NUM AS ntNum,
 				NT_TITLE AS ntTitle,
 				NT_REGDATE AS ntRegdate,

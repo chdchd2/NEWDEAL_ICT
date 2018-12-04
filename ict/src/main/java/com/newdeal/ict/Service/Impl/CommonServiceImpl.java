@@ -27,7 +27,7 @@ public class CommonServiceImpl implements CommonService{
 		System.out.println("������� ������ �׽�Ʈ�ϱ�");
 		InputStream is = null;
 		FileOutputStream fos = null;
-		String filePath="C:\\Users\\LG\\git";
+		String filePath="C:\\Users\\Lenovo\\git";
 		CommonFileVo filevo=new CommonFileVo();
 		try {
 			if(filelist.size()>0) {
