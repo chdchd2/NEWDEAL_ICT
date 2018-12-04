@@ -12,16 +12,32 @@
 		MEM_GRADE AS memGrade,
 		MEM_JOINDATE AS memJoinDate,
 		MEM_UID AS memUid,
-		MEM_FIELD AS memField,
 		MEM_STATE AS memState
 	 FROM MEMBER 
 	 WHERE MEM_GUBUN=#{type} AND MEM_UID=#{uid}
 </select>
 
+<select id="iscompanymember" parameterType="member" resultType="member">
+	SELECT 
+		MEM_NUM AS memNum,
+		MEM_NICKNAME AS memNickName,
+		MEM_TEL AS memTel,
+		MEM_GUBUN AS memGubun,
+		MEM_GRADE AS memGrade,
+		MEM_JOINDATE AS memJoinDate,
+		MEM_UID AS memUid,
+		MEM_STATE AS memState
+	 FROM MEMBER 
+	 WHERE MEM_UID=#{memUid} AND MEM_PASSWORD=#{memPassword}
+</select>
+
 <insert id="signin" parameterType="member">
-	INSERT INTO MEMBER VALUES(SEQ_MEMBER_NUM.nextval,#{memNickName},#{memTel},#{memGubun},1,sysdate,#{memUid},#{memField},'allow')
+	INSERT INTO MEMBER VALUES(SEQ_MEMBER_NUM.nextval,#{memNickName},#{memTel},#{memGubun},1,sysdate,#{memUid},'allow',null)
 </insert>
 
+<insert id="companysignin" parameterType="member">
+	INSERT INTO MEMBER VALUES(SEQ_MEMBER_NUM.nextval,#{memNickName},#{memTel},#{memGubun},2,sysdate,#{memUid},'denined',#{memPassword})
+</insert>
 <select id="nickNameChk" parameterType="String" resultType="String">
 	SELECT 
 		MEM_NICKNAME AS memNickName

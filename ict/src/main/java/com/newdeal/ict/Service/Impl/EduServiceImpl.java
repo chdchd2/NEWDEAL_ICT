@@ -95,26 +95,28 @@ public class EduServiceImpl implements EduService{
 
 	@Override
 	public int intDelete(int intNum) throws Exception {
-			
+		System.out.println("여기는오는지????");
 			List<CommonFileVo> filelist = dao.intFileDelList(intNum);
 			System.out.println("�뙆�씪由ъ뒪�듃異쒕젰"+filelist.toString());
+			if(filelist.size()>0) {
 			for(CommonFileVo vo:filelist) {
 				String files=vo.getFilePath()+vo.getFileName();
 				System.out.println("�뙆�씪�뵒�젆�넗由�+�뙆�씪�씠由� 異쒕젰�빐蹂닿린"+files);
 				File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 				if( file.exists() ){
 		            if(file.delete()){
-		                System.out.println("�뙆�씪�궘�젣 �꽦怨�");
+		                dao.intFileDelete(intNum);
 		            }else{
-		                System.out.println("�뙆�씪�궘�젣 �떎�뙣");
+		            	System.out.println("파일삭제실패");
 		            }
+		            
 		        }else{
-		            System.out.println("�뙆�씪�씠 議댁옱�븯吏� �븡�뒿�땲�떎.");
 		        }
-				dao.intFileDelete(intNum);
-				dao.intDelete(intNum);
+				
 
 			}
+			}
+			dao.intDelete(intNum);
 		return 0;
 	}
 

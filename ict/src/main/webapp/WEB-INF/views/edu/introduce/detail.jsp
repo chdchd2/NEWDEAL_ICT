@@ -62,15 +62,17 @@
 									<span>첨부파일</span>
 									
 								<c:forEach var="list" items="${vo.list }">
-								<a href="<c:url value='/edu/fileDown?fileNum=${list.fileNum }'/>">${list.fileOrgName }</a>
+								<a href="<c:url value='/edu/fileDown?fileNum=${list.fileNum }'/>" class="add_file">${list.fileOrgName }</a>
 								</c:forEach>
 								</li>
 								
 							</ul>
 						</div>
+						<c:if test="${member.memGrade==2 && member.memState=='allow'}">
 						 <a id="list" href="<c:url value='/edu/intEdit?intNum=${vo.intNum }'/>">수정</a>
 						 <a id="list" href="<c:url value='/edu/intDelete?intNum=${vo.intNum }'/>">삭제</a>
 						 <a id="list"href="<c:url value='/edu/intList'/>" >목록</a>
+						 </c:if>
 					</div>
 					        <input type="hidden" name="bno" value="${vo.intNum}">
 					</form>
