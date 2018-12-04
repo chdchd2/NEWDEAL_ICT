@@ -10,6 +10,7 @@ import com.newdeal.ict.Vo.CommonFileVo;
 import com.newdeal.ict.Vo.EduDetailVo;
 import com.newdeal.ict.Vo.IntDetailJoinVo;
 import com.newdeal.ict.Vo.IntroduceVo;
+import com.newdeal.ict.Vo.MemberVo;
 
 public interface EduService {
 	public int intWrite(IntroduceVo vo) throws Exception;
@@ -26,6 +27,7 @@ public interface EduService {
 	public int intEdit(IntroduceVo vo) throws Exception;
 	public int fileDel(CommonFileVo filevo) throws Exception;
 	public int detailWrite(EduDetailVo vo) throws Exception;
+	public List<MemberVo> companymember() throws Exception;
  
 }
  

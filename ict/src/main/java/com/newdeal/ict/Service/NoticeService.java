@@ -19,6 +19,7 @@ public interface NoticeService {
 	public List<NoticeVo> listAll(
 			int start, int end, String search_option,
 			String keyword) throws Exception;//湲�紐⑸줉
+	public List<NoticeVo> listAll() throws Exception;
 	public void increaseViewcnt(
 			int ntNum, HttpSession session) throws Exception;//議고쉶�닔利앷�
 	public int countArticle(String search_option,

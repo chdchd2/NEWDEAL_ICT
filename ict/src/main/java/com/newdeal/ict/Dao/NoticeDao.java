@@ -79,7 +79,12 @@ public class NoticeDao {
 		map.put("keyword", keyword);
 		return sqlSession.selectOne("notice.countArticle", map);
 	}
-	
+
+	public List<NoticeVo> listAll() throws Exception {
+		
+		return sqlSession.selectList("notice.listAlll");
+	}
+
 	public CommonFileVo fileinfo(CommonFileVo filevo) {
 		return sqlSession.selectOne("notice.fileinfo",filevo);
 	}

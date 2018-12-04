@@ -5,8 +5,9 @@
 function searchs(){
 	var searchType=$("#searchType option:selected").val();
 	var searchWord=$("#searchWord").val();
-
-	location.href="<c:url value='/edu/intList?searchType="+searchType+"&searchWord="+searchWord+"'/>";
+	var companygubun=$("#companygubun").val();
+	console.log(companygubun);
+	location.href="<c:url value='/edu/intList?searchType="+searchType+"&searchWord="+searchWord+"&companygubun="+companygubun+"'/>";
 }
 </script>
 <section>
@@ -21,7 +22,13 @@ function searchs(){
 				</div>
 <div id="sectionR">
 					<div id="contentHeader">
-						<h2>교육신청안내 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="유니에스">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="KSA"></h2>				
+						<h2>교육신청안내 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="<c:url value='/edu/intList'/>">전체교육 보기</a>
+						<c:forEach items="${companymember }" var="companymember">
+						<a href="<c:url value='/edu/intList?&companygubun=${companymember.memNickName }'/>">${companymember.memNickName }</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</c:forEach>
+						
+						</h2>				
 					</div>
 						<div id="content">
 							<p id="count">총<span>${pu.totalRowCount}건</span></p>
@@ -31,6 +38,7 @@ function searchs(){
 								    <option value="INT_TITLE">제목</option>
 								    <option value="INT_CONTENT">내용</option>
 								</select>
+								<input type="hidden" name="companygubun" id="companygubun" value="${companygubun }">
 							</li>
 							<li><input type="text" name="searchWord" id="searchWord" value="${searchWord }"></li>
 							<li><a onclick="searchs()">조회</a></li>
@@ -69,7 +77,7 @@ function searchs(){
 								<div id="page">
 			<c:choose>
 				<c:when test="${pu.startPageNum>9 }">
-					<p><a href="<c:url value='/edu/intList?pageNum=${pu.startPageNum-1 }&fieldnum=${fieldnum }&classnum=${classnum }&searchWord=${searchWord }&searchType=${searchType }'/>"><img src="<c:url value='/resources/images/page_Leftbtn.png'/>" alt="페이지왼쪽버튼"></a></p>
+					<p><a href="<c:url value='/edu/intList?pageNum=${pu.startPageNum-1 }&fieldnum=${fieldnum }&classnum=${classnum }&searchWord=${searchWord }&searchType=${searchType }&companygubun=${companygubun }'/>"><img src="<c:url value='/resources/images/page_Leftbtn.png'/>" alt="페이지왼쪽버튼"></a></p>
 				</c:when>
 				<c:otherwise>
 			<p><a><img src="<c:url value='/resources/images/page_Leftbtn.png'/>" alt="페이지왼쪽버튼"></a></p>			
@@ -81,10 +89,10 @@ function searchs(){
 				<c:choose>
 					<c:when test="${i==pu.pageNum }">
 						<!-- 현재페이지 색상 다르게 표시하기 -->
-						 <li><a href="<c:url value='/edu/intList?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }&searchWord=${searchWord }&searchType=${searchType }'/>" class="pageActive">${i }</a></li>
+						 <li><a href="<c:url value='/edu/intList?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }&searchWord=${searchWord }&searchType=${searchType }&companygubun=${companygubun }'/>" class="pageActive">${i }</a></li>
 					</c:when>
 					<c:otherwise>
-					 <li><a href="<c:url value='/edu/intList?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }&searchWord=${searchWord }&searchType=${searchType }'/>">${i }</a></li>
+					 <li><a href="<c:url value='/edu/intList?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }&searchWord=${searchWord }&searchType=${searchType }&companygubun=${companygubun }'/>">${i }</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -94,7 +102,7 @@ function searchs(){
 			
 		<c:choose>
 			<c:when test="${pu.endPageNum<pu.totalPageCount }">
-				<p><a href="<c:url value='/edu/intList?pageNum=${pu.endPageNum+1 }&classnum=${classnum }&fieldnum=${fieldnum }&searchWord=${searchWord }&searchType=${searchType }'/>"><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
+				<p><a href="<c:url value='/edu/intList?pageNum=${pu.endPageNum+1 }&classnum=${classnum }&fieldnum=${fieldnum }&searchWord=${searchWord }&searchType=${searchType }&companygubun=${companygubun }'/>"><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
 			</c:when>
 			<c:otherwise>
 			<p><a><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>

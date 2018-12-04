@@ -102,38 +102,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		return dao.countArticle(search_option, keyword);
 	}
 
-	/*@Override
-	public int fbfileWrite(List<MultipartFile> filelist, int num) throws Exception {
-		InputStream is = null;
-		FileOutputStream fos = null;
-		String filePath = "C:\\Users\\Lenovo\\git\\NEWDEAL_ICT";
-		CommonFileVo filevo = new CommonFileVo();
-		try {
-			if (filelist.size() > 1) {
-				for (int i = 0; i < filelist.size(); i++) {
-					is = filelist.get(i).getInputStream();
-					UUID uuid = UUID.randomUUID();
-					String fileOrgName = filelist.get(i).getOriginalFilename();
-					String fileName = uuid + "_" + fileOrgName;
-					String fileSize = filevo.byteCalculation(String.valueOf(filelist.get(i).getSize()));
-					filevo.setFileName(fileName);
-					filevo.setFileSize(fileSize);
-					filevo.setFileOrgName(fileOrgName);
-					filevo.setFilePath(filePath);
-					filevo.setFileRefNum(dao.fbmaxNum());
-					dao.fbfileWrite(filevo);
-					fos = new FileOutputStream(filePath + "\\" + fileName);
-					FileCopyUtils.copy(is, fos);
-
-					fos.close();
-					is.close();
-				}
-			}
-		} finally {
-
-		}
-		return 0;
-	}*/
+	
 
 	@Override
 	public int fbmaxNum() throws Exception {

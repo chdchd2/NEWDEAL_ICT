@@ -75,16 +75,13 @@ public class NoticeController {
 	
 	
 	@RequestMapping("insert.do")
-	public String insert(@ModelAttribute NoticeVo vo ,HttpSession session, MultipartHttpServletRequest req) throws Exception{
+	public String insert(@ModelAttribute NoticeVo vo ,HttpSession session, MultipartHttpServletRequest multiRequest) throws Exception{
 		System.out.println("=====================>"+vo.toString());
 		service.create(vo);
 		//첨부파일 처리하기
-				List<MultipartFile> filelist = req.getFiles("file"); 
-				System.out.println("파일리스트"+filelist.toString());
-				System.out.println("파일사이즈"+filelist.size());
-				int fileRefNum = service.ntmaxNum();
-				String fileRefBoard = "NOTICE";
-				commonservice.fileWrite(filelist, fileRefNum, fileRefBoard);
+		int fileRefNum=service.ntmaxNum();
+		String fileRefBoard="NOTICE";
+		commonservice.fileWrite(fileRefNum,fileRefBoard,multiRequest);
 		return "redirect:/notice/list.do";
 	}
 	
@@ -124,14 +121,11 @@ public class NoticeController {
 	//게시물내용수정
 	@RequestMapping("update.do")
 	public String update(@ModelAttribute NoticeVo vo, MultipartHttpServletRequest req) throws Exception {
-		if(vo != null){
-			System.out.println("=====================>"+vo.toString());
-			List<MultipartFile> filelist = req.getFiles("file"); 
-			String fileRefBoard = "NOTICE";
-			int num = vo.getNtNum();
-			commonservice.fileWrite(filelist, num, fileRefBoard);
-			service.update(vo);//레코드수정
-		}
+		String fileRefBoard="NOTICE";
+		int num=vo.getNtNum();
+		commonservice.fileWrite(num,fileRefBoard,req);
+		service.update(vo);
+		
 		//수정상세화면
 		//return "redirect:/board/view.do?bno="+dto.getBno();
 		return "redirect:/notice/list.do";

@@ -81,6 +81,11 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
+	public List<NoticeVo> listAll() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.listAll();
+	}
+	@Override
 	public int ntmaxNum() throws Exception {
 		return dao.ntmaxNum();
 	}

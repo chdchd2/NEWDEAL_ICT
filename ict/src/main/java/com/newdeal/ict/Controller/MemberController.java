@@ -31,20 +31,20 @@ public class MemberController {
 			 session.removeAttribute("member");
 		 }
 		 HashMap<String, Object> map = new HashMap();
-		 System.out.println("구분값은?"+gubun);
-		 System.out.println("uid는?"+uid);
+		 System.out.println("援щ텇媛믪�?"+gubun);
+		 System.out.println("uid�뒗?"+uid);
 		 
 		 map.put("type", gubun);
 		 map.put("uid",uid);
 		 MemberVo vo=service.ismember(map);
 		 if(vo==null){
-			 System.out.println("값이 없다");
+			 System.out.println("媛믪씠 �뾾�떎");
 			 map.put("ismember","no");	
 		 }else if(vo!=null) {
-			 System.out.println("값이 있다");
+			 System.out.println("媛믪씠 �엳�떎");
 			 map.put("ismember", "yes");			
 			 session.setAttribute("member", vo);
-			 System.out.println("vo출력해보기"+vo.toString());
+			 System.out.println("vo異쒕젰�빐蹂닿린"+vo.toString());
 		 }
 		
 		 
@@ -62,10 +62,10 @@ public class MemberController {
 	    }
 	 @RequestMapping(value = "/signin", method = RequestMethod.POST)
 		public String signin(MemberVo vo,Model model) throws Exception {
-		 System.out.println("입력값 검증"+vo.toString());
+		 System.out.println("�엯�젰媛� 寃�利�"+vo.toString());
 		 	int a=service.signin(vo);
 		 	if(a==1) {
-		 		System.out.println("회원가입 성공");
+		 		System.out.println("�쉶�썝媛��엯 �꽦怨�");
 		 	}
 			return "redirect:/";
 		}
@@ -74,10 +74,16 @@ public class MemberController {
 		public boolean nicknameChk(String nickname) throws Exception{
 		
 		nickname = nickname.replaceAll(" ", "").replaceAll("(^\\p{Z}+|\\p{Z}+$)", "");
-		System.out.println("닉네임은===>"+nickname);
+		System.out.println("�땳�꽕�엫��===>"+nickname);
 		boolean able =service.nickNameChk(nickname);
 			
 		return able;
+	}
+	
+	@RequestMapping(value = "/companysignup", method = RequestMethod.GET)
+	public String companySingup() {
+	
+		return ".member.register";
 	}
 	
 }

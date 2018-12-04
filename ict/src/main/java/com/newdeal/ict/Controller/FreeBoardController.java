@@ -82,17 +82,14 @@ public class FreeBoardController {
 	
 	
 	@RequestMapping("insert.do")
-	public String insert(@ModelAttribute FreeBoardVo vo,HttpSession session, MultipartHttpServletRequest req) throws Exception{
+	public String insert(@ModelAttribute FreeBoardVo vo,HttpSession session, MultipartHttpServletRequest multiRequest) throws Exception{
 		/*vo.setFbWriter((String)session.getAttribute("member"));*/
 		System.out.println("=====================>"+vo.toString());
 		service.create(vo);
 		//첨부파일 처리하기
-		List<MultipartFile> filelist = req.getFiles("file"); 
-		System.out.println("파일리스트"+filelist.toString());
-		System.out.println("파일사이즈"+filelist.size());
 		int fileRefNum = service.fbmaxNum();
 		String fileRefBoard = "FREEBOARD";
-		commonservice.fileWrite(filelist, fileRefNum, fileRefBoard);
+		commonservice.fileWrite(fileRefNum, fileRefBoard, multiRequest);
 		return "redirect:/freeboard/list.do";
 	}
 	
@@ -133,14 +130,12 @@ public class FreeBoardController {
 	//게시물내용수정
 	@RequestMapping("update.do")
 	public String update(@ModelAttribute FreeBoardVo vo, MultipartHttpServletRequest req) throws Exception {
-		if(vo != null){
-			System.out.println("=====================>"+vo.toString());
-			List<MultipartFile> filelist = req.getFiles("file"); 
-			String fileRefBoard = "FREEBOARD";
-			int num = vo.getFbNum();
-			commonservice.fileWrite(filelist, num, fileRefBoard);
-			service.update(vo);//레코드수정
-		}
+
+		String fileRefBoard="FREEBOARD";
+		int num=vo.getFbNum();
+		commonservice.fileWrite(num,fileRefBoard,req);
+		service.update(vo);
+		
 		//수정상세화면
 		//return "redirect:/freeboard/view.do?fbNum="+vo.getFbNum();
 		return "redirect:/freeboard/list.do";
