@@ -46,7 +46,7 @@ public class AdminController {
 			 session.removeAttribute("madmin");
 		 }
 		if(email.equals("admin@admin.com")&&password.equals("admin")) {
-			System.out.println("°ü¸®ÀÚ ·Î±×ÀÎ ¼º°ø");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			 session.setAttribute("admin", "admin");
 		}else {
 			return "admin/login";
@@ -166,9 +166,7 @@ public class AdminController {
 		 if(session.getAttribute("admin") != "admin"){
 			 return "admin/login";
 		 }
-		vo.setQaTitle("[´äº¯]"+vo.getQaTitle());
-		vo.setQaRef(vo.getQaNum());
-		System.out.println("ºêÀÌ¿À°©½¡¤©·Â"+vo.toString());
+		System.out.println("ï¿½ï¿½ï¿½Ì¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"+vo.toString());
 		qaService.answer(vo);
 		
 		return "redirect:/admin/qalist";
@@ -176,7 +174,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/linklist",method = RequestMethod.GET)
 	public String linklist(Model model,HttpSession session) throws Exception {
-		System.out.println("¸µÅ©¸®½ºÆ®Åë°ú");
+		System.out.println("ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½");
 		 if(session.getAttribute("admin") != "admin"){
 			 return "admin/login";
 		 }

@@ -40,6 +40,8 @@
 	<insert id="linkadd" parameterType="linkvo">
 		INSERT INTO EDU_LINKLIST VALUES(SEQ_EDU_LINKLIST_LINK_NUM.nextval,#{linkUrl},#{linkName})
 	</insert>
+	
+	<!-- <update id=""></update> -->
 
 
 

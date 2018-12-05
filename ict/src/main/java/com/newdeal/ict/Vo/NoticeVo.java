@@ -14,7 +14,7 @@ public class NoticeVo {
 	private int ntCnt;//댓글수
 	private String ntShow;//화면표시여부
 	private List<CommonFileVo> list;
-	
+    
 	//getter, setter, toString(), 기본생성자
 	public int getNtNum() {
 		return ntNum;
@@ -89,6 +89,8 @@ public class NoticeVo {
 				+ ntRegdate + ", ntViewcnt=" + ntViewcnt + ", ntWriter=" + ntWriter + ", ntMap=" + ntMap + ", ntCnt="
 				+ ntCnt + ", ntShow=" + ntShow + ", list=" + list + "]";
 	}
+
+	
 	
 	
 	

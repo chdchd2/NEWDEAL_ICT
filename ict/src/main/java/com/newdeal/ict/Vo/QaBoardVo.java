@@ -12,17 +12,15 @@ public class QaBoardVo {
 	private String qaWriter;//작성자
 	private int qaCnt;//댓글수
 	private String qaShow;//화면표시여부
-	private int qaRef;//최상위부모번호(신규입력시1부터차례대로증가)
-	private String qaGubun;
 	private List<CommonFileVo> list; //파일
+	 /** 원글 번호 **/
+    private int originNo;
+    /** 원글(답글포함)에 대한 순서 **/
+    private int groupOrd;
+    /** 답글 계층 **/
+    private int groupLayer;
 		
-	
-	public String getQaGubun() {
-		return qaGubun;
-	}
-	public void setQaGubun(String qaGubun) {
-		this.qaGubun = qaGubun;
-	}  
+
 	public int getQaNum() {
 		return qaNum;
 	}
@@ -71,23 +69,37 @@ public class QaBoardVo {
 	public void setQaShow(String qaShow) {
 		this.qaShow = qaShow;
 	}
-	public int getQaRef() {
-		return qaRef;
-	}
-	public void setQaRef(int qaRef) {
-		this.qaRef = qaRef;
-	}
+	
 	public List<CommonFileVo> getList() {
 		return list;
 	}
 	public void setList(List<CommonFileVo> list) {
 		this.list = list;
 	}
+	public int getOriginNo() {
+		return originNo;
+	}
+	public void setOriginNo(int originNo) {
+		this.originNo = originNo;
+	}
+	public int getGroupOrd() {
+		return groupOrd;
+	}
+	public void setGroupOrd(int groupOrd) {
+		this.groupOrd = groupOrd;
+	}
+	public int getGroupLayer() {
+		return groupLayer;
+	}
+	public void setGroupLayer(int groupLayer) {
+		this.groupLayer = groupLayer;
+	}
 	@Override
 	public String toString() {
 		return "QaBoardVo [qaNum=" + qaNum + ", qaTitle=" + qaTitle + ", qaContent=" + qaContent + ", qaRegdate="
 				+ qaRegdate + ", qaViewcnt=" + qaViewcnt + ", qaWriter=" + qaWriter + ", qaCnt=" + qaCnt + ", qaShow="
-				+ qaShow + ", qaRef=" + qaRef + ", qaGubun=" + qaGubun + ", list=" + list + "]";
+				+ qaShow + ", list=" + list + ", originNo=" + originNo + ", groupOrd=" + groupOrd + ", groupLayer="
+				+ groupLayer + "]";
 	}
 	
 	

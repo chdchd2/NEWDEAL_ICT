@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </resultMap>
 
 <!-- 게시물등록 -->
-	<insert id="insert" parameterType="qaboard" >
+	<!-- <insert id="insert" parameterType="qaboard" >
 		<selectKey resultType="int" keyProperty="qaNum" order="BEFORE">
 		SELECT QABOARD_SEQ.NEXTVAL AS QA_NUM
 		  FROM DUAL
@@ -44,14 +44,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							   'NO'
 							 )
 						 
+	</insert> -->
+	
+	<insert id="insert" parameterType="qaboard" >
+		INSERT INTO QABOARD ( QA_NUM,ORIGIN_NO, GROUP_ORD, GROUP_LAYER, QA_TITLE,QA_CONTENT,QA_WRITER, QA_VIEWCNT, QA_REGDATE,QA_GUBUN,QA_STATE) 
+					 VALUES ( 
+			 				   QABOARD_SEQ.NEXTVAL,
+			 				   QABOARD_SEQ.CURRVAL,
+			 				   '0',
+			 				   '0',
+							   #{qaTitle,jdbcType=VARCHAR}, 
+							   #{qaContent,jdbcType=CLOB}, 
+							   #{qaWriter,jdbcType=VARCHAR},
+							   '0',
+							   sysdate ,
+							   'Q',
+							   'NO'
+							 )
+						 
 	</insert>
 	
-		<insert id="answer" parameterType="qaboard" >
-		
-		INSERT INTO QABOARD ( QA_NUM,QA_REF, QA_TITLE,QA_CONTENT,QA_WRITER, QA_VIEWCNT, QA_REGDATE,QA_GUBUN) 
+	<insert id="answer" parameterType="qaboard" >
+		INSERT INTO QABOARD ( QA_NUM,ORIGIN_NO, GROUP_ORD, GROUP_LAYER, QA_TITLE,QA_CONTENT,QA_WRITER, QA_VIEWCNT, QA_REGDATE,QA_GUBUN) 
 					 VALUES ( 
-							   QABOARD_SEQ.NEXTVAL,
-							   #{qaNum},
+			 				   QABOARD_SEQ.NEXTVAL,
+			 				   #{qaNum},
+			 				   #{qaNum},
+			 				   #{qaNum},
 							   #{qaTitle,jdbcType=VARCHAR}, 
 							   #{qaContent,jdbcType=CLOB}, 
 							   'ADMIN',
@@ -61,6 +80,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							 )
 						 
 	</insert>
+		<!-- <insert id="answer" parameterType="qaboard" >
+		
+		INSERT INTO QABOARD ( QA_NUM,QA_REF, QA_TITLE,QA_CONTENT,QA_WRITER, QA_VIEWCNT, QA_REGDATE,QA_GUBUN) 
+					 VALUES ( 
+			 				   QABOARD_SEQ.NEXTVAL,
+			 				   #{qaNum},
+							   #{qaTitle,jdbcType=VARCHAR}, 
+							   #{qaContent,jdbcType=CLOB}, 
+							   'ADMIN',
+							   '0',
+							   sysdate ,
+							   'A'
+							 )
+						 
+	</insert> -->
 
 	<select id="qamaxNum" resultType="int">
 		SELECT NVL(MAX(QA_NUM),1) AS MAXNUM 
@@ -93,7 +127,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 게시물 상세보기  -->	
 	<select id="view" parameterType="int" resultMap="qaboard">
 		SELECT QA_NUM AS qaNum,
-			   QA_REF AS qaRef,
+			   ORIGIN_NO AS originNo,
+			   GROUP_ORD AS groupOrd,
+			   GROUP_LAYER AS groupLayer,
 			   QA_TITLE AS qaTitle,
 			   QA_REGDATE AS qaRegdate,
 			   QA_CONTENT AS qaContent,
@@ -114,7 +150,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="adminView" parameterType="int" resultMap="qaboard">
 		SELECT QA_NUM AS qaNum,
-			   QA_REF AS qaRef,
+			   ORIGIN_NO AS originNo,
+			   GROUP_ORD AS groupOrd,
+			   GROUP_LAYER AS groupLayer,
 			   QA_TITLE AS qaTitle,
 			   QA_REGDATE AS qaRegdate,
 			   QA_CONTENT AS qaContent,
@@ -151,15 +189,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 게시물 목록 -->
 	<select id="listAll" resultType="com.newdeal.ict.Vo.QaBoardVo">
 		<include refid="paging_header" />
-		SELECT QA_NUM,QA_REF, QA_TITLE,QA.QA_REGDATE,QA_VIEWCNT,QA_WRITER
-		  FROM QABOARD QA, MEMBER M
+		SELECT * FROM QABOARD
 		<include refid="search"></include>
-	  ORDER BY QA_NUM DESC 
+	  ORDER BY ORIGIN_NO DESC, GROUP_ORD ASC 
 	  	<include refid="paging_footer" />
 	</select>	
 	
 	<select id="qaListAll" resultType="com.newdeal.ict.Vo.QaBoardVo">
-		 SELECT QA_NUM,QA_WRITER, QA_TITLE,QA_CONTENT,QA_REGDATE,QA_VIEWCNT,QA_REF,QA_GUBUN
+		 SELECT QA_NUM,QA_WRITER, QA_TITLE,QA_CONTENT,QA_REGDATE,QA_VIEWCNT,
+			   ORIGIN_NO AS originNo,
+			   GROUP_ORD AS groupOrd,
+			   GROUP_LAYER AS groupLayer,QA_GUBUN
 		  FROM QABOARD QA WHERE QA_STATE='NO' 
 	  ORDER BY QA_NUM DESC
 	</select>	
@@ -181,30 +221,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<sql id="search">	
 		<choose>
 			<when test="search_option == 'all'">
-				WHERE QA.QA_WRITER=M.MEM_NICKNAME 
-				  AND (
-				  		MEM_NICKNAME LIKE '%' || #{keyword} || '%'
-				  		OR QA_CONTENT LIKE '%' || #{keyword} || '%'
-				   		OR QA_TITLE LIKE '%' || #{keyword} || '%' 
-				   	   )
+				WHERE  QA_WRITER LIKE '%' || #{keyword} || '%'
+				  	   OR QA_CONTENT LIKE '%' || #{keyword} || '%'
+				   	   OR QA_TITLE LIKE '%' || #{keyword} || '%' 
 			</when>
 			<when test="search_option == 'qaWriter'">
-				WHERE QA.QA_WRITER=M.MEM_NICKNAME 
-				  AND ( 
-				  		MEM_NICKNAME LIKE '%' || #{keyword} || '%' 
-				  	  )
+				WHERE QA_WRITER LIKE '%' || #{keyword} || '%' 
 			</when>
 			<when test="search_option == 'qaContent'">
-				WHERE QA.QA_WRITER=M.MEM_NICKNAME 
-				  AND ( 
-				  		QA_CONTENT LIKE '%' || #{keyword} || '%'
-				  	  )
+				WHERE QA_CONTENT LIKE '%' || #{keyword} || '%'
 			</when>
 			<when test="search_option == 'qaTitle'">
-				WHERE QA.QA_WRITER=M.MEM_NICKNAME 
-				  AND ( 
-				  		QA_TITLE LIKE '%' || #{keyword} || '%'
-				  	  )
+				WHERE QA_TITLE LIKE '%' || #{keyword} || '%'
 			</when>
 			<otherwise>
 				WHERE ${search_option} LIKE '%' || #{keyword}||'%'
@@ -224,11 +252,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			  ) WHERE RN BETWEEN #{start} AND #{end}
 	</sql>
 	
-<!-- 최상위 부모글 번호 생성(1부터 차례대로 최상위 부모글만 생성된다.)  -->
-	<select id="refMax" resultType="int">
+<!--  최상위 부모글 번호 생성(1부터 차례대로 최상위 부모글만 생성된다.) -->
+	<!-- <select id="refMax" resultType="int">
 		SELECT NVL(MAX(QA_REF)+1,'1') AS QA_REF 
 		  FROM QABOARD
-	</select>
+	</select>  -->
 	
 	<select id="fileinfo" parameterType="filevo" resultType="filevo">
 		SELECT FILE_NUM,
