@@ -41,7 +41,7 @@ public class FestivalController {
 	}
 	
 	@RequestMapping(value="/write", method = RequestMethod.POST)
-	public String writePOST(FestivalVo vo, MultipartHttpServletRequest multiRequest)  
+	public String writePOST(@ModelAttribute FestivalVo vo, HttpSession session, MultipartHttpServletRequest multiRequest)  
 			throws Exception{
 
 	//�뜝�룞�삕 �뜝�뙗�눦�삕�뜝�떦源띿삕
@@ -52,7 +52,7 @@ public class FestivalController {
 			int fileRefNum=service.fesmaxNum();
 			String fileRefBoard="FESTIVAL";
 			
-			commonservice.fileWrite(fileRefNum,fileRefBoard,multiRequest);
+			commonservice.intfileWrite(fileRefNum,fileRefBoard,multiRequest);
 			System.out.println("�뜝�룞�삕�뜝�떦�뼲�삕�뜝�듅遺�釉앹삕 �뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕");
 		
 			return "redirect:/festival/list";
@@ -253,19 +253,22 @@ public class FestivalController {
 	
 	@RequestMapping(value = "/detDelete",method = RequestMethod.GET)
 	public String detDelete(int detNum,HttpSession session, HttpServletRequest request) throws Exception {
+		System.out.println("삭제오는지==");
 		MemberVo vo=(MemberVo)session.getAttribute("member");
 		FesDetailVo fesvo=service.getWriterD(detNum);
 		
 		String detPart = request.getParameter("detPart");
 		
 		System.out.println("==========>fesvo :" + fesvo);
+		System.out.println("fesvo.getMemNum() :" + fesvo.getMemNum() + "vo.getMemNum()" + vo.getMemNum());
 		if(fesvo.getMemNum()==vo.getMemNum()) {
-			System.out.println("占쎌삂占쎄쉐占쎌쁽占쏙옙 嚥≪뮄�젃占쎌뵥占쎈립 占쎄텢占쎌뒠占쎌쁽揶쏉옙 揶쏆늿�몵占쎈빍繹먲옙 占쎄텣占쎌젫筌ｌ꼶�봺");
+		
+			System.out.println("일치한인간");
 			int n=service.fesDelete(detNum);
-			System.out.println("==========>�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 :" +  n);
+			System.out.println("==========>지워져라 :" +  n);
 		}else {
-			System.out.println("�뜝�룞�삕�뜝�룞�삕�뜝�떗�뙋�삕.");
-			System.out.println("=================>�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 ");
+			System.out.println("달러달러.");
+			System.out.println("=================>꾸엑 ");
 		}
 		return "redirect:/festival/detailList";
 	}

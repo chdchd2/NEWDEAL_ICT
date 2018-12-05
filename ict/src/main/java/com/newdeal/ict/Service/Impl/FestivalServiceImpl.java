@@ -45,7 +45,7 @@ public class FestivalServiceImpl  implements FestivalService {
 		map.put("pu",pu);
 		List<FestivalVo> list =dao.list(map);
 		map.put("list", list);
-		System.out.println("pu�궡�슜====>"+pu.toString());
+		System.out.println("pu占쎄땀占쎌뒠====>"+pu.toString());
 		return map;
 	}
 
@@ -121,24 +121,25 @@ public class FestivalServiceImpl  implements FestivalService {
 	public int fesDelete(int fesNum) throws Exception {
 
 		List<CommonFileVo> filelist = dao.intFileDelList(fesNum);
-		System.out.println("�뙆�씪由ъ뒪�듃異쒕젰"+filelist.toString());
+		System.out.println("占쎈솁占쎌뵬�뵳�딅뮞占쎈뱜�빊�뮆�젾"+filelist.toString());
 		for(CommonFileVo vo:filelist) {
 			String files=vo.getFilePath()+vo.getFileName();
-			System.out.println("�뙆�씪�뵒�젆�넗由�+�뙆�씪�씠由� 異쒕젰�빐蹂닿린"+files);
+			System.out.println("占쎈솁占쎌뵬占쎈탵占쎌젂占쎈꽅�뵳占�+占쎈솁占쎌뵬占쎌뵠�뵳占� �빊�뮆�젾占쎈퉸癰귣떯由�"+files);
 			File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 			if( file.exists() ){
 	            if(file.delete()){
-	                System.out.println("�뙆�씪�궘�젣 �꽦怨�");
+	                System.out.println("占쎈솁占쎌뵬占쎄텣占쎌젫 占쎄쉐�⑨옙");
 	            }else{
-	                System.out.println("�뙆�씪�궘�젣 �떎�뙣");
+	                System.out.println("占쎈솁占쎌뵬占쎄텣占쎌젫 占쎈뼄占쎈솭");
 	            }
 	        }else{
-	            System.out.println("�뙆�씪�씠 議댁옱�븯吏� �븡�뒿�땲�떎.");
+	            System.out.println("占쎈솁占쎌뵬占쎌뵠 鈺곕똻�삺占쎈릭筌욑옙 占쎈륫占쎈뮸占쎈빍占쎈뼄.");
 	        }
-			dao.intFileDelete(fesNum);
+		//	dao.intFileDelete(fesNum);
 			dao.fesDelete(fesNum);
-			 System.out.println("�엫�뵆�뿉�꽌�룄�궘�젣 �꽦怨� :"+dao.fesDelete(fesNum));
+			 System.out.println("占쎌뿫占쎈탣占쎈퓠占쎄퐣占쎈즲占쎄텣占쎌젫 占쎄쉐�⑨옙 :"+dao.fesDelete(fesNum));
 		}
+		dao.intFileDelete(fesNum);
 		dao.fesDelete(fesNum);
 	return 0;
 	}
@@ -154,13 +155,13 @@ public class FestivalServiceImpl  implements FestivalService {
 		File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 		if( file.exists() ){
             if(file.delete()){
-                System.out.println("�뙆�씪�궘�젣 �꽦怨�");
+                System.out.println("占쎈솁占쎌뵬占쎄텣占쎌젫 占쎄쉐�⑨옙");
                 dao.fileDel(filevo);
             }else{
-                System.out.println("�뙆�씪�궘�젣 �떎�뙣");
+                System.out.println("占쎈솁占쎌뵬占쎄텣占쎌젫 占쎈뼄占쎈솭");
             }
         }else{
-            System.out.println("�뙆�씪�씠 議댁옱�븯吏� �븡�뒿�땲�떎.");
+            System.out.println("占쎈솁占쎌뵬占쎌뵠 鈺곕똻�삺占쎈릭筌욑옙 占쎈륫占쎈뮸占쎈빍占쎈뼄.");
         }
 		return 1;
 	}
@@ -214,26 +215,29 @@ public class FestivalServiceImpl  implements FestivalService {
 	public int detDelete(int detNum) throws Exception {
 		
 		List<CommonFileVo> filelist = dao.intFileDelList(detNum);
-		System.out.println("�뙆�씪由ъ뒪�듃異쒕젰"+filelist.toString());
+		System.out.println("占쎈솁占쎌뵬�뵳�딅뮞占쎈뱜�빊�뮆�젾"+filelist.toString());
 		
 		for(CommonFileVo vo:filelist) {
 			String files=vo.getFilePath()+vo.getFileName();
-			System.out.println("�뙆�씪�뵒�젆�넗由�+�뙆�씪�씠由� 異쒕젰�빐蹂닿린"+files);
+			System.out.println("占쎈솁占쎌뵬占쎈탵占쎌젂占쎈꽅�뵳占�+占쎈솁占쎌뵬占쎌뵠�뵳占� �빊�뮆�젾占쎈퉸癰귣떯由�"+files);
 			File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 			if( file.exists() ){
 	            if(file.delete()){
-	                System.out.println("�뙆�씪�궘�젣 �꽦怨�");
+	                System.out.println("파일삭제");
 	            }else{
-	                System.out.println("�뙆�씪�궘�젣 �떎�뙣");
+	                System.out.println("占뼄占쎈솭");
 	            }
 	        }else{
-	            System.out.println("�뙆�씪�씠 議댁옱�븯吏� �븡�뒿�땲�떎.");
+	            System.out.println("占쎈솁占쎌뵬占쎌뵠 鈺곕똻�삺占쎈릭筌욑옙 占쎈륫占쎈뮸占쎈빍占쎈뼄.");
 	        }
 			dao.intFileDelete(detNum);
 			dao.fesDelete(detNum);
-			 System.out.println("�엫�뵆�뿉�꽌�룄�궘�젣 �꽦怨� :"+dao.detDelete(detNum));
+			 System.out.println("占쎌뿫占쎈탣占쎈퓠占쎄퐣占쎈즲占쎄텣占쎌젫 占쎄쉐�⑨옙 :"+dao.detDelete(detNum));
 		}
-		dao.detDelete(detNum);
+		dao.intFileDelete(detNum);
+		System.out.println("detNum :"+detNum);
+		dao.detDelete(detNum );
+		System.out.println("detNum :"+detNum);
 	return 0;
 	}
 

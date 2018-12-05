@@ -22,6 +22,65 @@
 <script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9c33dafb379eb8e557de8b4964389518&libraries=services"></script>
 <script>
+var num=1;
+$(function(){
+	
+	$(".btnSave").click(function(){
+		//태그.each(function(){})모든 태그 반복
+		var str="";
+		//폼에 hidden 태그들을 추가
+		$("#form").append(str);
+		document.form.submit();
+	});
+	$(".btnList").click(function(){
+		location.href="<c:url value='/festival/detailList'/>";
+	});
+});
+
+function fileselect(event,num){
+	   var filename=event.value.replace(/C:\\fakepath\\/i, '');
+	   $("#span"+num).remove();
+	   $("#li"+num).append("<span id='span"+num+"'>"+filename+""+
+	         "<button class='img_del' onclick='fileDel("+num+")'>x</button>"+
+	         "<button class='img_add' onclick='fileAdd()' type='button'>추가</button></span>");
+	if(event.files.length==0){
+	      $("#span"+num).remove();
+	   }
+	}
+	function fileAdd(){
+
+	   $("#fileul").append("<li id='li"+num+"'>"+
+	         "<div class='filebox dp_in vm mgr10'>"+
+	         "<label for='filename"+num+"' class='btn_search'>파일첨부</label>"+
+	         "<input type='file' id='filename"+num+"' name='file' class='upload_hidden' onchange='fileselect(this,"+num+")'>"+
+	         "</div>"+
+	         "</li>");
+	   num++;
+	}
+
+
+
+	function fileDel(num){
+	   console.log(num);
+	   //첫번째 파일일 경우 파일첨부하는 라벨과 input 박스가 날아가면 안되므로.
+	   if(num==0){
+	      $("#span"+num).remove();
+	      $("#filelabel"+num).prepend("<input type='file' id='filename"+num+"' name='file' class='upload_hidden' onchange='fileselect(this,"+num+")'>");
+	      
+	   }else if(num!=0){
+	      $("#li"+num).remove();
+	      }
+	}
+	function firstFileSelect(event,num){
+	   var filename=event.value.replace(/C:\\fakepath\\/i, '');
+	   $("#span"+num).remove();
+	   $("#li"+num).append("<span id='span"+num+"'>"+filename+""+
+	   "<button class='img_del' id='delbutton' onclick='fileDel("+num+")'>x</button>"+
+	   "<button class='img_add' id='addbutton' onclick='fileAdd()' type='button'>추가</button></span>");
+	   if(event.files.length==0){
+	      $("#span"+num).remove();
+	   }
+	}
 $(function(){
 	
 	$(".btnSave").click(function(){
@@ -33,8 +92,51 @@ $(function(){
 	});
 	$(".btnList").click(function(){
 		location.href="<c:url value='/festival/list'/>";
+		document.form.submit();
 	});
 });
+function fileselect(event,num){
+	   var filename=event.value.replace(/C:\\fakepath\\/i, '');
+	   $("#span"+num).remove();
+	   $("#li"+num).append("<span id='span"+num+"'>"+filename+""+
+	         "<button class='img_del' onclick='fileDel("+num+")'>x</button>"+
+	         "<button class='img_add' onclick='fileAdd()' type='button'>추가</button></span>");
+	   console.log(num);
+	if(event.files.length==0){
+	      $("#span"+num).remove();
+	   }
+	}
+	function fileAdd(){
+	   $("#fileul").append("<li id='li"+num+"'>"+
+	         "<div class='filebox dp_in vm mgr10'>"+
+	         "<label for='filename"+num+"' class='btn_search'>파일첨부</label>"+
+	         "<input type='file' id='filename"+num+"' name='file"+num+"' class='upload_hidden' onchange='fileselect(this,"+num+")'>"+
+	         "</div>"+
+	         "</li>");
+	   num++;
+	}
+	
+	function fileDel(num){
+	   console.log(num);
+	   //첫번째 파일일 경우 파일첨부하는 라벨과 input 박스가 날아가면 안되므로.
+	   if(num==0){
+	      $("#span"+num).remove();
+	      $("#filelabel"+num).prepend("<input type='file' id='filename"+num+"' name='file"+num+"' class='upload_hidden' onchange='fileselect(this,"+num+")'>");
+	      
+	   }else if(num!=0){
+	      $("#li"+num).remove();
+	      }
+	}
+	function firstFileSelect(event,num){
+	   var filename=event.value.replace(/C:\\fakepath\\/i, '');
+	   $("#span"+num).remove();
+	   $("#li"+num).append("<span id='span"+num+"'>"+filename+""+
+	   "<button class='img_del' id='delbutton' onclick='fileDel("+num+")'>x</button>"+
+	   "<button class='img_add' id='addbutton' onclick='fileAdd()' type='button'>추가</button></span>");
+	   if(event.files.length==0){
+	      $("#span"+num).remove();
+	   }
+	}
 </script>
 <div id="sectionC">
 <div id="subMenu">
@@ -73,16 +175,21 @@ $(function(){
 								</tr>
 								 
 								<tr>
-		                        <td>첨부파일</td>
+		                          <td>첨부파일</td>
 		                        <td>
-		                      
-										 <input type="file" value="파일첨부" id="file" name="file">
-										 <label for="file">파일첨부1</label>
-										 <input type="file" value="파일첨부" id="file2" name="file2">
-										 <label for="file2">파일첨부2</label>
-										 <input type="file" value="파일첨부" id="file3" name="file3">
-										 <label for="file3">파일첨부3</label>
+		                           <div class="img_upload_list">
+		                              <ul id="fileul">
+		                                 <li id="li0">
+		                                    <div class="filebox dp_in vm mgr10">
+		                                       <label id="filelabel" for="filename0" class="btn_search">파일첨부</label>
+		                                        <input type="file" id="filename0" id="file" name="file0" class="upload-hidden" onchange="firstFileSelect(this,0)">
+		                                  
+		                                 </li>
+		                              </ul>
+		                           </div>
 		                        </td>
+		                       </tr>
+							
 		                       </tr>
 		                     
 								<tr>

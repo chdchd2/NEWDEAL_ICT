@@ -7,6 +7,7 @@ function searchs(){
 	var searchWord=$("#searchWord").val();
  	location.href="<c:url value='/festival/list?searchType="+searchType+"&searchWord="+searchWord+"'/>";
 }
+
 </script>
 <section>
 <div id="sectionC">
@@ -25,6 +26,7 @@ function searchs(){
 						<div id="content">
 				
 						<p id="count">총<span>${pu.totalRowCount}건</span></p>
+							
 							<ul id="search">
 							<li>
 								<select id="searchType">

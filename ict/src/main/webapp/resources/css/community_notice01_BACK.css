@@ -101,16 +101,16 @@ section #sectionC #sectionR #content {
 	text-align:center;
 }
 
-section #sectionC #sectionR #content #search {
+section #sectionC #sectionR #content #search #search2{
 	float:right;
 }
-section #sectionC #sectionR #content #search > li{
+section #sectionC #sectionR #content #search #search2> li{
 	float:left;
 	text-align:center;
 	margin-left:10px;
 }
 
-section #sectionC #sectionR #content #search > li:nth-of-type(1) > a{
+section #sectionC #sectionR #content #search #search2> li:nth-of-type(1) > a{
 	display:inline-block;
 	width:86px;
 	height:35px;
@@ -152,7 +152,7 @@ section #sectionC #sectionR #content #search > li:nth-of-type(1) > a{
 	font-size:14px;
 
 }
-section #sectionC #sectionR #content #search > li:nth-of-type(1) select{
+section #sectionC #sectionR #content #search #search2> li:nth-of-type(1) select{
 	display:inline-block;
 	width:80px;
 	height:35px;
@@ -163,7 +163,7 @@ section #sectionC #sectionR #content #search > li:nth-of-type(1) select{
     background: #fff;
     border-radius: 0px;
 }
-section #sectionC #sectionR #content #search li:nth-of-type(2) input{
+section #sectionC #sectionR #content #search #search2li:nth-of-type(2) input{
 	width:184px;
 	height:35px;
 	border-radius:0;
@@ -171,7 +171,7 @@ section #sectionC #sectionR #content #search li:nth-of-type(2) input{
 	border:1px solid #bfbfbf;
 
 }
-section #sectionC #sectionR #content #search > li:nth-of-type(3) > a{
+section #sectionC #sectionR #content #search #search2> li:nth-of-type(3) > a{
 	display:inline-block;
 	width:80px;
 	height:35px;
@@ -221,7 +221,7 @@ section #sectionC #sectionR #content #count span {
 	color:#003cff;
 	margin-left:4px;
 }
-section #sectionC #sectionR #content #search {
+section #sectionC #sectionR #content #search #search2{
 	float:right;
 }
 
