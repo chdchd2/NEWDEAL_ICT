@@ -72,8 +72,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	            System.out.println("파일이 존재하지 않습니다.");
 	        }
 		dao.fbFileDelete(fbNum);
-		dao.delete(fbNum);
 		}
+		dao.delete(fbNum);
 	}
 
 	@Override

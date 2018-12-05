@@ -40,7 +40,7 @@ function view(qaNum){
 					<div id="content">
 						<div id="tapMenu">
 							<a href="<c:url value='/qaboard/list.do'/>" style="font-weight:bold">Q&A</a>&emsp;|&emsp;
-							<a href="<c:url value='/faqboard.jsp'/>">FAQ</a>
+							<a href="<c:url value='/qaboard/faq.do'/>">FAQ</a>
 						</div>
 						<p id="count">총<span>${map.count}건</span></p>
 						<ol id="search">

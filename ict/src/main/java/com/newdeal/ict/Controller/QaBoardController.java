@@ -186,5 +186,10 @@ public class QaBoardController {
 		return mav;
 	}
 	
+	@RequestMapping("faq.do")
+	public String faq(){
+		return "qaboard/faqboard"; //views/board/write.jsp
+	}
+	
 	
 }
