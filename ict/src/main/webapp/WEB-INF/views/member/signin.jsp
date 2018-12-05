@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div style="margin-left: 800px;margin-top:100px;">
+<div style="margin-left: 500px;margin-top:100px;">
 			<div>
 				<h2>
 					<span style="color: #3b6aca;font-size: 36px;line-height: 24px;">뉴딜 일자리</span> 회원가입
