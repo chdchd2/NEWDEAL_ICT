@@ -146,7 +146,7 @@
       <div id="hidediv" style="display: none;">
        <div class="card card-register mx-auto mt-5">
           <form id="answerform" action="<c:url value='/admin/answer'/>" method="POST">
-        <div class="card-header">답변제목입력 <input type="text" id="qaTitle" name="qaTitle"style="width:500px; margin-top: 5px;" value="RE:${vo.qaTitle}">  </div>
+        <div class="card-header">답변제목입력 <input type="text" id="qaTitle" name="qaTitle"style="width:500px; margin-top: 5px;" value="└ RE:${vo.qaTitle}">  </div>
         <div class="card-body">
             <div class="form-group">
               <div class="form-row">
