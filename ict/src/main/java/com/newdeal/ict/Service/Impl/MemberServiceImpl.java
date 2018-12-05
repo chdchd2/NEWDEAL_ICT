@@ -36,5 +36,13 @@ public class MemberServiceImpl implements MemberService{
 		System.out.println("ÀÔ·Â°ª2==>"+nickname);
 		return able;
 	}
+	@Override
+	public int companysignin(MemberVo vo) throws Exception {
+		return dao.companysignin(vo);
+	}
+	@Override
+	public MemberVo iscompanymember(MemberVo vo) throws Exception {
+		return dao.iscompanymember(vo);
+	}
 
 }

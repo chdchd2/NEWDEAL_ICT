@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="<c:url value='/resources/css/reset.css'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/header_02.css'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/footer.css'/>">
-	<link rel="stylesheet" href="<c:url value='/resources/css/community_notice01.css?ver=1'/>">
+	<link rel="stylesheet" href="<c:url value='/resources/css/community_notice01.css?ver=0'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/community_notice02.css'/>">
 	<c:set var="path" value="${pageContext.request.contextPath }" />
 	<script>

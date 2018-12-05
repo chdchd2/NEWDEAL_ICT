@@ -38,6 +38,10 @@ function view(qaNum){
 					</div>
 
 					<div id="content">
+						<div id="tapMenu">
+							<a href="<c:url value='/qaboard/list.do'/>" style="font-weight:bold">Q&A</a>&emsp;|&emsp;
+							<a href="<c:url value='/faqboard.jsp'/>">FAQ</a>
+						</div>
 						<p id="count">총<span>${map.count}건</span></p>
 						<ol id="search">
 								<li><a href="#a">전체 <img src="<c:url value='/resources/images/search_Active.png'/>" alt="검색창더보기"></a>

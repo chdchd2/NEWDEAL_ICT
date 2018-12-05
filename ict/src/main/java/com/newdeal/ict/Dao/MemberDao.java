@@ -20,8 +20,15 @@ public class MemberDao {
 	public int signin(MemberVo vo) {
 		return session.insert(NAMESPACE+".signin",vo);
 	}
+	public int companysignin(MemberVo vo) {
+		return session.insert(NAMESPACE+".companysignin",vo);
+	}
 	public String nickNameChk(String nickname){
 		return session.selectOne(NAMESPACE+".nickNameChk",nickname);
+	}
+	
+	public MemberVo iscompanymember(MemberVo vo) {
+		return session.selectOne(NAMESPACE+".iscompanymember",vo);
 	}
 	
 }

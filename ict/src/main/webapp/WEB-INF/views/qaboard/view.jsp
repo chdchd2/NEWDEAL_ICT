@@ -85,7 +85,6 @@ $(function(){
 	<div>
 	<!-- 본인 게시물만 수정,삭제 버튼 표시 -->	
 		<a id="list" class="btnList">목록</a>
-		<a id="list" class="btnReply">답변</a>
 	<c:if test="${sessionScope.member.memNickName == vo.qaWriter }"> 
 		<a id="list" class="btnDelete">삭제</a>
 		<a id="list" class="btnUpdate">수정</a>

@@ -22,15 +22,13 @@ function searchs(){
 				</div>
 <div id="sectionR">
 					<div id="contentHeader">
-						<h2>교육신청안내 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="<c:url value='/edu/intList'/>">전체교육 보기</a>
-						<c:forEach items="${companymember }" var="companymember">
-						<a href="<c:url value='/edu/intList?&companygubun=${companymember.memNickName }'/>">${companymember.memNickName }</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						</c:forEach>
-						
-						</h2>				
+						<h2>교육신청안내 </h2>				
 					</div>
 						<div id="content">
+						<a href="<c:url value='/edu/intList'/>">[ 전체 ]</a>&emsp;|
+						<c:forEach items="${companymember }" var="companymember">
+						&emsp;<a href="<c:url value='/edu/intList?&companygubun=${companymember.memNickName }'/>">${companymember.memNickName }</a>&emsp;|
+						</c:forEach>
 							<p id="count">총<span>${pu.totalRowCount}건</span></p>
 								<ul id="search">
 							<li>
@@ -112,6 +110,12 @@ function searchs(){
 		
 						</div>
 						
+						<c:if test="${member.memGrade==2 && member.memState=='allow'}">
+						<p id="submit">
+							<a href="<c:url value='/edu/intWrite'/>">등록</a>
+						</p>
+						</c:if>
+					
 					
 </div>
 

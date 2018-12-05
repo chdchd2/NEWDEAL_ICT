@@ -100,7 +100,10 @@ section #sectionC #sectionR #content {
 	margin-top:4px;
 	text-align:center;
 }
-
+section #sectionC #sectionR #content #tapMenu{
+	text-align:left;
+	margin-bottom:30px;
+}
 section #sectionC #sectionR #content #search {
 	float:right;
 }

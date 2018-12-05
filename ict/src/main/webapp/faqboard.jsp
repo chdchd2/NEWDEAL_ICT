@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="<c:url value='/resources/css/reset.css'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/header_02.css'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/footer.css'/>">
-	<link rel="stylesheet" href="<c:url value='/resources/css/community_FAQ.css'/>">
+	<link rel="stylesheet" href="<c:url value='/resources/css/community_FAQ.css?ver=1'/>">
 	<title></title>
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script>
@@ -121,6 +121,10 @@
 						<h2>질문게시판</h2>				
 					</div>
 					<div id="content">
+						<div id="tapMenu">
+							<a href="<c:url value='/qaboard/list.do'/>">Q&A</a>&emsp;|&emsp;
+							<a href="<c:url value='/faqboard.jsp'/>" style="font-weight:bold">FAQ</a>
+						</div>
 						<p id="count">총<span>134건</span></p>
 						<ol id="search">
 							<li><a href="#a">전체 <img src="resources/images/search_Active.png" alt="검색창더보기"></a>

@@ -46,7 +46,11 @@ public class EduController {
 	}
 	
 	@RequestMapping(value = "/intWrite", method = RequestMethod.POST)
-	public String intWriteOk(IntroduceVo vo,MultipartHttpServletRequest multiRequest) throws Exception {
+	public String intWriteOk(IntroduceVo vo,MultipartHttpServletRequest multiRequest,HttpSession session) throws Exception {
+		MemberVo member=(MemberVo)session.getAttribute("member");
+		if(member.getMemGrade()!=2) {
+			return "error/interror";
+		}
 		service.intWrite(vo); 
 		int fileRefNum=service.intmaxNum();
 		String fileRefBoard="EDU_INTRODUCE";
@@ -55,10 +59,12 @@ public class EduController {
 	}
 	
 	@RequestMapping(value = "/intList",method = RequestMethod.GET)
-	public String intList(@RequestParam(value="pageNum",defaultValue="1")int pageNum,Model model,String searchType,String searchWord,String companygubun) throws Exception {
+	public String intList(@RequestParam(value="pageNum",defaultValue="1")int pageNum,Model model,String searchType,String searchWord,@RequestParam(value="companygubun",defaultValue="")String companygubun) throws Exception {
 		System.out.println("회원구분은?=>"+companygubun);
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		if(!(companygubun.equals(""))) {
 		map.put("companygubun", companygubun);
+		}
 		map.put("pageNum", pageNum);
 		map.put("searchType",searchType);
 		map.put("searchWord",searchWord);
@@ -102,11 +108,13 @@ public class EduController {
 	@RequestMapping(value = "/intDelete",method = RequestMethod.GET)
 	public String intDelete(int intNum,HttpSession session) throws Exception {
 		MemberVo vo=(MemberVo)session.getAttribute("member");
+		System.out.println("삭제할 글번호는?"+intNum);
 		IntroduceVo intvo=service.getWriter(intNum);
-		
+		System.out.println(intvo.getMemNum());
+		System.out.println(vo.getMemNum());
 		if(intvo.getMemNum()==vo.getMemNum()) {
-			System.out.println("�옉�꽦�옄�� 濡쒓렇�씤�븳 �궗�슜�옄媛� 媛숈쑝�땲源� �궘�젣泥섎━");
 			int n=service.intDelete(intNum);
+			
 		}else {
 			System.out.println("媛숈��븡�떎.");
 		}
@@ -143,7 +151,7 @@ public class EduController {
 	@RequestMapping(value = "/fileDel",method = RequestMethod.POST)
 	@ResponseBody
 	public void fileDel(CommonFileVo vo) throws Exception {
-		System.out.println("�뙆�씪踰덊샇�뒗?"+vo);
+		System.out.println("삭제요청"+vo.toString());
 		service.fileDel(vo);
 	}
 	
@@ -155,7 +163,6 @@ public class EduController {
 	
 	@RequestMapping(value = "/detailwrite", method = RequestMethod.POST)
 	public String DetailWriteOk(EduDetailVo vo,MultipartHttpServletRequest req) throws Exception {
-		System.out.println("占쏙옙占쏙옙占싹놂옙占쏙옙=>"+vo.toString());
 		List<MultipartFile> filelist = req.getFiles("file"); 
 		service.detailWrite(vo);
 		int detNum = vo.getDetNum();
@@ -175,4 +182,5 @@ public class EduController {
 		return ".edu.detail.list";
 	}
 	
+
 }

@@ -83,11 +83,11 @@ window.fbAsyncInit = function() {
 
 
 
- <span id="name">로그인 정보</span>
+
 <ul style="list-style: none;">
 	<li>
 		<a onclick="facebooklogin();" style="cursor: pointer;"><img src="<c:url value='/resources/images/Login_facebook_ico.png'/>">
-		<span>페이스북 로그인</span>
+		<span>페이스북 회원가입하기</span>
 		</a>
 	</li>
 	
@@ -95,7 +95,7 @@ window.fbAsyncInit = function() {
 
 <!-- 카카오톡 로그인 -->
 <!-- ---------------------------------------------------------------------------------------------------------------->
-<a id="kakao-login-btn"/>
+<a id="kakao-login-btn">카카오톡으로 회원가입하기</a>
 <br>
 
 
@@ -144,7 +144,6 @@ window.fbAsyncInit = function() {
  <!------------------------------------------------------------------------------------------------------------------> 	
 <br>
 <div>
-<h3><a href="<c:url value='/companylogin'/>">기업회원 로그인</a></h3>
 </div>
 
 

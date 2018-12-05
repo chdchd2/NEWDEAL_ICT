@@ -34,7 +34,7 @@ function logout(){
  				로그인
  			</a></li>
  			<li>
- 			<a href="#">
+ 			<a href="<c:url value='/signin'/>">
  				회원가입
  			</a></li>
 		<%

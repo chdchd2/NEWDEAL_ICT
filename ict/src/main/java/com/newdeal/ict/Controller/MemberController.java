@@ -24,6 +24,12 @@ public class MemberController {
 		return ".member.memberlogin";
 	}
 	
+	@RequestMapping(value = "/normalsignin", method = RequestMethod.GET)
+	public String normalsignin() {
+	
+		return ".member.normalsignin";
+	}
+	
 	 @RequestMapping({"/ismember"})
 	 @ResponseBody
 	public HashMap<String, Object> ismember(String gubun,String uid,HttpSession session) throws Exception {
@@ -31,8 +37,6 @@ public class MemberController {
 			 session.removeAttribute("member");
 		 }
 		 HashMap<String, Object> map = new HashMap();
-		 System.out.println("援щ텇媛믪�?"+gubun);
-		 System.out.println("uid�뒗?"+uid);
 		 
 		 map.put("type", gubun);
 		 map.put("uid",uid);
@@ -62,10 +66,8 @@ public class MemberController {
 	    }
 	 @RequestMapping(value = "/signin", method = RequestMethod.POST)
 		public String signin(MemberVo vo,Model model) throws Exception {
-		 System.out.println("�엯�젰媛� 寃�利�"+vo.toString());
 		 	int a=service.signin(vo);
 		 	if(a==1) {
-		 		System.out.println("�쉶�썝媛��엯 �꽦怨�");
 		 	}
 			return "redirect:/";
 		}
@@ -74,7 +76,6 @@ public class MemberController {
 		public boolean nicknameChk(String nickname) throws Exception{
 		
 		nickname = nickname.replaceAll(" ", "").replaceAll("(^\\p{Z}+|\\p{Z}+$)", "");
-		System.out.println("�땳�꽕�엫��===>"+nickname);
 		boolean able =service.nickNameChk(nickname);
 			
 		return able;
@@ -83,7 +84,41 @@ public class MemberController {
 	@RequestMapping(value = "/companysignup", method = RequestMethod.GET)
 	public String companySingup() {
 	
-		return ".member.register";
+		return ".member.companyregister";
+	}
+	
+	@RequestMapping(value = "/companysignup", method = RequestMethod.POST)
+	public String companySingin(MemberVo vo) throws Exception {
+		System.out.println("vo밸류값"+vo.toString());
+		service.companysignin(vo);
+		return ".member.memberlogin";
+	}
+	
+	@RequestMapping(value = "/companylogin", method = RequestMethod.GET)
+	public String companyLogin() throws Exception {
+
+		return ".member.companylogin";
+	}
+	
+	@RequestMapping(value = "/companylogin", method = RequestMethod.POST)
+	public String companyLogin(MemberVo vo,HttpSession session) throws Exception {
+		System.out.println("vo밸류값"+vo.toString());
+		MemberVo login=service.iscompanymember(vo);
+		if(login!=null){
+			 session.setAttribute("member", login);
+			 return "redirect:/";
+			
+		 }else{
+			 System.out.println("기업회원 아님");
+				return ".member.loginfail";
+		 }
+		
+	
+	}
+	@RequestMapping(value = "/signin", method = RequestMethod.GET)
+	public String signin() throws Exception {
+
+		return ".member.signin";
 	}
 	
 }

@@ -62,6 +62,7 @@ public class EduDao {
 		return session.selectOne(NAMESPACE+".getWriter",intNum);
 	}
 	public int intDelete(int intNum) {
+		System.out.println("여기오는지 체크하기ㅇㅇㅇㅇ");
 		return session.delete(NAMESPACE+".intDelete",intNum);
 	}
 	public int intFileDelete(int intNum) {

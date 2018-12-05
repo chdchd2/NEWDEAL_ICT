@@ -13,17 +13,21 @@ public class MemberVo {
 	private int memGrade;
 	private Date memJoinDate;
 	private String memUid;
-	private String memField;
 	private String memState;
+	private String memPassword;
 	
 	public MemberVo(){}
 
 	
 
 
+	
+
 	public int getMemNum() {
 		return memNum;
 	}
+
+
 
 
 
@@ -35,9 +39,13 @@ public class MemberVo {
 
 
 
+
+
 	public String getMemNickName() {
 		return memNickName;
 	}
+
+
 
 
 
@@ -49,9 +57,13 @@ public class MemberVo {
 
 
 
+
+
 	public String getMemTel() {
 		return memTel;
 	}
+
+
 
 
 
@@ -63,9 +75,13 @@ public class MemberVo {
 
 
 
+
+
 	public String getMemGubun() {
 		return memGubun;
 	}
+
+
 
 
 
@@ -77,9 +93,13 @@ public class MemberVo {
 
 
 
+
+
 	public int getMemGrade() {
 		return memGrade;
 	}
+
+
 
 
 
@@ -91,9 +111,13 @@ public class MemberVo {
 
 
 
+
+
 	public Date getMemJoinDate() {
 		return memJoinDate;
 	}
+
+
 
 
 
@@ -105,9 +129,13 @@ public class MemberVo {
 
 
 
+
+
 	public String getMemUid() {
 		return memUid;
 	}
+
+
 
 
 
@@ -119,23 +147,13 @@ public class MemberVo {
 
 
 
-	public String getMemField() {
-		return memField;
-	}
-
-
-
-
-	public void setMemField(String memField) {
-		this.memField = memField;
-	}
-
-
 
 
 	public String getMemState() {
 		return memState;
 	}
+
+
 
 
 
@@ -147,8 +165,28 @@ public class MemberVo {
 
 
 
+
+
+	public String getMemPassword() {
+		return memPassword;
+	}
+
+
+
+
+
+
+	public void setMemPassword(String memPassword) {
+		this.memPassword = memPassword;
+	}
+
+
+
+
+
+
 	public MemberVo(int memNum, String memNickName, String memTel, String memGubun, int memGrade, Date memJoinDate,
-			String memUid, String memField, String memState) {
+			String memUid, String memState, String memPassword) {
 		super();
 		this.memNum = memNum;
 		this.memNickName = memNickName;
@@ -157,9 +195,11 @@ public class MemberVo {
 		this.memGrade = memGrade;
 		this.memJoinDate = memJoinDate;
 		this.memUid = memUid;
-		this.memField = memField;
 		this.memState = memState;
+		this.memPassword = memPassword;
 	}
+
+
 
 
 
