@@ -76,6 +76,19 @@ $(function(){
 									<td><textarea name="qaContent" id="qaContent" cols="30" rows="10"></textarea>
 									</td>
 								</tr>
+								<tr>
+									<td>공개여부</td>
+									<td>
+									공개&nbsp;<input type="radio" id="open" name="chk_info" value="공개" checked="checked" /> &nbsp;
+									비공개<input type="radio" id="closed" name="chk_info" value="비공개" /> 									
+									</td>
+								</tr>
+								<tr>
+									<td>비밀번호</td>
+									<td>
+									<input type="text" />	
+									</td>
+								</tr>
 							</tbody>
 						</table>
 	
