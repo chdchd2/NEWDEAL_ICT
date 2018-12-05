@@ -4,13 +4,27 @@
 <script>
 		function fnWmTab(detPart){
 			console.log(detPart);
-		/* 	var searchType=$("#searchType option:selected").val();
-			var searchWord=$("#searchWord").val(); */
-			//var detPartgubun=$("#detPartgubun").val();
-	
-			location.href="<c:url value='/festival/detailList?detPart="+detPart+"'/>";
+			var searchType=$("#searchType option:selected").val();
+			var searchWord=$("#searchWord").val();
+			//var detPart=$("#detPart");
+			
+			location.href="<c:url value='/festival/detailList?searchType="+searchType+"&searchWord="+searchWord+"'/>";
+
 		}
+		
+		function fnWmTab2(detPart){
+			console.log(detPart);
+			  location.href="<c:url value='/festival/detailList?detPart="+detPart+"'/>";
+
+		}
+
 		</script>
+	
+
+<script>
+
+</script>
+
 <section>
 <div id="sectionC">
  <div id="subMenu">
@@ -25,28 +39,26 @@
 						<h2>채용정보상세</h2>				
 					</div>
 						<div id="content">
-						
-				
-						<a href="javascript:fnWmTab('전체');">[ 전체 ]</a>&emsp;|
-						&emsp;<a href="javascript:fnWmTab('경제/교육');">경제/교육</a>&emsp;|  
-						&emsp;<a href="javascript:fnWmTab('IT/혁신');">IT/혁신</a>&emsp;|
-						&emsp;<a href="javascript:fnWmTab('문화/복지');">문화/복지</a>&emsp;|
-						&emsp;<a href="javascript:fnWmTab('환경/안전');">환경/안전</a>&emsp;|
-						&emsp;<a href="javascript:fnWmTab('기타');">[ 기타 ]</a>&emsp;
-					
-						
+			
 							<p id="count">총<span>${pu.totalRowCount}건</span></p>
-							<ol id="search">
-								<li><a href="#a">전체 <img src="<c:url value='/resources/images/search_Active.png'/>" alt="검색창더보기"></a>
-									<ul id="detail">
-										<li><a href="#a">전체</a></li>
-										<li><a href="#a">제목</a></li>
-										<li><a href="#a">내용</a></li>
-									</ul>
-								</li>
-								<li><input type="text"></li>
-								<li><a onclick="searchs()">조회</a></li>
-							</ol>
+					<a href="javascript:fnWmTab2('전체');" >[ 전체 ]</a>&emsp;|
+						&emsp;<a href="#" onclick="javascript:fnWmTab2('경제/교육');" >경제/교육</a>&emsp;|
+						&emsp;<a href="javascript:fnWmTab2('경제/교육');"  onclick="fnWmTab(detPart);" >경제/교육</a>&emsp;|  
+						&emsp;<a href="javascript:fnWmTab2('IT/혁신');">IT/혁신</a>&emsp;|
+						&emsp;<a href="javascript:fnWmTab2('문화/복지');">문화/복지</a>&emsp;|
+						&emsp;<a href="javascript:fnWmTab2('환경/안전');">환경/안전</a>&emsp;|
+						&emsp;<a href="javascript:fnWmTab2('기타');">[ 기타 ]</a>&emsp; 
+							<ul id="search">
+							<li>
+								<select id="searchType">
+								    <option value="FES_TITLED">제목</option>
+								    <option value="FES_CONTENTD">내용</option>
+								</select>
+								<input type="hidden" name="detPart" id="detPart" value="${detPart }">
+							</li>
+							<li><input type="text" name="searchWord" id="searchWord" value="${searchWord }"></li>
+							<li><a onclick="fnWmTab(detPart)">조회</a></li>
+							</ul>
 							
 							<table id ="table">
 							<colgroup>
@@ -83,8 +95,8 @@
 								<div id="page">
 			<c:choose>
 				<c:when test="${pu.startPageNum>9 }">
-					<p><a href="<c:url value='/festival/detailList?pageNum=${pu.startPageNum-1 }&fieldnum=${fieldnum }&classnum=${classnum }'/>"><img src="<c:url value='/resources/images/page_Leftbtn.png'/>" alt="페이지왼쪽버튼"></a></p>
-				</c:when>
+				<p><a href="<c:url value='/festival/detailList?pageNum=${pu.startPageNum-1 }&fieldnum=${fieldnum }&classnum=${classnum }&searchWord=${searchWord }&searchType=${searchType }&detPart=${detPart }'/>"><img src="<c:url value='/resources/images/page_Leftbtn.png'/>" alt="페이지왼쪽버튼"></a></p>
+		    </c:when>
 				 <c:otherwise>
 			<p><a href="#"><img src="<c:url value='/resources/images/page_Leftbtn.png'/>" alt="페이지왼쪽버튼"></a></p>			
 	</c:otherwise>
@@ -94,12 +106,11 @@
 			<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
 				<c:choose>
 					<c:when test="${i==pu.pageNum}">
-						<!-- 현재페이지 색상 다르게 표시하기 -->
-						 <li><a href="<c:url value='/festival/detailList?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }'/>" class="pageActive">${i }</a></li>
+					 <li><a href="<c:url value='/festival/detailList?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }&searchWord=${searchWord }&searchType=${searchType }}&detPart=${detPart}'/>" class="pageActive">${i }</a></li>
 					</c:when>
 					<c:otherwise>
-					 <li><a href="<c:url value='/festival/detailList?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }'/>">${i }</a></li>
-					</c:otherwise>
+					 <li><a href="<c:url value='/festival/detailList?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }&searchWord=${searchWord }&searchType=${searchType }&detPart=${detPart}'/>">${i }</a></li>
+						</c:otherwise>
 				</c:choose>
 			</c:forEach>
 			</ul> 
@@ -108,8 +119,8 @@
 			
 		<c:choose>
 			<c:when test="${pu.endPageNum<pu.totalPageCount }">
-				<p><a href="<c:url value='/festival/detailList?pageNum=${pu.endPageNum+1 }&classnum=${classnum }&fieldnum=${fieldnum }'/>"><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
-			</c:when>
+			<p><a href="<c:url value='/festival/detailList?pageNum=${pu.endPageNum+1 }&classnum=${classnum }&fieldnum=${fieldnum }&searchWord=${searchWord }&searchType=${searchType }&detPart=${detPart}'/>"><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
+				</c:when>
 			<c:otherwise>
 			<p><a><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
 			

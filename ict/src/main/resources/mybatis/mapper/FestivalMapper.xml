@@ -55,18 +55,18 @@
 
  <sql id="search">
  	<if test="searchType!=null and searchWord!=''">
- 	where ${searchType} like '%' ||#{searchWord} ||'%'
+ 	 ${searchType} like '%' || #{searchWord} ||'%'
 	</if>
  </sql>
  
  <sql id="Part">
- 	<if test="detPart!=null">
- 		FES_PART='${detPart}'
+ 	<if test="detPart!=null and searchType!=null and searchWord!=''">
+ 	AND	FES_PART='${detPart}'
 	</if>
-	<!-- <if test="detPartgubun!=null and searchWord==null">
-		FES_PART='${detPartgubun}'
+	 <if test="detPart!=null and searchWord==null">
+		FES_PART='${detPart}'
 	</if>
-	 -->
+
  </sql>
 
 <select id="detailList" parameterType="hashmap" resultMap="fesDevo">
@@ -84,7 +84,8 @@
                     SELECT AA.*,ROWNUM RNUM FROM(
                                  SELECT * FROM FESTIVALDEL
                                 <where>
-                                 	  <include refid="Part"/>
+                                 	  <include refid="search"/>
+                                 	  	  <include refid="Part"/>
                                  </where>
                                  ORDER BY FES_NUMD DESC
                                 				 )AA
@@ -151,7 +152,10 @@ SELECT SEQ_FESTIVALDEL_FES_NUMD.currval as detNum FROM dual
 
 <select id="detCnt" parameterType="hashmap" resultType="int">
  			SELECT NVL(COUNT(*),0) CNT from FESTIVALDEL
+ 			 <where>
  			  <include refid="search"/>
+ 					 <include refid="Part"/>		
+ 			</where>
  			<!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
  			
 </select>

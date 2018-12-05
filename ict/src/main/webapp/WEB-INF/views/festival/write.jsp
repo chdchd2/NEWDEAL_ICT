@@ -3,7 +3,7 @@
 	pageEncoding="UTF-8" errorPage="../../error/feserror.jsp"
 	%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
+<%-- <%
 	
 	MemberVo vo = (MemberVo) session.getAttribute("member");
 
@@ -16,7 +16,7 @@
 </script>
 <%
 	}
-%>
+%> --%>
 <link rel="stylesheet" href="<c:url value='/resources/css/community_QNA03.css'/>">
 <section>
 <script src="<c:url value='/resources/ckeditor/ckeditor.js'/>"></script>
