@@ -22,6 +22,24 @@
 		<result property="fileRefNum" column="fileRefNum"/>
 	</collection>
 </resultMap>
+<resultMap type="com.newdeal.ict.Vo.EduDetailVo" id="detjoinvo">
+	<result property="detNum" column="detNum"/>
+	<result property="memNum" column="memNum"/>
+	<result property="detTitle" column="detTitle"/>
+	<result property="detContent" column="detContent"/>
+	<result property="detWriter" column="detWriter"/>
+	<result property="detDate" column="detDate"/>
+	<result property="detHit" column="detHit"/>
+	<collection property="list" ofType="com.newdeal.ict.Vo.CommonFileVo">
+		<result property="fileNum" column="fileNum"/>
+		<result property="fileName" column="fileName"/>
+		<result property="fileOrgName" column="fileOrgName"/>
+		<result property="fileSize" column="fileSize"/>
+		<result property="filePath" column="filePath"/>
+		<result property="fileRefBoard" column="fileRefBoard"/>
+		<result property="fileRefNum" column="fileRefNum"/>
+	</collection>
+</resultMap>
 
  <sql id="search">
  	<if test="searchType!=null and searchWord!=''">
@@ -39,6 +57,16 @@
 	</if>
 	
  </sql>
+ 
+   <sql id="company2">
+ 	<if test="companygubun!=null and searchType!=null and searchWord!=''">
+ 	AND DET_WRITER='${companygubun}'
+	</if>
+	<if test="companygubun!=null and searchWord==null">
+		DET_WRITER='${companygubun}'
+	</if>
+	
+ </sql>
 
 <insert id="intWrite" parameterType="intvo">
 	INSERT INTO EDU_INTRODUCE VALUES(
@@ -52,10 +80,29 @@
 									)
 </insert>
 
+<insert id="detWrite" parameterType="detvo">
+	INSERT INTO EDU_DETAIL VALUES(
+									SEQ_EDU_DETAIL_DET_NUM.nextval,
+									#{memNum},
+									#{detTitle},
+									#{detContent},
+									sysdate,
+									#{detWriter},
+									0
+									)
+
+</insert>
+
 <select id="intmaxNum" resultType="int">
 	SELECT NVL(MAX(INT_NUM),1) AS MAXNUM 
 	FROM EDU_INTRODUCE
 </select>
+
+<select id="detmaxNum" resultType="int">
+	SELECT NVL(MAX(DET_NUM),1) AS MAXNUM 
+	FROM EDU_DETAIL
+</select>
+
 
 
 <select id="intCnt" parameterType="hashmap" resultType="int">
@@ -69,10 +116,18 @@
  			
 </select>
 
-<select id="detailCnt" resultType="int">
- 			SELECT NVL(COUNT(*),0) CNT from EDU_DETAIL <!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
+<select id="detCnt" parameterType="hashmap" resultType="int">
+ 			SELECT NVL(COUNT(*),0) CNT from EDU_DETAIL
+ 			<where>
+ 			  <include refid="search"/>
+ 			  	  <include refid="company2"/>
+ 			
+ 			</where>
+ 			<!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
  			
 </select>
+
+
 
 <select id="intList" parameterType="hashmap" resultType="intvo">
       SELECT INT_NUM AS INTNUM,
@@ -97,24 +152,30 @@
 	
 </select>
 
-<select id="detailList" parameterType="pagevo" resultType="edudetailvo">
+<select id="detList" parameterType="hashmap" resultType="detvo">
       SELECT DET_NUM AS DETNUM,
       		 MEM_NUM AS MEMNUM,
       		 DET_TITLE AS DETTITLE,
       		 DET_CONTENT AS DETCONTENT,
       		 DET_WRITER AS DETWRITER,
       		 DET_DATE AS DETDATE,
-      		 DET_HIT AS HIT,
+      		 DET_HIT AS DETHIT,
       		 RNUM RNUM
        FROM(
                     SELECT AA.*,ROWNUM RNUM FROM(
                                  SELECT * FROM EDU_DETAIL
+                                 <where>
+                                   <include refid="search"/>
+                                 	  <include refid="company2"/>
+                                 </where>
                                  ORDER BY DET_NUM DESC
                                 				 )AA
                      )
-      <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
+      <![CDATA[where rnum >=#{pu.startRow} and rnum <=#{pu.endRow}]]>
 	
 </select>
+
+
 
 <select id="intDetail" parameterType="int" resultMap="intjoinvo">
 	SELECT  INT_NUM AS INTNUM,
@@ -134,6 +195,26 @@
 			FROM EDU_INTRODUCE A,COMMON_FILE B 
 	 WHERE A.INT_NUM=B.FILE_REF_NUM(+)
 	AND A.INT_NUM=#{intNum} 
+</select>
+
+<select id="detDetail" parameterType="int" resultMap="detjoinvo">
+	SELECT  DET_NUM AS DETNUM,
+			MEM_NUM AS MEMNUM,
+			DET_TITLE AS DETTITLE,
+			DET_CONTENT AS DETCONTENT,
+			DET_WRITER AS DETWRITER,
+			DET_DATE AS DETDATE,
+			DET_HIT AS DETHIT,
+			FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM
+			FROM EDU_DETAIL A,COMMON_FILE B 
+	 WHERE A.DET_NUM=B.FILE_REF_NUM(+)
+	AND A.DET_NUM=#{detNum} 
 </select>
 
 <select id="intPrev" parameterType="int" resultMap="intjoinvo">
@@ -161,6 +242,31 @@ SELECT * FROM
 	]]>
 </select>
 
+<select id="detPrev" parameterType="int" resultMap="detjoinvo">
+SELECT * FROM
+		  (SELECT  DET_NUM AS DETNUM,
+			MEM_NUM AS MEMNUM,
+			DET_TITLE AS DETTITLE,
+			DET_CONTENT AS DETCONTENT,
+			DET_WRITER AS DETWRITER,
+			DET_DATE AS DETDATE,
+			DET_HIT AS DETHIT,
+			FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM,
+			ROWNUM 
+			FROM EDU_DETAIL A,COMMON_FILE B 
+	 <![CDATA[ 
+	 WHERE A.DET_NUM=B.FILE_REF_NUM(+)
+	AND A.DET_NUM<#{detNum} ORDER BY DET_NUM DESC)
+	WHERE ROWNUM=1
+	]]>
+</select>
+
 <select id="intNext" parameterType="int" resultMap="intjoinvo">
 SELECT * FROM
 		  (SELECT  INT_NUM AS INTNUM,
@@ -182,6 +288,31 @@ SELECT * FROM
 	 <![CDATA[ 
 	 WHERE A.INT_NUM=B.FILE_REF_NUM(+)
 	AND A.INT_NUM>#{intNum} ORDER BY INT_NUM ASC)
+	WHERE ROWNUM=1
+	]]>
+</select>
+
+<select id="detNext" parameterType="int" resultMap="detjoinvo">
+SELECT * FROM
+		  (SELECT  DET_NUM AS DETNUM,
+			MEM_NUM AS MEMNUM,
+			DET_TITLE AS DETTITLE,
+			DET_CONTENT AS DETCONTENT,
+			DET_WRITER AS DETWRITER,
+			DET_DATE AS DETDATE,
+			DET_HIT AS DETHIT,
+			FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM,
+			ROWNUM 
+			FROM EDU_DETAIL A,COMMON_FILE B 
+	 <![CDATA[ 
+	 WHERE A.DET_NUM=B.FILE_REF_NUM(+)
+	AND A.DET_NUM>#{detNum} ORDER BY DET_NUM ASC)
 	WHERE ROWNUM=1
 	]]>
 </select>
@@ -212,12 +343,32 @@ SELECT * FROM
 	WHERE INT_NUM=#{intNum}
 </select>
 
+<select id="detgetWriter" parameterType="int" resultType="detvo">
+	SELECT  DET_NUM AS DETNUM,
+			MEM_NUM AS MEMNUM,
+			DET_TITLE AS DETTITLE,
+			DET_CONTENT AS DETCONTENT,
+			DET_WRITER AS DETWRITER,
+			DET_DATE AS DETDATE,
+			DET_HIT AS DETHIT
+	FROM	EDU_DETAIL
+	WHERE DET_NUM=#{detNum}
+</select>
+
 <delete id="intDelete" parameterType="int">
 	DELETE EDU_INTRODUCE WHERE INT_NUM=#{intNum}
 </delete>
 
+<delete id="detDelete" parameterType="int">
+	DELETE EDU_DETAIL WHERE det_NUM=#{detNum}
+</delete>
+
 <delete id="intFileDelete" parameterType="int">
 	DELETE COMMON_FILE WHERE FILE_REF_BOARD='EDU_INTRODUCE' AND FILE_REF_NUM=#{intNum}
+</delete>
+
+<delete id="detFileDelete" parameterType="int">
+	DELETE COMMON_FILE WHERE FILE_REF_BOARD='EDU_DETAIL' AND FILE_REF_NUM=#{detNum}
 </delete>
 
 <select id="intFileDelList" parameterType="int" resultType="filevo">
@@ -232,8 +383,24 @@ SELECT * FROM
 	 WHERE FILE_REF_BOARD='EDU_INTRODUCE' AND FILE_REF_NUM=#{intNum}
 </select>
 
+<select id="detFileDelList" parameterType="int" resultType="filevo">
+	SELECT  FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM 
+	 FROM COMMON_FILE 
+	 WHERE FILE_REF_BOARD='EDU_DETAIL' AND FILE_REF_NUM=#{detNum}
+</select>
+
 <update id="intEdit" parameterType="intvo">
 	UPDATE EDU_INTRODUCE SET INT_TITLE=#{intTitle},INT_CONTENT=#{intContent} WHERE INT_NUM=#{intNum}
+</update>
+
+<update id="detEdit" parameterType="intvo">
+	UPDATE EDU_DETAIL SET DET_TITLE=#{detTitle},DET_CONTENT=#{detContent} WHERE DET_NUM=#{detNum}
 </update>
 
 <delete id="fileDel" parameterType="filevo">
@@ -244,20 +411,10 @@ SELECT * FROM
 	UPDATE EDU_INTRODUCE SET INT_HIT=INT_HIT+1 WHERE INT_NUM=#{intNum}
 </update>
 
-<insert id="detailWrite" parameterType="edudetailvo">
-	INSERT INTO EDU_DETAIL VALUES(
-									SEQ_EDU_DETAIL_DET_NUM.nextval,
-									#{memNum},
-									#{detTitle},
-									#{detContent},
-									sysdate,
-									#{detWriter},
-									0
-									)
-<selectKey keyProperty="detNum" resultType="int" order="AFTER"> 
-SELECT SEQ_EDU_DETAIL_DET_NUM.currval as detNum FROM dual
-</selectKey>
-</insert>
+<update id="detaildetailCntUp" parameterType="int">
+	UPDATE EDU_DETAIL SET DET_HIT=DET_HIT+1 WHERE DET_NUM=#{detNum}
+</update>
+
 
 <select id="companymember" resultType="member">
 SELECT * FROM MEMBER WHERE MEM_GRADE=2

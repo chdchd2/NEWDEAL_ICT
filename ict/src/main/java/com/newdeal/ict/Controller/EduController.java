@@ -45,6 +45,12 @@ public class EduController {
 		return ".edu.introduce.write";
 	}
 	
+	@RequestMapping(value = "/detWrite",method = RequestMethod.GET)
+	public String detWrite() {
+		
+		return ".edu.detail.write";
+	}
+	
 	@RequestMapping(value = "/intWrite", method = RequestMethod.POST)
 	public String intWriteOk(IntroduceVo vo,MultipartHttpServletRequest multiRequest,HttpSession session) throws Exception {
 		MemberVo member=(MemberVo)session.getAttribute("member");
@@ -56,6 +62,19 @@ public class EduController {
 		String fileRefBoard="EDU_INTRODUCE";
 		commonservice.fileWrite(fileRefNum,fileRefBoard,multiRequest);
 		return "redirect:/edu/intList";
+	}
+	
+	@RequestMapping(value = "/detWrite", method = RequestMethod.POST)
+	public String detWriteOk(EduDetailVo vo,MultipartHttpServletRequest multiRequest,HttpSession session) throws Exception {
+		MemberVo member=(MemberVo)session.getAttribute("member");
+		if(member.getMemGrade()!=2) {
+			return "error/interror";
+		}
+		service.detWrite(vo); 
+		int fileRefNum=service.detmaxNum();
+		String fileRefBoard="EDU_DETAIL";
+		commonservice.fileWrite(fileRefNum,fileRefBoard,multiRequest);
+		return "redirect:/edu/detList";
 	}
 	
 	@RequestMapping(value = "/intList",method = RequestMethod.GET)
@@ -81,6 +100,29 @@ public class EduController {
 		return ".edu.introduce.list";
 	}
 	
+	@RequestMapping(value = "/detList",method = RequestMethod.GET)
+	public String detList(@RequestParam(value="pageNum",defaultValue="1")int pageNum,Model model,String searchType,String searchWord,@RequestParam(value="companygubun",defaultValue="")String companygubun) throws Exception {
+		System.out.println("회원구분은?=>"+companygubun);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if(!(companygubun.equals(""))) {
+		map.put("companygubun", companygubun);
+		}
+		map.put("pageNum", pageNum);
+		map.put("searchType",searchType);
+		map.put("searchWord",searchWord);
+		List<MemberVo> companymember=service.companymember();
+		
+		map = service.detList(map);
+		model.addAttribute("companygubun",companygubun);
+		model.addAttribute("companymember",companymember);
+		model.addAttribute("list",map.get("list"));
+		model.addAttribute("pu",map.get("pu"));
+		model.addAttribute("searchType",searchType);
+		model.addAttribute("searchWord",searchWord);
+		
+		return ".edu.detail.list";
+	}
+	
 	@RequestMapping(value = "/intDetail",method = RequestMethod.GET)
 	public String intDetail(int intNum,Model model) throws Exception {
 		
@@ -95,6 +137,19 @@ public class EduController {
 		return ".edu.introduce.detail";
 	}
 	
+	@RequestMapping(value = "/detDetail",method = RequestMethod.GET)
+	public String detDetail(int detNum,Model model) throws Exception {
+		
+		EduDetailVo vo=service.detDetail(detNum);
+		EduDetailVo prev=service.detPrev(detNum);
+		EduDetailVo next=service.detNext(detNum);
+		
+		model.addAttribute("vo",vo);
+		model.addAttribute("prev",prev);
+		model.addAttribute("next",next);
+		
+		return ".edu.detail.detail";
+	}
 	@RequestMapping(value="/fileDown" )
 	public ModelAndView contactoDownload(@ModelAttribute CommonFileVo filevo) throws Exception{
 		CommonFileVo fileVo=service.fileinfo(filevo);
@@ -123,6 +178,24 @@ public class EduController {
 		return "redirect:/edu/intList";
 	}
 	
+	@RequestMapping(value = "/detDelete",method = RequestMethod.GET)
+	public String detDelete(int detNum,HttpSession session) throws Exception {
+		MemberVo vo=(MemberVo)session.getAttribute("member");
+		System.out.println("삭제할 글번호는?"+detNum);
+		EduDetailVo detvo=service.detgetWriter(detNum);
+		System.out.println(detvo.getMemNum());
+		System.out.println(vo.getMemNum());
+		if(detvo.getMemNum()==vo.getMemNum()) {
+			int n=service.detDelete(detNum);
+			
+		}else {
+			System.out.println("媛숈��븡�떎.");
+		}
+		
+		
+		return "redirect:/edu/detList";
+	}
+	
 	@RequestMapping(value = "/intEdit",method = RequestMethod.GET)
 	public String intEdit(int intNum,HttpSession session,Model model) throws Exception {
 		MemberVo vo=(MemberVo)session.getAttribute("member");
@@ -139,6 +212,23 @@ public class EduController {
 		return ".edu.introduce.edit";
 	}
 	
+	@RequestMapping(value = "/detEdit",method = RequestMethod.GET)
+	public String detEdit(int detNum,HttpSession session,Model model) throws Exception {
+		MemberVo vo=(MemberVo)session.getAttribute("member");
+		EduDetailVo detvo=service.detgetWriter(detNum);
+		
+		if(detvo.getMemNum()==vo.getMemNum()) {
+			EduDetailVo editvo=service.detDetail(detNum);
+			model.addAttribute("vo",editvo);
+		}else {
+			System.out.println("媛숈��븡�떎.");
+		}
+		
+		return ".edu.detail.edit";
+	}
+	
+	
+	
 	@RequestMapping(value = "/intEdit",method = RequestMethod.POST)
 	public String intEditOk(IntroduceVo vo,MultipartHttpServletRequest req) throws Exception {
 		String fileRefBoard="EDU_INTRODUCE";
@@ -148,6 +238,15 @@ public class EduController {
 		
 		return "redirect:/edu/intList";
 	}
+	@RequestMapping(value = "/detEdit",method = RequestMethod.POST)
+	public String intEditOk(EduDetailVo vo,MultipartHttpServletRequest req) throws Exception {
+		String fileRefBoard="EDU_DETAIL";
+		int num=vo.getDetNum();
+		commonservice.fileWrite(num,fileRefBoard,req);
+		service.detEdit(vo);
+		
+		return "redirect:/edu/detList";
+	}
 	@RequestMapping(value = "/fileDel",method = RequestMethod.POST)
 	@ResponseBody
 	public void fileDel(CommonFileVo vo) throws Exception {
@@ -155,32 +254,9 @@ public class EduController {
 		service.fileDel(vo);
 	}
 	
-	@RequestMapping(value = "/detailwrite",method = RequestMethod.GET)
-	public String DetailWrite() {
-		
-		return ".edu.detail.write";
-	}
 	
-	@RequestMapping(value = "/detailwrite", method = RequestMethod.POST)
-	public String DetailWriteOk(EduDetailVo vo,MultipartHttpServletRequest req) throws Exception {
-		List<MultipartFile> filelist = req.getFiles("file"); 
-		service.detailWrite(vo);
-		int detNum = vo.getDetNum();
-		String fileRefBoard="EDU_DETAIL";
-		commonservice.fileWrite(detNum,fileRefBoard,req);
-		
-		return "";
-	}
 	
-	@RequestMapping(value = "/detailList",method = RequestMethod.GET)
-	public String detailList(@RequestParam(value="pageNum",defaultValue="1")int pageNum,Model model) throws Exception {
 	
-		HashMap<String, Object> map=service.detailList(pageNum);
-		model.addAttribute("list",map.get("list"));
-		model.addAttribute("pu",map.get("pu"));
-		
-		return ".edu.detail.list";
-	}
 	
 
 }

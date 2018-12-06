@@ -1,18 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div style="margin-left: 500px;margin-top:100px;">
+<div style="margin:0px auto; width:800px;height: 450px; margin-top:100px;">
 			<div>
-				<h2>
-					<span style="color: #3b6aca;font-size: 36px;line-height: 24px;">뉴딜 일자리</span> 회원가입
-				</h2>
+				<h1>
+					<span style="color: #3b6aca;font-size: 36px;line-height: 24px;margin-left:200px;">뉴딜 일자리</span> 회원가입
+				</h1>
 				<br>
-				<p>
-					<b style="font-size: 19px;line-height: 24px;margin-left: 50px;">회원종류 선택</b><br><br>
+				<br>
+				<p style="margin-left:100px;">
 					<span style="font-size: 18px;line-height: 24px; color: #707070;">고객님께서는 해당하시는 회원의 종류를 선택하여 주세요.</span><br>
 					<span style="font-size: 18px;line-height: 24px; color: #707070;">회원종류에 따라 가입절차와 권한의 차이가 있으니 반드시 본인의</span><br>
 					<span style="font-size: 18px;line-height: 24px; color: #707070;">해당여부를 파악하여 회원가입을 선택해 주시기 바랍니다.</span><br><br>
 				</p>
+				<br>
+					<b style="font-size: 19px;line-height: 24px;margin-left: 270px; margin-top:100px;">회원종류 선택</b><br><br>
 				
 				<div class="section">
 			
@@ -37,7 +39,7 @@
 				</div>
 				
 				<br>
-				<p style="font-size: 14px;line-height: 24px;">
+				<p style="font-size: 14px;line-height: 24px; margin-left:200px;">
 					<span>★  개인회원: 뉴딜일자리에 참여중인 일반 개인회원</span><br>
 					<span>★ 기업회원: 교육담당자(유니에스 / KSA)</span>
 				</p>

@@ -22,32 +22,32 @@ function fileDel(fileNum){
 </script>
 <body>
 <h2>게시글 상세보기</h2>
-<form name="form1" action="<c:url value='/edu/intEdit'/>" method="POST" enctype="multipart/form-data">
+<form name="form1" action="<c:url value='/edu/detEdit'/>" method="POST" enctype="multipart/form-data">
     <div>
    파일목록 : <c:forEach var="list" items="${vo.list }"><span id="span${list.fileNum }">${list.fileOrgName }<span>&nbsp;<a href="#" onclick="fileDel(${list.fileNum})" style="width:20px;height:20px;display:inline-block;vertical-align:middle;font-size:16px;color:#cf2f0f;">x</a></span><br></span></c:forEach>
     <input type="file" multiple="multiple" name="file">
     </div>
     <div>
         제목 : 
-      <input type="text" value="${vo.intTitle }" name="intTitle">
+      <input type="text" value="${vo.detTitle }" name="detTitle">
     </div>
     <div>
         내용
-        <textarea name="intContent" id="content" rows="4" cols="80" placeholder="내용을 입력해주세요">${vo.intContent}</textarea>
+        <textarea name="detContent" id="content" rows="4" cols="80" placeholder="내용을 입력해주세요">${vo.detContent}</textarea>
     </div>
     <div>
         이름
-       ${vo.intWriter}
+       ${vo.detWriter}
     </div>
     <div style="width:650px; text-align: center;">
         <!-- 게시물번호를 hidden으로 처리 -->
-        <input type="hidden" name="intNum" value="${vo.intNum}">
+        <input type="hidden" name="detNum" value="${vo.detNum}">
        <button type="submit" id="btnUpdete">수정</button>
     </div>
 </form>
 </body>
 <script>
-CKEDITOR.replace('intContent',{
+CKEDITOR.replace('detContent',{
 	filebrowserUploadUrl:"<c:url value='/ckImage.do'/>"
 });
 </script>

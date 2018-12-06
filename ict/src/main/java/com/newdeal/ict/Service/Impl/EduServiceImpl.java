@@ -32,12 +32,24 @@ public class EduServiceImpl implements EduService{
 		
 		return dao.intWrite(vo);
 	}
+	
+	@Override
+	public int detWrite(EduDetailVo vo) throws Exception {
+		
+		return dao.detWrite(vo);
+	}
 
 
 	@Override
 	public int intmaxNum() throws Exception {
 		
 		return dao.intmaxNum();
+	}
+	
+	@Override
+	public int detmaxNum() throws Exception {
+		
+		return dao.detmaxNum();
 	}
 
 	@Override
@@ -52,21 +64,28 @@ public class EduServiceImpl implements EduService{
 	}
 	
 	@Override
-	public HashMap<String, Object> detailList(int pageNum) throws Exception {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		int totalRowCount = dao.detailCnt();
+	public HashMap<String, Object> detList(HashMap<String, Object> map) throws Exception {
+		int totalRowCount = dao.detCnt(map);
+		int pageNum=Integer.parseInt(map.get("pageNum").toString());
 		PageUtil pu=new PageUtil(pageNum, 10, 10, totalRowCount);
-		List<EduDetailVo> list =dao.detailList(pu);
-		map.put("list", list);
 		map.put("pu",pu);
-		System.out.println("pu占쏙옙占쏙옙====>"+pu.toString());
+		List<EduDetailVo> list =dao.detList(map);
+		map.put("list", list);
 		return map;
 	}
+	
+	
 
 	@Override
 	public int intCnt(HashMap<String, Object> map) throws Exception {
 		
 		return dao.intCnt(map);
+	}
+	
+	@Override
+	public int detCnt(HashMap<String, Object> map) throws Exception {
+		
+		return dao.detCnt(map);
 	}
 
 	@Override
@@ -75,12 +94,26 @@ public class EduServiceImpl implements EduService{
 		return dao.intDetail(intNum);
 	}
 	
+	@Override
+	public EduDetailVo detDetail(int detNum) throws Exception {
+		dao.detaildetailCntUp(detNum);
+		return dao.detDetail(detNum);
+	}
+	
 	public IntDetailJoinVo intNext(int intNum) throws Exception {
 		return dao.intNext(intNum);
 	}
 	
 	public IntDetailJoinVo intPrev(int intNum) throws Exception {
 		return dao.intPrev(intNum);
+	}
+	
+	public EduDetailVo detNext(int detNum) throws Exception {
+		return dao.detNext(detNum);
+	}
+	
+	public EduDetailVo detPrev(int detNum) throws Exception {
+		return dao.detPrev(detNum);
 	}
 
 	@Override
@@ -91,6 +124,11 @@ public class EduServiceImpl implements EduService{
 	@Override
 	public IntroduceVo getWriter(int intNum) throws Exception {
 		return dao.getWriter(intNum);
+	}
+	
+	@Override
+	public EduDetailVo detgetWriter(int detNum) throws Exception {
+		return dao.detgetWriter(detNum);
 	}
 
 	@Override
@@ -119,11 +157,44 @@ public class EduServiceImpl implements EduService{
 			dao.intDelete(intNum);
 		return 0;
 	}
+	
+	@Override
+	public int detDelete(int detNum) throws Exception {
+		System.out.println("여기는오는지????");
+			List<CommonFileVo> filelist = dao.detFileDelList(detNum);
+			System.out.println("�뙆�씪由ъ뒪�듃異쒕젰"+filelist.toString());
+			if(filelist.size()>0) {
+			for(CommonFileVo vo:filelist) {
+				String files=vo.getFilePath()+vo.getFileName();
+				System.out.println("�뙆�씪�뵒�젆�넗由�+�뙆�씪�씠由� 異쒕젰�빐蹂닿린"+files);
+				File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
+				if( file.exists() ){
+		            if(file.delete()){
+		                dao.detFileDelete(detNum);
+		            }else{
+		            	System.out.println("파일삭제실패");
+		            }
+		            
+		        }else{
+		        }
+				
+
+			}
+			}
+			dao.detDelete(detNum);
+		return 0;
+	}
 
 	@Override
 	public int intEdit(IntroduceVo vo) throws Exception {
 		
 		return dao.intEdit(vo);
+	}
+	
+	@Override
+	public int detEdit(EduDetailVo vo) throws Exception {
+		
+		return dao.detEdit(vo);
 	}
 
 	@Override
@@ -144,11 +215,7 @@ public class EduServiceImpl implements EduService{
 		return 1;
 	}
 
-	@Override
-	public int detailWrite(EduDetailVo vo) throws Exception {
-		return dao.detailWrite(vo);
-	}
-
+	
 
 	@Override
 	public List<MemberVo> companymember() throws Exception {

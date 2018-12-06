@@ -82,18 +82,18 @@ window.fbAsyncInit = function() {
 <body>
 
 
-<div style="margin-top: 200px; margin-left: 500px;">
+<div style="margin:0px auto; width:800px;height: 430px; margin-top:100px;">
 				<h2>
 					<span style="color: #3b6aca;font-size: 36px;line-height: 24px; margin-left: 150px;">뉴딜 일자리</span> 로그인
 				</h2>
-				<br>
+				<br><br>
 				<p>
-					<b style="font-size: 19px;line-height: 24px;margin-left: 180px;">SNS 로그인 선택</b><br><br>
 					<span style="margin-left:100px;font-size: 18px;line-height: 24px; color: #707070;">로그인 하실 SNS 계정을 선택하여 주세요.</span><br>
 					<span style="margin-left:100px;font-size: 18px;line-height: 24px; color: #707070;">해당 SNS와 직접 로그인하여 뉴딜일자리 사이트에는</span><br>
 					<span style="margin-left:100px;font-size: 18px;line-height: 24px; color: #707070;">개인정보가 저장,수집되지 않으니 안심하셔도 됩니다.</span><br><br>
 				</p>
-				
+		
+					<b style="font-size: 19px;line-height: 24px;margin-left: 200px;">SNS 로그인 선택</b><br>
 		
 				
 				<br>
@@ -132,9 +132,25 @@ window.fbAsyncInit = function() {
 		<img src="<c:url value='/resources/images/Login_kakao_ico.png'/>">
 		<span style="line-height: 48px;color: #fff;font-weight: bold;">카카오 계정으로 로그인하기</span>
 		</a>
+		
+		
 	</li>
 	
 </ul>
+		<a href="<c:url value='/companylogin'/>" style="cursor: pointer;width: 250px;
+    line-height: 20px;
+    display: inline-block;
+    position: relative;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 9px;
+    border-radius: 4px;
+    background: #FFFFFF;
+    margin-left: 180px;">
+		<img src="<c:url value='/resources/images/company.PNG'/>" style="height: 48px;">
+		<span style="line-height: 50px;color: #000000;font-weight: bold;">기업회원 로그인하기</span>
+		</a>
 
 </div>
 <script type='text/javascript'>
@@ -183,7 +199,7 @@ window.fbAsyncInit = function() {
  <!------------------------------------------------------------------------------------------------------------------> 	
 <br>
 <div>
-<h3><a href="<c:url value='/companylogin'/>">기업회원 로그인</a></h3>
+
 </div>
 
 

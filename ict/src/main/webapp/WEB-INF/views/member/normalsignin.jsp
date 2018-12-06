@@ -81,12 +81,12 @@ window.fbAsyncInit = function() {
 </head>
 <body>
 
-	<div style="margin-top: 200px; margin-left: 500px;">
+<div style="margin:0px auto; width:800px;height: 450px; margin-top:100px;">
 				<h2>
 					<span style="color: #3b6aca;font-size: 36px;line-height: 24px; margin-left: 150px;">뉴딜 일자리</span>   SNS 회원가입
 				</h2>
-				<br>
-				<p>
+				<br><br>
+				<p style="margin-left: 50px;">
 			
 					<span style="margin-left:100px;font-size: 18px;line-height: 24px; color: #707070;">가입하실 SNS 계정을 선택하여 주세요.</span><br>
 					<span style="margin-left:100px;font-size: 18px;line-height: 24px; color: #707070;">해당 SNS와 직접 로그인하여 뉴딜일자리 사이트에는</span><br>
@@ -106,7 +106,8 @@ window.fbAsyncInit = function() {
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
-    padding-inline-start: 40px;">
+    padding-inline-start: 40px;
+    margin-left:80px;">
 	<li>
 		<a onclick="facebooklogin();" style="cursor: pointer;width: 250px;
     line-height: 48px;
