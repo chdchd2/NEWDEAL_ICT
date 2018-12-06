@@ -46,6 +46,7 @@ public class FestivalServiceImpl  implements FestivalService {
 		List<FestivalVo> list =dao.list(map);
 		map.put("list", list);
 		System.out.println("pu占쎄땀占쎌뒠====>"+pu.toString());
+		
 		return map;
 	}
 
@@ -213,26 +214,29 @@ public class FestivalServiceImpl  implements FestivalService {
 
 	@Override
 	public int detDelete(int detNum) throws Exception {
-		
-		List<CommonFileVo> filelist = dao.intFileDelList(detNum);
-		System.out.println("占쎈솁占쎌뵬�뵳�딅뮞占쎈뱜�빊�뮆�젾"+filelist.toString());
+		System.out.println("여기");
+		List<CommonFileVo> filelist = dao.detFileDelList(detNum);
+		System.out.println("서비스임플에서찍어보기 ==>"+filelist.toString());
 		
 		for(CommonFileVo vo:filelist) {
 			String files=vo.getFilePath()+vo.getFileName();
-			System.out.println("占쎈솁占쎌뵬占쎈탵占쎌젂占쎈꽅�뵳占�+占쎈솁占쎌뵬占쎌뵠�뵳占� �빊�뮆�젾占쎈퉸癰귣떯由�"+files);
+			System.out.println("ㄱㄱㄱㅁㅁㅁㅁㅁㅁ"+files);
 			File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 			if( file.exists() ){
 	            if(file.delete()){
 	                System.out.println("파일삭제");
 	            }else{
-	                System.out.println("占뼄占쎈솭");
+	                System.out.println("파일삭제안함");
 	            }
 	        }else{
-	            System.out.println("占쎈솁占쎌뵬占쎌뵠 鈺곕똻�삺占쎈릭筌욑옙 占쎈륫占쎈뮸占쎈빍占쎈뼄.");
+	            System.out.println("파일이 존재하지 않을경우.");
 	        }
 			dao.intFileDelete(detNum);
 			dao.fesDelete(detNum);
-			 System.out.println("占쎌뿫占쎈탣占쎈퓠占쎄퐣占쎈즲占쎄텣占쎌젫 占쎄쉐�⑨옙 :"+dao.detDelete(detNum));
+			System.out.println("임플부분에서 1번");
+			dao.detDelete(detNum);
+			System.out.println("임플부분에서 2번");
+			
 		}
 		dao.intFileDelete(detNum);
 		System.out.println("detNum :"+detNum);

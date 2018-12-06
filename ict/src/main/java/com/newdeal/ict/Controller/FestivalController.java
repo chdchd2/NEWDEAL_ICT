@@ -155,7 +155,7 @@ public class FestivalController {
 		String fileRefBoard="FESTIVAL";
 		int num=vo.getFesNum();
 		
-		commonservice.fileWrite(num,fileRefBoard,req);
+		commonservice.intfileWrite(num,fileRefBoard,req);
 		service.fesEdit(vo);
 	
 		
@@ -187,7 +187,7 @@ public class FestivalController {
 		int detNum = vo.getDetNum();
 		
 		String fileRefBoard="FESTIVALDEL";
-		commonservice.fileWrite(detNum,fileRefBoard,req);
+		commonservice.intfileWrite(detNum,fileRefBoard,req);
 		
 		return "redirect:/festival/detailList";
 	}
@@ -244,7 +244,7 @@ public class FestivalController {
 		String fileRefBoard="FESTIVAL";
 		int num=vo.getDetNum();
 		
-		commonservice.fileWrite(num,fileRefBoard,req);
+		commonservice.intfileWrite(num,fileRefBoard,req);
 		service.detEdit(vo);
 	
 		
@@ -264,7 +264,8 @@ public class FestivalController {
 		if(fesvo.getMemNum()==vo.getMemNum()) {
 		
 			System.out.println("일치한인간");
-			int n=service.fesDelete(detNum);
+			System.out.println("넘어온 숫자확인"+detNum);
+			int n=service.detDelete(detNum);
 			System.out.println("==========>지워져라 :" +  n);
 		}else {
 			System.out.println("달러달러.");

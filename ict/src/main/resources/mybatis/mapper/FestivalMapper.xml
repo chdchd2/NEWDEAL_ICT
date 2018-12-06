@@ -55,9 +55,10 @@
 
  <sql id="search">
  	<if test="searchType!=null and searchWord!=''">
-  where	 ${searchType} like '%' ||#{searchWord} ||'%'
+ ${searchType} like '%' ||#{searchWord} ||'%'
 	</if>
  </sql>
+ 
  
  
  <sql id="Part">
@@ -146,9 +147,9 @@ SELECT SEQ_FESTIVALDEL_FES_NUMD.currval as detNum FROM dual
 
 <select id="fesCnt" parameterType="hashmap" resultType="int">
  			SELECT NVL(COUNT(*),0) CNT from FESTIVAL
- 		
+ 		 <where>
  			  <include refid="search"/>
- 	
+ 	 </where>
  			<!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
  			
 </select>
@@ -382,9 +383,9 @@ SELECT * FROM
 	DELETE COMMON_FILE WHERE FILE_REF_BOARD='FESTIVAL' AND FILE_REF_NUM=#{fesNum}
 </delete>
 
-<!--  <delete id="intFileDelete" parameterType="int" >
+  <delete id="detFileDelete" parameterType="int" >
 	DELETE COMMON_FILE WHERE FILE_REF_BOARD='FESTIVALDEL' AND FILE_REF_NUM=#{detNum}
-</delete>  -->
+</delete>  
 
 <select id="intFileDelList" parameterType="int" resultType="filevo">
 	SELECT  FILE_NUM AS FILENUM,
@@ -398,7 +399,7 @@ SELECT * FROM
 	 WHERE FILE_REF_BOARD='FESTIVAL' AND FILE_REF_NUM=#{fesNum}
 </select>
 
-<!-- <select id="intFileDelList" parameterType="int" resultType="filevo">
+ <select id="detFileDelList" parameterType="int" resultType="filevo">
 	SELECT  FILE_NUM AS FILENUM,
 			FILE_NAME AS FILENAME,
 			FILE_ORGNAME AS FILEORGNAME,
@@ -409,7 +410,7 @@ SELECT * FROM
 	 FROM COMMON_FILE 
 	 WHERE FILE_REF_BOARD='FESTIVALDEL' AND FILE_REF_NUM=#{detNum}
 </select>
- -->
+
 <update id="fesEdit" parameterType="fesvo">
 	UPDATE FESTIVAL SET FES_TITLE=#{fesTitle},FES_CONTENT=#{fesContent} WHERE FES_NUM=#{fesNum}
 </update>
@@ -425,5 +426,3 @@ SELECT * FROM
 
 
 </mapper>
-
- 

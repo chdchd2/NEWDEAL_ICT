@@ -24,7 +24,7 @@ public class CommonServiceImpl implements CommonService{
 
 	@Override
 
-	public int fileWrite(int fileRefNum,String fileRefBoard,MultipartHttpServletRequest multiRequest) throws Exception {
+	public int intfileWrite(int fileRefNum,String fileRefBoard,MultipartHttpServletRequest multiRequest) throws Exception {
 
 	System.out.println("여기까지 오는지 테스트하기");
 
@@ -59,7 +59,8 @@ public class CommonServiceImpl implements CommonService{
 		return 0;
 	}
 
-	
-	
+
+
+
 
 }

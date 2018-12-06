@@ -71,13 +71,21 @@ public class FestivalDao {
 	}
 
 	public int fesDelete(int fesNum) {
+		System.out.println("다오에서 찍어보기 "+fesNum);
 		return session.delete(NAMESPACE+".fesDelete",fesNum);
 	}
 	public int intFileDelete(int fesNum) {
 		return session.delete(NAMESPACE+".intFileDelete",fesNum);
 	}
+	public int detFileDelete(int detNum) {
+		return session.delete(NAMESPACE+".detFileDelete",detNum);
+	}
 	public List<CommonFileVo> intFileDelList(int fesNum){
 		return session.selectList(NAMESPACE+".intFileDelList",fesNum);
+	}
+	
+	public List<CommonFileVo> detFileDelList(int detNum){
+		return session.selectList(NAMESPACE+".detFileDelList",detNum);
 	}
 	public int fesEdit(FestivalVo vo) {
 		return session.update(NAMESPACE+".fesEdit",vo);
@@ -122,6 +130,8 @@ public class FestivalDao {
 	}
 	
 	public int detDelete(int detNum) {
+		System.out.println("넘어온숫자"+detNum);
+		System.out.println("여기 다오오는지 확인==>");
 		return session.delete(NAMESPACE+".detDelete",detNum);
 	}
 
