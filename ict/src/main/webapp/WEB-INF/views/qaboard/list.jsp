@@ -37,25 +37,56 @@ function view(qaNum){
 						<h2>질문게시판</h2>
 					</div>
 
+<form name="form" method="post" 
+action="/ict/qaboard/list.do">
 					<div id="content">
 						<div id="tapMenu">
 							<a href="<c:url value='/qaboard/list.do'/>" style="font-weight:bold">Q&A</a>&emsp;|&emsp;
 							<a href="<c:url value='/qaboard/faq.do'/>">FAQ</a>
 						</div>
 						<p id="count">총<span>${map.count}건</span></p>
-						<ol id="search">
-								<li><a href="#a">전체 <img src="<c:url value='/resources/images/search_Active.png'/>" alt="검색창더보기"></a>
-									<ul id="detail">
-										<li><a href="#a">전체</a></li>
-										<li><a href="#a">제목</a></li>
-										<li><a href="#a">내용</a></li>
-									</ul>
+						
+							<ul id="search">
+								<li>
+									<select id="searchType" name="search_option">
+									<c:choose>
+										<c:when test="${map.search_option == 'all' }">
+											<option value="all" selected>전체</option>
+											<option value="qaWriter">이름</option>
+											<option value="qaContent">내용</option>
+											<option value="qaTitle">제목</option>
+										</c:when>
+										<c:when test="${map.search_option == 'qaWriter' }">
+											<option value="all">전체</option>
+											<option value="qaWriter" selected>이름</option>
+											<option value="qaContent">내용</option>
+											<option value="qaTitle">제목</option>
+										</c:when>
+										<c:when test="${map.search_option == 'qaContent' }">
+											<option value="all">전체</option>
+											<option value="qaWriter">이름</option>
+											<option value="qaContent" selected>내용</option>
+											<option value="qaTitle">제목</option>
+										</c:when>
+										<c:when test="${map.search_option == 'qaTitle' }">
+											<option value="all">전체</option>
+											<option value="qaWriter">이름</option>
+											<option value="qaContent">내용</option>
+											<option value="qaTitle" selected>제목</option>
+										</c:when>
+										<c:otherwise>
+											<option value="all" selected>전체</option>
+											<option value="qaWriter">이름</option>
+											<option value="qaContent">내용</option>
+											<option value="qaTitle">제목</option>
+										</c:otherwise>
+									</c:choose>	
+									</select>
 								</li>
-								<li><input type="text"></li>
-								<li><a href="#a">조회</a></li>
+								<li><input type="text" name="keyword" id="searchWord" value="${searchWord }"></li>
+								<li><a><input type="submit" value="조회"></a></li>
 							
-							</ol>
-
+							</ul>
 						<table id="table">
 						<colgroup>
 							<col>
@@ -125,12 +156,11 @@ function view(qaNum){
 </c:if>
 <!-- <button type="button" id="btnWrite">등록</button> -->
 
-<form name="form" method="post">
 	<input type="hidden" name="qaNum" />
-</form>
 
 </div>	
 </div>
+</form>
 </div>
 </div>
 </section>

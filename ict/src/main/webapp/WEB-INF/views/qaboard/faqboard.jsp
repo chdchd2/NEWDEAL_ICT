@@ -2,11 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@include file="/WEB-INF/views/header.jsp" %>
 <!Doctype html>
 <html lang="ko">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
 <meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
@@ -15,13 +13,38 @@
 	<link rel="stylesheet" href="<c:url value='/resources/css/reset.css'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/header_02.css'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/footer.css'/>">
-<link rel="stylesheet" href="<c:url value='/resources/css/community_FAQ.css?ver=1'/>">
-</head>
-<script>
+	<link rel="stylesheet" href="<c:url value='/resources/css/community_FAQ.css?ver=1'/>">
+	<title></title>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script>
 		$(function(){
-			$("#search > li").eq(0).click(function(){
+			$("#search > li").click(function(){
 				$("#detail li").slideToggle();
 			});
+
+
+
+			$("#table tbody .clear td").eq(0).slideDown(function(){
+					$(this).addClass("bgcolor2");
+					$("#table tbody tr").eq(0).addClass("bgcolor1");
+			});
+		
+
+
+			$("#table tbody tr").click(function(){
+			 	var N = $(this).next().children();
+				$("#table tbody .clear td").slideUp(function(){
+					$("#table tbody .class").removeClass();
+
+					N.slideDown();
+
+				});
+				$(this).addClass("bgcolor1");
+				N.addClass("bgcolor2");
+
+
+			});	
+			
 		});
 	</script>
 	<script>
@@ -78,7 +101,7 @@
 		//$menuBg.slideUp(200,"easeOutCubic")
 		$menuBg.animate({"top":-100},200,"easeOutCubic")
 	}
- 
+
 </script>
 <section>	
 
@@ -282,3 +305,4 @@
 </section>
 
 </html>
+<%@include file="/WEB-INF/views/footer.jsp" %>

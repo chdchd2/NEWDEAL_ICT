@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" href="<c:url value='/resources/css/fblogin.css'/>">
 <head>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
@@ -87,13 +86,12 @@ window.fbAsyncInit = function() {
  <span id="name">로그인 정보</span>
 <ul style="list-style: none;">
 	<li>
-		<a onclick="facebooklogin();" id="fbloginbtn" style="cursor: pointer;"><img src="<c:url value='/resources/images/Login_facebook_ico.png'/>">
+		<a onclick="facebooklogin();" style="cursor: pointer;"><img src="<c:url value='/resources/images/Login_facebook_ico.png'/>">
 		<span>페이스북 로그인</span>
 		</a>
 	</li>
 	
 </ul>
-<br>
 <!-- 카카오톡 로그인 -->
 <!-- ---------------------------------------------------------------------------------------------------------------->
 <a id="kakao-login-btn"/>

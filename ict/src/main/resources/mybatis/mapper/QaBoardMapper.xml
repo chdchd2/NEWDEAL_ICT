@@ -61,6 +61,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							   'Q',
 							   'NO'
 							 )
+	<selectKey keyProperty="qaNum" resultType="int" order="AFTER">
+	SELECT  QABOARD_SEQ.CURRVAL as qaNum FROM dual
+	</selectKey>						  
 						 
 	</insert>
 	
@@ -108,7 +111,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 										#{fileOrgName},
 										#{fileSize},
 										#{filePath},
-										'FREEBOARD',
+										'QABOARD',
 										#{fileRefNum}
 										)
 	</insert>
@@ -171,7 +174,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   	   AND QA.QA_NUM=#{qaNum}
 	</select>
 	
-	
+
+<select id="qaPrev" parameterType="int" resultMap="qaboard">
+SELECT * FROM
+		  (SELECT  QA_NUM AS qaNum,
+			  	   QA_TITLE AS qaTitle,
+			  	   QA_REGDATE AS qaRegdate,
+				   QA_CONTENT AS qaContent,
+			 	   QA_VIEWCNT AS qaViewcnt,
+				   QA_WRITER AS qaWriter,
+				   FILE_NUM AS fileNum ,
+				   FILE_NAME AS fileName,
+				   FILE_ORGNAME AS fileOrgName,
+		 	  	   FILE_SIZE AS fileSize,
+				   FILE_PATH AS filePath,
+				   FILE_REF_BOARD AS fileRefBoard,
+				   FILE_REF_NUM AS fileRefNum, 
+				   ROWNUM 
+			  FROM QABOARD QA, COMMON_FILE CF 
+	 <![CDATA[ 
+		 WHERE QA.QA_NUM=CF.FILE_REF_NUM(+)
+		   AND QA.QA_NUM<#{qaNum} ORDER BY QA_NUM DESC)
+		 WHERE ROWNUM=1
+	]]>
+</select>
+
+<select id="qaNext" parameterType="int" resultMap="qaboard">
+SELECT * FROM
+		  (SELECT  QA_NUM AS qaNum,
+			  	   QA_TITLE AS qaTitle,
+			  	   QA_REGDATE AS qaRegdate,
+				   QA_CONTENT AS qaContent,
+			 	   QA_VIEWCNT AS qaViewcnt,
+				   QA_WRITER AS qaWriter,
+				   FILE_NUM AS fileNum ,
+				   FILE_NAME AS fileName,
+				   FILE_ORGNAME AS fileOrgName,
+		 	  	   FILE_SIZE AS fileSize,
+				   FILE_PATH AS filePath,
+				   FILE_REF_BOARD AS fileRefBoard,
+				   FILE_REF_NUM AS fileRefNum, 
+				   ROWNUM 
+			 FROM  QABOARD QA,COMMON_FILE CF 
+	 <![CDATA[ 
+		 WHERE QA.QA_NUM=CF.FILE_REF_NUM(+)
+		   AND QA.QA_NUM>#{qaNum} ORDER BY QA_NUM ASC)
+		 WHERE ROWNUM=1
+	]]>
+</select>	
 	
 <!-- 게시물삭제 -->
 	<delete id="deleteArticle">
@@ -189,9 +239,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 게시물 목록 -->
 	<select id="listAll" resultType="com.newdeal.ict.Vo.QaBoardVo">
 		<include refid="paging_header" />
-		SELECT * FROM QABOARD
+		SELECT QA_NUM AS qaNum,
+			   QA_TITLE AS qaTitle,
+			   QA_REGDATE AS qaRegdate,
+			   QA_VIEWCNT AS qaViewcnt,
+			   QA_WRITER AS qaWriter
+		  FROM QABOARD QA, MEMBER M
 		<include refid="search"></include>
-	  ORDER BY ORIGIN_NO DESC, GROUP_ORD ASC 
+	  ORDER BY QA.ORIGIN_NO DESC, QA.GROUP_ORD ASC 
 	  	<include refid="paging_footer" />
 	</select>	
 	
@@ -221,18 +276,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<sql id="search">	
 		<choose>
 			<when test="search_option == 'all'">
-				WHERE  QA_WRITER LIKE '%' || #{keyword} || '%'
+				WHERE  QA.QA_WRITER=M.MEM_NICKNAME
+				AND( MEM_NICKNAME LIKE '%' || #{keyword} || '%'
 				  	   OR QA_CONTENT LIKE '%' || #{keyword} || '%'
-				   	   OR QA_TITLE LIKE '%' || #{keyword} || '%' 
+				   	   OR QA_TITLE LIKE '%' || #{keyword} || '%' )
 			</when>
 			<when test="search_option == 'qaWriter'">
-				WHERE QA_WRITER LIKE '%' || #{keyword} || '%' 
+				WHERE QA.QA_WRITER=M.MEM_NICKNAME
+				AND( MEM_NICKNAME  LIKE '%' || #{keyword} || '%' )
 			</when>
 			<when test="search_option == 'qaContent'">
-				WHERE QA_CONTENT LIKE '%' || #{keyword} || '%'
+				WHERE QA.QA_WRITER=M.MEM_NICKNAME
+				AND(QA_CONTENT LIKE '%' || #{keyword} || '%')
 			</when>
 			<when test="search_option == 'qaTitle'">
-				WHERE QA_TITLE LIKE '%' || #{keyword} || '%'
+				WHERE QA.QA_WRITER=M.MEM_NICKNAME
+				AND(QA_TITLE LIKE '%' || #{keyword} || '%')
 			</when>
 			<otherwise>
 				WHERE ${search_option} LIKE '%' || #{keyword}||'%'
@@ -270,7 +329,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE FILE_NUM=#{fileNum}
 	</select>	
 	
-	<delete id="fbFileDelete" parameterType="int">
+	<delete id="qaFileDelete" parameterType="int">
 		DELETE COMMON_FILE 
 		 WHERE FILE_REF_BOARD='QABOARD' 
 		   AND FILE_REF_NUM=#{qaNum}

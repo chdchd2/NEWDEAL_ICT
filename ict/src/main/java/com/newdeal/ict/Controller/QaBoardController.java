@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.newdeal.ict.Service.CommonService;
 import com.newdeal.ict.Service.QaBoardService;
 import com.newdeal.ict.Util.Pager;
 import com.newdeal.ict.Vo.CommentVo;
@@ -35,6 +36,8 @@ public class QaBoardController {
 
 	@Inject
 	QaBoardService service;
+	@Inject
+	CommonService commonservice;
 
 
 	
@@ -75,16 +78,14 @@ public class QaBoardController {
 	
 	
 	@RequestMapping("insert.do")
-	public String insert(@ModelAttribute QaBoardVo vo,HttpSession session, MultipartHttpServletRequest req) throws Exception{
+	public String insert(@ModelAttribute QaBoardVo vo,HttpSession session, MultipartHttpServletRequest multiRequest) throws Exception{
 		/*vo.setFbWriter((String)session.getAttribute("member"));*/
 		System.out.println("=====================>"+vo.toString());
 		service.create(vo);
 		//첨부파일 처리하기
-		List<MultipartFile> filelist = req.getFiles("file"); 
-		System.out.println("파일리스트"+filelist.toString());
-		System.out.println("파일사이즈"+filelist.size());
-		int num=service.qamaxNum();
-		service.qafileWrite(filelist, num);
+		int fileRefNum = service.qamaxNum();
+		String fileRefBoard = "QABOARD";
+		commonservice.fileWrite(fileRefNum, fileRefBoard, multiRequest);
 		return "redirect:/qaboard/list.do";
 	}
 	
@@ -104,6 +105,8 @@ public class QaBoardController {
 		/*mav.addObject("list2",list2);*/
 		mav.setViewName(".qaboard.view");
 		mav.addObject("vo", service.read(qaNum));
+		mav.addObject("prev", service.qaPrev(qaNum));
+		mav.addObject("next", service.qaNext(qaNum));
 		return mav;
 	}
 	
@@ -121,13 +124,12 @@ public class QaBoardController {
 	//게시물내용수정
 	@RequestMapping("update.do")
 	public String update(@ModelAttribute QaBoardVo vo, MultipartHttpServletRequest req) throws Exception {
-		if(vo != null){
-			System.out.println("=====================>"+vo.toString());
-			List<MultipartFile> filelist = req.getFiles("file"); 
-			int num=service.qamaxNum();
-			service.qafileWrite(filelist, num);
-			service.update(vo);//레코드수정
-		}
+
+		String fileRefBoard="QABOARD";
+		int num=vo.getQaNum();
+		commonservice.fileWrite(num,fileRefBoard,req);
+		service.update(vo);
+		
 		//수정상세화면
 		//return "redirect:/qaboard/view.do?qaNum="+vo.getFbNum();
 		return "redirect:/qaboard/list.do";

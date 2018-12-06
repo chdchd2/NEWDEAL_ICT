@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.newdeal.ict.Vo.CommonFileVo;
+import com.newdeal.ict.Vo.FreeBoardVo;
 import com.newdeal.ict.Vo.QaBoardVo;
 
 @Repository
@@ -37,6 +38,13 @@ public class QaBoardDao {
 	
 	public QaBoardVo read(int qaNum) throws Exception {
 		return sqlSession.selectOne("qaboard.view", qaNum);
+	}
+
+	public QaBoardVo qaNext(int qaNum) {
+		return sqlSession.selectOne("qaboard.qaNext",qaNum);
+	}
+	public QaBoardVo qaPrev(int qaNum) {
+		return sqlSession.selectOne("qaboard.qaPrev",qaNum);
 	}
 	
 	public void update(QaBoardVo vo) throws Exception {
@@ -86,20 +94,7 @@ public class QaBoardDao {
 		return sqlSession.selectOne("qaboard.refMax");
 	}
 	
-	public int stepMax(QaBoardVo vo) throws Exception {
-		return sqlSession.selectOne("qaboard.stepMax", vo);
-	}
 	
-	public void updateStep(QaBoardVo vo) throws Exception {
-/*		sqlSession.selectOne("qaboard.updateStep", vo);*/
-		sqlSession.update("qaboard.updateStep", vo);
-	}
-	
-	public int insertReply(QaBoardVo vo) throws Exception {
-		sqlSession.insert("qaboard.insertReply", vo);
-		int qaNum = vo.getQaNum();
-		return qaNum;
-	}
 	public List<QaBoardVo> listAll() throws Exception {
 		return sqlSession.selectList("qaboard.qaListAll");
 	}

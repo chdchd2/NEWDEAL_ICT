@@ -117,8 +117,6 @@ $(function(){
 						</div>
 
 	<div>
-	<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
-		<input type="hidden" name="ntNum" value="${vo.ntNum}" />
 	<!-- 본인 게시물만 수정,삭제 버튼 표시 -->	
 		<a id="list" class="btnList">목록</a>
 	<c:if test="${sessionScope.member.memNickName == vo.ntWriter }"> 
@@ -127,6 +125,8 @@ $(function(){
 	</c:if> 
 	</div>
 	</div>
+	<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
+		<input type="hidden" name="ntNum" value="${vo.ntNum}" />
 	
 </form>
 </div>

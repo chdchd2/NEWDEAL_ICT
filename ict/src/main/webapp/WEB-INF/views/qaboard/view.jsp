@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script>
 $(function(){
 	
@@ -63,22 +64,42 @@ $(function(){
 							 <c:out value="${vo.qaContent}" escapeXml="false"/>
 							</div>
 							<ul>
-								
-								
+								<li>
+									<span>첨부파일</span>
+								<c:choose>
+								<c:when test="${fn:length(vo.list) > 0 }">
+								<c:forEach var="list" items="${vo.list }">
+								<a class="add_file" href="<c:url value='/qaboard/fileDown?fileNum=${list.fileNum }'/>">${list.fileOrgName }</a>
+								</c:forEach>																
+								</c:when>
+								<c:otherwise>
+								<a href="#a">첨부파일이 없습니다.</a>
+								</c:otherwise>
+								</c:choose>
+								</li>
 								<li>
 									<span>이전 글</span>
-									<a href="#a">이전 글이 없습니다.</a>
+									<c:choose>
+									<c:when test="${prev.qaTitle eq null}">
+									<a href="#">이전글이 없습니다.</a>
+									</c:when>
+									<c:otherwise>
+										<a href="<c:url value='/qaboard/view.do?qaNum=${prev.qaNum }'/>">${prev.qaTitle }</a>
+									</c:otherwise>
+									</c:choose>
 								</li>
 								<li>
 									<span>다음 글</span>
-									<a href="#a">다음 글이 없습니다.</a>
+									<c:choose>
+									<c:when test="${next.qaTitle eq null}">
+									<a href="#">다음글이 없습니다.</a>
+									</c:when>
+									<c:otherwise>
+										<a href="<c:url value='/qaboard/view.do?qaNum=${next.qaNum }'/>">${next.qaTitle }</a>
+									</c:otherwise>
+									</c:choose>
 								</li>
-								<li>
-									<span>첨부파일</span>
-								<c:forEach var="list" items="${vo.list }">
-								<a href="<c:url value='/qaboard/fileDown?fileNum=${list.fileNum }'/>">${list.fileOrgName }</a>
-								</c:forEach>
-								</li>
+								
 							</ul>
 						</div>
 
