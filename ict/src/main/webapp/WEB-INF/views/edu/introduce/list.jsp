@@ -16,7 +16,7 @@ function searchs(){
 					<h2>교육신청</h2>
 					<ul>
 						<li><a href="<c:url value='/edu/intList'/>" class="subActive">교육신청안내 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
-						<li><a href="<c:url value='/edu/detailList'/>">프로그램상세</a></li>
+						<li><a href="<c:url value='/edu/detList'/>">프로그램상세</a></li>
 						<li><a href="#">교육신청 바로가기</a></li>
 					</ul>
 				</div>

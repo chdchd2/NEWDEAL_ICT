@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.ReviewMapper">
+
+<resultMap type="com.newdeal.ict.Vo.ReviewVo" id="rvjoinvo">
+	<result property="rvNum" column="rvNum"/>
+	<result property="memNum" column="memNum"/>
+	<result property="rvTitle" column="rvTitle"/>
+	<result property="rvContent" column="rvContent"/>
+	<result property="rvWriter" column="rvWriter"/>
+	<result property="rvDate" column="rvDate"/>
+	<result property="rvHit" column="rvHit"/>
+	<result property="rvPart" column="rvPart"/>
+	<collection property="list" ofType="com.newdeal.ict.Vo.CommonFileVo">
+		<result property="fileNum" column="fileNum"/>
+		<result property="fileName" column="fileName"/>
+		<result property="fileOrgName" column="fileOrgName"/>
+		<result property="fileSize" column="fileSize"/>
+		<result property="filePath" column="filePath"/>
+		<result property="fileRefBoard" column="fileRefBoard"/>
+		<result property="fileRefNum" column="fileRefNum"/>
+	</collection>
+</resultMap>
+
+ <sql id="search">
+ 	<if test="searchType!=null and searchWord!=''">
+ 	 ${searchType} like '%' ||#{searchWord} ||'%'
+	</if>
+ </sql>
+ 
+ 
+ <sql id="part">
+ 	<if test="rvPart!=null and searchType!=null and searchWord!=''">
+ 	AND	RV_PART='${rvPart}'
+	</if>
+	 <if test="rvPart!=null and searchWord==null">
+		RV_PART='${rvPart}'
+	</if>
+
+ </sql>
+ 
+<insert id="rvWrite" parameterType="rvvo">
+	INSERT INTO REVIEW VALUES(
+									SEQ_REVIEW.nextval,
+									#{memNum},
+									#{rvTitle},
+									#{rvContent},
+									sysdate,
+									#{rvWriter},
+									0,
+									#{rvPart}
+									)
+
+<selectKey keyProperty="rvNum" resultType="int" order="AFTER"> 
+SELECT SEQ_REVIEW.currval as rvNum FROM dual
+</selectKey>
+</insert>
+
+<select id="rvmaxNum" resultType="int">
+	SELECT NVL(MAX(RV_NUM),1) AS MAXNUM 
+	FROM REVIEW
+</select>
+
+<select id="rvCnt" parameterType="hashmap" resultType="int">
+ 			SELECT NVL(COUNT(*),0) CNT from REVIEW
+ 			<where>
+ 			  <include refid="search"/>
+ 			  <include refid="part"/>
+ 			
+ 			</where>
+ 			<!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
+ 			
+</select>
+
+<select id="rvList" parameterType="hashmap" resultType="rvvo">
+      SELECT RV_NUM AS RVNUM,
+      		 MEM_NUM AS MEMNUM,
+      		 RV_TITLE AS RVTITLE,
+      		 RV_CONTENT AS RVCONTENT,
+      		 RV_WRITER AS RVWRITER,
+      		 RV_DATE AS RVDATE,
+      		 RV_HIT AS RVHIT,
+      		 RV_PART AS RVPART,
+      		 RNUM RNUM
+       FROM(
+                    SELECT AA.*,ROWNUM RNUM FROM(
+                                 SELECT * FROM REVIEW
+                                 <where>
+                                   <include refid="search"/>
+                                   <include refid="part"/>
+                                 </where>
+                                 ORDER BY RV_NUM DESC
+                                				 )AA
+                     )
+      <![CDATA[where rnum >=#{pu.startRow} and rnum <=#{pu.endRow}]]>
+	
+</select>
+
+<select id="rvDetail" parameterType="int" resultMap="rvjoinvo">
+	SELECT  RV_NUM AS RVNUM,
+			MEM_NUM AS MEMNUM,
+			RV_TITLE AS RVTITLE,
+			RV_CONTENT AS RVCONTENT,
+			RV_WRITER AS RVWRITER,
+			RV_DATE AS RVDATE,
+			RV_HIT AS RVHIT,
+			RV_PART AS RVPART,
+			FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM
+			FROM REVIEW A,COMMON_FILE B 
+	 WHERE A.RV_NUM=B.FILE_REF_NUM(+)
+	AND A.RV_NUM=#{rvNum} 
+</select>
+
+<select id="rvPrev" parameterType="int" resultMap="rvjoinvo">
+SELECT * FROM
+		  (SELECT  RV_NUM AS RVNUM,
+			MEM_NUM AS MEMNUM,
+			RV_TITLE AS RVTITLE,
+			RV_CONTENT AS RVCONTENT,
+			RV_WRITER AS RVWRITER,
+			RV_DATE AS RVDATE,
+			RV_HIT AS RVHIT,
+			FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM,
+			ROWNUM 
+			FROM REVIEW A,COMMON_FILE B 
+	 <![CDATA[ 
+	 WHERE A.RV_NUM=B.FILE_REF_NUM(+)
+	AND A.RV_NUM<#{rvNum} ORDER BY RV_NUM DESC)
+	WHERE ROWNUM=1
+	]]>
+</select>
+
+<select id="rvNext" parameterType="int" resultMap="rvjoinvo">
+SELECT * FROM
+		  (SELECT  RV_NUM AS RVNUM,
+			MEM_NUM AS MEMNUM,
+			RV_TITLE AS RVTITLE,
+			RV_CONTENT AS RVCONTENT,
+			RV_WRITER AS RVWRITER,
+			RV_DATE AS RVDATE,
+			RV_HIT AS RVHIT,
+			FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM,
+			ROWNUM 
+			FROM REVIEW A,COMMON_FILE B 
+	 <![CDATA[ 
+	 WHERE A.RV_NUM=B.FILE_REF_NUM(+)
+	AND A.RV_NUM>#{rvNum} ORDER BY RV_NUM ASC)
+	WHERE ROWNUM=1
+	]]>
+</select>
+
+<select id="fileinfo" parameterType="filevo" resultType="filevo">
+	SELECT  FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM
+	FROM 
+			COMMON_FILE
+	WHERE
+			FILE_NUM=#{fileNum}
+</select>
+
+<select id="rvgetWriter" parameterType="int" resultType="rvvo">
+	SELECT  RV_NUM AS RVNUM,
+			MEM_NUM AS MEMNUM,
+			RV_TITLE AS RVTITLE,
+			RV_CONTENT AS RVCONTENT,
+			RV_WRITER AS RVWRITER,
+			RV_DATE AS RVDATE,
+			RV_HIT AS RVHIT,
+			RV_PART AS RVPART
+	FROM	REVIEW
+	WHERE RV_NUM=#{rvNum}
+</select>
+
+<delete id="rvDelete" parameterType="int">
+	DELETE REVIEW WHERE rv_NUM=#{rvNum}
+</delete>
+
+<delete id="rvFileDelete" parameterType="int">
+	DELETE COMMON_FILE WHERE FILE_REF_BOARD='REVIEW' AND FILE_REF_NUM=#{rvNum}
+</delete>
+
+<select id="rvFileDelList" parameterType="int" resultType="filevo">
+	SELECT  FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM 
+	 FROM COMMON_FILE 
+	 WHERE FILE_REF_BOARD='REVIEW' AND FILE_REF_NUM=#{rvNum}
+</select>
+
+<update id="rvEdit" parameterType="intvo">
+	UPDATE REVIEW SET RV_TITLE=#{rvTitle},RV_CONTENT=#{rvContent} WHERE RV_NUM=#{rvNum}
+</update>
+
+<delete id="fileDel" parameterType="filevo">
+	DELETE COMMON_FILE WHERE FILE_NUM=#{fileNum}
+</delete>
+
+<update id="rvCntUp" parameterType="int">
+	UPDATE REVIEW SET RV_HIT=RV_HIT+1 WHERE RV_NUM=#{rvNum}
+</update>
+
+	<insert id="comment" parameterType="commentvo">
+		INSERT INTO COMMENTS VALUES(SEQ_COMMENTS_COM_NUM.nextval,#{memNum},#{comContent},#{comType},#{comBnum},sysdate)
+	</insert>
+	
+	<select id="commentList" resultType="commentvo" parameterType="int">
+		<!-- SELECT A.*,B.MEM_NICKNAME FROM COMMENTS A,MEMBER B WHERE A.MEM_NUM=B.MEM_NUM AND A.COM_BNUM=#{fbNum} ORDER BY COM_NUM ASC -->
+		SELECT  C.COM_NUM AS comNum,
+			   C.MEM_NUM AS memNum,
+			   C.COM_CONTENT AS comContent,
+			   C.COM_TYPE AS comType,
+			   C.COM_BNUM AS comBnum,
+			   TO_CHAR(C.COM_DATE,'YYYY-MM-DD') AS comDate,
+			   C.MEM_NUM AS memNum,
+			   M.MEM_NICKNAME AS MemNickName
+		 FROM  COMMENTS C, MEMBER M   
+		WHERE  C.MEM_NUM=M.MEM_NUM 
+		  AND  C.COM_BNUM=#{fbNum} 
+	 ORDER BY  COM_NUM ASC
+	</select>
+	
+	<delete id="comDel" parameterType="int">
+        DELETE
+          FROM  COMMENTS
+         WHERE  COM_NUM = #{comNum}
+    </delete>
+   <!--  <update id="comUpdate" parameterType="int">
+        UPDATE  COMMENTS
+           SET  COM_CONTENT = #{comContent}
+         WHERE  COM_NUM = #{comNum}
+    </update> -->
+
+</mapper>
+
+ 

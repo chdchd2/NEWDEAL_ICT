@@ -5,7 +5,7 @@
 <section>
 <script>
 $(function(){
-	$(".btnWrite").click(function(){
+	$("#btnWrite").click(function(){
 		location.href="/ict/freeboard/write.do";
 	});
 });
@@ -26,7 +26,7 @@ function view(fbNum){
 					<ul>
 						<li><a href="<c:url value='/notice/list.do'/>">공지사항 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
 						<li><a href="<c:url value='/freeboard/list.do'/>" class="subActive">자유게시판<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
-						<li><a href="#">후기게시판</a></li>
+						<li><a href="<c:url value='/review/rvList'/>">후기게시판</a></li>
 						<li><a href="<c:url value='/qaboard/list.do'/>">질문게시판<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
 					</ul>
 </div>
@@ -142,19 +142,22 @@ action="/ict/freeboard/list.do">
 			<p><a href="javascript:list('${map.pager.nextPage}')"><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
 		</c:when>
 		<c:otherwise>
-			<p><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></p>
+			<p><a><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
 		</c:otherwise>
 	</c:choose>
 
+<div>
 <c:if test="${sessionScope.member != null }">
-	<a id="list" class="btnWrite">등록</a>
+<p id="submit">
+	<a id="btnWrite">등록</a>
+</p>
 </c:if>
 <!-- <button type="button" id="btnWrite">등록</button> -->
 
 
 <input type="hidden" name="fbNum" />
 
-
+</div>
 </div>	
 </div>
 </form>

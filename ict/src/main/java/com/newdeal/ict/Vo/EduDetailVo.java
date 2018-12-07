@@ -13,7 +13,7 @@ public class EduDetailVo {
 	private String detContent;
 	private Date detDate;
 	private String detWriter;
-	private int hit;
+	private int detHit;
 	private List<CommonFileVo> list;
 	
 	public EduDetailVo() {}
@@ -71,12 +71,12 @@ public class EduDetailVo {
 		this.detWriter = detWriter;
 	}
 
-	public int getHit() {
-		return hit;
+	public int getDetHit() {
+		return detHit;
 	}
 
-	public void setHit(int hit) {
-		this.hit = hit;
+	public void setDetHit(int detHit) {
+		this.detHit = detHit;
 	}
 
 	public List<CommonFileVo> getList() {
@@ -88,7 +88,7 @@ public class EduDetailVo {
 	}
 
 	public EduDetailVo(int detNum, int memNum, String detTitle, String detContent, Date detDate, String detWriter,
-			int hit, List<CommonFileVo> list) {
+			int detHit, List<CommonFileVo> list) {
 		super();
 		this.detNum = detNum;
 		this.memNum = memNum;
@@ -96,9 +96,10 @@ public class EduDetailVo {
 		this.detContent = detContent;
 		this.detDate = detDate;
 		this.detWriter = detWriter;
-		this.hit = hit;
+		this.detHit = detHit;
 		this.list = list;
 	}
+
 	
 	
 	

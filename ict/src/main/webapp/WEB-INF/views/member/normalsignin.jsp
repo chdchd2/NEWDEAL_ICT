@@ -81,31 +81,74 @@ window.fbAsyncInit = function() {
 </head>
 <body>
 
+<div style="margin:0px auto; width:800px;height: 450px; margin-top:100px;">
+				<h2>
+					<span style="color: #3b6aca;font-size: 36px;line-height: 24px; margin-left: 150px;">뉴딜 일자리</span>   SNS 회원가입
+				</h2>
+				<br><br>
+				<p style="margin-left: 50px;">
+			
+					<span style="margin-left:100px;font-size: 18px;line-height: 24px; color: #707070;">가입하실 SNS 계정을 선택하여 주세요.</span><br>
+					<span style="margin-left:100px;font-size: 18px;line-height: 24px; color: #707070;">해당 SNS와 직접 로그인하여 뉴딜일자리 사이트에는</span><br>
+					<span style="margin-left:100px;font-size: 18px;line-height: 24px; color: #707070;">개인정보가 저장,수집되지 않으니 안심하셔도 됩니다.</span><br><br>
+				</p>
+				
+		
+				
+				<br>
+			
+	
 
 
-
-<ul style="list-style: none;">
+<ul style="list-style: none;    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+    margin-left:80px;">
 	<li>
-		<a onclick="facebooklogin();" style="cursor: pointer;"><img src="<c:url value='/resources/images/Login_facebook_ico.png'/>">
-		<span>페이스북 회원가입하기</span>
+		<a onclick="facebooklogin();" style="cursor: pointer;width: 250px;
+    line-height: 48px;
+    display: inline-block;
+    position: relative;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 9px;
+    border-radius: 4px;
+    background: #3155af;">
+		<img src="<c:url value='/resources/images/Login_facebook_ico.png'/>">
+		<span style="    line-height: 48px;color: #fff;font-weight: bold;">페이스북 회원가입하기</span>
+		</a>
+
+		
+		<a id="custom-login-btn" href="javascript:loginWithKakao()" style="cursor: pointer;width: 250px;
+    line-height: 48px;
+    display: inline-block;
+    position: relative;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 9px;
+    border-radius: 4px;
+    background: #ffd632;">
+		<img src="<c:url value='/resources/images/Login_kakao_ico.png'/>">
+		<span style="line-height: 48px;color: #fff;font-weight: bold;">카카오 계정으로 회원가입</span>
 		</a>
 	</li>
 	
 </ul>
 
-<!-- 카카오톡 로그인 -->
-<!-- ---------------------------------------------------------------------------------------------------------------->
-<a id="kakao-login-btn">카카오톡으로 회원가입하기</a>
-<br>
-
-
+	</div>
 <script type='text/javascript'>
 	//<![CDATA[
 	// 사용할 앱의 JavaScript 키를 설정해 주세요.
 	Kakao.init('a4a27a184b3210f836eea86cdd0104cd');
 	// 카카오 로그인 버튼을 생성합니다.
-	Kakao.Auth.createLoginButton({
-		container : '#kakao-login-btn',
+	function loginWithKakao() {
+		  Kakao.Auth.login({
 		success : function(authObj) {
 			// 로그인 성공시, API를 호출합니다.
 			Kakao.API.request({
@@ -139,12 +182,11 @@ window.fbAsyncInit = function() {
 			alert(JSON.stringify(err));
 		}
 	});
+	}
 	//]]>
 </script>
  <!------------------------------------------------------------------------------------------------------------------> 	
-<br>
-<div>
-</div>
+
 
 
 

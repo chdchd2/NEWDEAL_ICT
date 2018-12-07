@@ -92,7 +92,6 @@
             <span>사이트 관리</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="login.html">메인바꾸기</a>
             <a class="dropdown-item" href="register.html">교육신청 링크추가</a>
           </div>
         </li>

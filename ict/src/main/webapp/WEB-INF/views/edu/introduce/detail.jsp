@@ -69,10 +69,10 @@
 							</ul>
 						</div>
 						<c:if test="${member.memGrade==2 && member.memState=='allow'}">
-						 <a id="list" href="<c:url value='/edu/intEdit?intNum=${vo.intNum }'/>">수정</a>
 						 <a id="list" href="<c:url value='/edu/intDelete?intNum=${vo.intNum }'/>">삭제</a>
-						 <a id="list"href="<c:url value='/edu/intList'/>" >목록</a>
+						 <a id="list" href="<c:url value='/edu/intEdit?intNum=${vo.intNum }'/>">수정</a>
 						 </c:if>
+						<a id="list"href="<c:url value='/edu/intList'/>" >목록</a>
 					</div>
 					        <input type="hidden" name="bno" value="${vo.intNum}">
 					</form>
