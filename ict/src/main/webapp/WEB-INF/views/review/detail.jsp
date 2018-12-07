@@ -5,7 +5,18 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <body>
 <script>
+$(function(){
+	
+	
+	$(".btnDelete").click(function(){
+		if(confirm("삭제하시겠습니까?")){
+			document.form1.action="<c:url value='/review/rvDelete'/>";
+			document.form1.submit();
+		}
+	});
 
+
+});
 function comment(){
 	var comContent=$("#comContent").val();
 	var memNum=$("#memNum").val();
@@ -65,7 +76,7 @@ function comDel(comNum) {
 					<div id="contentHeader">
 						<h2>후기게시판</h2>
 					</div>
-					<form name="form1" method="post">
+					<form name="form1" name="form1" method="post">
 					<div id="content">
 						<div id="boardheader">
 							<h2>[ ${vo.rvPart} ] ${vo.rvTitle }</h2>
@@ -120,11 +131,12 @@ function comDel(comNum) {
 								
 							</ul>
 						</div>
+						<a id="list"href="<c:url value='/review/rvList'/>" >목록</a>
 						<c:if test="${sessionScope.member.memNickName == vo.rvWriter}">
-						 <a id="list" href="<c:url value='/review/rvDelete?rvNum=${vo.rvNum }'/>">삭제</a>
+						 <%-- <a id="list" href="<c:url value='/review/rvDelete?rvNum=${vo.rvNum }'/>">삭제</a> --%>
+						 <a id="list" class="btnDelete">삭제</a>
 						 <a id="list" href="<c:url value='/review/rvEdit?rvNum=${vo.rvNum }'/>">수정</a>
 						 </c:if>
-						<a id="list"href="<c:url value='/review/rvList'/>" >목록</a>
 						</div>
 					        <input type="hidden" name="rvNum" value="${vo.rvNum}">
 		

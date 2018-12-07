@@ -104,7 +104,7 @@ public class ReviewController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/rvDelete",method = RequestMethod.GET)
+	@RequestMapping(value = "/rvDelete",method = {RequestMethod.GET, RequestMethod.POST})
 	public String rvDelete(int rvNum,HttpSession session, HttpServletRequest request) throws Exception {
 		MemberVo vo=(MemberVo)session.getAttribute("member");
 		System.out.println("삭제할 글번호는?"+rvNum);
@@ -116,7 +116,7 @@ public class ReviewController {
 			int n=service.rvDelete(rvNum);
 			
 		}else {
-			System.out.println("媛숈��븡�떎.");
+			System.out.println("삭제실패.");
 		}
 		
 		

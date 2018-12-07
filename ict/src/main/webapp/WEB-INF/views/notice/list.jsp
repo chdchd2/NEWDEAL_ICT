@@ -5,7 +5,7 @@
 <section> 
 <script>
 $(function(){
-	$(".btnWrite").click(function(){
+	$("#btnWrite").click(function(){
 		location.href="/ict/notice/write.do";
 	}); 
 });
@@ -148,15 +148,18 @@ action="/ict/notice/list.do">
 		</c:otherwise>
 	</c:choose>
 
+</div>	
+
 <c:if test="${sessionScope.member != null }">
-	<a id="list" class="btnWrite">등록</a>
+<p id="submit">
+	<a id="btnWrite">등록</a>
+</p>
 </c:if>
 <!-- <button type="button" id="btnWrite">등록</button> -->
 
 
 	<input type="hidden" name="ntNum" />
 
-</div>	
 </div>
 </form>
 </div>

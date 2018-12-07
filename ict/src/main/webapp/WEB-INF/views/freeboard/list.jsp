@@ -146,7 +146,8 @@ action="/ict/freeboard/list.do">
 		</c:otherwise>
 	</c:choose>
 
-<div>
+</div>	
+
 <c:if test="${sessionScope.member != null }">
 <p id="submit">
 	<a id="btnWrite">등록</a>
@@ -157,8 +158,6 @@ action="/ict/freeboard/list.do">
 
 <input type="hidden" name="fbNum" />
 
-</div>
-</div>	
 </div>
 </form>
 </div>

@@ -5,7 +5,7 @@
 <section>
 <script>
 $(function(){
-	$(".btnWrite").click(function(){
+	$("#btnWrite").click(function(){
 		location.href="/ict/qaboard/write.do";
 	});
 });
@@ -151,14 +151,18 @@ action="/ict/qaboard/list.do">
 		</c:otherwise>
 	</c:choose>
 
+</div>	
+
 <c:if test="${sessionScope.member != null }">
-	<a id="list" class="btnWrite">등록</a>
+<p id="submit">
+	<a id="btnWrite">등록</a>
+</p>
 </c:if>
+
 <!-- <button type="button" id="btnWrite">등록</button> -->
 
 	<input type="hidden" name="qaNum" />
 
-</div>	
 </div>
 </form>
 </div>
