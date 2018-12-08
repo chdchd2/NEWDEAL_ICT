@@ -53,14 +53,14 @@
 
 	function onOut(){
 
-		$menuBg.stop()
-		
-		$mainMenu.css({"font-family":"N_Square_R"})
-		$subMenu.css("opacity",0)
-		$subMenu.hide()
-		//$menuBg.slideUp(200,"easeOutCubic")
-		$menuBg.animate({"top":-160},200,"easeOutCubic")
-	}
+	      $menuBg.stop()
+	      
+	      $mainMenu.css({"font-family":"N_Square_R"})
+	      $subMenu.css("opacity",0)
+	      $subMenu.hide()
+	      //$menuBg.slideUp(200,"easeOutCubic")
+	      $menuBg.animate({"top":-160},200,"easeOutCubic")
+	   }
 
 </script>
 	
