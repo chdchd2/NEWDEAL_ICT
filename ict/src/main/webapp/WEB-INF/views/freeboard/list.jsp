@@ -5,7 +5,7 @@
 <section>
 <script>
 $(function(){
-	$(".btnWrite").click(function(){
+	$("#btnWrite").click(function(){
 		location.href="/ict/freeboard/write.do";
 	});
 });
@@ -26,7 +26,7 @@ function view(fbNum){
 					<ul>
 						<li><a href="<c:url value='/notice/list.do'/>">공지사항 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
 						<li><a href="<c:url value='/freeboard/list.do'/>" class="subActive">자유게시판<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
-						<li><a href="#">후기게시판</a></li>
+						<li><a href="<c:url value='/review/rvList'/>">후기게시판</a></li>
 						<li><a href="<c:url value='/qaboard/list.do'/>">질문게시판<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
 					</ul>
 </div>
@@ -36,20 +36,51 @@ function view(fbNum){
 						<h2>자유게시판</h2>
 					</div>
 
+<form name="form" method="post" 
+action="/ict/freeboard/list.do">
 					<div id="content">
 						<p id="count">총<span>${map.count}건</span></p>
-						<ol id="search">
-								<li><a href="#a">전체 <img src="<c:url value='/resources/images/search_Active.png'/>" alt="검색창더보기"></a>
-									<ul id="detail">
-										<li><a href="#a">전체</a></li>
-										<li><a href="#a">제목</a></li>
-										<li><a href="#a">내용</a></li>
-									</ul>
+							<ul id="search">
+								<li>
+									<select id="searchType" name="search_option">
+									<c:choose>
+										<c:when test="${map.search_option == 'all' }">
+											<option value="all" selected>전체</option>
+											<option value="fbWriter">이름</option>
+											<option value="fbContent">내용</option>
+											<option value="fbTitle">제목</option>
+										</c:when>
+										<c:when test="${map.search_option == 'fbWriter' }">
+											<option value="all">전체</option>
+											<option value="fbWriter" selected>이름</option>
+											<option value="fbContent">내용</option>
+											<option value="fbTitle">제목</option>
+										</c:when>
+										<c:when test="${map.search_option == 'fbContent' }">
+											<option value="all">전체</option>
+											<option value="fbWriter">이름</option>
+											<option value="fbContent" selected>내용</option>
+											<option value="fbTitle">제목</option>
+										</c:when>
+										<c:when test="${map.search_option == 'fbTitle' }">
+											<option value="all">전체</option>
+											<option value="fbWriter">이름</option>
+											<option value="fbContent">내용</option>
+											<option value="fbTitle" selected>제목</option>
+										</c:when>
+										<c:otherwise>
+											<option value="all" selected>전체</option>
+											<option value="fbWriter">이름</option>
+											<option value="fbContent">내용</option>
+											<option value="fbTitle">제목</option>
+										</c:otherwise>
+									</c:choose>	
+									</select>
 								</li>
-								<li><input type="text"></li>
-								<li><a href="#a">조회</a></li>
+								<li><input type="text" name="keyword" id="searchWord" value="${searchWord }"></li>
+								<li><a><input type="submit" value="조회"></a></li>
 							
-							</ol>
+							</ul>
 
 						<table id="table">
 						<colgroup>
@@ -111,21 +142,24 @@ function view(fbNum){
 			<p><a href="javascript:list('${map.pager.nextPage}')"><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
 		</c:when>
 		<c:otherwise>
-			<p><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></p>
+			<p><a><img src="<c:url value='/resources/images/page_Rightbtn.png'/>" alt="페이지오른쪽버튼"></a></p>
 		</c:otherwise>
 	</c:choose>
 
+</div>	
+
 <c:if test="${sessionScope.member != null }">
-	<a id="list" class="btnWrite">등록</a>
+<p id="submit">
+	<a id="btnWrite">등록</a>
+</p>
 </c:if>
 <!-- <button type="button" id="btnWrite">등록</button> -->
 
-<form name="form" method="post">
-	<input type="hidden" name="fbNum" />
-</form>
 
-</div>	
+<input type="hidden" name="fbNum" />
+
 </div>
+</form>
 </div>
 </div>
 </section>

@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.FestivalMapper">
+
+<resultMap type="com.newdeal.ict.Vo.FestivalVo" id="fesvo">
+	<result property="fesNum" column="fesNum"/>
+	<result property="memNum" column="memNum"/>
+	<result property="fesTitle" column="fesTitle"/>
+	<result property="fesContent" column="fesContent"/>
+	<result property="fesWrite" column="fesWrite"/>
+	<result property="fesDate" column="fesDate"/>
+	<result property="fesHit" column="fesHit"/>
+	<result property="fesMap" column="fesMap"/>
+	<collection property="list" ofType="com.newdeal.ict.Vo.CommonFileVo">
+		<result property="fileNum" column="fileNum"/>
+		<result property="fileName" column="fileName"/>
+		<result property="fileOrgName" column="fileOrgName"/>
+		<result property="fileSize" column="fileSize"/>
+		<result property="filePath" column="filePath"/>
+		<result property="fileRefBoard" column="fileRefBoard"/>
+		<result property="fileRefNum" column="fileRefNum"/>
+		<result property="intPrev" column="intPrev"/>
+		<result property="intNext" column="intNext"/>
+	</collection>
+</resultMap>
+
+<resultMap type="com.newdeal.ict.Vo.FesDetailVo" id="fesDevo">
+	<result property="detNum" column="detNum"/>
+	<result property="detTitle" column="detTitle"/>
+	<result property="detContent" column="detContent"/>
+	<result property="detWriter" column="detWriter"/>
+	<result property="detDate" column="detDate"/>
+	<result property="hit" column="hit"/>
+	<result property="memNum" column="memNum"/>
+	<result property="detPart" column="detPart"/>
+	<collection property="list" ofType="com.newdeal.ict.Vo.CommonFileVo">
+		<result property="fileNum" column="fileNum"/>
+		<result property="fileName" column="fileName"/>
+		<result property="fileOrgName" column="fileOrgName"/>
+		<result property="fileSize" column="fileSize"/>
+		<result property="filePath" column="filePath"/>
+		<result property="fileRefBoard" column="fileRefBoard"/>
+		<result property="fileRefNum" column="fileRefNum"/>
+		<result property="detNext" column="detNext"/>
+		<result property="detNext" column="detNext"/>
+	</collection>
+</resultMap>
+
+<select id="detailCnt" resultType="int">
+ 			SELECT NVL(COUNT(*),0) CNT from FESTIVALDEL <!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
+ 			
+</select>
+
+ <sql id="search">
+ 	<if test="searchType!=null and searchWord!=''">
+ ${searchType} like '%' ||#{searchWord} ||'%'
+	</if>
+ </sql>
+ 
+ 
+ 
+ <sql id="Part">
+ 	<if test="detPart!=null and searchType!=null and searchWord!=''">
+ 	AND	FES_PART='${detPart}'
+	</if>
+	 <if test="detPart!=null and searchWord==null">
+		FES_PART='${detPart}'
+	</if>
+
+ </sql>
+
+<select id="detailList" parameterType="hashmap" resultMap="fesDevo">
+      SELECT FES_NUMD AS detNum,
+      		 FES_TITLED AS detTitle,
+      		 FES_CONTENTD AS detContent,
+      		 FES_DATED AS detDate,
+      		 FES_WRITE AS detWriter,
+      		 FES_HITD AS hit,
+      		 MEM_NUM AS memNum,
+      		 FES_PART AS detPart,
+      		 
+      		 RNUM RNUM
+       FROM(
+                    SELECT AA.*,ROWNUM RNUM FROM(
+                                 SELECT * FROM FESTIVALDEL
+                                <where>
+                                 	  <include refid="search"/>
+                                 	  	  <include refid="Part"/>
+                                 </where>
+                                 ORDER BY FES_NUMD DESC
+                                				 )AA
+                     )
+      <![CDATA[where rnum >=#{pu.startRow} and rnum <=#{pu.endRow}]]>
+	
+</select>
+
+<insert id="detailWrite" parameterType="fesDevo">
+	INSERT INTO FESTIVALDEL VALUES(
+									SEQ_FESTIVALDEL_FES_NUMD.nextval,
+									#{detTitle},
+									#{detContent},
+									sysdate,
+									#{detWriter},
+									0,
+									#{memNum},
+									#{detPart}
+									)
+<selectKey keyProperty="detNum" resultType="int" order="AFTER"> 
+SELECT SEQ_FESTIVALDEL_FES_NUMD.currval as detNum FROM dual
+</selectKey>
+</insert>
+
+<insert parameterType="fesvo" id="fesWrite"> 
+	insert into FESTIVAL VALUES( 
+		SEQ_FESTIVAL_FES_NUM.nextval,
+		#{fesTitle},
+		#{fesContent},
+		sysdate,
+		#{fesWrite},
+		0,
+		#{memNum},
+		#{fesMap}
+		)
+</insert>
+
+
+<select id="list" parameterType="hashmap" resultType="fesvo">
+      SELECT FES_NUM AS fesNum,
+      		 FES_TITLE AS fesTitle,
+      		 FES_CONTENT AS fesContent,
+      		 FES_DATE AS fesDate,
+      		 FES_WRITE AS fesWrite,
+      		 FES_HIT AS fesHit,
+      		 MEM_NUM AS MEMNUM,
+      		 RNUM RNUM
+       FROM(
+                    SELECT AA.*,ROWNUM RNUM FROM(
+                                 SELECT * FROM FESTIVAL
+                                       <include refid="search"/>
+                                 ORDER BY FES_NUM DESC
+                                				 )AA
+                     )
+         <![CDATA[where rnum >=#{pu.startRow} and rnum <=#{pu.endRow}]]>
+</select>
+
+<select id="fesCnt" parameterType="hashmap" resultType="int">
+ 			SELECT NVL(COUNT(*),0) CNT from FESTIVAL
+ 		 <where>
+ 			  <include refid="search"/>
+ 	 </where>
+ 			<!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
+ 			
+</select>
+
+<select id="detCnt" parameterType="hashmap" resultType="int">
+ 			SELECT NVL(COUNT(*),0) CNT from FESTIVALDEL
+ 			 <where>
+ 			  <include refid="search"/>
+ 					 <include refid="Part"/>		
+ 			</where>
+ 			<!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
+ 			
+</select>
+
+ <select id="fesmaxNum" resultType="int">
+	SELECT NVL(MAX(FES_NUM),1) AS MAXNUM 
+	FROM FESTIVAL
+</select> 
+
+
+<select id="fesDetail" parameterType="int" resultMap="fesvo">
+	SELECT  FES_NUM AS fesNum,
+      		 FES_TITLE AS fesTitle,
+      		 FES_CONTENT AS fesContent,
+      		 FES_DATE AS fesDate,
+      		 FES_WRITE AS fesWrite,
+      		 FES_HIT AS fesHit,
+      		 MEM_NUM AS memNum,
+      		 FES_MAP AS fesMap,
+			FILE_NUM AS fileNum,
+			FILE_NAME AS fileName,
+			FILE_ORGNAME AS fileOrgName,
+			FILE_SIZE AS fileSize,
+			FILE_PATH AS filePath,
+			FILE_REF_BOARD AS fileRefBoard,
+			FILE_REF_NUM AS fileRefNum
+	FROM 
+		FESTIVAL A,COMMON_FILE B 
+	WHERE A.FES_NUM=B.FILE_REF_NUM(+)
+	AND A.FES_NUM=#{fesNum}
+</select>
+
+
+<select id="detDetail" parameterType="int" resultMap="fesDevo">
+	SELECT   FES_NUMD AS detNum,
+      		 FES_TITLED AS detTitle,
+      		 FES_CONTENTD AS detContent,
+      		 FES_DATED AS detDate,
+      		 FES_WRITE AS detWriter,
+      		 FES_HITD AS hit,
+      		 MEM_NUM AS memNum,
+      		 FES_PART AS detPart,
+      		 
+			FILE_NUM AS fileNum,
+			FILE_NAME AS fileName,
+			FILE_ORGNAME AS fileOrgName,
+			FILE_SIZE AS fileSize,
+			FILE_PATH AS filePath,
+			FILE_REF_BOARD AS fileRefBoard,
+			FILE_REF_NUM AS fileRefNum
+	FROM 
+		FESTIVALDEL A,COMMON_FILE B 
+	WHERE A.FES_NUMD=B.FILE_REF_NUM(+)
+	AND A.FES_NUMD=#{detNum}
+</select>
+
+<select id="intPrev" parameterType="int" resultMap="fesvo">
+SELECT * FROM
+		  (SELECT  
+		  	FES_NUM AS fesNum,
+      		 FES_TITLE AS fesTitle,
+      		 FES_CONTENT AS fesContent,
+      		 FES_DATE AS fesDate,
+      		 FES_WRITE AS fesWrite,
+      		 FES_HIT AS fesHit,
+      		 MEM_NUM AS memNum,
+			FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM,
+			ROWNUM 
+			FROM FESTIVAL A,COMMON_FILE B 
+	 <![CDATA[ 
+	 WHERE A.FES_NUM=B.FILE_REF_NUM(+)
+	AND A.FES_NUM<#{fesNum} ORDER BY FES_NUM DESC)
+	WHERE ROWNUM=1
+	]]>
+</select>
+
+ <select id="intNext" parameterType="int" resultMap="fesvo">
+SELECT * FROM
+		  (SELECT  FES_NUM AS fesNum,
+      		 FES_TITLE AS fesTitle,
+      		 FES_CONTENT AS fesContent,
+      		 FES_DATE AS fesDate,
+      		 FES_WRITE AS fesWrite,
+      		 FES_HIT AS fesHit,
+      		 MEM_NUM AS memNum,
+			FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM,
+			ROWNUM 
+			FROM FESTIVAL A,COMMON_FILE B 
+	 <![CDATA[ 
+	 WHERE A.FES_NUM=B.FILE_REF_NUM(+)
+	AND A.FES_NUM>#{fesNum} ORDER BY FES_NUM ASC)
+	WHERE ROWNUM=1
+	]]>
+</select>
+
+
+
+<select id="detPrev" parameterType="int" resultMap="fesDevo">
+SELECT * FROM
+		  (SELECT  
+		  	FES_NUMD AS detNum,
+      		 FES_TITLED AS detTitle,
+      		 FES_CONTENTD AS detContent,
+      		 FES_DATED AS detDate,
+      		 FES_WRITE AS detWriter,
+      		 FES_HITD AS hit,
+      		 MEM_NUM AS memNum,
+			FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM,
+			ROWNUM 
+			FROM FESTIVALDEL A,COMMON_FILE B 
+	 <![CDATA[ 
+	 WHERE A.FES_NUMD=B.FILE_REF_NUM(+)
+	AND A.FES_NUMD<#{detNum} ORDER BY FES_NUMD DESC)
+	WHERE ROWNUM=1
+	]]>
+</select>
+
+ <select id="detNext" parameterType="int" resultMap="fesDevo">
+SELECT * FROM
+		  (SELECT  
+		     FES_NUMD AS detNum,
+      		 FES_TITLED AS detTitle,
+      		 FES_CONTENTD AS detContent,
+      		 FES_DATED AS detDate,
+      		 FES_WRITE AS detWriter,
+      		 FES_HITD AS hit,
+      		 MEM_NUM AS memNum,
+			FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM,
+			ROWNUM 
+			FROM FESTIVALDEL A,COMMON_FILE B 
+	 <![CDATA[ 
+	 WHERE A.FES_NUMD=B.FILE_REF_NUM(+)
+	AND A.FES_NUMD>#{detNum} ORDER BY FES_NUMD ASC)
+	WHERE ROWNUM=1
+	]]>
+</select>
+
+
+<select id="fileinfo" parameterType="int" resultType="filevo">
+	SELECT  FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM
+	FROM 
+			COMMON_FILE
+	WHERE
+			FILE_NUM=#{fileNum}
+</select>
+
+
+<select id="getWriter" parameterType="int" resultMap="fesvo">
+	SELECT  FES_NUM AS fesNum,
+      		 FES_TITLE AS fesTitle,
+      		 FES_CONTENT AS fesContent,
+      		 FES_DATE AS fesDate,
+      		 FES_WRITE AS fesWrite,
+      		 FES_HIT AS fesHit,
+      		 MEM_NUM AS memNum
+	FROM	FESTIVAL
+	WHERE FES_NUM=#{fesNum}
+</select>
+
+<select id="getWriterD" parameterType="int" resultMap="fesDevo">
+	SELECT  
+		     FES_NUMD AS detNum,
+      		 FES_TITLED AS detTitle,
+      		 FES_CONTENTD AS detContent,
+      		 FES_DATED AS detDate,
+      		 FES_WRITE AS detWriter,
+      		 FES_HITD AS hit,
+      		 MEM_NUM AS memNum,
+      		 FES_PART AS detPart
+	FROM	FESTIVALDEL
+	WHERE FES_NUMD=#{detNum}
+</select>
+
+<update id="detailCntUp" parameterType="int">
+	UPDATE FESTIVAL SET FES_HIT=FES_HIT+1 WHERE FES_NUM=#{fesNum}
+</update>
+
+<update id="DeldetailCntUp" parameterType="int">
+	UPDATE FESTIVALDEL SET FES_HITD=FES_HITD+1 WHERE FES_NUMD=#{detNum}
+</update>
+
+<delete id="fesDelete" parameterType="int">
+	DELETE FESTIVAL WHERE FES_NUM=#{fesNum}
+</delete>
+
+<delete id="detDelete" parameterType="int">
+	DELETE FESTIVALDEL WHERE FES_NUMD=#{detNum}
+</delete>
+
+<delete id="intFileDelete" parameterType="int" >
+	DELETE COMMON_FILE WHERE FILE_REF_BOARD='FESTIVAL' AND FILE_REF_NUM=#{fesNum}
+</delete>
+
+  <delete id="detFileDelete" parameterType="int" >
+	DELETE COMMON_FILE WHERE FILE_REF_BOARD='FESTIVALDEL' AND FILE_REF_NUM=#{detNum}
+</delete>  
+
+<select id="intFileDelList" parameterType="int" resultType="filevo">
+	SELECT  FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM 
+	 FROM COMMON_FILE 
+	 WHERE FILE_REF_BOARD='FESTIVAL' AND FILE_REF_NUM=#{fesNum}
+</select>
+
+ <select id="detFileDelList" parameterType="int" resultType="filevo">
+	SELECT  FILE_NUM AS FILENUM,
+			FILE_NAME AS FILENAME,
+			FILE_ORGNAME AS FILEORGNAME,
+			FILE_SIZE AS FILESIZE,
+			FILE_PATH AS FILEPATH,
+			FILE_REF_BOARD AS FILEREFBOARD,
+			FILE_REF_NUM AS FILEREFNUM 
+	 FROM COMMON_FILE 
+	 WHERE FILE_REF_BOARD='FESTIVALDEL' AND FILE_REF_NUM=#{detNum}
+</select>
+
+<update id="fesEdit" parameterType="fesvo">
+	UPDATE FESTIVAL SET FES_TITLE=#{fesTitle},FES_CONTENT=#{fesContent} WHERE FES_NUM=#{fesNum}
+</update>
+
+<update id="detEdit" parameterType="fesDevo">
+	UPDATE FESTIVALDEL SET FES_TITLED=#{detTitle},FES_CONTENTD=#{detContent} WHERE FES_NUMD=#{detNum}
+</update>
+
+<delete id="fileDel" parameterType="filevo">
+	DELETE COMMON_FILE WHERE FILE_NUM=#{fileNum}
+</delete>
+
+
+
+</mapper>

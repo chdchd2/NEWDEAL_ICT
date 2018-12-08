@@ -5,7 +5,64 @@
 <% MemberVo member=(MemberVo)session.getAttribute("member");%>
 
 	<title></title>
+<script>
 
+
+	var $mainMenu
+	var $subMenu
+	var $menuBg
+	var $header
+
+	$(document).ready(function(){
+
+		$mainMenu=$(".mainmenu>a")
+		$subMenu=$(".submenu_list")
+		$menuBg=$("#menu_back")
+		$header=$("header")
+
+		$subMenu.css("opacity",0)
+		$subMenu.hide()
+
+		$menuBg.hide()
+
+		$mainMenu.bind("mouseenter",onOver)
+		$mainMenu.bind("focus",onOver)
+		$mainMenu.bind("mouseleave",onMainColor)
+		$("#header_wrap").bind("mouseleave",onOut)
+
+	})
+
+	function onMainColor(){
+
+		$mainMenu.css("color","black")
+	}
+
+
+	function onOver(){
+
+		$(this).css({"color":"#0131ca","font-family":"N_Square_B"})
+
+		$menuBg.stop()
+		 $menuBg.animate({"top":0},200,"easeOutCubic",function(){
+			$subMenu.show()
+			$subMenu.animate({opacity:1},200,"easeOutCubic")
+		})
+
+	}
+
+
+	function onOut(){
+
+		$menuBg.stop()
+		
+		$mainMenu.css({"font-family":"N_Square_R"})
+		$subMenu.css("opacity",0)
+		$subMenu.hide()
+		//$menuBg.slideUp(200,"easeOutCubic")
+		$menuBg.animate({"top":-160},200,"easeOutCubic")
+	}
+
+</script>
 	
 <script>
 function logout(){
@@ -17,9 +74,12 @@ function logout(){
   
  
  			<div id="header_wrap">
+ 	<p id="header_bar"> </p>
  	<header>
  		
  	  <div id="nav_pc">
+ 		
+
  		
  		<ul class="topmenu_list">
  		<%if(member!=null){
@@ -40,7 +100,7 @@ function logout(){
 		<%
  		}
 		%>
- 			<li><a href="<c:url value='/admin/'/>">관리자</a></li>
+ 			<%-- <li><a href="<c:url value='/admin/'/>">관리자</a></li> --%>
  		</ul>
  		
  	
@@ -51,9 +111,12 @@ function logout(){
 	 				<img src="<c:url value='/resources/images/logo.png'/>" alt="뉴딜커뮤니티홈">
 	 			</a>
 	 		</h1>
+	 		
+	 	
+	 		
  			
- 			<li class="mainmenu"> 			 
- 				<a href="#">뉴딜 일자리</a>			 
+ 			<li class="mainmenu">
+ 				<a href="#">뉴딜 일자리</a>
  			 	<ul class="submenu_list">
  			 		<li><a href="#">뉴딜일자리 소개</a></li>
  			 		<li><a href="#">사이트개요</a></li>
@@ -63,8 +126,8 @@ function logout(){
  			<li class="mainmenu"> 
  				<a href="#">취업지원센터</a>
  			 	<ul class="submenu_list">
- 				<li><a href="#">취업행사안내</a></li>
- 			 	<li><a href="#">채용정보공유</a></li>
+ 				<li><a href="<c:url value='/festival/list'/>">취업행사안내</a></li>
+ 			 	<li><a href="<c:url value='/festival/detailList'/>">채용정보공유</a></li>
  			 	</ul>
  			</li>
 
@@ -90,7 +153,7 @@ function logout(){
  			</li>
  			
 
- 			</li>
+ 		
  			
  		</ul>
  		

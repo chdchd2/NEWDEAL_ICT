@@ -21,6 +21,12 @@
     <!-- Custom styles for this template-->
     <link href="<c:url value='/resources/css/sb-admin.css'/>" rel="stylesheet">
 	<script>
+	$(document).ready(function(){
+ 		if("${state}"=="fail"){
+			alert("일치하는 회원이 없거나 가입승인 대기중입니다.")
+		}
+	
+	});
 	function submit(){
 		var form = document.getElementById("form");
 		form.submit();

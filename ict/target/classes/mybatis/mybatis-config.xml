@@ -22,6 +22,10 @@
 		<typeAlias type="com.newdeal.ict.Util.PageUtil" alias="pagevo"/>
 		<typeAlias type="com.newdeal.ict.Vo.CommentVo" alias="commentvo"/>
 		<typeAlias type="com.newdeal.ict.Vo.LinkListVo" alias="linkvo"/>
+		<typeAlias type="com.newdeal.ict.Vo.ReviewVo" alias="rvvo"/>
+	
+		<typeAlias alias="fesvo" type="com.newdeal.ict.Vo.FestivalVo"/>
+		<typeAlias alias="fesDevo" type="com.newdeal.ict.Vo.FesDetailVo"/>
 	</typeAliases>
 </configuration>
 

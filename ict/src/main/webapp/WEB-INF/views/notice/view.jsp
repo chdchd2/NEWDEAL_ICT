@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9c33dafb379eb8e557de8b4964389518&libraries=services"></script>
 <script>
 $(function(){
@@ -38,7 +39,6 @@ $(function(){
 	
 });
 </script>
-<body>
 <section>
 <div id="sectionC">
 <div id="subMenu">
@@ -46,7 +46,7 @@ $(function(){
 					<ul>
 						<li><a href="<c:url value='/notice/list.do'/>" class="subActive">공지사항 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
 						<li><a href="<c:url value='/freeboard/list.do'/>">자유게시판<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
-						<li><a href="#">후기게시판</a></li>
+						<li><a href="<c:url value='/review/rvList'/>">후기게시판</a></li>
 						<li><a href="<c:url value='/qaboard/list.do'/>">질문게시판<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
 					</ul>
 </div>
@@ -56,7 +56,7 @@ $(function(){
 						<h2>공지사항</h2>
 					</div>
 <form id="form" name="form" method="post"
- action="/ict/notice/insert.do">
+<%-- action="${path}/notice/insert.do" --%>>
 <div id="content">
 						<div id="boardheader">
 							<h2>${vo.ntTitle}</h2>
@@ -77,15 +77,40 @@ $(function(){
 							</c:if>
 							</div>
 							<ul>
-								
-								
+								<li>
+									<span>첨부파일</span>
+								<c:choose>
+								<c:when test="${fn:length(vo.list) > 0 }">
+								<c:forEach var="list" items="${vo.list }">
+								<a class="add_file" href="<c:url value='/notice/fileDown?fileNum=${list.fileNum }'/>">${list.fileOrgName }</a>
+								</c:forEach>																
+								</c:when>
+								<c:otherwise>
+								<a href="#a">첨부파일이 없습니다.</a>
+								</c:otherwise>
+								</c:choose>
+								</li>
 								<li>
 									<span>이전 글</span>
-									<a href="#a">이전 글이 없습니다.</a>
+									<c:choose>
+									<c:when test="${prev.ntTitle eq null}">
+									<a href="#">이전글이 없습니다.</a>
+									</c:when>
+									<c:otherwise>
+										<a href="<c:url value='/notice/view.do?ntNum=${prev.ntNum }'/>">${prev.ntTitle }</a>
+									</c:otherwise>
+									</c:choose>
 								</li>
 								<li>
 									<span>다음 글</span>
-									<a href="#a">다음 글이 없습니다.</a>
+									<c:choose>
+									<c:when test="${next.ntTitle eq null}">
+									<a href="#">다음글이 없습니다.</a>
+									</c:when>
+									<c:otherwise>
+										<a href="<c:url value='/notice/view.do?ntNum=${next.ntNum }'/>">${next.ntTitle }</a>
+									</c:otherwise>
+									</c:choose>
 								</li>
 								
 							</ul>
@@ -102,6 +127,7 @@ $(function(){
 	</div>
 	<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
 		<input type="hidden" name="ntNum" value="${vo.ntNum}" />
+	
 </form>
 </div>
 </div>

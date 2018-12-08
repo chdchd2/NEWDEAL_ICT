@@ -2,21 +2,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<section>
+<section> 
 <script>
 $(function(){
-	$(".btnWrite").click(function(){
+	$("#btnWrite").click(function(){
 		location.href="/ict/notice/write.do";
-	});
+	}); 
 });
 function list(page){
-	location.href="${path}/notice/list.do?curPage="+page
+	location.href="/ict/notice/list.do?curPage="+page
 			+"&search_option=${map.search_option}"
 			+"&keyword=${map.keyword}";
 }
-function view(ntNum){
+function view(ntNum){ 
 	document.form.ntNum.value=ntNum;
-	document.form.action="${path}/notice/view.do";
+	document.form.action="/ict/notice/view.do";
 	document.form.submit();
 }
 </script>
@@ -29,7 +29,7 @@ function view(ntNum){
 					<ul>
 						<li><a href="<c:url value='/notice/list.do'/>" class="subActive">공지사항 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
 						<li><a href="<c:url value='/freeboard/list.do'/>">자유게시판<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
-						<li><a href="#">후기게시판</a></li>
+						<li><a href="<c:url value='/review/rvList'/>">후기게시판</a></li>
 						<li><a href="<c:url value='/qaboard/list.do'/>">질문게시판<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
 					</ul>
 </div>
@@ -38,23 +38,51 @@ function view(ntNum){
 					<div id="contentHeader">
 						<h2>공지사항</h2>
 					</div>
-<%-- <!-- 검색폼 -->
 <form name="form" method="post" 
-action="${path}/notice/list.do"> --%>
+action="/ict/notice/list.do">
 					<div id="content">
 						<p id="count">총<span>${map.count}건</span></p>
-						<ol id="search">
-								<li><a href="#a">전체 <img src="<c:url value='/resources/images/search_Active.png'/>" alt="검색창더보기"></a>
-									<ul id="detail">
-										<li><a href="#a">전체</a></li>
-										<li><a href="#a">제목</a></li>
-										<li><a href="#a">내용</a></li>
-									</ul>
+							<ul id="search">
+								<li>
+									<select id="searchType" name="search_option">
+									<c:choose>
+										<c:when test="${map.search_option == 'all' }">
+											<option value="all" selected>전체</option>
+											<option value="ntWriter">이름</option>
+											<option value="ntContent">내용</option>
+											<option value="ntTitle">제목</option>
+										</c:when>
+										<c:when test="${map.search_option == 'ntWriter' }">
+											<option value="all">전체</option>
+											<option value="ntWriter" selected>이름</option>
+											<option value="ntContent">내용</option>
+											<option value="ntTitle">제목</option>
+										</c:when>
+										<c:when test="${map.search_option == 'ntContent' }">
+											<option value="all">전체</option>
+											<option value="ntWriter">이름</option>
+											<option value="ntContent" selected>내용</option>
+											<option value="ntTitle">제목</option>
+										</c:when>
+										<c:when test="${map.search_option == 'ntTitle' }">
+											<option value="all">전체</option>
+											<option value="ntWriter">이름</option>
+											<option value="ntContent">내용</option>
+											<option value="ntTitle" selected>제목</option>
+										</c:when>
+										<c:otherwise>
+											<option value="all" selected>전체</option>
+											<option value="ntWriter">이름</option>
+											<option value="ntContent">내용</option>
+											<option value="ntTitle">제목</option>
+										</c:otherwise>
+									</c:choose>	
+									</select>
 								</li>
-								<li><input type="text"></li>
-								<li><a href="#a">조회</a></li>
+								<li><input type="text" name="keyword" id="searchWord" value="${searchWord }"></li>
+								<li><a><input type="submit" value="조회"></a></li>
 							
-							</ol>
+							</ul>
 
 						<table id="table">
 						<colgroup>
@@ -120,17 +148,20 @@ action="${path}/notice/list.do"> --%>
 		</c:otherwise>
 	</c:choose>
 
+</div>	
+
 <c:if test="${sessionScope.member != null }">
-	<a id="list" class="btnWrite">등록</a>
+<p id="submit">
+	<a id="btnWrite">등록</a>
+</p>
 </c:if>
 <!-- <button type="button" id="btnWrite">등록</button> -->
 
-<form name="form" method="post">
-	<input type="hidden" name="ntNum" />
-</form>
 
-</div>	
+	<input type="hidden" name="ntNum" />
+
 </div>
+</form>
 </div>
 </div>
 </section>

@@ -7,295 +7,354 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="qaboard">
 
 <resultMap type="com.newdeal.ict.Vo.QaBoardVo" id="qaboard">
-   <result property="qaNum" column="qaNum"/>
-   <result property="qaTitle" column="qaTitle"/>
-   <result property="qaContent" column="qaContent"/>
-   <result property="qaRegdate" column="qaRegdate"/>
-   <result property="qaViewcnt" column="qaViewcnt"/>
-   <result property="qaWriter" column="qaWriter"/>
-   <result property="qaShow" column="qaShow"/>
-   <collection property="list" ofType="com.newdeal.ict.Vo.CommonFileVo">
-      <result property="fileNum" column="fileNum"/>
-      <result property="fileName" column="fileName"/>
-      <result property="fileOrgName" column="fileOrgName"/>
-      <result property="fileSize" column="fileSize"/>
-      <result property="filePath" column="filePath"/>
-      <result property="fileRefBoard" column="fileRefBoard"/>
-      <result property="fileRefNum" column="fileRefNum"/>
-   </collection>
+	<result property="qaNum" column="qaNum"/>
+	<result property="qaTitle" column="qaTitle"/>
+	<result property="qaContent" column="qaContent"/>
+	<result property="qaRegdate" column="qaRegdate"/>
+	<result property="qaViewcnt" column="qaViewcnt"/>
+	<result property="qaWriter" column="qaWriter"/>
+	<result property="qaShow" column="qaShow"/>
+	<collection property="list" ofType="com.newdeal.ict.Vo.CommonFileVo">
+		<result property="fileNum" column="fileNum"/>
+		<result property="fileName" column="fileName"/>
+		<result property="fileOrgName" column="fileOrgName"/>
+		<result property="fileSize" column="fileSize"/>
+		<result property="filePath" column="filePath"/>
+		<result property="fileRefBoard" column="fileRefBoard"/>
+		<result property="fileRefNum" column="fileRefNum"/>
+	</collection>
 </resultMap>
 
 <!-- 게시물등록 -->
-   <!-- <insert id="insert" parameterType="qaboard" >
-      <selectKey resultType="int" keyProperty="qaNum" order="BEFORE">
-      SELECT QABOARD_SEQ.NEXTVAL AS QA_NUM
-        FROM DUAL
-   </selectKey>   
-      INSERT INTO QABOARD ( QA_NUM,QA_REF, QA_TITLE,QA_CONTENT,QA_WRITER, QA_VIEWCNT, QA_REGDATE,QA_GUBUN,QA_STATE) 
-                VALUES ( 
-                        #{qaNum},
-                        #{qaNum},
-                        #{qaTitle,jdbcType=VARCHAR}, 
-                        #{qaContent,jdbcType=CLOB}, 
-                        #{qaWriter,jdbcType=VARCHAR},
-                        '0',
-                        sysdate ,
-                        'Q',
-                        'NO'
-                      )
-                   
-   </insert> -->
-   
-   <insert id="insert" parameterType="qaboard" >
-      INSERT INTO QABOARD ( QA_NUM,ORIGIN_NO, GROUP_ORD, GROUP_LAYER, QA_TITLE,QA_CONTENT,QA_WRITER, QA_VIEWCNT, QA_REGDATE,QA_GUBUN,QA_STATE) 
-                VALUES ( 
-                         QABOARD_SEQ.NEXTVAL,
-                         QABOARD_SEQ.CURRVAL,
-                         '0',
-                         '0',
-                        #{qaTitle,jdbcType=VARCHAR}, 
-                        #{qaContent,jdbcType=CLOB}, 
-                        #{qaWriter,jdbcType=VARCHAR},
-                        '0',
-                        sysdate ,
-                        'Q',
-                        'NO'
-                      )
-                   
-   </insert>
-   
-   <insert id="answer" parameterType="qaboard" >
-      INSERT INTO QABOARD ( QA_NUM,ORIGIN_NO, GROUP_ORD, GROUP_LAYER, QA_TITLE,QA_CONTENT,QA_WRITER, QA_VIEWCNT, QA_REGDATE,QA_GUBUN) 
-                VALUES ( 
-                         QABOARD_SEQ.NEXTVAL,
-                         #{qaNum},
-                         #{qaNum},
-                         #{qaNum},
-                        #{qaTitle,jdbcType=VARCHAR}, 
-                        #{qaContent,jdbcType=CLOB}, 
-                        '관리자',
-                        '0',
-                        sysdate ,
-                        'A'
-                      )
-                   
-   </insert>
-      <!-- <insert id="answer" parameterType="qaboard" >
-      
-      INSERT INTO QABOARD ( QA_NUM,QA_REF, QA_TITLE,QA_CONTENT,QA_WRITER, QA_VIEWCNT, QA_REGDATE,QA_GUBUN) 
-                VALUES ( 
-                         QABOARD_SEQ.NEXTVAL,
-                         #{qaNum},
-                        #{qaTitle,jdbcType=VARCHAR}, 
-                        #{qaContent,jdbcType=CLOB}, 
-                        'ADMIN',
-                        '0',
-                        sysdate ,
-                        'A'
-                      )
-                   
-   </insert> -->
+	<!-- <insert id="insert" parameterType="qaboard" >
+		<selectKey resultType="int" keyProperty="qaNum" order="BEFORE">
+		SELECT QABOARD_SEQ.NEXTVAL AS QA_NUM
+		  FROM DUAL
+	</selectKey>	
+		INSERT INTO QABOARD ( QA_NUM,QA_REF, QA_TITLE,QA_CONTENT,QA_WRITER, QA_VIEWCNT, QA_REGDATE,QA_GUBUN,QA_STATE) 
+					 VALUES ( 
+							   #{qaNum},
+							   #{qaNum},
+							   #{qaTitle,jdbcType=VARCHAR}, 
+							   #{qaContent,jdbcType=CLOB}, 
+							   #{qaWriter,jdbcType=VARCHAR},
+							   '0',
+							   sysdate ,
+							   'Q',
+							   'NO'
+							 )
+						 
+	</insert> -->
+	
+	<insert id="insert" parameterType="qaboard" >
+		INSERT INTO QABOARD ( QA_NUM,ORIGIN_NO, GROUP_ORD, GROUP_LAYER, QA_TITLE,QA_CONTENT,QA_WRITER, QA_VIEWCNT, QA_REGDATE,QA_GUBUN,QA_STATE) 
+					 VALUES ( 
+			 				   QABOARD_SEQ.NEXTVAL,
+			 				   QABOARD_SEQ.CURRVAL,
+			 				   '0',
+			 				   '0',
+							   #{qaTitle,jdbcType=VARCHAR}, 
+							   #{qaContent,jdbcType=CLOB}, 
+							   #{qaWriter,jdbcType=VARCHAR},
+							   '0',
+							   sysdate ,
+							   'Q',
+							   'NO'
+							 )
+	<selectKey keyProperty="qaNum" resultType="int" order="AFTER">
+	SELECT  QABOARD_SEQ.CURRVAL as qaNum FROM dual
+	</selectKey>			  
+						 
+	</insert>
+	
+	<insert id="answer" parameterType="qaboard" >
+		INSERT INTO QABOARD ( QA_NUM,ORIGIN_NO, GROUP_ORD, GROUP_LAYER, QA_TITLE,QA_CONTENT,QA_WRITER, QA_VIEWCNT, QA_REGDATE,QA_GUBUN) 
+					 VALUES ( 
+			 				   QABOARD_SEQ.NEXTVAL,
+			 				   #{qaNum},
+			 				   #{qaNum},
+			 				   #{qaNum},
+							   #{qaTitle,jdbcType=VARCHAR}, 
+							   #{qaContent,jdbcType=CLOB}, 
+							   '관리자',
+							   '0',
+							   sysdate ,
+							   'A'
+							 )
+						 
+	</insert>
+		<!-- <insert id="answer" parameterType="qaboard" >
+		
+		INSERT INTO QABOARD ( QA_NUM,QA_REF, QA_TITLE,QA_CONTENT,QA_WRITER, QA_VIEWCNT, QA_REGDATE,QA_GUBUN) 
+					 VALUES ( 
+			 				   QABOARD_SEQ.NEXTVAL,
+			 				   #{qaNum},
+							   #{qaTitle,jdbcType=VARCHAR}, 
+							   #{qaContent,jdbcType=CLOB}, 
+							   'ADMIN',
+							   '0',
+							   sysdate ,
+							   'A'
+							 )
+						 
+	</insert> -->
 
-   <select id="qamaxNum" resultType="int">
-      SELECT NVL(MAX(QA_NUM),1) AS MAXNUM 
-                          FROM QABOARD
-   </select>
-   
-   <insert id="qafileWrite" parameterType="filevo">
-      INSERT INTO COMMON_FILE VALUES(
-                              SEQ_COMMON_FILE_FILE_NUM.nextval,
-                              #{fileName},
-                              #{fileOrgName},
-                              #{fileSize},
-                              #{filePath},
-                              'FREEBOARD',
-                              #{fileRefNum}
-                              )
-   </insert>
-   
-   <select id="qaCnt" resultType="int">
-             SELECT NVL(COUNT(*),0) CNT FROM QABOARD <!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
-             
-   </select>
+	<select id="qamaxNum" resultType="int">
+		SELECT NVL(MAX(QA_NUM),1) AS MAXNUM 
+							 	 FROM QABOARD
+	</select>
+	
+	<insert id="qafileWrite" parameterType="filevo">
+		INSERT INTO COMMON_FILE VALUES(
+										SEQ_COMMON_FILE_FILE_NUM.nextval,
+										#{fileName},
+										#{fileOrgName},
+										#{fileSize},
+										#{filePath},
+										'QABOARD',
+										#{fileRefNum}
+										)
+	</insert>
+	
+	<select id="qaCnt" resultType="int">
+	 			SELECT NVL(COUNT(*),0) CNT FROM QABOARD <!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
+	 			
+	</select>
 <!-- 게시물 수정  -->
-   <update id="update" parameterType="qaboard">
-      UPDATE QABOARD SET QA_TITLE=#{qaTitle}, 
-                           QA_CONTENT=#{qaContent}
-                 WHERE QA_NUM=#{qaNum}
-   </update>
-   
-<!-- 게시물 상세보기  -->   
-   <select id="view" parameterType="int" resultMap="qaboard">
-      SELECT QA_NUM AS qaNum,
-            ORIGIN_NO AS originNo,
-            GROUP_ORD AS groupOrd,
-            GROUP_LAYER AS groupLayer,
-            QA_TITLE AS qaTitle,
-            QA_REGDATE AS qaRegdate,
-            QA_CONTENT AS qaContent,
-            QA_VIEWCNT AS qaViewcnt,
-            QA_WRITER AS qaWriter,
-            FILE_NUM AS fileNum ,
-            FILE_NAME AS fileName,
-            FILE_ORGNAME AS fileOrgName,
-               FILE_SIZE AS fileSize,
-            FILE_PATH AS filePath,
-            FILE_REF_BOARD AS fileRefBoard,
-            FILE_REF_NUM AS fileRefNum 
-        FROM QABOARD QA, MEMBER M, COMMON_FILE CF
-          WHERE QA.QA_WRITER=M.MEM_NICKNAME
-            AND QA.QA_NUM=CF.FILE_REF_NUM(+) 
-            AND QA.QA_NUM=#{qaNum}
-   </select>
-   
-   <select id="adminView" parameterType="int" resultMap="qaboard">
-      SELECT QA_NUM AS qaNum,
-            ORIGIN_NO AS originNo,
-            GROUP_ORD AS groupOrd,
-            GROUP_LAYER AS groupLayer,
-            QA_TITLE AS qaTitle,
-            QA_REGDATE AS qaRegdate,
-            QA_CONTENT AS qaContent,
-            QA_VIEWCNT AS qaViewcnt,
-            QA_WRITER AS qaWriter,
-            FILE_NUM AS fileNum ,
-            FILE_NAME AS fileName,
-            FILE_ORGNAME AS fileOrgName,
-               FILE_SIZE AS fileSize,
-            FILE_PATH AS filePath,
-            FILE_REF_BOARD AS fileRefBoard,
-            FILE_REF_NUM AS fileRefNum 
-        FROM QABOARD QA, COMMON_FILE CF
-          WHERE 
-            QA.QA_NUM=CF.FILE_REF_NUM(+) 
-            AND QA.QA_NUM=#{qaNum}
-   </select>
-   
-   
-   
+	<update id="update" parameterType="qaboard">
+		UPDATE QABOARD SET QA_TITLE=#{qaTitle}, 
+		   	   			   QA_CONTENT=#{qaContent}
+		 			 WHERE QA_NUM=#{qaNum}
+	</update>
+	
+<!-- 게시물 상세보기  -->	
+	<select id="view" parameterType="int" resultMap="qaboard">
+		SELECT QA_NUM AS qaNum,
+			   ORIGIN_NO AS originNo,
+			   GROUP_ORD AS groupOrd,
+			   GROUP_LAYER AS groupLayer,
+			   QA_TITLE AS qaTitle,
+			   QA_REGDATE AS qaRegdate,
+			   QA_CONTENT AS qaContent,
+			   QA_VIEWCNT AS qaViewcnt,
+			   QA_WRITER AS qaWriter,
+			   FILE_NUM AS fileNum ,
+			   FILE_NAME AS fileName,
+			   FILE_ORGNAME AS fileOrgName,
+		   	   FILE_SIZE AS fileSize,
+			   FILE_PATH AS filePath,
+			   FILE_REF_BOARD AS fileRefBoard,
+			   FILE_REF_NUM AS fileRefNum 
+		  FROM QABOARD QA, MEMBER M, COMMON_FILE CF
+	   	 WHERE QA.QA_WRITER=M.MEM_NICKNAME
+	   	   AND QA.QA_NUM=CF.FILE_REF_NUM(+) 
+	   	   AND QA.QA_NUM=#{qaNum}
+	</select>
+	
+	<select id="adminView" parameterType="int" resultMap="qaboard">
+		SELECT QA_NUM AS qaNum,
+			   ORIGIN_NO AS originNo,
+			   GROUP_ORD AS groupOrd,
+			   GROUP_LAYER AS groupLayer,
+			   QA_TITLE AS qaTitle,
+			   QA_REGDATE AS qaRegdate,
+			   QA_CONTENT AS qaContent,
+			   QA_VIEWCNT AS qaViewcnt,
+			   QA_WRITER AS qaWriter,
+			   FILE_NUM AS fileNum ,
+			   FILE_NAME AS fileName,
+			   FILE_ORGNAME AS fileOrgName,
+		   	   FILE_SIZE AS fileSize,
+			   FILE_PATH AS filePath,
+			   FILE_REF_BOARD AS fileRefBoard,
+			   FILE_REF_NUM AS fileRefNum 
+		  FROM QABOARD QA, COMMON_FILE CF
+	   	 WHERE 
+	   	   QA.QA_NUM=CF.FILE_REF_NUM(+) 
+	   	   AND QA.QA_NUM=#{qaNum}
+	</select>
+	
+
+<select id="qaPrev" parameterType="int" resultMap="qaboard">
+SELECT * FROM
+		  (SELECT  QA_NUM AS qaNum,
+			  	   QA_TITLE AS qaTitle,
+			  	   QA_REGDATE AS qaRegdate,
+				   QA_CONTENT AS qaContent,
+			 	   QA_VIEWCNT AS qaViewcnt,
+				   QA_WRITER AS qaWriter,
+				   FILE_NUM AS fileNum ,
+				   FILE_NAME AS fileName,
+				   FILE_ORGNAME AS fileOrgName,
+		 	  	   FILE_SIZE AS fileSize,
+				   FILE_PATH AS filePath,
+				   FILE_REF_BOARD AS fileRefBoard,
+				   FILE_REF_NUM AS fileRefNum, 
+				   ROWNUM 
+			  FROM QABOARD QA, COMMON_FILE CF 
+	 <![CDATA[ 
+		 WHERE QA.QA_NUM=CF.FILE_REF_NUM(+)
+		   AND QA.QA_NUM<#{qaNum} ORDER BY QA_NUM DESC)
+		 WHERE ROWNUM=1
+	]]>
+</select>
+
+<select id="qaNext" parameterType="int" resultMap="qaboard">
+SELECT * FROM
+		  (SELECT  QA_NUM AS qaNum,
+			  	   QA_TITLE AS qaTitle,
+			  	   QA_REGDATE AS qaRegdate,
+				   QA_CONTENT AS qaContent,
+			 	   QA_VIEWCNT AS qaViewcnt,
+				   QA_WRITER AS qaWriter,
+				   FILE_NUM AS fileNum ,
+				   FILE_NAME AS fileName,
+				   FILE_ORGNAME AS fileOrgName,
+		 	  	   FILE_SIZE AS fileSize,
+				   FILE_PATH AS filePath,
+				   FILE_REF_BOARD AS fileRefBoard,
+				   FILE_REF_NUM AS fileRefNum, 
+				   ROWNUM 
+			 FROM  QABOARD QA,COMMON_FILE CF 
+	 <![CDATA[ 
+		 WHERE QA.QA_NUM=CF.FILE_REF_NUM(+)
+		   AND QA.QA_NUM>#{qaNum} ORDER BY QA_NUM ASC)
+		 WHERE ROWNUM=1
+	]]>
+</select>	
+	
 <!-- 게시물삭제 -->
-   <delete id="deleteArticle">
-      DELETE FROM QABOARD
-           WHERE QA_NUM=#{qaNum}
-   </delete>
-      
+	<delete id="deleteArticle">
+		DELETE FROM QABOARD
+			  WHERE QA_NUM=#{qaNum}
+	</delete>
+		
 <!-- 조회수 증가 처리 -->
-   <update id="increaseViewcnt">
-      UPDATE QABOARD 
-         SET QA_VIEWCNT=QA_VIEWCNT+1 
-       WHERE QA_NUM=#{qaNum}
-   </update>
-   
+	<update id="increaseViewcnt">
+		UPDATE QABOARD 
+		   SET QA_VIEWCNT=QA_VIEWCNT+1 
+		 WHERE QA_NUM=#{qaNum}
+	</update>
+	
 <!-- 게시물 목록 -->
-   <select id="listAll" resultType="com.newdeal.ict.Vo.QaBoardVo">
-      <include refid="paging_header" />
-      SELECT * FROM QABOARD
-      <include refid="search"></include>
-     ORDER BY ORIGIN_NO DESC, GROUP_ORD ASC 
-        <include refid="paging_footer" />
-   </select>   
-   
-   <select id="qaListAll" resultType="com.newdeal.ict.Vo.QaBoardVo">
-       SELECT QA_NUM,QA_WRITER, QA_TITLE,QA_CONTENT,QA_REGDATE,QA_VIEWCNT,
-            ORIGIN_NO AS originNo,
-            GROUP_ORD AS groupOrd,
-            GROUP_LAYER AS groupLayer,QA_GUBUN
-        FROM QABOARD QA WHERE QA_STATE='NO' 
-     ORDER BY QA_NUM DESC
-   </select>   
-   
+	<select id="listAll" resultType="com.newdeal.ict.Vo.QaBoardVo">
+		<include refid="paging_header" />
+		SELECT QA_NUM AS qaNum,
+			   QA_TITLE AS qaTitle,
+			   QA_REGDATE AS qaRegdate,
+			   QA_VIEWCNT AS qaViewcnt,
+			   QA_WRITER AS qaWriter
+		  FROM QABOARD QA, MEMBER M
+		<include refid="search"></include>
+	  ORDER BY QA.ORIGIN_NO DESC, QA.GROUP_ORD ASC 
+	  	<include refid="paging_footer" />
+	</select>	
+	
+	<select id="qaListAll" resultType="com.newdeal.ict.Vo.QaBoardVo">
+		 SELECT QA_NUM,QA_WRITER, QA_TITLE,QA_CONTENT,QA_REGDATE,QA_VIEWCNT,
+			   ORIGIN_NO AS originNo,
+			   GROUP_ORD AS groupOrd,
+			   GROUP_LAYER AS groupLayer,QA_GUBUN
+		  FROM QABOARD QA WHERE QA_STATE='NO' 
+	  ORDER BY QA_NUM DESC
+	</select>	
+	
 <!-- 레코드 갯수 계산 -->
-   <select id="countArticle" resultType="int">
-      SELECT COUNT(*)
-      FROM QABOARD QA, MEMBER M
-   <include refid="search"></include>
-   </select>
-   
-   <update id="answercomplete" parameterType="qaboard">
-   UPDATE QABOARD SET QA_STATE='YES' WHERE QA_NUM=#{qaNum}
-   </update>
-   
-<!-- 검색기능 -->   
-   <!-- #변수 - 따옴표를 처리(스트링 붙이고 숫자는 뺸다)
-   $변수 - 따옴표 무시 -->
-   <sql id="search">   
-      <choose>
-         <when test="search_option == 'all'">
-            WHERE  QA_WRITER LIKE '%' || #{keyword} || '%'
-                    OR QA_CONTENT LIKE '%' || #{keyword} || '%'
-                     OR QA_TITLE LIKE '%' || #{keyword} || '%' 
-         </when>
-         <when test="search_option == 'qaWriter'">
-            WHERE QA_WRITER LIKE '%' || #{keyword} || '%' 
-         </when>
-         <when test="search_option == 'qaContent'">
-            WHERE QA_CONTENT LIKE '%' || #{keyword} || '%'
-         </when>
-         <when test="search_option == 'qaTitle'">
-            WHERE QA_TITLE LIKE '%' || #{keyword} || '%'
-         </when>
-         <otherwise>
-            WHERE ${search_option} LIKE '%' || #{keyword}||'%'
-         </otherwise>
-      </choose> 
-   </sql>
+	<select id="countArticle" resultType="int">
+		SELECT COUNT(*)
+		FROM QABOARD QA, MEMBER M
+	<include refid="search"></include>
+	</select>
+	
+	<update id="answercomplete" parameterType="qaboard">
+	UPDATE QABOARD SET QA_STATE='YES' WHERE QA_NUM=#{qaNum}
+	</update>
+	
+<!-- 검색기능 -->	
+	<!-- #변수 - 따옴표를 처리(스트링 붙이고 숫자는 뺸다)
+	$변수 - 따옴표 무시 -->
+	<sql id="search">	
+		<choose>
+			<when test="search_option == 'all'">
+				WHERE  QA.QA_WRITER=M.MEM_NICKNAME
+				AND( MEM_NICKNAME LIKE '%' || #{keyword} || '%'
+				  	   OR QA_CONTENT LIKE '%' || #{keyword} || '%'
+				   	   OR QA_TITLE LIKE '%' || #{keyword} || '%' )
+			</when>
+			<when test="search_option == 'qaWriter'">
+				WHERE QA.QA_WRITER=M.MEM_NICKNAME
+				AND( MEM_NICKNAME  LIKE '%' || #{keyword} || '%' )
+			</when>
+			<when test="search_option == 'qaContent'">
+				WHERE QA.QA_WRITER=M.MEM_NICKNAME
+				AND(QA_CONTENT LIKE '%' || #{keyword} || '%')
+			</when>
+			<when test="search_option == 'qaTitle'">
+				WHERE QA.QA_WRITER=M.MEM_NICKNAME
+				AND(QA_TITLE LIKE '%' || #{keyword} || '%')
+			</when>
+			<otherwise>
+				WHERE ${search_option} LIKE '%' || #{keyword}||'%'
+			</otherwise>
+		</choose> 
+	</sql>
 
-<!-- 페이징처리  -->   
-   <sql id="paging_header">
-      SELECT *
-      FROM (
-            SELECT ROWNUM AS RN, A.*
-             FROM(
-   </sql>
-   <sql id="paging_footer">      
-             ) A
-           ) WHERE RN BETWEEN #{start} AND #{end}
-   </sql>
-   
+<!-- 페이징처리  -->	
+	<sql id="paging_header">
+		SELECT *
+		FROM (
+			   SELECT ROWNUM AS RN, A.*
+				 FROM(
+	</sql>
+	<sql id="paging_footer">		
+				 ) A
+			  ) WHERE RN BETWEEN #{start} AND #{end}
+	</sql>
+	
 <!--  최상위 부모글 번호 생성(1부터 차례대로 최상위 부모글만 생성된다.) -->
-   <!-- <select id="refMax" resultType="int">
-      SELECT NVL(MAX(QA_REF)+1,'1') AS QA_REF 
-        FROM QABOARD
-   </select>  -->
-   
-   <select id="fileinfo" parameterType="filevo" resultType="filevo">
-      SELECT FILE_NUM,
-            FILE_NAME,
-            FILE_ORGNAME,
-            FILE_SIZE,
-            FILE_PATH,
-            FILE_REF_BOARD,
-            FILE_REF_NUM
-        FROM COMMON_FILE
-       WHERE FILE_NUM=#{fileNum}
-   </select>   
-   
-   <delete id="fbFileDelete" parameterType="int">
-      DELETE COMMON_FILE 
-       WHERE FILE_REF_BOARD='QABOARD' 
-         AND FILE_REF_NUM=#{qaNum}
-   </delete>
-   
-   <select id="qaFileDelList" parameterType="int" resultType="filevo">
-      SELECT FILE_NUM,
-            FILE_NAME,
-            FILE_ORGNAME,
-            FILE_SIZE,
-            FILE_PATH,
-            FILE_REF_BOARD,
-            FILE_REF_NUM 
-        FROM COMMON_FILE 
-       WHERE FILE_REF_BOARD='QABOARD' AND FILE_REF_NUM=#{qaNum}
-   </select>
-   
-   <delete id="fileDel" parameterType="filevo">
-      DELETE COMMON_FILE 
-       WHERE FILE_NUM=#{fileNum}
-   </delete>
-   
+	<!-- <select id="refMax" resultType="int">
+		SELECT NVL(MAX(QA_REF)+1,'1') AS QA_REF 
+		  FROM QABOARD
+	</select>  -->
+	
+	<select id="fileinfo" parameterType="filevo" resultType="filevo">
+		SELECT FILE_NUM,
+			   FILE_NAME,
+			   FILE_ORGNAME,
+			   FILE_SIZE,
+			   FILE_PATH,
+			   FILE_REF_BOARD,
+			   FILE_REF_NUM
+		  FROM COMMON_FILE
+		 WHERE FILE_NUM=#{fileNum}
+	</select>	
+	
+	<delete id="qaFileDelete" parameterType="int">
+		DELETE COMMON_FILE 
+		 WHERE FILE_REF_BOARD='QABOARD' 
+		   AND FILE_REF_NUM=#{qaNum}
+	</delete>
+	
+	<select id="qaFileDelList" parameterType="int" resultType="filevo">
+		SELECT FILE_NUM,
+			   FILE_NAME,
+			   FILE_ORGNAME,
+			   FILE_SIZE,
+			   FILE_PATH,
+			   FILE_REF_BOARD,
+			   FILE_REF_NUM 
+		  FROM COMMON_FILE 
+		 WHERE FILE_REF_BOARD='QABOARD' AND FILE_REF_NUM=#{qaNum}
+	</select>
+	
+	<delete id="fileDel" parameterType="filevo">
+		DELETE COMMON_FILE 
+		 WHERE FILE_NUM=#{fileNum}
+	</delete>
+	
 
-   
+	
 
-   
+	
 
 </mapper>

@@ -1,26 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- <footer>
-		<div id="footer_list">
-			<ul id="text1">
-				<li>이용약관</li>
-				<li>개인정보보호정책</li>
-				<li>CONTACT US</li>
-				<li>고객센터</li>
-				<li>사이트맵</li>
-			</ul>
-
-			<span id="text2">
-				서울특별시 중구 필동로 26 골라주라 대표전화: 02-1234-5678<br><br>대표자: 박덕진  개인정보관리책임자: 박덕진<br><br>Copyright © 2017 Golajura Cultural Foundation. All Rights Reserved.
-			</span>
-
-			<ul id="sns">
-				<li><a href="#"><img src="images/sns_01.png" alt="페이스북 연결"></a></li>
-				<li><a href="#"><img src="images/sns_02.png" alt="인스타그램 연결"></a></li>
-				<li><a href="#"><img src="images/sns_03.png" alt="앱스토어 연결"></a></li>
-				<li><a href="#"><img src="images/sns_04.png" alt="구글플레이스토어 연결"></a></li>
+	<footer>
+		<div id="footerB">
+			<ul>
+				<li><a href="#">개인정보 처리방침</a></li>
+				<li><a href="#">이용약관</a></li>
+				<li><a href="#">이메일 무단 수집 거부</a></li>
 			</ul>
 		</div>
-	</footer>
+	
+		<div id="footerC" >
+		<h2><img src="<c:url value='/resources/images/logo.png'/>" alt="푸터로고">뉴딜일자리센터로고</h2>
+			<ul>
+				<li>
+					(우) 04520 서울특별시 중구 무교로 21 더익스체인지서울 8층 | 일자리노동정책관 | 일자리정책담당관
+				</li>
+				<li>
+					(☎) 구인/구직/교육/상담 1588-9142 | 일자리카페 02-731-9570 | 시스템 문의 070-7760-9540
+				</li>
+				<li>
+					© 2018. Seoul Metropolitan Government all rights reserved.
+				</li>
+			</ul>
+		</div>
+</footer>
+	
 

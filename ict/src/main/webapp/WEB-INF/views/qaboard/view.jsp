@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script>
 $(function(){
 	
@@ -38,7 +39,7 @@ $(function(){
 					<ul>
 						<li><a href="<c:url value='/notice/list.do'/>" >공지사항 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
 						<li><a href="<c:url value='/freeboard/list.do'/>" >자유게시판<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
-						<li><a href="#">후기게시판</a></li>
+						<li><a href="<c:url value='/review/rvList'/>">후기게시판</a></li>
 						<li><a href="<c:url value='/qaboard/list.do'/>" class="subActive">질문게시판<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
 					</ul>
 </div>
@@ -63,34 +64,51 @@ $(function(){
 							 <c:out value="${vo.qaContent}" escapeXml="false"/>
 							</div>
 							<ul>
-								
-								
+								<li>
+									<span>첨부파일</span>
+								<c:choose>
+								<c:when test="${fn:length(vo.list) > 0 }">
+								<c:forEach var="list" items="${vo.list }">
+								<a class="add_file" href="<c:url value='/qaboard/fileDown?fileNum=${list.fileNum }'/>">${list.fileOrgName }</a>
+								</c:forEach>																
+								</c:when>
+								<c:otherwise>
+								<a href="#a">첨부파일이 없습니다.</a>
+								</c:otherwise>
+								</c:choose>
+								</li>
 								<li>
 									<span>이전 글</span>
-									<a href="#a">이전 글이 없습니다.</a>
+									<c:choose>
+									<c:when test="${prev.qaTitle eq null}">
+									<a href="#">이전글이 없습니다.</a>
+									</c:when>
+									<c:otherwise>
+										<a href="<c:url value='/qaboard/view.do?qaNum=${prev.qaNum }'/>">${prev.qaTitle }</a>
+									</c:otherwise>
+									</c:choose>
 								</li>
 								<li>
 									<span>다음 글</span>
-									<a href="#a">다음 글이 없습니다.</a>
+									<c:choose>
+									<c:when test="${next.qaTitle eq null}">
+									<a href="#">다음글이 없습니다.</a>
+									</c:when>
+									<c:otherwise>
+										<a href="<c:url value='/qaboard/view.do?qaNum=${next.qaNum }'/>">${next.qaTitle }</a>
+									</c:otherwise>
+									</c:choose>
 								</li>
-								<li>
-									<span>첨부파일</span>
-								<c:forEach var="list" items="${vo.list }">
-								<a href="<c:url value='/qaboard/fileDown?fileNum=${list.fileNum }'/>">${list.fileOrgName }</a>
-								</c:forEach>
-								</li>
+								
 							</ul>
 						</div>
 
-	<div>
-	<!-- 본인 게시물만 수정,삭제 버튼 표시 -->	
 		<a id="list" class="btnList">목록</a>
-		<a id="list" class="btnReply">답변</a>
+	<!-- 본인 게시물만 수정,삭제 버튼 표시 -->	
 	<c:if test="${sessionScope.member.memNickName == vo.qaWriter }"> 
 		<a id="list" class="btnDelete">삭제</a>
 		<a id="list" class="btnUpdate">수정</a>
 	</c:if> 
-	</div>
 	</div>
 	<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
 		<input type="hidden" name="qaNum" value="${vo.qaNum}" />

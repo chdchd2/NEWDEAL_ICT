@@ -32,6 +32,7 @@
 	
 	function submit(){
 		$("#form").submit();
+		alert("기업회원 가입 신청이 완료되었습니다. 가입이 승인되면 정상적으로 이용이 가능합니다.");
 	}
 </script>
   </head>

@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.newdeal.ict.Service.CommonService;
 import com.newdeal.ict.Service.QaBoardService;
 import com.newdeal.ict.Util.Pager;
 import com.newdeal.ict.Vo.CommentVo;
@@ -35,6 +36,8 @@ public class QaBoardController {
 
 	@Inject
 	QaBoardService service;
+	@Inject
+	CommonService commonservice;
 
 
 	
@@ -43,10 +46,10 @@ public class QaBoardController {
 			@RequestParam(defaultValue="1") int curPage,
 			@RequestParam(defaultValue="all") String search_option
 			, @RequestParam(defaultValue="") String keyword) throws Exception{
-		//·¹ÄÚµå °¹¼ö °è»ê
+		//ë ˆì½”ë“œ ê°¯ìˆ˜ ê³„ì‚°
 		int count = service.countArticle(
 				search_option, keyword);
-		//ÆäÀÌÁöÀÇ ½ÃÀÛ¹øÈ£, ³¡¹øÈ£ °è»ê
+		//í˜ì´ì§€ì˜ ì‹œì‘ë²ˆí˜¸, ëë²ˆí˜¸ ê³„ì‚°
 		Pager pager = new Pager(count, curPage);
 		int start = pager.getPageBegin();
 		int end=pager.getPageEnd();
@@ -61,10 +64,10 @@ public class QaBoardController {
 		map.put("keyword", keyword);
 		map.put("pager", pager);
 		mav.addObject("map", map);
-		/*mapÀ¸·Î ¹­Áö ¾Ê¾ÒÀ» °æ¿ì
+		/*mapìœ¼ë¡œ ë¬¶ì§€ ì•Šì•˜ì„ ê²½ìš°
 		 * mav.addObject("list", list);
 		mav.addObject("count", list.size());*/
-		//list.jsp·Î Æ÷¿öµù
+		//list.jspë¡œ í¬ì›Œë”©
 		return mav;
 	}
 	
@@ -75,35 +78,35 @@ public class QaBoardController {
 	
 	
 	@RequestMapping("insert.do")
-	public String insert(@ModelAttribute QaBoardVo vo,HttpSession session, MultipartHttpServletRequest req) throws Exception{
+	public String insert(@ModelAttribute QaBoardVo vo,HttpSession session, MultipartHttpServletRequest multiRequest) throws Exception{
 		/*vo.setFbWriter((String)session.getAttribute("member"));*/
 		System.out.println("=====================>"+vo.toString());
 		service.create(vo);
-		//Ã·ºÎÆÄÀÏ Ã³¸®ÇÏ±â
-		List<MultipartFile> filelist = req.getFiles("file"); 
-		System.out.println("ÆÄÀÏ¸®½ºÆ®"+filelist.toString());
-		System.out.println("ÆÄÀÏ»çÀÌÁî"+filelist.size());
-		int num=service.qamaxNum();
-		service.qafileWrite(filelist, num);
+		//ì²¨ë¶€íŒŒì¼ ì²˜ë¦¬í•˜ê¸°
+		int fileRefNum = service.qamaxNum();
+		String fileRefBoard = "QABOARD";
+		commonservice.fileWrite(fileRefNum, fileRefBoard, multiRequest);
 		return "redirect:/qaboard/list.do";
 	}
 	
 	@RequestMapping("view.do")
 	public ModelAndView view(@RequestParam int qaNum
 			,HttpSession session) throws Exception {
-		//Á¶È¸¼ö Áõ°¡ Ã³¸®
+		//ì¡°íšŒìˆ˜ ì¦ê°€ ì²˜ë¦¬
 		service.increaseViewcnt(qaNum, session);
 		
-		/*//0718Ãß°¡
+		/*//0718ì¶”ê°€
 		List<BoardDTO> list2=boardService.PNList(bno);
 		//
 */		
-		//·¹ÄÚµå¸¦ ¸®ÅÏ¹ŞÀ½
+		//ë ˆì½”ë“œë¥¼ ë¦¬í„´ë°›ìŒ
 		ModelAndView mav=new ModelAndView();
 		
 		/*mav.addObject("list2",list2);*/
 		mav.setViewName(".qaboard.view");
 		mav.addObject("vo", service.read(qaNum));
+		mav.addObject("prev", service.qaPrev(qaNum));
+		mav.addObject("next", service.qaNext(qaNum));
 		return mav;
 	}
 	
@@ -118,17 +121,16 @@ public class QaBoardController {
 		return mav;
 	}
 	
-	//°Ô½Ã¹°³»¿ë¼öÁ¤
+	//ê²Œì‹œë¬¼ë‚´ìš©ìˆ˜ì •
 	@RequestMapping("update.do")
 	public String update(@ModelAttribute QaBoardVo vo, MultipartHttpServletRequest req) throws Exception {
-		if(vo != null){
-			System.out.println("=====================>"+vo.toString());
-			List<MultipartFile> filelist = req.getFiles("file"); 
-			int num=service.qamaxNum();
-			service.qafileWrite(filelist, num);
-			service.update(vo);//·¹ÄÚµå¼öÁ¤
-		}
-		//¼öÁ¤»ó¼¼È­¸é
+
+		String fileRefBoard="QABOARD";
+		int num=vo.getQaNum();
+		commonservice.fileWrite(num,fileRefBoard,req);
+		service.update(vo);
+		
+		//ìˆ˜ì •ìƒì„¸í™”ë©´
 		//return "redirect:/qaboard/view.do?qaNum="+vo.getFbNum();
 		return "redirect:/qaboard/list.do";
 	}
@@ -141,7 +143,7 @@ public class QaBoardController {
 
 	@RequestMapping(value="/fileDown" )
 	public ModelAndView contactoDownload(@ModelAttribute CommonFileVo filevo) throws Exception{
-		System.out.println("ÄÁÆ®·Ñ·¯ ÆÄÀÏ´Ù¿îºÎºĞ±îÁö ¿Â´Ù.");
+		System.out.println("ì»¨íŠ¸ë¡¤ëŸ¬ íŒŒì¼ë‹¤ìš´ë¶€ë¶„ê¹Œì§€ ì˜¨ë‹¤.");
 		CommonFileVo fileVo=service.fileinfo(filevo);
 		ModelAndView mv= new ModelAndView("FileDownView");
 		File file=new File(fileVo.getFilePath()+File.separator+fileVo.getFileName());
@@ -152,7 +154,7 @@ public class QaBoardController {
 	@RequestMapping(value = "/fileDel",method = RequestMethod.POST)
 	@ResponseBody
 	public void fileDel(CommonFileVo vo) throws Exception {
-		System.out.println("ÆÄÀÏ¹øÈ£´Â?"+vo);
+		System.out.println("íŒŒì¼ë²ˆí˜¸ëŠ”?"+vo);
 		service.fileDel(vo);
 	}/*
 	
@@ -184,6 +186,11 @@ public class QaBoardController {
 		}
 		mav.setViewName(".qaboard.reply");
 		return mav;
+	}
+	
+	@RequestMapping("faq.do")
+	public String faq(){
+		return "qaboard/faqboard"; //views/board/write.jsp
 	}
 	
 	

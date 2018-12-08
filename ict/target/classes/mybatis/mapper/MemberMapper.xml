@@ -28,7 +28,7 @@
 		MEM_UID AS memUid,
 		MEM_STATE AS memState
 	 FROM MEMBER 
-	 WHERE MEM_UID=#{memUid} AND MEM_PASSWORD=#{memPassword}
+	 WHERE MEM_UID=#{memUid} AND MEM_PASSWORD=#{memPassword} AND MEM_STATE='allow'
 </select>
 
 <insert id="signin" parameterType="member">

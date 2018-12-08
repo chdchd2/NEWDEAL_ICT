@@ -13,13 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.newdeal.ict.Service.AdminService;
 import com.newdeal.ict.Service.NoticeService;
 import com.newdeal.ict.Service.QaBoardService;
-import com.newdeal.ict.Util.Pager;
 import com.newdeal.ict.Vo.LinkListVo;
 import com.newdeal.ict.Vo.MemberVo;
 import com.newdeal.ict.Vo.NoticeVo;
@@ -167,7 +165,7 @@ public class AdminController {
 			 return "admin/login";
 		 }
 		vo.setQaTitle("[´äº¯]"+vo.getQaTitle());
-		vo.setQaRef(vo.getQaNum());
+		vo.setGroupOrd(vo.getQaNum());
 		System.out.println("ºêÀÌ¿À°©½¡¤©·Â"+vo.toString());
 		qaService.answer(vo);
 		
@@ -203,7 +201,7 @@ public class AdminController {
 		 if(session.getAttribute("admin") != "admin"){
 			 return "admin/login";
 		 }
-		 service.linkadd(vo);
+		service.linkadd(vo);
 		 List<LinkListVo> list = service.linklist();
 		 list.toString();
 		 model.addAttribute("linklist",list);

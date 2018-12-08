@@ -1,9 +1,8 @@
 eclipse.preferences.version=1
 encoding//src/main/java/com/newdeal/ict/Controller/CommonController.java=UTF-8
 encoding//src/main/java/com/newdeal/ict/Controller/EduController.java=UTF-8
-encoding//src/main/java/com/newdeal/ict/Controller/FreeBoardController.java=UTF-8
+encoding//src/main/java/com/newdeal/ict/Controller/FestivalController.java=UTF-8
 encoding//src/main/java/com/newdeal/ict/Controller/MemberController.java=UTF-8
-encoding//src/main/java/com/newdeal/ict/Controller/NoticeController.java=UTF-8
 encoding//src/main/java/com/newdeal/ict/Dao/NoticeDao.java=UTF-8
 encoding//src/main/java/com/newdeal/ict/Service/FreeBoardService.java=UTF-8
 encoding//src/main/java/com/newdeal/ict/Service/Impl/EduServiceImpl.java=UTF-8
@@ -11,3 +10,4 @@ encoding//src/main/java/com/newdeal/ict/Service/Impl/FreeBoardServiceImpl.java=U
 encoding//src/main/java/com/newdeal/ict/Service/Impl/NoticeServiceImpl.java=UTF-8
 encoding//src/main/java/com/newdeal/ict/Service/NoticeService.java=UTF-8
 encoding//src/main/java/com/newdeal/ict/Vo/QaBoardVo.java=UTF-8
+encoding//src/main/webapp/resources/css/style.css=UTF-8

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -19,6 +20,7 @@ import com.newdeal.ict.Service.FreeBoardService;
 import com.newdeal.ict.Vo.CommentVo;
 import com.newdeal.ict.Vo.CommonFileVo;
 import com.newdeal.ict.Vo.FreeBoardVo;
+import com.newdeal.ict.Vo.IntDetailJoinVo;
 
 @Service
 public class FreeBoardServiceImpl implements FreeBoardService {
@@ -37,7 +39,14 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		/*dao.increaseViewcnt(fbNum);*/
 		return dao.read(fbNum);
 	}
+
+	public FreeBoardVo fbNext(int fbNum) throws Exception {
+		return dao.fbNext(fbNum);
+	}
 	
+	public FreeBoardVo fbPrev(int fbNum) throws Exception {
+		return dao.fbPrev(fbNum);
+	}
 
 	@Transactional // 트랜잭션처리
 	@Override
@@ -63,8 +72,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	            System.out.println("파일이 존재하지 않습니다.");
 	        }
 		dao.fbFileDelete(fbNum);
-		dao.delete(fbNum);
 		}
+		dao.delete(fbNum);
 	}
 
 	@Override
@@ -93,38 +102,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		return dao.countArticle(search_option, keyword);
 	}
 
-	/*@Override
-	public int fbfileWrite(List<MultipartFile> filelist, int num) throws Exception {
-		InputStream is = null;
-		FileOutputStream fos = null;
-		String filePath = "C:\\Users\\Lenovo\\git\\NEWDEAL_ICT";
-		CommonFileVo filevo = new CommonFileVo();
-		try {
-			if (filelist.size() > 1) {
-				for (int i = 0; i < filelist.size(); i++) {
-					is = filelist.get(i).getInputStream();
-					UUID uuid = UUID.randomUUID();
-					String fileOrgName = filelist.get(i).getOriginalFilename();
-					String fileName = uuid + "_" + fileOrgName;
-					String fileSize = filevo.byteCalculation(String.valueOf(filelist.get(i).getSize()));
-					filevo.setFileName(fileName);
-					filevo.setFileSize(fileSize);
-					filevo.setFileOrgName(fileOrgName);
-					filevo.setFilePath(filePath);
-					filevo.setFileRefNum(dao.fbmaxNum());
-					dao.fbfileWrite(filevo);
-					fos = new FileOutputStream(filePath + "\\" + fileName);
-					FileCopyUtils.copy(is, fos);
-
-					fos.close();
-					is.close();
-				}
-			}
-		} finally {
-
-		}
-		return 0;
-	}*/
+	
 
 	@Override
 	public int fbmaxNum() throws Exception {
@@ -170,4 +148,15 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public List<CommentVo> commentList(int fbNum) throws Exception {
 		return dao.commentList(fbNum);
 	}
+
+	/*@Override
+	public void comUpdate(CommentVo vo) throws Exception {
+		dao.comUpdate(vo);
+	}*/
+	
+	@Override
+	public int comDel(int comNum) throws Exception {
+		return dao.comDel(comNum);
+	}
+	
 }

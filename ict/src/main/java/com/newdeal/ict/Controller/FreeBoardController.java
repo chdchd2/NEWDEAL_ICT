@@ -1,17 +1,23 @@
 package com.newdeal.ict.Controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.newdeal.ict.Service.CommonService;
 import com.newdeal.ict.Service.FreeBoardService;
 import com.newdeal.ict.Util.Pager;
@@ -75,17 +82,14 @@ public class FreeBoardController {
 	
 	
 	@RequestMapping("insert.do")
-	public String insert(@ModelAttribute FreeBoardVo vo,HttpSession session, MultipartHttpServletRequest req) throws Exception{
+	public String insert(@ModelAttribute FreeBoardVo vo,HttpSession session, MultipartHttpServletRequest multiRequest) throws Exception{
 		/*vo.setFbWriter((String)session.getAttribute("member"));*/
 		System.out.println("=====================>"+vo.toString());
 		service.create(vo);
 		//첨부파일 처리하기
-		List<MultipartFile> filelist = req.getFiles("file"); 
-		System.out.println("파일리스트"+filelist.toString());
-		System.out.println("파일사이즈"+filelist.size());
 		int fileRefNum = service.fbmaxNum();
 		String fileRefBoard = "FREEBOARD";
-		commonservice.fileWrite(filelist, fileRefNum, fileRefBoard);
+		commonservice.fileWrite(fileRefNum, fileRefBoard, multiRequest);
 		return "redirect:/freeboard/list.do";
 	}
 	
@@ -106,6 +110,8 @@ public class FreeBoardController {
 		List<CommentVo> commentList=service.commentList(fbNum);
 		mav.setViewName(".freeboard.view");
 		mav.addObject("vo", service.read(fbNum));
+		mav.addObject("prev", service.fbPrev(fbNum));
+		mav.addObject("next", service.fbNext(fbNum));
 		mav.addObject("commentList",commentList);
 		return mav;
 	}
@@ -124,14 +130,12 @@ public class FreeBoardController {
 	//게시물내용수정
 	@RequestMapping("update.do")
 	public String update(@ModelAttribute FreeBoardVo vo, MultipartHttpServletRequest req) throws Exception {
-		if(vo != null){
-			System.out.println("=====================>"+vo.toString());
-			List<MultipartFile> filelist = req.getFiles("file"); 
-			String fileRefBoard = "FREEBOARD";
-			int num = vo.getFbNum();
-			commonservice.fileWrite(filelist, num, fileRefBoard);
-			service.update(vo);//레코드수정
-		}
+
+		String fileRefBoard="FREEBOARD";
+		int num=vo.getFbNum();
+		commonservice.fileWrite(num,fileRefBoard,req);
+		service.update(vo);
+		
 		//수정상세화면
 		//return "redirect:/freeboard/view.do?fbNum="+vo.getFbNum();
 		return "redirect:/freeboard/list.do";
@@ -170,9 +174,27 @@ public class FreeBoardController {
 		service.comment(vo);
 		int fbNum=vo.getComBnum();
 		List<CommentVo> commentlist=service.commentList(fbNum);
+		for(CommentVo vo2:commentlist){
+			System.out.println(vo2.toString());
+		}
 		map.put("commentList", commentlist);
 		System.out.println(commentlist.toString());
 		
 		return map;
 	}
+   
+
+    @RequestMapping("/comDel")
+    @ResponseBody
+    public HashMap<String, Object> comDel(int comNum) throws Exception {
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+    	FreeBoardVo vo = null;
+    	service.comDel(comNum);
+    	List<CommentVo> commentlist=service.commentList(vo.getFbNum());
+    
+    	map.put("commentList", commentlist);
+    	System.out.println(commentlist.toString());
+		return map;
+    }
+    
 }

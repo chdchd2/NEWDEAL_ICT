@@ -33,7 +33,8 @@ $(function(){
 			$("#form").append(str);
 			document.form.submit();
 		});
-	 
+	 	
+	 	
 	  
 });
 function comment(){
@@ -52,7 +53,7 @@ function comment(){
 		$("#comContent").val("");
 		$("#commentlist").text("");
 		for(var i=0; i<data.commentList.length; i++){
-		$("#commentlist").append(data.commentList[i].memNickName+"===>"+data.commentList[i].comContent+data.commentList[i].comDate+"<br>");	
+		$("#commentlist").append(data.commentList[i].memNickName+"♥♥♥"+data.commentList[i].comContent+data.commentList[i].comDate+"<br>");	
 			
 		}
 
@@ -60,14 +61,24 @@ function comment(){
 }); 
 }
 
-function comDel(comNum){
-	if(!comfirm("댓글을 삭제하시겠습니까?")){
-		return;
-	}
-	if(comNum==0){
-		$(comNum).remove();
-	}
+var fbNum = '${vo.fbNum}';
+function comDel(comNum) {
+    if (!confirm("댓글을 삭제하시겠습니까?")) {
+        return;
+    }
+	console.log(comNum);
+	location.href="/ict/freeboard/view.do?fbNum="+fbNum;
+	 $.ajax({
+		type:"POST",
+		url:encodeURI("<c:url value='/freeboard/comDel?comNum="+comNum+"'/>"),
+		dataType:"json",
+		success:function(data){
+			if(data == 1)commentList(fbNum);
+		}
+	}); 
 }
+	
+
 </script>
 <section>
 <div id="sectionC">
@@ -76,7 +87,7 @@ function comDel(comNum){
 					<ul>
 						<li><a href="<c:url value='/notice/list.do'/>" >공지사항 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
 						<li><a href="<c:url value='/freeboard/list.do'/>" class="subActive">자유게시판<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
-						<li><a href="#">후기게시판</a></li>
+						<li><a href="<c:url value='/review/rvList'/>">후기게시판</a></li>
 						<li><a href="<c:url value='/qaboard/list.do'/>">질문게시판<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
 					</ul>
 </div>
@@ -116,27 +127,39 @@ function comDel(comNum){
 								</li>
 								<li>
 									<span>이전 글</span>
-									<a href="#a">이전 글이 없습니다.</a>
+									<c:choose>
+									<c:when test="${prev.fbTitle eq null}">
+									<a href="#">이전글이 없습니다.</a>
+									</c:when>
+									<c:otherwise>
+										<a href="<c:url value='/freeboard/view.do?fbNum=${prev.fbNum }'/>">${prev.fbTitle }</a>
+									</c:otherwise>
+									</c:choose>
 								</li>
 								<li>
 									<span>다음 글</span>
-									<a href="#a">다음 글이 없습니다.</a>
+									<c:choose>
+									<c:when test="${next.fbTitle eq null}">
+									<a href="#">다음글이 없습니다.</a>
+									</c:when>
+									<c:otherwise>
+										<a href="<c:url value='/freeboard/view.do?fbNum=${next.fbNum }'/>">${next.fbTitle }</a>
+									</c:otherwise>
+									</c:choose>
 								</li>
 								
 							</ul>
 						</div>
 
-	<div>
-	<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
-		<input type="hidden" name="fbNum" value="${vo.fbNum}" />
-	<!-- 본인 게시물만 수정,삭제 버튼 표시 -->	
 		<a id="list" class="btnList">목록</a>
+	<!-- 본인 게시물만 수정,삭제 버튼 표시 -->	
 	<c:if test="${sessionScope.member.memNickName == vo.fbWriter }"> 
 		<a id="list" class="btnDelete">삭제</a>
 		<a id="list" class="btnUpdate">수정</a>
 	</c:if> 
 	</div>
-	</div>
+	<!-- 수정, 삭제에 필요한 글번호를 hidden 태그에 저장 -->
+		<input type="hidden" name="fbNum" value="${vo.fbNum}" />
 		
 	<!-- 댓글 -->	
 	<span id="commentlist">
@@ -148,9 +171,18 @@ function comDel(comNum){
 		</colgroup>
 		<thead>
 			<tr>
+			<td><input type="hidden" id="comNum" value="${comment.comNum }" /></td>
 				<td>${comment.memNickName} |</td>
 				<td>${comment.comContent} |</td>
-				<td><span><fmt:formatDate value="${comment.comDate}" pattern="yyyy-MM-dd"/></span></td><br>
+				<td><span>${comment.comDate}</span></td>
+				<c:if test="${sessionScope.member.memNickName == comment.memNickName }"> 
+					<td><input type="button" value="삭제" onclick="comDel(${comment.comNum});" /></td><br>
+					<!--<td><a class="comDel">삭제</a></td><br> -->
+				</c:if>
+				<c:if test="${sessionScope.member.memNickName != comment.memNickName }"> 
+					<br>
+				</c:if>
+				
 			</tr>
 		</thead>
 		<%-- ${comment.memNickName} ===>${comment.comContent} ${comment.comDate} <br>  --%>

@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.newdeal.ict.Dao.QaBoardDao;
 import com.newdeal.ict.Service.QaBoardService;
 import com.newdeal.ict.Vo.CommonFileVo;
+import com.newdeal.ict.Vo.NoticeVo;
 import com.newdeal.ict.Vo.QaBoardVo;
 
 @Service
@@ -43,32 +44,39 @@ public class QaBoardServiceImpl implements QaBoardService{
 	@Transactional
 	@Override
 	public void update(QaBoardVo vo) throws Exception {
-		dao.update(vo);// boardÅ×ÀÌºí ¼öÁ¤
+		dao.update(vo);// boardï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½
 		
 	}
 
+	public QaBoardVo qaNext(int qaNum) throws Exception {
+		return dao.qaNext(qaNum);
+	}
+	
+	public QaBoardVo qaPrev(int qaNum) throws Exception {
+		return dao.qaPrev(qaNum);
+	}
 
 
 	@Override
 	public void delete(int qaNum) throws Exception {
 		List<CommonFileVo> filelist = dao.qaFileDelList(qaNum);
-		System.out.println("ÆÄÀÏ¸®½ºÆ®Ãâ·Â"+filelist.toString());
+		System.out.println("ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½"+filelist.toString());
 		for(CommonFileVo vo:filelist) {
 			String files=vo.getFilePath()+vo.getFileName();
-			System.out.println("ÆÄÀÏµð·ºÅä¸®+ÆÄÀÏÀÌ¸§ Ãâ·ÂÇØº¸±â"+files);
+			System.out.println("ï¿½ï¿½ï¿½Ïµï¿½ï¿½ä¸®+ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½"+files);
 			File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 			if( file.exists() ){
 	            if(file.delete()){
-	                System.out.println("ÆÄÀÏ»èÁ¦ ¼º°ø");
+	                System.out.println("ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 	            }else{
-	                System.out.println("ÆÄÀÏ»èÁ¦ ½ÇÆÐ");
+	                System.out.println("ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 	            }
 	        }else{
-	            System.out.println("ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+	            System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.");
 	        }
 		dao.qaFileDelete(qaNum);
-		dao.delete(qaNum);
 		}
+		dao.delete(qaNum);
 		
 	}
 
@@ -84,13 +92,13 @@ public class QaBoardServiceImpl implements QaBoardService{
 	@Override
 	public void increaseViewcnt(int qaNum, HttpSession session) throws Exception {
 		long update_time = 0;
-		// ¼¼¼Ç¿¡ ÀúÀåµÈ °Ô½Ã¹°ÀÇ Á¶È¸½Ã°£ °Ë»ö
+		// ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ã°ï¿½ ï¿½Ë»ï¿½
 		if (session.getAttribute("update_time_" + qaNum) != null) {
 			update_time = (Long) session.getAttribute("update_time_" + qaNum);
 		}
-		// ÇöÀç ½Ã°£
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 		long current_time = System.currentTimeMillis();
-		// ÀÏÁ¤ ½Ã°£ÀÌ °æ°úµÈ ÈÄ Á¶È¸¼ö Áõ°¡ Ã³¸®
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 		if (current_time - update_time > 5 * 1000) {
 			dao.increaseViewcnt(qaNum);
 			session.setAttribute("update_time_" + qaNum, current_time);
@@ -104,43 +112,6 @@ public class QaBoardServiceImpl implements QaBoardService{
 	public int countArticle(String search_option, String keyword) throws Exception {
 		return dao.countArticle(search_option, keyword);
 	}
-
-
-
-	@Override
-	public int qafileWrite(List<MultipartFile> filelist, int num) throws Exception {
-		InputStream is = null;
-		FileOutputStream fos = null;
-		String filePath = "C:\\Users\\Lenovo\\git\\NEWDEAL_ICT";
-		CommonFileVo filevo = new CommonFileVo();
-		try {
-			if (filelist.size() > 1) {
-				for (int i = 0; i < filelist.size(); i++) {
-					is = filelist.get(i).getInputStream();
-					UUID uuid = UUID.randomUUID();
-					String fileOrgName = filelist.get(i).getOriginalFilename();
-					String fileName = uuid + "_" + fileOrgName;
-					String fileSize = filevo.byteCalculation(String.valueOf(filelist.get(i).getSize()));
-					filevo.setFileName(fileName);
-					filevo.setFileSize(fileSize);
-					filevo.setFileOrgName(fileOrgName);
-					filevo.setFilePath(filePath);
-					filevo.setFileRefNum(dao.qamaxNum());
-					dao.qafileWrite(filevo);
-					fos = new FileOutputStream(filePath + "\\" + fileName);
-					FileCopyUtils.copy(is, fos);
-
-					fos.close();
-					is.close();
-				}
-			}
-		} finally {
-
-		}
-		return 0;
-	}
-
-
 
 	@Override
 	public int qamaxNum() throws Exception {
@@ -164,13 +135,13 @@ public class QaBoardServiceImpl implements QaBoardService{
 		File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 		if( file.exists() ){
             if(file.delete()){
-                System.out.println("ÆÄÀÏ»èÁ¦ ¼º°ø");
+                System.out.println("ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
                 dao.fileDel(filevo);
             }else{
-                System.out.println("ÆÄÀÏ»èÁ¦ ½ÇÆÐ");
+                System.out.println("ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
             }
         }else{
-            System.out.println("ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+            System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.");
         }
 		return 1;
 	}

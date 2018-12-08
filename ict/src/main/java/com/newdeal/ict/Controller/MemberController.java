@@ -83,7 +83,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/companysignup", method = RequestMethod.GET)
 	public String companySingup() {
-	
+		
 		return ".member.companyregister";
 	}
 	
@@ -101,7 +101,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/companylogin", method = RequestMethod.POST)
-	public String companyLogin(MemberVo vo,HttpSession session) throws Exception {
+	public String companyLogin(MemberVo vo,HttpSession session,Model model) throws Exception {
 		System.out.println("vo밸류값"+vo.toString());
 		MemberVo login=service.iscompanymember(vo);
 		if(login!=null){
@@ -110,7 +110,8 @@ public class MemberController {
 			
 		 }else{
 			 System.out.println("기업회원 아님");
-				return ".member.loginfail";
+			 model.addAttribute("state","fail");
+				return ".member.companylogin";
 		 }
 		
 	

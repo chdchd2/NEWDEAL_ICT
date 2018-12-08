@@ -20,7 +20,7 @@ label,img,input,select,textarea,button{vertical-align:middle;}
 hr{display:none;}
 main,header,section,nav,footer,aside,article,figure{display:block;}
 a{color:#000;text-decoration:none;}
- 
+
 /* Form */
 textarea { border:1px solid #dbdbdb;}
 select { height:32px; font-size:13px; color:#373737; border:1px solid #e6e6e6; background:#fff;border-radius: 5px;}
@@ -43,8 +43,8 @@ input:focus { border: 1px solid #727272;}*/
 input[type=tel][readonly],
 input[type=text][readonly],
 input[type=password][readonly],
-input[type=email][readonly], 
-input[type=search][readonly], 
+input[type=email][readonly],
+input[type=search][readonly],
 input[type=tel][disabled],
 input[type=text][disabled],
 input[type=password][disabled],

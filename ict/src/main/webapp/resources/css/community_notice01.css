@@ -87,18 +87,15 @@ section #sectionC #sectionR #contentHeader h2 {
 }
 
 
-
-
-
-
 /*컨텐츠 영역*/
 section #sectionC #sectionR #content {
 	width:914px;
 	height:665px;
 	padding:30px 40px 35px;
+	text-align:center;
+	float:left;
 	background-color:white;
 	margin-top:4px;
-	text-align:center;
 }
 
 section #sectionC #sectionR #content #search {
