@@ -147,7 +147,7 @@ function logout(){
 	 			 <ul class="submenu_list">
 	 				<li><a href="<c:url value='/notice/list.do'/>">공지사항</a></li>
 	 			 	<li><a href="<c:url value='/freeboard/list.do'/>">자유게시판</a></li>
-	 			 	<li><a href="#">후기게시판</a></li>
+	 			 	<li><a href="<c:url value='/review/rvList'/>">후기게시판</a></li>
 	 			 	<li><a href="<c:url value='/qaboard/list.do'/>">질문게시판</a></li>
  			 	</ul>
  			</li>

@@ -3,6 +3,7 @@ encoding//src/main/java/com/newdeal/ict/Controller/CommonController.java=UTF-8
 encoding//src/main/java/com/newdeal/ict/Controller/EduController.java=UTF-8
 encoding//src/main/java/com/newdeal/ict/Controller/FestivalController.java=UTF-8
 encoding//src/main/java/com/newdeal/ict/Controller/MemberController.java=UTF-8
+encoding//src/main/java/com/newdeal/ict/Controller/NoticeController.java=UTF-8
 encoding//src/main/java/com/newdeal/ict/Dao/NoticeDao.java=UTF-8
 encoding//src/main/java/com/newdeal/ict/Service/FreeBoardService.java=UTF-8
 encoding//src/main/java/com/newdeal/ict/Service/Impl/EduServiceImpl.java=UTF-8

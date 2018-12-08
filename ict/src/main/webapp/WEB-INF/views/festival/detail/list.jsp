@@ -31,7 +31,7 @@
 					<h2>취업지원센터</h2>
 					<ul>
 						<li><a href="<c:url value='/festival/list'/>">행사안내 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
-						<li><a href="<c:url value='/festival/detailList'/>" class="subActive">채용정보</a></li>
+						<li><a href="<c:url value='/festival/detailList'/>" class="subActive">채용정보 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
 					</ul>
 				</div> 
 <div id="sectionR">

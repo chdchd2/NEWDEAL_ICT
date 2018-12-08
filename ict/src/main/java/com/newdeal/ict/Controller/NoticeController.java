@@ -43,10 +43,10 @@ public class NoticeController {
 			@RequestParam(defaultValue="1") int curPage,
 			@RequestParam(defaultValue="all") String search_option
 			, @RequestParam(defaultValue="") String keyword) throws Exception{
-		//레코드 갯수 계산
+		//�젅肄붾뱶 媛��닔 怨꾩궛
 		int count = service.countArticle(
 				search_option, keyword);
-		//페이지의 시작번호, 끝번호 계산
+		//�럹�씠吏��쓽 �떆�옉踰덊샇, �걹踰덊샇 怨꾩궛
 		Pager pager = new Pager(count, curPage);
 		int start = pager.getPageBegin();
 		int end=pager.getPageEnd();
@@ -61,10 +61,10 @@ public class NoticeController {
 		map.put("keyword", keyword);
 		map.put("pager", pager);
 		mav.addObject("map", map);
-		/*map으로 묶지 않았을 경우
+		/*map�쑝濡� 臾띠� �븡�븯�쓣 寃쎌슦
 		 * mav.addObject("list", list);
 		mav.addObject("count", list.size());*/
-		//list.jsp로 포워딩
+		//list.jsp濡� �룷�썙�뵫
 		return mav;
 	}
 	
@@ -78,7 +78,7 @@ public class NoticeController {
 	public String insert(@ModelAttribute NoticeVo vo ,HttpSession session, MultipartHttpServletRequest multiRequest) throws Exception{
 		System.out.println("=====================>"+vo.toString());
 		service.create(vo);
-		//첨부파일 처리하기
+		//泥⑤��뙆�씪 泥섎━�븯湲�
 		int fileRefNum=service.ntmaxNum();
 		String fileRefBoard="NOTICE";
 		commonservice.fileWrite(fileRefNum,fileRefBoard,multiRequest);
@@ -88,14 +88,14 @@ public class NoticeController {
 	@RequestMapping("view.do")
 	public ModelAndView view(@RequestParam int ntNum
 			,HttpSession session) throws Exception {
-		//조회수 증가 처리
+		//議고쉶�닔 利앷� 泥섎━
 		service.increaseViewcnt(ntNum, session);
 		
-		/*//0718추가
+		/*//0718異붽�
 		List<BoardDTO> list2=boardService.PNList(bno);
 		//
 */		
-		//레코드를 리턴받음
+		//�젅肄붾뱶瑜� 由ы꽩諛쏆쓬
 		ModelAndView mav=new ModelAndView();
 		
 		/*mav.addObject("list2",list2);*/
@@ -118,7 +118,7 @@ public class NoticeController {
 		return mav;
 	}
 	
-	//게시물내용수정
+	//寃뚯떆臾쇰궡�슜�닔�젙
 	@RequestMapping("update.do")
 	public String update(@ModelAttribute NoticeVo vo, MultipartHttpServletRequest req) throws Exception {
 		String fileRefBoard="NOTICE";
@@ -126,7 +126,7 @@ public class NoticeController {
 		commonservice.fileWrite(num,fileRefBoard,req);
 		service.update(vo);
 		
-		//수정상세화면
+		//�닔�젙�긽�꽭�솕硫�
 		//return "redirect:/board/view.do?bno="+dto.getBno();
 		return "redirect:/notice/list.do";
 	}
@@ -140,7 +140,7 @@ public class NoticeController {
 	
 	@RequestMapping(value="/fileDown" )
 	public ModelAndView contactoDownload(@ModelAttribute CommonFileVo filevo) throws Exception{
-		System.out.println("컨트롤러 파일다운부분까지 온다.");
+		System.out.println("而⑦듃濡ㅻ윭 �뙆�씪�떎�슫遺�遺꾧퉴吏� �삩�떎.");
 		CommonFileVo fileVo=service.fileinfo(filevo);
 		ModelAndView mv= new ModelAndView("FileDownView");
 		File file=new File(fileVo.getFilePath()+File.separator+fileVo.getFileName());
@@ -151,7 +151,7 @@ public class NoticeController {
 	@RequestMapping(value = "/fileDel",method = RequestMethod.POST)
 	@ResponseBody
 	public void fileDel(CommonFileVo vo) throws Exception {
-		System.out.println("파일번호는?"+vo);
+		System.out.println("�뙆�씪踰덊샇�뒗?"+vo);
 		service.fileDel(vo);
 	}
 	

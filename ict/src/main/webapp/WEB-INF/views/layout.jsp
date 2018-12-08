@@ -28,10 +28,7 @@
 	
 </head>
 <body>
-<header>
-	 
 		<tiles:insertAttribute name="header"/>
-</header>
 		<tiles:insertAttribute name="main"/>
 		<tiles:insertAttribute name="footer"/>
 </body>
