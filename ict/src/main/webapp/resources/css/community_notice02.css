@@ -7,8 +7,9 @@ section #sectionC #sectionR #content {
 	padding:30px 40px 35px;
 	background-color:white;
 	margin-top:4px;
-	text-align:center;
-}
+	text-align:left;
+	line-height:30px;
+} 
 
 section #sectionC #sectionR #content #boardheader {
 	border"
@@ -228,8 +229,3 @@ section #sectionC #sectionR #contentHeader h2 {
 	font-size:18px;
 	font-weight:600;
 }
-
-
-
-
-

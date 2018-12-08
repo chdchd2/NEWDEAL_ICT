@@ -40,7 +40,7 @@
 					</div>
 						<div id="content">
 			
-							<p id="count">총<span>${pu.totalRowCount}건</span></p>
+							
 					<a href="javascript:fnWmTab2('전체');" >[ 전체 ]</a>&emsp;|
 						&emsp;<a href="#" onclick="javascript:fnWmTab2('경제/교육');" >경제/교육</a>&emsp;|
 						&emsp;<a href="javascript:fnWmTab2('IT/혁신');">IT/혁신</a>&emsp;|
@@ -48,6 +48,7 @@
 						&emsp;<a href="javascript:fnWmTab2('환경/안전');">환경/안전</a>&emsp;|
 						&emsp;<a href="javascript:fnWmTab2('기타');">[ 기타 ]</a>&emsp; 
 							
+							<p id="count">총<span>${pu.totalRowCount}건</span></p>
 							<ul id="search">
 							<li>
 								<select id="searchType">

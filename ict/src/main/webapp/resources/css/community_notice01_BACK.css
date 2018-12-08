@@ -76,7 +76,7 @@ section #sectionC #sectionR {
 section #sectionC #sectionR #contentHeader {
 	width:954px;
 	height:70px;
-	padding-left:40px;
+	padding-left:10px;
 	line-height:70px;
 	background-color:white;
 
@@ -95,7 +95,7 @@ section #sectionC #sectionR #contentHeader h2 {
 section #sectionC #sectionR #content {
 	width:914px;
 	height:665px;
-	padding:30px 40px 35px;
+	padding:10px 40px 35px;
 	background-color:white;
 	margin-top:4px;
 	text-align:center;
