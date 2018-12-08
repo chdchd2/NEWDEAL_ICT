@@ -7,248 +7,239 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="notice">
 
 <resultMap type="com.newdeal.ict.Vo.NoticeVo" id="notice">
-	<result property="ntNum" column="ntNum"/>
-	<result property="ntTitle" column="ntTitle"/>
-	<result property="ntContent" column="ntContent"/>
-	<result property="ntRegdate" column="ntRegdate"/>
-	<result property="ntViewcnt" column="ntViewcnt"/>
-	<result property="ntWriter" column="ntWriter"/>
-	<result property="ntMap" column="ntMap"/>
-	<collection property="list" ofType="com.newdeal.ict.Vo.CommonFileVo">
-		<result property="fileNum" column="fileNum"/>
-		<result property="fileName" column="fileName"/>
-		<result property="fileOrgName" column="fileOrgName"/>
-		<result property="fileSize" column="fileSize"/>
-		<result property="filePath" column="filePath"/>
-		<result property="fileRefBoard" column="fileRefBoard"/>
-		<result property="fileRefNum" column="fileRefNum"/>
-	</collection>
+   <result property="ntNum" column="ntNum"/>
+   <result property="ntTitle" column="ntTitle"/>
+   <result property="ntContent" column="ntContent"/>
+   <result property="ntRegdate" column="ntRegdate"/>
+   <result property="ntViewcnt" column="ntViewcnt"/>
+   <result property="ntWriter" column="ntWriter"/>
+   <result property="ntMap" column="ntMap"/>
+   <collection property="list" ofType="com.newdeal.ict.Vo.CommonFileVo">
+      <result property="fileNum" column="fileNum"/>
+      <result property="fileName" column="fileName"/>
+      <result property="fileOrgName" column="fileOrgName"/>
+      <result property="fileSize" column="fileSize"/>
+      <result property="filePath" column="filePath"/>
+      <result property="fileRefBoard" column="fileRefBoard"/>
+      <result property="fileRefNum" column="fileRefNum"/>
+   </collection>
 </resultMap>
 
 <!-- 게시물등록 -->
-	<insert id="insert" parameterType="notice">
-		INSERT INTO NOTICE (NT_NUM,NT_TITLE,NT_CONTENT,NT_WRITER,NT_MAP) 
-			 		VALUES ( 
-			 				 SEQ_NOTICE.NEXTVAL,
-							 #{ntTitle,jdbcType=VARCHAR}, 
-							 #{ntContent,jdbcType=CLOB}, 
-							 #{ntWriter,jdbcType=VARCHAR}, 
-							 #{ntMap,jdbcType=VARCHAR} 
-							)
-	<selectKey keyProperty="ntNum" resultType="int" order="AFTER">
-	SELECT SEQ_NOTICE.currval as ntNum FROM dual
-	</selectKey>	
-	</insert>
-	
-	<select id="ntmaxNum" resultType="int">
-				SELECT NVL(MAX(NT_NUM),1) AS MAXNUM 
-									 	 FROM NOTICE
-	</select>
-	
-	<insert id="ntfileWrite" parameterType="filevo">
-		INSERT INTO COMMON_FILE VALUES(
-										SEQ_COMMON_FILE_FILE_NUM.nextval,
-										#{fileName},
-										#{fileOrgName},
-										#{fileSize},
-										#{filePath},
-										'NOTICE',
-										#{fileRefNum}
-										)
-	</insert>
-	
-	<select id="ntCnt" resultType="int">
-	 			SELECT NVL(COUNT(*),0) CNT FROM NOTICE <!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
-	 			
-	</select>
-	
+   <insert id="insert" parameterType="notice">
+      INSERT INTO NOTICE (NT_NUM,NT_TITLE,NT_CONTENT,NT_WRITER,NT_MAP) 
+                VALUES ( 
+                       SEQ_NOTICE.NEXTVAL,
+                      #{ntTitle,jdbcType=VARCHAR}, 
+                      #{ntContent,jdbcType=CLOB}, 
+                      '관리자', 
+                      #{ntMap,jdbcType=VARCHAR} 
+                     )
+   <selectKey keyProperty="ntNum" resultType="int" order="AFTER">
+   SELECT SEQ_NOTICE.currval as ntNum FROM dual
+   </selectKey>   
+   </insert>
+   
+   <select id="ntmaxNum" resultType="int">
+            SELECT NVL(MAX(NT_NUM),1) AS MAXNUM 
+                                FROM NOTICE
+   </select>
+   
+   <insert id="ntfileWrite" parameterType="filevo">
+      INSERT INTO COMMON_FILE VALUES(
+                              SEQ_COMMON_FILE_FILE_NUM.nextval,
+                              #{fileName},
+                              #{fileOrgName},
+                              #{fileSize},
+                              #{filePath},
+                              'NOTICE',
+                              #{fileRefNum}
+                              )
+   </insert>
+   
+   <select id="ntCnt" resultType="int">
+             SELECT NVL(COUNT(*),0) CNT FROM NOTICE <!--  글이 하나도 없는경우는 result값이 null이나오기때문에 NVL로 널인경우에는 0으로 넣어주어라(resulttype이 int여서)-->
+             
+   </select>
+   
 <!-- 게시물 수정  -->
-	<update id="update" parameterType="notice">
-		UPDATE NOTICE
-		SET NT_TITLE=#{ntTitle}, NT_CONTENT=#{ntContent}, NT_MAP=#{ntMap}
-		WHERE NT_NUM=#{ntNum}
-	</update>
+   <update id="update" parameterType="notice">
+      UPDATE NOTICE
+      SET NT_TITLE=#{ntTitle}, NT_CONTENT=#{ntContent}, NT_MAP=#{ntMap}
+      WHERE NT_NUM=#{ntNum}
+   </update>
 
-<!-- 게시물 상세보기  -->	
-	<select id="view" parameterType="int" resultMap="notice">
-		SELECT  NT_NUM AS ntNum,
-				NT_TITLE AS ntTitle,
-				NT_REGDATE AS ntRegdate,
-				NT_CONTENT AS ntContent,
-				NT_VIEWCNT AS ntViewcnt,
-				NT_WRITER AS ntWrite,
-				NT_MAP AS ntMap,
-			  	FILE_NUM AS fileNum ,
-			    FILE_NAME AS fileName,
-			    FILE_ORGNAME AS fileOrgName,
-		   	    FILE_SIZE AS fileSize,
-			    FILE_PATH AS filePath,
-			    FILE_REF_BOARD AS fileRefBoard,
-			    FILE_REF_NUM AS fileRefNum 
-		  FROM  NOTICE NT, MEMBER M, COMMON_FILE CF
-	   	 WHERE  NT.NT_WRITER=M.MEM_NICKNAME
-	   	   AND  NT.NT_NUM=CF.FILE_REF_NUM(+) 
-	   	   AND  NT.NT_NUM=#{ntNum}
-	</select>
-		
+<!-- 게시물 상세보기  -->   
+   <select id="view" parameterType="int" resultMap="notice">
+      SELECT  NT_NUM AS ntNum,
+            NT_TITLE AS ntTitle,
+            NT_REGDATE AS ntRegdate,
+            NT_CONTENT AS ntContent,
+            NT_VIEWCNT AS ntViewcnt,
+            NT_WRITER AS ntWrite,
+            NT_MAP AS ntMap,
+              FILE_NUM AS fileNum ,
+             FILE_NAME AS fileName,
+             FILE_ORGNAME AS fileOrgName,
+                FILE_SIZE AS fileSize,
+             FILE_PATH AS filePath,
+             FILE_REF_BOARD AS fileRefBoard,
+             FILE_REF_NUM AS fileRefNum 
+        FROM  NOTICE NT, COMMON_FILE CF
+          WHERE  NT.NT_NUM=CF.FILE_REF_NUM(+) 
+            AND  NT.NT_NUM=#{ntNum}
+   </select>
+      
 <select id="ntPrev" parameterType="int" resultMap="notice">
 SELECT * FROM
-		  (SELECT  NT_NUM AS ntNum,
-			  	   NT_TITLE AS ntTitle,
-			  	   NT_REGDATE AS ntRegdate,
-				   NT_CONTENT AS ntContent,
-			 	   NT_VIEWCNT AS ntViewcnt,
-				   NT_WRITER AS ntWriter,
-				   FILE_NUM AS fileNum ,
-				   FILE_NAME AS fileName,
-				   FILE_ORGNAME AS fileOrgName,
-		 	  	   FILE_SIZE AS fileSize,
-				   FILE_PATH AS filePath,
-				   FILE_REF_BOARD AS fileRefBoard,
-				   FILE_REF_NUM AS fileRefNum, 
-				   ROWNUM 
-			  FROM NOTICE NT, COMMON_FILE CF 
-	 <![CDATA[ 
-		 WHERE NT.NT_NUM=CF.FILE_REF_NUM(+)
-		   AND NT.NT_NUM<#{ntNum} ORDER BY NT_NUM DESC)
-		 WHERE ROWNUM=1
-	]]>
+        (SELECT  NT_NUM AS ntNum,
+                 NT_TITLE AS ntTitle,
+                 NT_REGDATE AS ntRegdate,
+               NT_CONTENT AS ntContent,
+                NT_VIEWCNT AS ntViewcnt,
+               NT_WRITER AS ntWriter,
+               FILE_NUM AS fileNum ,
+               FILE_NAME AS fileName,
+               FILE_ORGNAME AS fileOrgName,
+                  FILE_SIZE AS fileSize,
+               FILE_PATH AS filePath,
+               FILE_REF_BOARD AS fileRefBoard,
+               FILE_REF_NUM AS fileRefNum, 
+               ROWNUM 
+           FROM NOTICE NT, COMMON_FILE CF 
+    <![CDATA[ 
+       WHERE NT.NT_NUM=CF.FILE_REF_NUM(+)
+         AND NT.NT_NUM<#{ntNum} ORDER BY NT_NUM DESC)
+       WHERE ROWNUM=1
+   ]]>
 </select>
 
 <select id="ntNext" parameterType="int" resultMap="notice">
 SELECT * FROM
-		  (SELECT  NT_NUM AS ntNum,
-			  	   NT_TITLE AS ntTitle,
-			  	   NT_REGDATE AS ntRegdate,
-				   NT_CONTENT AS ntContent,
-			 	   NT_VIEWCNT AS ntViewcnt,
-				   NT_WRITER AS ntWriter,
-				   FILE_NUM AS fileNum ,
-				   FILE_NAME AS fileName,
-				   FILE_ORGNAME AS fileOrgName,
-		 	  	   FILE_SIZE AS fileSize,
-				   FILE_PATH AS filePath,
-				   FILE_REF_BOARD AS fileRefBoard,
-				   FILE_REF_NUM AS fileRefNum, 
-				   ROWNUM 
-			 FROM  NOTICE NT,COMMON_FILE CF 
-	 <![CDATA[ 
-		 WHERE NT.NT_NUM=CF.FILE_REF_NUM(+)
-		   AND NT.NT_NUM>#{ntNum} ORDER BY NT_NUM ASC)
-		 WHERE ROWNUM=1
-	]]>
+        (SELECT  NT_NUM AS ntNum,
+                 NT_TITLE AS ntTitle,
+                 NT_REGDATE AS ntRegdate,
+               NT_CONTENT AS ntContent,
+                NT_VIEWCNT AS ntViewcnt,
+               NT_WRITER AS ntWriter,
+               FILE_NUM AS fileNum ,
+               FILE_NAME AS fileName,
+               FILE_ORGNAME AS fileOrgName,
+                  FILE_SIZE AS fileSize,
+               FILE_PATH AS filePath,
+               FILE_REF_BOARD AS fileRefBoard,
+               FILE_REF_NUM AS fileRefNum, 
+               ROWNUM 
+          FROM  NOTICE NT,COMMON_FILE CF 
+    <![CDATA[ 
+       WHERE NT.NT_NUM=CF.FILE_REF_NUM(+)
+         AND NT.NT_NUM>#{ntNum} ORDER BY NT_NUM ASC)
+       WHERE ROWNUM=1
+   ]]>
 </select>
 <!-- 게시물삭제 -->
-	<delete id="deleteArticle">
-		DELETE FROM NOTICE
-		WHERE NT_NUM=#{ntNum}
-	</delete>
-	
+   <delete id="deleteArticle">
+      DELETE FROM NOTICE
+      WHERE NT_NUM=#{ntNum}
+   </delete>
+   
 <!-- 조회수 증가 처리 -->
-	<update id="increaseViewcnt">
-		UPDATE NOTICE SET NT_VIEWCNT=NT_VIEWCNT+1 
-		WHERE NT_NUM=#{ntNum}
-	</update>
+   <update id="increaseViewcnt">
+      UPDATE NOTICE SET NT_VIEWCNT=NT_VIEWCNT+1 
+      WHERE NT_NUM=#{ntNum}
+   </update>
 
 <!-- 게시물 목록 -->
-	<select id="listAll" resultType="com.newdeal.ict.Vo.NoticeVo">
-	<include refid="paging_header" />
-	SELECT NT_NUM,NT_TITLE, NT_REGDATE,NT_VIEWCNT,NT_WRITER,NT_SHOW
-	FROM NOTICE NT, MEMBER M 
-	<include refid="search" /> 
-	ORDER BY NT_NUM DESC
-	<include refid="paging_footer" />
-	</select>
-	
-		<select id="listAlll" resultType="com.newdeal.ict.Vo.NoticeVo">
-	SELECT NT_NUM,NT_TITLE, NT_REGDATE,NT_VIEWCNT,NT_WRITER,NT_SHOW
-		FROM NOTICE NT
-	</select>
-	
+   <select id="listAll" resultType="com.newdeal.ict.Vo.NoticeVo">
+   <include refid="paging_header" />
+   SELECT NT_NUM,NT_TITLE, NT_REGDATE,NT_VIEWCNT,NT_WRITER,NT_SHOW
+   FROM NOTICE
+   <include refid="search" /> 
+   ORDER BY NT_NUM DESC
+   <include refid="paging_footer" />
+   </select>
+   
+      <select id="listAlll" resultType="com.newdeal.ict.Vo.NoticeVo">
+   SELECT NT_NUM,NT_TITLE, NT_REGDATE,NT_VIEWCNT,NT_WRITER,NT_SHOW
+      FROM NOTICE
+   </select>
+   
 <!-- 레코드 갯수 계산 -->
-	<select id="countArticle" resultType="int">
-		SELECT COUNT(*)
-		FROM NOTICE NT, MEMBER M  
-		<include refid="search"/> 
-	</select>
-	
-<!-- 검색기능 -->	
-	<!-- #변수 - 따옴표를 처리(스트링 붙이고 숫자는 뺸다)
-	$변수 - 따옴표 무시 -->
-	<sql id="search">	
-		<choose>
-			<when test="search_option == 'all'">
-				WHERE NT.NT_WRITER=M.MEM_NICKNAME 
-				AND NT_SHOW='Y'
-				AND ( MEM_NICKNAME LIKE '%' || #{keyword} || '%'
-				   OR NT_CONTENT LIKE '%' || #{keyword} || '%'
-				   OR NT_TITLE LIKE '%' || #{keyword} || '%' )
-			</when>
-			<when test="search_option == 'ntWriter'">
-				WHERE NT.NT_WRITER=M.MEM_NICKNAME 
-				AND NT_SHOW='Y'
-				AND ( MEM_NICKNAME LIKE '%' || #{keyword} || '%' )
-			</when>
-			<when test="search_option == 'ntContent'">
-				WHERE NT.NT_WRITER=M.MEM_NICKNAME 
-				AND NT_SHOW='Y'
-				AND ( NT_CONTENT LIKE '%' || #{keyword} || '%' )
-			</when>
-			<when test="search_option == 'ntTitle'">
-				WHERE NT.NT_WRITER=M.MEM_NICKNAME 
-				AND NT_SHOW='Y'
-				AND ( NT_TITLE LIKE '%' || #{keyword} || '%')
-			</when>
-			<otherwise>
-				WHERE ${search_option} LIKE '%' || #{keyword}||'%'
-			</otherwise>
-		</choose> 
-	</sql>
+   <select id="countArticle" resultType="int">
+      SELECT COUNT(*)
+      FROM NOTICE 
+      <include refid="search"/> 
+   </select>
+   
+<!-- 검색기능 -->   
+   <!-- #변수 - 따옴표를 처리(스트링 붙이고 숫자는 뺸다)
+   $변수 - 따옴표 무시 -->
+   <sql id="search">   
+      <choose>
+         <when test="search_option == 'all'">
+            WHERE NT_WRITER LIKE '%' || #{keyword} || '%'
+               OR NT_CONTENT LIKE '%' || #{keyword} || '%'
+               OR NT_TITLE LIKE '%' || #{keyword} || '%' 
+         </when>
+         <when test="search_option == 'ntWriter'">
+            WHERE NT_WRITER LIKE '%' || #{keyword} || '%' 
+         </when>
+         <when test="search_option == 'ntContent'">
+            WHERE NT_CONTENT LIKE '%' || #{keyword} || '%' 
+         </when>
+         <when test="search_option == 'ntTitle'">
+            WHERE NT_TITLE LIKE '%' || #{keyword} || '%'
+         </when>
+         <otherwise>
+            WHERE ${search_option} LIKE '%' || #{keyword}||'%'
+         </otherwise>
+      </choose> 
+   </sql>
 
-<!-- 페이징처리  -->	
-	<sql id="paging_header">
-		SELECT *
-		FROM (
-			SELECT ROWNUM AS RN, A.*
-			FROM(
-	</sql>
-	<sql id="paging_footer">		
-				) A
-			) WHERE RN BETWEEN #{start} AND #{end}
-	</sql>
-	
-	<select id="fileinfo" parameterType="filevo" resultType="filevo">
-		SELECT FILE_NUM AS fileNum,
-			   FILE_NAME AS fileName,
-			   FILE_ORGNAME AS fileOrgname,
-			   FILE_SIZE AS fileSize,
-			   FILE_PATH AS filePath,
-			   FILE_REF_BOARD AS fileRefBoard,
-			   FILE_REF_NUM AS fileRefNum
-		  FROM COMMON_FILE
-		 WHERE FILE_NUM=#{fileNum}
-	</select>	
-	
-	<delete id="ntFileDelete" parameterType="int">
-		DELETE COMMON_FILE 
-		 WHERE FILE_REF_BOARD='NOTICE' 
-		   AND FILE_REF_NUM=#{ntNum}
-	</delete>
-	
-	<select id="ntFileDelList" parameterType="int" resultType="filevo">
-		SELECT FILE_NUM AS fileNum,
-			   FILE_NAME AS fileName,
-			   FILE_ORGNAME AS fileOrgname,
-			   FILE_SIZE AS fileSize,
-			   FILE_PATH AS filePath,
-			   FILE_REF_BOARD AS fileRefBoard,
-			   FILE_REF_NUM AS fileRefNum
-		  FROM COMMON_FILE 
-		 WHERE FILE_REF_BOARD='NOTICE' AND FILE_REF_NUM=#{ntNum}
-	</select>
-	
-	<delete id="fileDel" parameterType="filevo">
-		DELETE COMMON_FILE 
-		 WHERE FILE_NUM=#{fileNum}
-	</delete>
+<!-- 페이징처리  -->   
+   <sql id="paging_header">
+      SELECT *
+      FROM (
+         SELECT ROWNUM AS RN, A.*
+         FROM(
+   </sql>
+   <sql id="paging_footer">      
+            ) A
+         ) WHERE RN BETWEEN #{start} AND #{end}
+   </sql>
+   
+   <select id="fileinfo" parameterType="filevo" resultType="filevo">
+      SELECT FILE_NUM AS fileNum,
+            FILE_NAME AS fileName,
+            FILE_ORGNAME AS fileOrgname,
+            FILE_SIZE AS fileSize,
+            FILE_PATH AS filePath,
+            FILE_REF_BOARD AS fileRefBoard,
+            FILE_REF_NUM AS fileRefNum
+        FROM COMMON_FILE
+       WHERE FILE_NUM=#{fileNum}
+   </select>   
+   
+   <delete id="ntFileDelete" parameterType="int">
+      DELETE COMMON_FILE 
+       WHERE FILE_REF_BOARD='NOTICE' 
+         AND FILE_REF_NUM=#{ntNum}
+   </delete>
+   
+   <select id="ntFileDelList" parameterType="int" resultType="filevo">
+      SELECT FILE_NUM AS fileNum,
+            FILE_NAME AS fileName,
+            FILE_ORGNAME AS fileOrgname,
+            FILE_SIZE AS fileSize,
+            FILE_PATH AS filePath,
+            FILE_REF_BOARD AS fileRefBoard,
+            FILE_REF_NUM AS fileRefNum
+        FROM COMMON_FILE 
+       WHERE FILE_REF_BOARD='NOTICE' AND FILE_REF_NUM=#{ntNum}
+   </select>
+   
+   <delete id="fileDel" parameterType="filevo">
+      DELETE COMMON_FILE 
+       WHERE FILE_NUM=#{fileNum}
+   </delete>
 </mapper>

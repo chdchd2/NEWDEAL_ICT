@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.MainMapper">
+	
+	
+	
+	
+	
+	<select id="linklist" resultType="linkvo">
+		SELECT LINK_NUM AS linkNum,
+			   LINK_NAME AS linkName,
+			   LINK_URL AS linkUrl
+			   FROM EDU_LINKLIST
+	</select>
+
+	<select id="noticelist" resultType="notice">
+		SELECT NT_NUM ntNum,NT_TITLE ntTitle,NT_REGDATE ntRegdate,ROWNUM FROM NOTICE 
+		WHERE 
+<![CDATA[ 
+		ROWNUM<6
+]]>
+	</select>
+	
+		<select id="festivallist" resultType="fesvo">
+		SELECT FES_NUM fesNum,FES_TITLE fesTitle,FES_DATE fesDate,ROWNUM FROM FESTIVAL
+		WHERE 
+<![CDATA[ 
+		ROWNUM<6
+]]>
+	</select>
+	
+	<select id="intlist" resultType="intvo">
+		SELECT INT_NUM intNum,INT_TITLE intTitle,INT_DATE intDate,ROWNUM FROM EDU_INTRODUCE
+		WHERE 
+<![CDATA[ 
+		ROWNUM<6
+]]>
+	</select>
+	
+		<select id="detlist" resultType="detvo">
+		SELECT DET_NUM detNum,DET_TITLE detTitle,DET_DATE detDate,ROWNUM FROM EDU_DETAIL
+		WHERE 
+<![CDATA[ 
+		ROWNUM<6
+]]>
+	</select>
+
+	
+
+
+
+
+
+
+</mapper>
+

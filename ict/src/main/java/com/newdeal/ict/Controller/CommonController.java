@@ -23,17 +23,7 @@ import com.newdeal.ict.Vo.LinkListVo;
 
 @Controller
 public class CommonController {
-	@Autowired
-	private AdminService service;
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	   public String home(HttpSession session) throws Exception {
-		  List<LinkListVo> linklist = service.linklist();
-		  
-		  session.setAttribute("linklist", linklist);
-	      System.out.println("홈으로이동하기");
-	      return ".main";
-	   }
-	   
+
 	
 	
 	 @RequestMapping(value="/ckImage")
