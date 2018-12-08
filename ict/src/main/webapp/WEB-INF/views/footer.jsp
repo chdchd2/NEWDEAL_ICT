@@ -11,7 +11,7 @@
 		</div>
 	
 		<div id="footerC" >
-		<h2><img src="<c:url value='/resources/images/logo.png'/>" alt="푸터로고">뉴딜일자리센터로고</h2>
+		<p><img src="<c:url value='/resources/images/logo.png'/>" alt="푸터로고"></p>
 			<ul>
 				<li>
 					(우) 04520 서울특별시 중구 무교로 21 더익스체인지서울 8층 | 일자리노동정책관 | 일자리정책담당관
@@ -25,5 +25,7 @@
 			</ul>
 		</div>
 </footer>
+
+
 	
 

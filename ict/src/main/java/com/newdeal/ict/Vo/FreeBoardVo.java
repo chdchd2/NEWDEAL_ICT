@@ -4,17 +4,17 @@ import java.util.Date;
 import java.util.List;
 
 public class FreeBoardVo {
-	private int fbNum; //번호
-	private String fbTitle; //제목
-	private String fbContent;//내용
-	private Date fbRegdate;//작성일
-	private int fbViewcnt;//조회수
-	private String fbWriter;//작성자
-	private int fbCnt;//댓글수
-	private String fbShow;//화면표시여부
+	private int fbNum; //踰덊샇
+	private String fbTitle; //�젣紐�
+	private String fbContent;//�궡�슜
+	private Date fbRegdate;//�옉�꽦�씪
+	private int fbViewcnt;//議고쉶�닔
+	private String fbWriter;//�옉�꽦�옄
+	private int fbCnt;//�뙎湲��닔
+	private String fbShow;//�솕硫댄몴�떆�뿬遺�
 	private List<CommonFileVo> list;
 	
-	//getter, setter, toString(), 기본생성자
+	//getter, setter, toString(), 湲곕낯�깮�꽦�옄
 	public int getFbNum() {
 		return fbNum;
 	}

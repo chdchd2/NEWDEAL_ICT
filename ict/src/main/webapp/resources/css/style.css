@@ -3,7 +3,7 @@
 @font-face{font-family:"N_Square_B"; src:url("fonts/NanumSquareB.eot"), url("fonts/NanumSquareB.ttf"), url("fonts/NanumSquareB.woff")}
 @font-face{font-family:"N_Square_EB"; src:url("fonts/NanumSquareEB.eot"), url("fonts/NanumSquareEB.ttf"), url("fonts/NanumSquareEB.woff")}
 
-h1,h2,h3,h4,h5,h6{
+h1,h3,h4,h5,h6{
 	width:1px; height:1px; font-size:0px; line-height:0px; position:absolute;
 }
 
@@ -20,7 +20,7 @@ ul.skipmenu_list li a:focus{
 }
 
 
-/*硫붿씤濡ㅻ쭅諛곕꼫 �떆�옉*/
+/*메인롤링배너 시작*/
 div#slideWrap{
 	width:100%; height:500px; float:left; 
 	position:relative; margin-top:140px;
@@ -67,13 +67,13 @@ div.contents_wrap3>img{
 	width:100%; height:auto; margin:0px auto; display:block;
 }
 
-/*�젣�쑕�궗�쁺�뿭 �걹*/
+/*제휴사영역 끝*/
 
 
 
 
 
-/*�쎒吏꾩쁺�뿭 �떆�옉*/
+/*웹진영역 시작*/
 div#contents_wrap4{
 	width:100%; height:500px; float:left;
 	position:relative; 
@@ -107,11 +107,11 @@ li.webzine_img{
 }
 
 li.webzine_text{
-	width:221px; height:58px; margin:0px auto; font:normal 0.75em "�룍��"; color:#303030;
+	width:221px; height:58px; margin:0px auto; font:normal 0.75em "돋움"; color:#303030;
 	margin-top:11px; text-align:justify;
 }
 ul.webzine li span{
-	font:normal 0.625em "�룍��"; color:#303030; float:right; margin-top:5px; margin-right:12px;
+	font:normal 0.625em "돋움"; color:#303030; float:right; margin-top:5px; margin-right:12px;
 }
 
 
@@ -194,10 +194,10 @@ ul.tab li.current{
 }
 
 
-/*�쎒吏꾩쁺�뿭 �걹*/
+/*웹진영역 끝*/
 
 
-/*痍⑥뾽怨듦퀬�쁺�뿭*/
+/*취업공고영역*/
 
 
 
@@ -310,71 +310,14 @@ ul.map_name li:last-child{
 	border-bottom:none; 
 }
 
-/*�뱷�뀥�옄�옉�쁺�뿭 �걹*/
-
-
-/*�뫖�꽣�쁺�뿭 �떆�옉
-div#footer_wrap{
-	width:100%; height:353px; float:left; background:#303030; position:relative; left:0px; top:955px;
-}
-
-footer{
-	width:1200px; height:353px; margin:0px auto; position: absolute; left:50%; margin-left:-600px; top:0px;
-}
-
-div#footer_list{
-	width:390px; height:209px; margin:0px auto;  margin-top:91px;
-}
-
-
-ul#text1{
-	width:100%; height:16px; margin:0px auto; margin-bottom:50px;
-}
-
-ul#text1 li{
-	float:left; font:normal 0.750em "N_square_L"; margin-right:6.4%; color:white;
-}
-ul#text1 li:last-child{
-	margin-right:0px;
-}
-
-span#text2{
-	width:98.97%; height:79px; font:normal 0.750em "N_square_L"; color:white; text-align:center; display: block;
-}
-
-
-span#text2>img{
-	width:
-}
-
-
-
-ul#sns{
-	width:35.38%; height:25px; margin:0px auto; margin-top:10%;
-}
-
-ul#sns li{
-	float:left; margin-right:8.6%;
-}
-
-ul#sns li:last-child{
-	margin-right:0px;
-}
-
-p#top_btn{
-	width:46px; height:91px; position:absolute; left:50%; margin-left:-23px; top:-91px;
-}
-�뫖�꽣�쁺�뿭 �걹*/
+/*득템자랑영역 끝*/
 
 
 
 
 
 
-
-
-
-/*怨듭��궗�빆 �럹�씠吏�*/
+/*공지사항 페이지*/
 div.contents_wrap{
 	width:100%; height:800px; position:relative; left:0px; top:120px; background:tomato; float:left;
 }
@@ -499,7 +442,7 @@ div.contents{
 	position:relative;
 	display:block;
 	text-align:center;
-}/*text-align �쑝濡� �젙�젹諛⑺뼢 寃곗젙*/
+}/*text-align 으로 정렬방향 결정*/
 .pagination ul {
 	display: inline-block;
 	text-align:center;
@@ -620,11 +563,11 @@ div.contents{
 	box-shadow:1px 3px 3px #ccc;
 	border:none;
 }
-.bc_search	{/*寃��깋�븘�씠肄�*/
+.bc_search	{/*검색아이콘*/
 	background:url('../images/icon_search.png') no-repeat #474a4d 35px center;
 	padding-left:55px;
 }
-.bc_re	{/*珥덇린�솕�븘�씠肄�*/
+.bc_re	{/*초기화아이콘*/
 	background:url('../images/icon_refresh.png') no-repeat #fff 35px center;
 	padding-left:60px;
 	color:#444;
@@ -632,7 +575,7 @@ div.contents{
 
 
 
-/*濡쒓렇�씤*/
+/*로그인*/
 
 div#loginLayer {
 	width:600px; height:600px; position:absolute; left:50%; margin-left:-300px; top:0px;
@@ -738,7 +681,7 @@ div#loginLayer {
 	}
 
 	li.webzine_text{
-		width:90%; font:normal 0.7em "�룍��";
+		width:90%; font:normal 0.7em "돋움";
 	}
 
 	ul.webzine li.webzine_title{
@@ -750,7 +693,7 @@ div#loginLayer {
 	}
 
 	table.webzine_tb tr td{
-		font:normal 0.8em "�룍��";
+		font:normal 0.8em "돋움";
 	}
 
 	li.webzine{
