@@ -82,7 +82,7 @@
             
                 <div class="form-group">
               <div class="form-label-group">
-                <input type="text" id="gubun" name="memGubun"value="${vo.memGubun }" readonly="readonly"">
+                <input type="text" id="gubun" name="memGubun"value="${vo.memGubun }" readonly="readonly">
                 <label for="gubun">가입구분</label>
               </div>
             </div>

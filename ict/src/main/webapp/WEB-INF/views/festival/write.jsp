@@ -199,9 +199,9 @@ function fileselect(event,num){
 								
 								<tr>
 									<td>지도첨부</td>
-									<td><input type="text" name="fesMap" id="searchWordBox" />
+									<td><input type="text" name="fesMap" id="searchWordBox" style="width:80%;"/>
 									
-												<label id="searchBtn">검색</label>
+												<label id="searchBtn" style="float:none;">검색</label>
 										<div id="mapDiv" style="display:none">
 											<div id="map" style="width:720px;height:210px;"></div>
 										</div>

@@ -1,29 +1,28 @@
 @charset "UTF-8";
 
 
-section2 {
+section {
    width:100%;
    overflow:hidden;
-   background-color:#ebebeb;
+   /* background-color:#ebebeb; */
    padding-top:155px;
-   padding-bottom:30px;
+   padding-bottom: 50px;
 }
 
-section2 #sectionC {
+section #sectionC {
    width:1260px;
    margin:30px auto;
 
 }
 
 /*서브메뉴*/
-section2 #sectionC #subMenu {
+section #sectionC #subMenu {
    width:256px;
-   height:907px;
    background-color:#fff;
    float:left;
-   box-shadow:0px 3px 8px rgba(12,11,12,0.1);
+   border:1px solid #e6e6e6;
 }
-section2 #sectionC #subMenu h2 {
+section #sectionC #subMenu h2 {
    height:70px;
    background-color:#fff;
    color:#000;
@@ -34,13 +33,13 @@ section2 #sectionC #subMenu h2 {
    border-bottom: 1px solid #e6e6e6;
 }
 
-section2 #sectionC #subMenu ul {
+section #sectionC #subMenu ul {
    background-color:#fff;   
 }
-section2 #sectionC #subMenu ul li {
+section #sectionC #subMenu ul li {
    border-bottom:1px solid #e6e6e6;
 }
-section2 #sectionC #subMenu ul li a {
+section #sectionC #subMenu ul li a {
    display:inline-block;
    width:256px;
    height:50px;
@@ -53,11 +52,11 @@ section2 #sectionC #subMenu ul li a {
 }
 
 /*submeun 활성화*/
-section2 #sectionC #subMenu ul li a.subActive {
-   background-color:#3a3e4c;
+section #sectionC #subMenu ul li a.subActive {
+   background-color: #012185;
    color:white;
 }
-section2 #sectionC #subMenu ul li a.subActive img{
+section #sectionC #subMenu ul li a.subActive img{
    float:right;
    margin-top:20px;
    margin-right:20px;
@@ -70,19 +69,18 @@ section2 #sectionC #subMenu ul li a.subActive img{
 
 
 /*컨텐츠헤더영역*/
-section2 #sectionC #sectionR {
+section #sectionC #sectionR {
    float:right;
-   box-shadow:0px 3px 8px rgba(12,11,12,0.1);
 }
-section2 #sectionC #sectionR #contentHeader {
+section #sectionC #sectionR #contentHeader {
    width:954px;
    height:70px;
    padding-left:40px;
    line-height:70px;
    background-color:white;
-
+   border-bottom: 1px solid #e6e6e6;;
 }
-section2 #sectionC #sectionR #contentHeader h2 {
+section #sectionC #sectionR #contentHeader h2 {
    font-size:18px;
    font-weight:600;
 }
@@ -93,7 +91,7 @@ section2 #sectionC #sectionR #contentHeader h2 {
 
 
 /*컨텐츠 영역*/
-section2 #sectionC #sectionR #content {
+section #sectionC #sectionR #content {
    width:914px;
    height:768px;
    /*overflow:hidden;*/
@@ -102,20 +100,20 @@ section2 #sectionC #sectionR #content {
    margin-top:4px;
    text-align:center;
 }
-section2 #sectionC #sectionR #content #tapMenu{
+section #sectionC #sectionR #content #tapMenu{
    text-align:left;
    margin-bottom:30px;
 }
-section2 #sectionC #sectionR #content #search {
+section #sectionC #sectionR #content #search {
    float:right;
 }
-section2 #sectionC #sectionR #content #search > li{
+section #sectionC #sectionR #content #search > li{
    float:left;
    text-align:center;
    margin-left:10px;
 }
 
-section2 #sectionC #sectionR #content #search > li:nth-of-type(1) > a{
+section #sectionC #sectionR #content #search > li:nth-of-type(1) > a{
    display:inline-block;
    width:86px;
    height:35px;
@@ -144,11 +142,11 @@ section2 #sectionC #sectionR #content #search > li:nth-of-type(1) > a{
    font-size:14px;
 
 }
-section2 #sectionC #sectionR #content #search > li:nth-of-type(1) > a img{
+section #sectionC #sectionR #content #search > li:nth-of-type(1) > a img{
    margin-left:24px;
    margin-top:-4px;
 }
-section2 #sectionC #sectionR #content #search li:nth-of-type(2) input{
+section #sectionC #sectionR #content #search li:nth-of-type(2) input{
    width:184px;
    height:35px;
    border-radius:0;
@@ -156,7 +154,7 @@ section2 #sectionC #sectionR #content #search li:nth-of-type(2) input{
    border:1px solid #bfbfbf;
 
 }
-section2 #sectionC #sectionR #content #search > li:nth-of-type(3) > a{
+section #sectionC #sectionR #content #search > li:nth-of-type(3) > a{
    display:inline-block;
    width:80px;
    height:35px;
@@ -175,40 +173,40 @@ section2 #sectionC #sectionR #content #search > li:nth-of-type(3) > a{
 
 
 
-section2 #sectionC #sectionR #content #table {
+section #sectionC #sectionR #content #table {
    
 }
 
-section2 #sectionC #sectionR #content #table  colgroup col:nth-of-type(1){
+section #sectionC #sectionR #content #table  colgroup col:nth-of-type(1){
    width:90px;
 }
-section2 #sectionC #sectionR #content #table  colgroup col:nth-of-type(2){
+section #sectionC #sectionR #content #table  colgroup col:nth-of-type(2){
    width:530px;
 }
 
-section2 #sectionC #sectionR #content #table  colgroup col:nth-of-type(3){
+section #sectionC #sectionR #content #table  colgroup col:nth-of-type(3){
    width:154px;
 }
-section2 #sectionC #sectionR #content #table  colgroup col:nth-of-type(4){
+section #sectionC #sectionR #content #table  colgroup col:nth-of-type(4){
    width:140px;
 }
-section2 #sectionC #sectionR #content #table  colgroup col:nth-of-type(5){
+section #sectionC #sectionR #content #table  colgroup col:nth-of-type(5){
    width:914px;
 }
 
 
-section2 #sectionC #sectionR #content #count {
+section #sectionC #sectionR #content #count {
    float:left;
    font-size:13px;
    height:40px;
    line-height:40px;
    margin-top:10px;
 }
-section2 #sectionC #sectionR #content #count span {
+section #sectionC #sectionR #content #count span {
    color:#003cff;
    margin-left:4px;
 }
-section2 #sectionC #sectionR #content #search {
+section #sectionC #sectionR #content #search {
    float:right;
 }
 
@@ -304,18 +302,20 @@ section2 #sectionC #sectionR #content #search {
 
 .bgcolor2 {
    background-color:#f7f7f7;
-   border-right:1px solid #4d4d4d;
-   border-bottom:1px solid #4d4d4d;
-   border-left:1px solid #4d4d4d;
-   border-top:1px solid #c6c6c6;
-   box-sizing:border-box;
+   border: 1px solid #c6c6c6;
+   /* border-right:1px solid #4d4d4d; */
+   /* border-bottom:1px solid #4d4d4d; */
+   /* border-left:1px solid #4d4d4d; */
+   /* border-top:1px solid #c6c6c6; */
+   /* box-sizing:border-box; */
 }
 
 #table tbody tr.bgcolor1 {
    background-color:#f7f7f7;
-   border-right:1px solid #4d4d4d;
+   border: 1px solid #c6c6c6;
+  /* border-right:1px solid #4d4d4d;
    border-top:1px solid #4d4d4d;
-   border-left:1px solid #4d4d4d;
+   border-left:1px solid #4d4d4d;*/
 }
 
 
@@ -323,38 +323,38 @@ section2 #sectionC #sectionR #content #search {
 
 
 /*컨텐츠 페이지 넘기기*/
-section2 #sectionC #sectionR #content #page {
+section #sectionC #sectionR #content #page {
    display:inline-block;
    margin-top:30px;
 }
 
-section2 #sectionC #sectionR #content #page p{
+section #sectionC #sectionR #content #page p{
    float:left;
    width:35px;
    height:35px;
 }
-section2 #sectionC #sectionR #content #page p:nth-of-type(1){
+section #sectionC #sectionR #content #page p:nth-of-type(1){
    margin-right:32px;
 }
-section2 #sectionC #sectionR #content #page p:nth-of-type(2){
+section #sectionC #sectionR #content #page p:nth-of-type(2){
    margin-left:32px;
 }
 
 
 
-section2 #sectionC #sectionR #content #page ul {
+section #sectionC #sectionR #content #page ul {
    float:left;
    margin-top:4px;
 }
 
-section2 #sectionC #sectionR #content #page ul li{
+section #sectionC #sectionR #content #page ul li{
    float:left;
    margin-right:6px;
 }
-section2 #sectionC #sectionR #content #page ul li:last-child{
+section #sectionC #sectionR #content #page ul li:last-child{
    margin-right:0px;
 }
-section2 #sectionC #sectionR #content #page ul li a{
+section #sectionC #sectionR #content #page ul li a{
    display:inline-block;
    width:25px;
    height:25px;
@@ -364,7 +364,7 @@ section2 #sectionC #sectionR #content #page ul li a{
 }
 
 /*페이지버튼 활성화*/
-section2 #sectionC #sectionR #content #page ul li a.pageActive {
+section #sectionC #sectionR #content #page ul li a.pageActive {
    background-color:#4d4d4d;
    color:#fff;
    border-radius:25px;

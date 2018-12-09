@@ -304,14 +304,14 @@ $(document).ready(function() {
 		<div id="webzine_list">
 
 			<div class="webzine_wrap">
-				<span class="con_title">공지사항 <a href="#">&#43;</a></span>
+				<span class="con_title">공지사항 </span>
 				<ul class="webzine">
 					<li class="webzine_img">
 						<table class="webzine_tb">
 				 			<tbody>
 				 			<c:forEach items="${noticelist }" var="noticelist">
 					 			<tr>
-					 				<td class="index">${noticelist.ntTitle }</td>
+					 				<td class="index"><a href="<c:url value='notice/view.do?ntNum=${noticelist.ntNum }'/>" class="linka">${noticelist.ntTitle }</a></td>
 					 				<td class="ago"><fmt:formatDate value="${noticelist.ntRegdate}" pattern="yyyy. MM. dd"/></td>
 					 			</tr>
 				 		   </c:forEach>
@@ -322,14 +322,14 @@ $(document).ready(function() {
 			</div>
 
 			<div class="webzine_wrap">
-				<span class="con_title">취업행사안내 <a href="#">&#43;</a></span>
+				<span class="con_title">취업행사안내 </span>
 				<ul class="webzine">
 					<li class="webzine_img">
 						<table class="webzine_tb">
 				 			<tbody>
 					 	<c:forEach items="${festivallist }" var="festivallist">
 					 			<tr>
-					 				<td class="index">${festivallist.fesTitle }</td>
+					 				<td class="index"><a  class="linka" href="<c:url value='/festival/fesDetail?fesNum=${festivallist.fesNum }'/>">${festivallist.fesTitle }</a></td>
 					 				<td class="ago"><fmt:formatDate value="${festivallist.fesDate}" pattern="yyyy. MM. dd"/></td>
 					 			</tr>
 				 		   </c:forEach>
@@ -352,7 +352,7 @@ $(document).ready(function() {
 					 		
 					 	 	<c:forEach items="${intlist }" var="intlist">
 					 			<tr>
-					 				<td class="index">${intlist.intTitle }</td>
+					 				<td class="index"><a  class="linka" href="<c:url value='/edu/intDetail?intNum=${intlist.intNum }'/>">${intlist.intTitle }</a></td>
 					 				<td class="ago"><fmt:formatDate value="${intlist.intDate}" pattern="yyyy. MM. dd"/></td>
 					 			</tr>
 				 		   </c:forEach>
@@ -365,7 +365,7 @@ $(document).ready(function() {
 				 			<tbody>
 					 		<c:forEach items="${detlist }" var="detlist">
 					 			<tr>
-					 				<td class="index">${detlist.detTitle }</td>
+					 				<td class="index"><a  class="linka" href="<c:url value='/edu/detDetail?detNum=${detlist.detNum }'/>">${detlist.detTitle }</a></td>
 					 				<td class="ago"><fmt:formatDate value="${detlist.detDate}" pattern="yyyy. MM. dd"/></td>
 					 			</tr>
 				 		   </c:forEach>
@@ -385,7 +385,7 @@ $(document).ready(function() {
 
 		<div id="job_list_wrap">
 
-			<span class="con_title">채용공고<a href="#">&#43;</a></span>
+			<span class="con_title">채용공고</span>
 			<div id="job_list">
 				<p id="job_btn_l"><img src="<c:url value='/resources/images/btn_prev (2).png'/>"></p>
 				<p id="job_btn_r"><img src="<c:url value='/resources/images/btn_next (1).png'/>"></p>
@@ -395,9 +395,9 @@ $(document).ready(function() {
 					<div class="job_con_wrap">
 						<ul class="job_con">
 							<li class="job_logo"><img src="<c:url value='/resources/images/job1.jpg'/>"></li>
-							<li>니트로소프트(주)</li>
-							<li>ZWCAD 기술지원팀 모집 (2D CAD 엔지니어)</li>
-							<li>접수마감: ~18.12.30</li>
+							<li>(주)한국비앤시</li>
+							<li>정산담당모집</li>
+							<li>접수마감: ~19.01.19</li>
 						</ul>
 
 						<ul class="job_con2">
@@ -411,32 +411,32 @@ $(document).ready(function() {
 					<div class="job_con_wrap">
 						<ul class="job_con">
 							<li class="job_logo"><img src="<c:url value='/resources/images/job3.jpg'/>"></li>
-							<li>니트로소프트(주)</li>
-							<li>ZWCAD 기술지원팀 모집 (2D CAD 엔지니어)</li>
-							<li>접수마감: ~18.12.30</li>
+							<li>코이노(주)</li>
+							<li>소프트웨어 서비스 및 솔루션영업</li>
+							<li>접수마감: ~19.02.06</li>
 						</ul>
 
 						<ul class="job_con2">
 							<li class="job_logo"><img src="<c:url value='/resources/images/job4.jpg'/>"></li>
-							<li>니트로소프트(주)</li>
-							<li>ZWCAD 기술지원팀 모집 (2D CAD 엔지니어)</li>
-							<li>접수마감: ~18.12.30</li>
+							<li>서울교통공사</li>
+							<li>기간제업무직(보건관리자) 채용 공고</li>
+							<li>접수마감: ~18.12.17</li>
 						</ul>
 					</div>
 
 					<div class="job_con_wrap">
 						<ul class="job_con">
-							<li class="job_logo"><img src="<c:url value='/resources/images/job2.jpg'/>"></li>
-							<li>니트로소프트(주)</li>
-							<li>ZWCAD 기술지원팀 모집 (2D CAD 엔지니어)</li>
-							<li>접수마감: ~18.12.30</li>
+							<li class="job_logo"><img src="<c:url value='/resources/images/maindd.jpg'/>"></li>
+							<li>한국영상자료원</li>
+							<li>한국연상자료원 NCS 기반 정규직(무기계약 : 미화) 1인 채용 공고.</li>
+							<li>접수마감: ~18.12.20</li>
 						</ul>
 
 						<ul class="job_con2">
-							<li class="job_logo"><img src="<c:url value='/resources/images/job4.jpg'/>"></li>
-							<li>니트로소프트(주)</li>
-							<li>ZWCAD 기술지원팀 모집 (2D CAD 엔지니어)</li>
-							<li>접수마감: ~18.12.30</li>
+							<li class="job_logo"><img src="<c:url value='/resources/images/sh.jpg'/>"></li>
+							<li>서울주택도시공사</li>
+							<li>서울주택도시공사 전문직 및 사무기술전문가 채용공고</li>
+							<li>접수마감: ~18.12.10</li>
 						</ul>
 					</div>
 
@@ -447,7 +447,7 @@ $(document).ready(function() {
 
 
 		<div class="section loc_info">
-			<span class="con_title">서울시 일자리카페<a href="#">&#43;</a></span>
+			<span class="con_title">서울시 일자리카페</span>
 			<div class="seoul_map">
 					<p class=""><img src="<c:url value='/resources/images/blank.png'/>" alt="서울시 지도(각 지역별 클릭하여 정보조회)" usemap="#seoulMap"></p>
 					<map name="seoulMap" id="seoulMap"><!-- 지역활성화 고정은 area에 class="on" 처리 -->

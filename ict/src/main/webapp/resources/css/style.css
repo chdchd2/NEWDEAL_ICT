@@ -293,7 +293,7 @@ div.loc_info{
 }
 
 div.seoul_map{
-	width:60%; height:273px; background:#f8f8f8; position:absolute; left:0px;
+	width:60%; height:273px; background:#ffc70b; position:absolute; left:0px;
 	top:38px; float:left;
 }
 
@@ -1038,5 +1038,11 @@ p#login_title{
 	ul#webzine_list{
 		margin:15% auto;
 	}
+}
+.linka{
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width:220px;
 }
 

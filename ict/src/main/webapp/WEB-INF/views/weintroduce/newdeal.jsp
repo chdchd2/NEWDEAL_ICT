@@ -19,14 +19,8 @@ font{font-family:'Yeon Sung', cursive, font-size:15px; }
 						<h2>뉴딜일자리란?</h2>	
 					</div>		
 					<div id="contents2">	
-					<font>
-						<h3>○&nbsp; 시민생활에 필요한 서비스를 제공하고 <br></h3>
-						<h3>○&nbsp; 참여자에게는 일 경험 제공 및 직업역량 배양을 통해 <br></h3>
-						<h3>○&nbsp; 참여자의 민간일자리 진입을 촉진하기 위한 사업입니다.</h3>
-					</font>	
-					
-						<img src="<c:url value='/resources/images/newdel.png'/>" alt="뉴딜일자리소개 이미지">
-					<a href = "http://job.seoul.go.kr/www/newdeal/board/newDealFaqWww.do?method=selectNewDealFaqWwwList&searchKeyword=&searchCondition=&faqCmmnSe=&pageIndex=1"> <b>  &nbsp;&nbsp;------> ( 더알아보기 ) </b></a><br>
+				
+						<img src="<c:url value='/resources/images/newdeal.png'/>" alt="뉴딜일자리소개 이미지">
 					
 					</div>				
 			</div>

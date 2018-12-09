@@ -84,7 +84,7 @@ function logout(){
  		<ul class="topmenu_list">
  		<%if(member!=null){
 		%>
-		<li><a>${member.memNickName}</a></li>
+		<li><a href="#">${member.memNickName} 님</a></li>
 		<li><a href="<c:url value='/logout'/>">로그아웃</a></li>
 		<%
  		}else{

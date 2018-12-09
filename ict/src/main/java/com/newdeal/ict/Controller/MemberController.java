@@ -57,7 +57,7 @@ public class MemberController {
 	 @RequestMapping(value = "/signup", method = RequestMethod.GET)
 		public String signup(MemberVo vo,Model model) {
 		 	model.addAttribute("vo",vo);
-			return ".member.signup";
+			return "member/signup";
 		}
 	 @RequestMapping(value="/logout")
 	 public String logout(HttpSession session) {

@@ -3,6 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9c33dafb379eb8e557de8b4964389518&libraries=services"></script>
+<script>
+function del(){
+if(confirm("삭제하시겠습니까?")){ 
+    location.href="<c:url value='/festival/fesDelete?fesNum=${FestivalVo.fesNum }'/>";
+   }else{
+    return false;
+   }
+}
+</script>
 
 <body>
 <section>
@@ -76,7 +85,7 @@
 							</ul>
 						</div>
 						 <c:if test="${sessionScope.member != null }"> 
-						 <a id="list" href="<c:url value='/festival/fesDelete?fesNum=${FestivalVo.fesNum }'/>">삭제</a>
+						 <a id="list" onclick="del()">삭제</a>
 						 </c:if> 
 						 <a id="list"href="<c:url value='/festival/list'/>">목록</a>
 					</div>

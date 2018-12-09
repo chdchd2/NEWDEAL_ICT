@@ -2,6 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script>
+function del(){
+if(confirm("삭제하시겠습니까?")){ 
+    location.href="<c:url value='/festival/fesDelete?fesNum=${FestivalVo.fesNum }'/>";
+   }else{
+    return false;
+   }
+}
+</script>
 <body>
 <section>
 
@@ -68,7 +77,7 @@
 							</ul>
 						</div>
 						 <c:if test="${sessionScope.member != null }"> 
-						 <a id="list" href="<c:url value='/festival/detDelete?detNum=${FesDetailVo.detNum}'/>">삭제</a>
+						 <a id="list" onclick="del()">삭제</a>
 						  </c:if>
 						 <a id="list"href="<c:url value='/festival/detailList'/>">목록</a>
 					</div>

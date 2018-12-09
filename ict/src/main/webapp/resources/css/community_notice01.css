@@ -168,7 +168,16 @@ section #sectionC #sectionR #content #search > li:nth-of-type(3) > a{
 	font-size:14px;
 	font-weight:400;
 }
-
+section #sectionC #sectionR #content #search > li:nth-of-type(3) > a input{
+	display:inline-block;
+	width:80px;
+	height:35px;
+	line-height:35px;
+	color:white;
+	background-color:#2d2d2d;
+	font-size:14px;
+	font-weight:400;
+}
 
 
 
@@ -270,8 +279,10 @@ section #sectionC #sectionR #content #search {
 	display:inline-block;
 	font-size:14px;
 	font-color:#262626;
-	width:100%;
+	width:400px;
 	height:50px;
+	overflow:hidden;
+	text-overflow:ellipsis;
 	line-height:50px;
 }
 
