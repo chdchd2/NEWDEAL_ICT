@@ -10,7 +10,7 @@ $(function(){
 		
 		$(".btnDelete").click(function(){
 			if(confirm("삭제하시겠습니까?")){
-				document.form.action="/ict/notice/delete.do";
+				document.form.action="<c:url value='/notice/delete.do'/>";
 				document.form.submit();
 			}
 		});
@@ -18,12 +18,12 @@ $(function(){
 			/*location.href="${path}/board/list.do";
 			//document.form.action="${path}/board/list.do";
 			//document.form.submit(); */
-			document.form.action="/ict/notice/list.do";
+			document.form.action="<c:url value='/notice/list.do'/>";
 			document.form.submit();
 		});
 
 		$(".btnUpdate").click(function(){
-			document.form.action="/ict/notice/updateView.do";
+			document.form.action="<c:url value='/notice/updateView.do'/>";
 			document.form.submit();
 		});
 		

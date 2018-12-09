@@ -29,6 +29,7 @@ function searchs(){
 						<c:forEach items="${companymember }" var="companymember">
 						&emsp;<a href="<c:url value='/edu/detList?&companygubun=${companymember.memNickName }'/>">${companymember.memNickName }</a>&emsp;|
 						</c:forEach>
+						
 							<p id="count">총<span>${pu.totalRowCount}건</span></p>
 								<ul id="search">
 							<li>

@@ -20,7 +20,7 @@ $(function(){
 		/*location.href="${path}/board/list.do";
 		//document.form.action="${path}/board/list.do";
 		//document.form.submit(); */
-		document.form.action="/ict/freeboard/list.do";
+		document.form.action="<c:url value='/freeboard/list.do'/>";
 		document.form.submit();
 	});
 	
@@ -98,7 +98,7 @@ console.log(event.value);
 					</div>
 					
 <form id="form" name="form" method="post" enctype="multipart/form-data"
-action="/ict/freeboard/insert.do">
+action="<c:url value='/freeboard/insert.do'/>">
 <div id="content">
 <table>
 							<colgroup>

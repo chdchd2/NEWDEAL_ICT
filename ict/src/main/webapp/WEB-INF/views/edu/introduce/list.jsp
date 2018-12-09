@@ -25,14 +25,12 @@ function searchs(){
 						<h2>교육신청안내 </h2>				
 					</div>
 						<div id="content">
-						
 						<a href="<c:url value='/edu/intList'/>">[ 전체 ]</a>&emsp;|
 						<c:forEach items="${companymember }" var="companymember">
 						&emsp;<a href="<c:url value='/edu/intList?&companygubun=${companymember.memNickName }'/>">${companymember.memNickName }</a>&emsp;|
 						</c:forEach>
 					
 							<p id="count">총<span>${pu.totalRowCount}건</span></p>
-							<br>
 								<ul id="search">
 							<li>
 								<select id="searchType">

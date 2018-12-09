@@ -27,7 +27,7 @@ public class MemberController {
 	@RequestMapping(value = "/normalsignin", method = RequestMethod.GET)
 	public String normalsignin() {
 	
-		return ".member.normalsignin";
+		return "member/normalsignin";
 	}
 	
 	 @RequestMapping({"/ismember"})
@@ -84,7 +84,7 @@ public class MemberController {
 	@RequestMapping(value = "/companysignup", method = RequestMethod.GET)
 	public String companySingup() {
 		
-		return ".member.companyregister";
+		return "member/companyregister";
 	}
 	
 	@RequestMapping(value = "/companysignup", method = RequestMethod.POST)
@@ -97,7 +97,7 @@ public class MemberController {
 	@RequestMapping(value = "/companylogin", method = RequestMethod.GET)
 	public String companyLogin() throws Exception {
 
-		return ".member.companylogin";
+		return "member/companylogin";
 	}
 	
 	@RequestMapping(value = "/companylogin", method = RequestMethod.POST)
@@ -111,7 +111,7 @@ public class MemberController {
 		 }else{
 			 System.out.println("기업회원 아님");
 			 model.addAttribute("state","fail");
-				return ".member.companylogin";
+				return "member/companylogin";
 		 }
 		
 	

@@ -118,8 +118,8 @@ function logout(){
  			<li class="mainmenu">
  				<a href="#">뉴딜 일자리</a>
  			 	<ul class="submenu_list">
- 			 		<li><a href="#">뉴딜일자리 소개</a></li>
- 			 		<li><a href="#">사이트개요</a></li>
+ 			 		<li><a href="<c:url value='/newdeal'/>">뉴딜일자리 소개</a></li>
+ 			 		<li><a href="<c:url value='/site'/>">사이트개요</a></li>
  			 	</ul>
  			</li>
  			

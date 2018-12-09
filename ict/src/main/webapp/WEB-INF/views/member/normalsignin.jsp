@@ -2,13 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
+ <link href="<c:url value='/resources/vendor/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet">
+    <link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
+    <link href="<c:url value='/resources/vendor/datatables/dataTables.bootstrap4.css'/>" rel="stylesheet">
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-
-<script>
-
-$(document).ready(function(){
+<!-- Custom styles for this template-->
+    <link href="<c:url value='/resources/css/sb-admin.css'/>" rel="stylesheet">
+    <script>
 	
-});
 
 function facebooklogin(){
 	FB.login(function(res){
@@ -80,17 +81,21 @@ window.fbAsyncInit = function() {
 </script>
 </head>
 <body>
-
+ <body class="bg-dark">
+    <div class="container">
+     <div class="card card-register mx-auto mt-5">
+        <div class="card-header">일반회원 등록하기</div>
+        <div class="card-body">
 <div style="margin:0px auto; width:800px;height: 450px; margin-top:100px;">
 				<h2>
-					<span style="color: #3b6aca;font-size: 36px;line-height: 24px; margin-left: 150px;">뉴딜 일자리</span>   SNS 회원가입
+					<span style="color: #3b6aca;font-size: 36px;line-height: 24px; margin-left: 100px;">뉴딜 일자리</span>   SNS 회원가입
 				</h2>
 				<br><br>
 				<p style="margin-left: 50px;">
 			
-					<span style="margin-left:100px;font-size: 18px;line-height: 24px; color: #707070;">가입하실 SNS 계정을 선택하여 주세요.</span><br>
-					<span style="margin-left:100px;font-size: 18px;line-height: 24px; color: #707070;">해당 SNS와 직접 로그인하여 뉴딜일자리 사이트에는</span><br>
-					<span style="margin-left:100px;font-size: 18px;line-height: 24px; color: #707070;">개인정보가 저장,수집되지 않으니 안심하셔도 됩니다.</span><br><br>
+					<span style="margin-left:50px;font-size: 18px;line-height: 24px; color: #707070;">가입하실 SNS 계정을 선택하여 주세요.</span><br>
+					<span style="margin-left:50px;font-size: 18px;line-height: 24px; color: #707070;">해당 SNS와 직접 로그인하여 뉴딜일자리 사이트에는</span><br>
+					<span style="margin-left:50px;font-size: 18px;line-height: 24px; color: #707070;">개인정보가 저장,수집되지 않으니 안심하셔도 됩니다.</span><br><br>
 				</p>
 				
 		
@@ -101,13 +106,13 @@ window.fbAsyncInit = function() {
 
 
 <ul style="list-style: none;    display: block;
-    list-style-type: disc;
+    list-style-type: none;
     margin-block-start: 1em;
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     padding-inline-start: 40px;
-    margin-left:80px;">
+    margin-left:20px;">
 	<li>
 		<a onclick="facebooklogin();" style="cursor: pointer;width: 250px;
     line-height: 48px;
@@ -142,6 +147,11 @@ window.fbAsyncInit = function() {
 </ul>
 
 	</div>
+	</div>
+	</div>
+	</div>
+
+	
 <script type='text/javascript'>
 	//<![CDATA[
 	// 사용할 앱의 JavaScript 키를 설정해 주세요.
@@ -191,3 +201,26 @@ window.fbAsyncInit = function() {
 
 
 </body>
+    <!-- Bootstrap core JavaScript-->
+    <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+    <script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+
+
+
+
+
+    <!-- Page level plugin JavaScript-->
+    <script src="<c:url value='/resources/vendor/chart.js/Chart.min.js'/>"></script>
+    <script src="<c:url value='/resources/vendor/datatables/jquery.dataTables.js'/>"></script>
+    <script src="<c:url value='/resources/vendor/datatables/dataTables.bootstrap4.js'/>"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="<c:url value='/resources/js/sb-admin.min.js'/>"></script>
+
+    <!-- Demo scripts for this page-->
+    <script src="<c:url value='/resources/js/demo/datatables-demo.js'/>"></script>
+    <script src="<c:url value='/resources/js/demo/chart-area-demo.js'/>"></script>
+

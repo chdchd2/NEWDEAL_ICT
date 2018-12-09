@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!--메인롤링배너-->
 <script>
 
@@ -299,7 +300,7 @@ $(document).ready(function() {
 </div>
 
 <div id="contents_wrap4">
-	<section id="contents4">
+	<div id="contents4">
 		<div id="webzine_list">
 
 			<div class="webzine_wrap">
@@ -308,26 +309,12 @@ $(document).ready(function() {
 					<li class="webzine_img">
 						<table class="webzine_tb">
 				 			<tbody>
+				 			<c:forEach items="${noticelist }" var="noticelist">
 					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고...</td>
-					 				<td class="ago">2분 전</td>
+					 				<td class="index">${noticelist.ntTitle }</td>
+					 				<td class="ago"><fmt:formatDate value="${noticelist.ntRegdate}" pattern="yyyy. MM. dd"/></td>
 					 			</tr>
-					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고...</td>
-					 				<td class="ago">2분 전</td>
-					 			</tr>
-					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고...</td>
-					 				<td class="ago">2분 전</td>
-					 			</tr>
-					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고...</td>
-					 				<td class="ago">2분 전</td>
-					 			</tr>
-					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고...</td>
-					 				<td class="ago">2분 전</td>
-					 			</tr>
+				 		   </c:forEach>
 				 			</tbody>
 			 			</table>
 			 		</li>
@@ -340,26 +327,12 @@ $(document).ready(function() {
 					<li class="webzine_img">
 						<table class="webzine_tb">
 				 			<tbody>
+					 	<c:forEach items="${festivallist }" var="festivallist">
 					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고...</td>
-					 				<td class="ago">2018. 12. 04</td>
+					 				<td class="index">${festivallist.fesTitle }</td>
+					 				<td class="ago"><fmt:formatDate value="${festivallist.fesDate}" pattern="yyyy. MM. dd"/></td>
 					 			</tr>
-					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고...</td>
-					 				<td class="ago">2분 전</td>
-					 			</tr>
-					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고...</td>
-					 				<td class="ago">2분 전</td>
-					 			</tr>
-					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고...</td>
-					 				<td class="ago">2분 전</td>
-					 			</tr>
-					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고...</td>
-					 				<td class="ago">2분 전</td>
-					 			</tr>
+				 		   </c:forEach>
 				 			</tbody>
 			 			</table>
 			 		</li>
@@ -368,34 +341,21 @@ $(document).ready(function() {
 
 			<div id="tab_container">
 				<ul class="tab">
-					<li class="current" data-tab="tab1"><a href="#">교육신청 안내</a></li>
-					<li data-tab="tab2"><a href="#">프로그램 상세</a></li>
+					<li class="current" data-tab="tab1"><a >교육신청 안내</a></li>
+					<li data-tab="tab2"><a >프로그램 상세</a></li>
 
 				</ul>
 
 				<div id="tab1" class="tabcontent current">
 					<table class="webzine_tb">
 				 			<tbody>
+					 		
+					 	 	<c:forEach items="${intlist }" var="intlist">
 					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고.dsgsdfgdsfgsdfgsdfgdfgsdgdsgdsgsdgdsfgg..</td>
-					 				<td class="ago">2분 전</td>
+					 				<td class="index">${intlist.intTitle }</td>
+					 				<td class="ago"><fmt:formatDate value="${intlist.intDate}" pattern="yyyy. MM. dd"/></td>
 					 			</tr>
-					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고...</td>
-					 				<td class="ago">2분 전</td>
-					 			</tr>
-					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고...</td>
-					 				<td class="ago">2분 전</td>
-					 			</tr>
-					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고...</td>
-					 				<td class="ago">2분 전</td>
-					 			</tr>
-					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고...</td>
-					 				<td class="ago">2분 전</td>
-					 			</tr>
+				 		   </c:forEach>
 				 			</tbody>
 			 			</table>
 			 	</div>
@@ -403,26 +363,12 @@ $(document).ready(function() {
 				<div id="tab2" class="tabcontent">
 					<table class="webzine_tb">
 				 			<tbody>
+					 		<c:forEach items="${detlist }" var="detlist">
 					 			<tr>
-					 				<td class="index">dasdfasdfsdf</td>
-					 				<td class="ago">2분 전</td>
+					 				<td class="index">${detlist.detTitle }</td>
+					 				<td class="ago"><fmt:formatDate value="${detlist.detDate}" pattern="yyyy. MM. dd"/></td>
 					 			</tr>
-					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고...</td>
-					 				<td class="ago">2분 전</td>
-					 			</tr>
-					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고...</td>
-					 				<td class="ago">2분 전</td>
-					 			</tr>
-					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고...</td>
-					 				<td class="ago">2분 전</td>
-					 			</tr>
-					 			<tr>
-					 				<td class="index">[패션] 오늘따라 이런 게 사고...</td>
-					 				<td class="ago">2분 전</td>
-					 			</tr>
+				 		   </c:forEach>
 				 			</tbody>
 			 			</table>
 			 </div>
@@ -431,11 +377,11 @@ $(document).ready(function() {
 
 
 		</div>
-	</section>
+	</div>
 </div>
 
 <div id="contents_wrap1">
-	<section id="contents1">
+	<div id="contents1">
 
 		<div id="job_list_wrap">
 
@@ -545,7 +491,7 @@ $(document).ready(function() {
 			</ul>
 		</div>
 
-	</section>
+	</div>
 </div>
 
 <style>

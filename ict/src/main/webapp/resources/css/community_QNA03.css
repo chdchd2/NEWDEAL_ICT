@@ -323,7 +323,57 @@ section #sectionC #sectionR #contentHeader h2 {
 	font-weight:600;
 }
 
+section #sectionC #sectionR #content table tbody tr td input[type="file"]{
+   border:none;
+   background-color:#666;
+   width:100px;
+   height:30px;
+   position:absolute;
+   left:-9999px;
+}
+section #sectionC #sectionR #content table tbody tr td label {
+   display: inline-block;
+   width:100px;
+   height:30px;
+   background: #3a3e4c url(../images/search.png) no-repeat 15px 50%;
+   background-size:16px;
+   position:relative;
+   vertical-align: middle;
+   line-height:30px;
+   color:#fff;
+   font-weight:400;
+   text-indent: 40px;
+   font-weight:500px;
+   cursor:pointer;
+   top: 0;
+   margin-left:3px;
+   border-radius:4px;
+   float:left;
+}
+section #sectionC #sectionR #content table tbody tr td li span{
+   line-height:30px;
+   padding-left:10px;
+}
+section #sectionC #sectionR #content table tbody tr td li {
+   height:35px;
+}
+button.img_del{    
+   width: 8px;
+    height: 8px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 16px;
+    color: #cf2f0f;
+    line-height: 0;
+    background-color:#fff;
+    padding-left:3px;
+ }
+button.img_add{ 
+width: 25px;
+    height: 25px;
+    display: inline-block;
+    vertical-align: middle;
+    background: url(../images/ico_add.gif) no-repeat 50% 50%;
+    margin-left:8px;
 
-
-
-
+}

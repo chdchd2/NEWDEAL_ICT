@@ -4,19 +4,20 @@
 <!DOCTYPE html>
 <section>
 <script>
+<c:url value=''/>
 $(function(){
 	$("#btnWrite").click(function(){
-		location.href="/ict/freeboard/write.do";
+		location.href="<c:url value='/freeboard/write.do'/>";
 	});
 });
 function list(page){
-	location.href="/ict/freeboard/list.do?curPage="+page
+	location.href="<c:url value='/freeboard/list.do?curPage="+page+"'/>";
 	+"&search_option=${map.search_option}"
 	+"&keyword=${map.keyword}";
 }
 function view(fbNum){
 	document.form.fbNum.value=fbNum;
-	document.form.action="/ict/freeboard/view.do";
+	document.form.action="<c:url value='/freeboard/view.do'/>";
 	document.form.submit();
 }
 </script>
@@ -37,7 +38,7 @@ function view(fbNum){
 					</div>
 
 <form name="form" method="post" 
-action="/ict/freeboard/list.do">
+action="<c:url value='/freeboard/list.do'/>">
 					<div id="content">
 						<p id="count">총<span>${map.count}건</span></p>
 							<ul id="search">

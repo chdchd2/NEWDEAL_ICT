@@ -18,7 +18,7 @@ $(function(){
 		/*location.href="${path}/board/list.do";
 		//document.form.action="${path}/board/list.do";
 		//document.form.submit(); */
-		document.form.action="/ict/qaboard/list.do";
+		document.form.action="/qaboard/list.do";
 		document.form.submit();
 	});
 });
@@ -40,7 +40,7 @@ $(function(){
 					</div>
 					
 <form id="form" name="form" method="post"
-action="/ict/qaboard/insert.do">
+action="/qaboard/insert.do">
 <input type="hidden" name="qaNum" value="${vo.qaNum}">
 <input type="hidden" name="qaRef" value="${vo.qaRef}">
 <input type="hidden" name="qaLevel" value="${vo.qaLevel}">

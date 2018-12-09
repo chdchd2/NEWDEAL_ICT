@@ -100,7 +100,7 @@ function fileselect(event,num){
 	   $("#span"+num).remove();
 	   $("#li"+num).append("<span id='span"+num+"'>"+filename+""+
 	         "<button class='img_del' onclick='fileDel("+num+")'>x</button>"+
-	         "<button class='img_add' onclick='fileAdd()' type='button'>추가</button></span>");
+	         "<button class='img_add' onclick='fileAdd()' type='button'></button></span>");
 	   console.log(num);
 	if(event.files.length==0){
 	      $("#span"+num).remove();
@@ -132,7 +132,7 @@ function fileselect(event,num){
 	   $("#span"+num).remove();
 	   $("#li"+num).append("<span id='span"+num+"'>"+filename+""+
 	   "<button class='img_del' id='delbutton' onclick='fileDel("+num+")'>x</button>"+
-	   "<button class='img_add' id='addbutton' onclick='fileAdd()' type='button'>추가</button></span>");
+	   "<button class='img_add' id='addbutton' onclick='fileAdd()' type='button'></button></span>");
 	   if(event.files.length==0){
 	      $("#span"+num).remove();
 	   }
@@ -190,7 +190,6 @@ function fileselect(event,num){
 		                        </td>
 		                       </tr>
 							
-		                       </tr>
 		                     
 								<tr>
 									<td>내용</td>

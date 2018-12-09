@@ -9,23 +9,23 @@ $(function(){
 		
 		$(".btnDelete").click(function(){
 			if(confirm("삭제하시겠습니까?")){
-				document.form.action="/ict/qaboard/delete.do";
+				document.form.action="/qaboard/delete.do";
 				document.form.submit();
 			}
 		});
 		$(".btnList").click(function(){
-			document.form.action="/ict/qaboard/list.do";
+			document.form.action="/qaboard/list.do";
 			document.form.submit();
 		});
 		$(".btnUpdate").click(function(){
 		//첨부파일 이름들을 폼에 추가
 			
-			document.form.action="/ict/qaboard/updateView.do";
+			document.form.action="/qaboard/updateView.do";
 			document.form.submit();
 		});
 		
 		$(".btnReply").click(function(){
-			document.form.action="/ict/qaboard/reply.do";
+			document.form.action="/qaboard/reply.do";
 			document.form.submit();
 			
 		});

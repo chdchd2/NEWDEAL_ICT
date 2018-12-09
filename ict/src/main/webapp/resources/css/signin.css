@@ -3,10 +3,10 @@
 div#signinDiv{
 	margin:0px auto;
 	width:800px;
-	height:450px;
-	margin-top:150px;
+	height:320px;
+	margin-top:200px;
 	text-align:center;
-	margin-bottom: 130px;
+	margin-bottom: 100px;
 }
 
 div h1#signin{ 

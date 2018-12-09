@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,10 +36,10 @@ public class CommonController {
 	        response.setContentType("text/html;charset=utf-8");
 	 
 	        try{
-	        	String path="C:\\Users\\haces\\git\\NEWDEAL_ICT\\";
+	        	String path="/usr/local/tomcatIct/download/";
 	            String fileName = upload.getOriginalFilename();
 	            byte[] bytes = upload.getBytes();
-	            String uploadPath = path + fileName;//���옣寃쎈줈
+	            String uploadPath = path + fileName;
 	 
 	            out = new FileOutputStream(new File(uploadPath));
 	            out.write(bytes);
@@ -51,7 +52,7 @@ public class CommonController {
 	                    + callback
 	                    + ",'"
 	                    + fileUrl
-	                    + "','�씠誘몄�瑜� �뾽濡쒕뱶 �븯���뒿�땲�떎.'"
+	                    + "','이미지를 업로드하였습니다.'"
 	                    + ")</script>");
 	            printWriter.flush();
 	 
@@ -72,4 +73,16 @@ public class CommonController {
 	 
 	        return;
 	    }
+	 
+	 @RequestMapping(value = "/newdeal",method = RequestMethod.GET)
+		public String NewDel(Model model) throws Exception {
+		
+			return ".weintroduce.newdeal";
+		}
+		
+		@RequestMapping(value = "/site",method = RequestMethod.GET)
+		public String Site(Model model) throws Exception {
+		
+			return ".weintroduce.site";
+		}
 }

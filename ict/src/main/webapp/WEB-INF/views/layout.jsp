@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="<c:url value='/resources/css/style.css'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/community_notice01.css'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/community_notice02.css'/>">
-	<link rel="stylesheet" href="<c:url value='/resources/css/forbidden.css'/>">
+
 	<script src="<c:url value='/resources/js/jquery-3.2.1.min.js'/>"></script>
 	<script src="<c:url value='/resources/js/jquery.easing.1.3.js'/>"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenLite.min.js"></script>

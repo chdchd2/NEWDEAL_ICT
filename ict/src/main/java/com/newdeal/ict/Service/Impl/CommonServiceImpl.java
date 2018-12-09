@@ -30,7 +30,7 @@ public class CommonServiceImpl implements CommonService{
 	public int fileWrite(int fileRefNum,String fileRefBoard,MultipartHttpServletRequest multiRequest) throws Exception {
 		System.out.println("여기까지 오는지 테스트하기");
 
-		String filePath="C:\\Users\\haces\\git\\";
+		String filePath="/usr/local/tomcatIct/download/";
 		CommonFileVo filevo=new CommonFileVo();
 		
 		
@@ -73,7 +73,7 @@ public class CommonServiceImpl implements CommonService{
 
 	System.out.println("여기까지 오는지 테스트하기");
 
-		String filePath="C:\\Users\\git";
+		String filePath="/usr/local/tomcatIct/download/";
 		CommonFileVo filevo=new CommonFileVo();
 		 Iterator<String> iterator = multiRequest.getFileNames();
 		    MultipartFile multipartFile = null;

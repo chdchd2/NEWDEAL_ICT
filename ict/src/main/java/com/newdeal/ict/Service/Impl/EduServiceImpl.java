@@ -204,7 +204,8 @@ public class EduServiceImpl implements EduService{
 		File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 		if( file.exists() ){
             if(file.delete()){
-                System.out.println("�뙆�씪�궘�젣 �꽦怨�");
+                System.out.println("�뙆�씪�"
+                		+ "궘�젣 �꽦怨�");
                 dao.fileDel(filevo);
             }else{
                 System.out.println("�뙆�씪�궘�젣 �떎�뙣");

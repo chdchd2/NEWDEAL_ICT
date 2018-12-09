@@ -20,7 +20,7 @@ $(function(){
 		/*location.href="${path}/board/list.do";
 		//document.form.action="${path}/board/list.do";
 		//document.form.submit(); */
-		document.form.action="/ict/qaboard/list.do";
+		document.form.action="/qaboard/list.do";
 		document.form.submit();
 	});
 });
@@ -85,7 +85,7 @@ function fileselect(event,num){
 						<h2>질문게시판</h2>
 					</div>
 					
-<form id="form" name="form" method="post" enctype="multipart/form-data" action="/ict/qaboard/insert.do">
+<form id="form" name="form" method="post" enctype="multipart/form-data" action="/qaboard/insert.do">
 <div id="content">
 <table>
 							<colgroup>

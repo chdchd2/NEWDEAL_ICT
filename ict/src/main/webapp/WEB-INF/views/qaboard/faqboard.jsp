@@ -103,7 +103,7 @@
 	}
 
 </script>
-<section>	
+<section2>	
 
 			<div id="sectionC">
 			<div id="subMenu">
@@ -302,7 +302,7 @@
 				</div>
 			</div>
 		
-</section>
+</section2>
 
 </html>
 <%@include file="/WEB-INF/views/footer.jsp" %>

@@ -13,14 +13,14 @@ var num=1;
 		$(".btnUpdate").click(function() {
 					var str = "";
 					$("#form").append(str);
-					document.form.action = "/ict/notice/update.do";
+					document.form.action = "<c:url value='/notice/update.do'/>";
 					document.form.submit();
 				});
 		$(".btnList").click(function(){
 			/*location.href="${path}/board/list.do";
 			//document.form.action="${path}/board/list.do";
 			//document.form.submit(); */
-			document.form.action="/ict/notice/list.do";
+			document.form.action="<c:url value='/notice/list.do'/>";
 			document.form.submit();
 		});
 
@@ -105,7 +105,7 @@ function fileselect(event,num){
 					
 					
 	<form id="form" name="form" method="post" enctype="multipart/form-data"
-		action="/ict/notice/insert.do">
+		action="<c:url value='/notice/insert.do'/>">
 <div id="content">
 <table>
 							<colgroup>

@@ -6,17 +6,17 @@
 <script>
 $(function(){
 	$("#btnWrite").click(function(){
-		location.href="/ict/qaboard/write.do";
+		location.href="/qaboard/write.do";
 	});
 });
 function list(page){
-	location.href="/ict/qaboard/list.do?curPage="+page
+	location.href="/qaboard/list.do?curPage="+page
 	+"&search_option=${map.search_option}"
 	+"&keyword=${map.keyword}";
 }
 function view(qaNum){
 	document.form.qaNum.value=qaNum;
-	document.form.action="/ict/qaboard/view.do";
+	document.form.action="/qaboard/view.do";
 	document.form.submit();
 }
 </script>
@@ -38,7 +38,7 @@ function view(qaNum){
 					</div>
 
 <form name="form" method="post" 
-action="/ict/qaboard/list.do">
+action="/qaboard/list.do">
 					<div id="content">
 						<div id="tapMenu">
 							<a href="<c:url value='/qaboard/list.do'/>" style="font-weight:bold">Q&A</a>&emsp;|&emsp;

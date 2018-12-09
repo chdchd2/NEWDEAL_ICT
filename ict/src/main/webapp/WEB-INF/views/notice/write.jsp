@@ -20,7 +20,7 @@ $(function(){
 		/*location.href="${path}/board/list.do";
 		//document.form.action="${path}/board/list.do";
 		//document.form.submit(); */
-		document.form.action="/ict/notice/list.do";
+		document.form.action="<c:url value='/notice/list.do'/>";
 		document.form.submit();
 	});
 
@@ -88,7 +88,7 @@ function fileselect(event,num){
 					</div>
 					
 <form id="form" name="form" method="post" enctype="multipart/form-data"
-action="/ict/notice/insert.do">
+action="<c:url value='/notice/insert.do'/>">
 <div id="content">
 <table>
 							<colgroup>
