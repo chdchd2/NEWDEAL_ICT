@@ -209,7 +209,7 @@ function fileselect(event,num){
 								
 								<tr>
 									<td>지도첨부</td>
-									<td><input type="text" name="fesMap" id="searchWordBox" style="width:80%;"/>
+									<td><input type="text" name="fesMap" id="searchWordBox" style="width:80%;" placeholder="주소를 입력해주세요."/>
 									
 												<label id="searchBtn" style="float:none;">검색</label>
 										<div id="mapDiv" style="display:none">
