@@ -10,6 +10,16 @@ var num=1;
 $(function(){
 	
 	$(".btnSave").click(function(){
+		if($("#qaTitle").val()==""){
+			alert("제목을 적어주세요.");
+			return false;
+		}
+		if($("#qaContent").val()==""){
+			
+			alert("내용이 없습니다");
+			return false;
+			
+		}
 		//태그.each(function(){})모든 태그 반복
 		var str="";
 		//폼에 hidden 태그들을 추가
@@ -20,7 +30,7 @@ $(function(){
 		/*location.href="${path}/board/list.do";
 		//document.form.action="${path}/board/list.do";
 		//document.form.submit(); */
-		document.form.action="/qaboard/list.do";
+		document.form.action="<c:url value='/qaboard/list.do'/>";
 		document.form.submit();
 	});
 });
@@ -29,7 +39,7 @@ function fileselect(event,num){
 	   $("#span"+num).remove();
 	   $("#li"+num).append("<span id='span"+num+"'>"+filename+""+
 	         "<button class='img_del' onclick='fileDel("+num+")'>x</button>"+
-	         "<button class='img_add' onclick='fileAdd()' type='button'>추가</button></span>");
+	         "<button class='img_add' onclick='fileAdd()' type='button'></button></span>");
 	if(event.files.length==0){
 	      $("#span"+num).remove();
 	   }
@@ -63,7 +73,7 @@ function fileselect(event,num){
 	   $("#span"+num).remove();
 	   $("#li"+num).append("<span id='span"+num+"'>"+filename+""+
 	   "<button class='img_del' id='delbutton' onclick='fileDel("+num+")'>x</button>"+
-	   "<button class='img_add' id='addbutton' onclick='fileAdd()' type='button'>추가</button></span>");
+	   "<button class='img_add' id='addbutton' onclick='fileAdd()' type='button'></button></span>");
 	   if(event.files.length==0){
 	      $("#span"+num).remove();
 	   }
@@ -85,7 +95,7 @@ function fileselect(event,num){
 						<h2>질문게시판</h2>
 					</div>
 					
-<form id="form" name="form" method="post" enctype="multipart/form-data" action="/qaboard/insert.do">
+<form id="form" name="form" method="post" enctype="multipart/form-data" action="<c:url value='qaboard/insert.do'/>">
 <div id="content">
 <table>
 							<colgroup>
@@ -122,7 +132,7 @@ function fileselect(event,num){
 									<td>내용</td>
 									<td><textarea name="qaContent" id="qaContent" cols="30" rows="10"></textarea>
 									</td>
-								</tr>
+								</tr><!-- 
 								<tr>
 									<td>공개여부</td>
 									<td>
@@ -135,7 +145,7 @@ function fileselect(event,num){
 									<td>
 									<input type="text" />	
 									</td>
-								</tr>
+								</tr> -->
 							</tbody>
 						</table>
 	

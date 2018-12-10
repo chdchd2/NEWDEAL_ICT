@@ -23,6 +23,16 @@
 $(function(){
 	
 	$(".btnSave").click(function(){
+			if($("#intTitle").val()==""){
+				alert("제목을 적어주세요.");
+				return false;
+			}
+			if($("#intContent").val()==""){
+				
+				alert("내용이 없습니다");
+				return false;
+				
+			}
 		//태그.each(function(){})모든 태그 반복
 		var str="";
 		//폼에 hidden 태그들을 추가
@@ -88,7 +98,7 @@ function fileselect(event,num){
 						<h2>교육신청</h2>
 					<ul>
 						<li><a href="<c:url value='/edu/intList'/>" class="subActive">교육신청안내 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
-						<li><a href="<c:url value='/edu/detailList'/>">프로그램상세</a></li>
+						<li><a href="<c:url value='/edu/detList'/>">프로그램상세</a></li>
 						<li><a href="#">교육신청 바로가기</a></li>
 					</ul>
 				</div>

@@ -10,7 +10,7 @@
 					<h2>교육신청</h2>
 					<ul>
 						<li><a href="<c:url value='/edu/intList'/>" class="subActive">교육신청안내 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
-						<li><a href="<c:url value='/edu/detailList'/>">프로그램상세</a></li>
+						<li><a href="<c:url value='/edu/detList'/>">프로그램상세</a></li>
 						<li><a href="#">교육신청 바로가기</a></li>
 					</ul>
 				</div>
@@ -68,7 +68,7 @@
 								
 							</ul>
 						</div>
-						<c:if test="${member.memGrade==2 && member.memState=='allow'}">
+						<c:if test="${member.memGrade==2 && member.memState=='allow' && sessionScope.member.memNickName eq vo.intWriter }">
 						 <a id="list" href="<c:url value='/edu/intDelete?intNum=${vo.intNum }'/>">삭제</a>
 						 <a id="list" href="<c:url value='/edu/intEdit?intNum=${vo.intNum }'/>">수정</a>
 						 </c:if>

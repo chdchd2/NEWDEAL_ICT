@@ -6,17 +6,15 @@
 <script>
 $(function(){
 	$("#btnWrite").click(function(){
-		location.href="/qaboard/write.do";
+		location.href="<c:url value='/qaboard/write.do'/>";
 	});
 });
 function list(page){
-	location.href="/qaboard/list.do?curPage="+page
-	+"&search_option=${map.search_option}"
-	+"&keyword=${map.keyword}";
+	location.href="<c:url value='/qaboard/list.do?curPage="+page+"&search_option=${map.search_option}"+"&keyword=${map.keyword}'/>";
 }
 function view(qaNum){
 	document.form.qaNum.value=qaNum;
-	document.form.action="/qaboard/view.do";
+	document.form.action="<c:url value='/qaboard/view.do'/>";
 	document.form.submit();
 }
 </script>
@@ -37,8 +35,7 @@ function view(qaNum){
 						<h2>질문게시판</h2>
 					</div>
 
-<form name="form" method="post" 
-action="/qaboard/list.do">
+<form name="form" method="post" action="<c:url value='/qaboard/list.do'/>">
 					<div id="content">
 						<div id="tapMenu">
 							<a href="<c:url value='/qaboard/list.do'/>" style="font-weight:bold">Q&A</a>&emsp;|&emsp;

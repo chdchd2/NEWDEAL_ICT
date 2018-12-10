@@ -29,6 +29,9 @@
 		$mainMenu.bind("focus",onOver)
 		$mainMenu.bind("mouseleave",onMainColor)
 		$("#header_wrap").bind("mouseleave",onOut)
+		$("#link1").click(function(){
+			alert("지금은 신청기간이 아닙니다");
+		});
 
 	})
 
@@ -112,37 +115,9 @@ function logout(){
 	 			</a>
 	 		</h1>
 	 		
-	 	
 	 		
  			
- 			<li class="mainmenu">
- 				<a href="#">뉴딜 일자리</a>
- 			 	<ul class="submenu_list">
- 			 		<li><a href="<c:url value='/newdeal'/>">뉴딜일자리 소개</a></li>
- 			 		<li><a href="<c:url value='/site'/>">사이트개요</a></li>
- 			 	</ul>
- 			</li>
- 			
- 			<li class="mainmenu"> 
- 				<a href="#">취업지원센터</a>
- 			 	<ul class="submenu_list">
- 				<li><a href="<c:url value='/festival/list'/>">취업행사안내</a></li>
- 			 	<li><a href="<c:url value='/festival/detailList'/>">채용정보공유</a></li>
- 			 	</ul>
- 			</li>
-
- 			<li class="mainmenu">
- 				<a href="#">교육신청</a>
- 			 	<ul class="submenu_list">
-  				<li><a href="<c:url value='/edu/intList'/>">교육신청안내</a></li>
- 			 	<li><a href="<c:url value='/edu/detList'/>">프로그램상세</a></li>
- 			 	<c:forEach items="${linklist }" var="linklist">
- 			 	<li><a href="${linklist.linkUrl }">${linklist.linkName }</a>
- 			 	</c:forEach>
- 			 	</ul>
- 			</li>
- 			
- 			<li class="mainmenu">
+ 				<li class="mainmenu">
  				<a href="#">커뮤니티</a>
 	 			 <ul class="submenu_list">
 	 				<li><a href="<c:url value='/notice/list.do'/>">공지사항</a></li>
@@ -152,8 +127,34 @@ function logout(){
  			 	</ul>
  			</li>
  			
-
- 		
+ 			
+ 			
+ 				<li class="mainmenu"> 
+ 				<a href="#">취업지원센터</a>
+ 			 	<ul class="submenu_list">
+ 				<li><a href="<c:url value='/festival/list'/>">취업행사안내</a></li>
+ 			 	<li><a href="<c:url value='/festival/detailList'/>">채용정보공유</a></li>
+ 			 	</ul>
+ 			</li>
+ 			
+ 				<li class="mainmenu">
+ 				<a href="#">교육신청</a>
+ 			 	<ul class="submenu_list">
+  				<li><a href="<c:url value='/edu/intList'/>">교육신청안내</a></li>
+ 			 	<li><a href="<c:url value='/edu/detList'/>">프로그램상세</a></li>
+ 			 	<c:forEach items="${linklist }" var="linklist" varStatus="linknum">
+ 			 	<li><a href="${linklist.linkUrl }" id="link${linknum.index }">${linklist.linkName }</a>
+ 			 	</c:forEach>
+ 			 	</ul>
+ 			</li>
+ 			
+ 				<li class="mainmenu">
+ 				<a href="#">뉴딜 일자리</a>
+ 			 	<ul class="submenu_list">
+ 			 		<li><a href="<c:url value='/newdeal'/>">뉴딜일자리 소개</a></li>
+ 			 		<li><a href="<c:url value='/site'/>">사이트개요</a></li>
+ 			 	</ul>
+ 			</li>
  			
  		</ul>
  		

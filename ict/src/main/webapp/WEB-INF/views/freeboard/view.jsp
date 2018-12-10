@@ -10,19 +10,19 @@ $(function(){
       
       $(".btnDelete").click(function(){
          if(confirm("삭제하시겠습니까?")){
-            document.form.action="/ict/freeboard/delete.do";
+            document.form.action="/freeboard/delete.do";
             document.form.submit();
          }
       });
       $(".btnList").click(function(){
-         document.form.action="/ict/freeboard/list.do";
+         document.form.action="/freeboard/list.do";
          document.form.submit();
       });
 
       $(".btnUpdate").click(function(){
       //첨부파일 이름들을 폼에 추가
          
-         document.form.action="/ict/freeboard/updateView.do";
+         document.form.action="/freeboard/updateView.do";
          document.form.submit();
       });
       
@@ -62,7 +62,7 @@ function comDel(comNum) {
         return;
     }
    console.log(comNum);
-   location.href="/ict/freeboard/view.do?fbNum="+fbNum;
+   location.href="/freeboard/view.do?fbNum="+fbNum;
     $.ajax({
       type:"POST",
       url:encodeURI("<c:url value='/freeboard/comDel?comNum="+comNum+"'/>"),

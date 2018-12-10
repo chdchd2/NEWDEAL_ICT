@@ -6,17 +6,15 @@
 <script>
 $(function(){
 	$("#btnWrite").click(function(){
-		location.href="/ict/notice/write.do";
+		location.href="<c:url value='/notice/write.do'/>";
 	}); 
 });
 function list(page){
-	location.href="/ict/notice/list.do?curPage="+page
-			+"&search_option=${map.search_option}"
-			+"&keyword=${map.keyword}";
+	location.href="<c:url value='/notice/list.do?curPage="+page+"&search_option=${map.search_option}"+"&keyword=${map.keyword}'/>";
 }
 function view(ntNum){ 
 	document.form.ntNum.value=ntNum;
-	document.form.action="/ict/notice/view.do";
+	document.form.action="<c:url value='/notice/view.do'/>";
 	document.form.submit();
 }
 </script>
@@ -38,8 +36,7 @@ function view(ntNum){
 					<div id="contentHeader">
 						<h2>공지사항</h2>
 					</div>
-<form name="form" method="post" 
-action="/ict/notice/list.do">
+<form name="form" method="post" action="<c:url value='/notice/list.do'/>">
 					<div id="content">
 						<p id="count">총<span>${map.count}건</span></p>
 							<ul id="search">
@@ -150,11 +147,11 @@ action="/ict/notice/list.do">
 
 </div>	
 
-<c:if test="${sessionScope.member != null }">
+<%-- <c:if test="${sessionScope.member != null }">
 <p id="submit">
 	<a id="btnWrite">등록</a>
 </p>
-</c:if>
+</c:if> --%>
 <!-- <button type="button" id="btnWrite">등록</button> -->
 
 

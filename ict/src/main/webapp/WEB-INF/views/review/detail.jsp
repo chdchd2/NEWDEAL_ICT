@@ -47,7 +47,7 @@ function comDel(comNum) {
         return;
     }
 	console.log(comNum);
-	location.href="/ict/review/rvDetail?rvNum="+rvNum;
+	location.href="/review/rvDetail?rvNum="+rvNum;
 	 $.ajax({
 		type:"POST",
 		url:encodeURI("<c:url value='/review/comDel?comNum="+comNum+"'/>"),

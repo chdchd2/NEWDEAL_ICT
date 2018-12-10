@@ -12,6 +12,16 @@ var num = 1;
 $(function(){
 	
 	$(".btnSave").click(function(){
+		if($("#rvTitle").val()==""){
+			alert("제목을 적어주세요.");
+			return false;
+		}
+		if($("#rvContent").val()==""){
+			
+			alert("내용이 없습니다");
+			return false;
+			
+		}
 		//태그.each(function(){})모든 태그 반복
 		var str="";
 		//폼에 hidden 태그들을 추가

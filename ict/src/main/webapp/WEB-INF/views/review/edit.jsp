@@ -12,7 +12,7 @@ $(function(){
 		
 		$(".btnDelete").click(function(){
 			if(confirm("삭제하시겠습니까?")){
-				document.form.action="/ict/review/rvDelete";
+				document.form.action="/review/rvDelete";
 				document.form.submit();
 			}
 		});
@@ -25,7 +25,7 @@ $(function(){
 		//첨부파일 이름들을 폼에 추가
 			var str="";
 			$("#form").append(str);
-			document.form.action="/ict/review/rvEdit";
+			document.form.action="/review/rvEdit";
 			document.form.submit();
 		});
 		

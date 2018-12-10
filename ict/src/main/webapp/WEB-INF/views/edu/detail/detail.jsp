@@ -10,7 +10,7 @@
 					<h2>교육신청</h2>
 					<ul>
 						<li><a href="<c:url value='/edu/intList'/>" >교육신청안내 </a></li>
-						<li><a href="<c:url value='/edu/detailList'/>" class="subActive">프로그램상세<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
+						<li><a href="<c:url value='/edu/detList'/>" class="subActive">프로그램상세<img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
 						<li><a href="#">교육신청 바로가기</a></li>
 					</ul>
 				</div>
@@ -65,10 +65,9 @@
 								<a href="<c:url value='/edu/fileDown?fileNum=${list.fileNum }'/>" class="add_file">${list.fileOrgName }</a>
 								</c:forEach>
 								</li>
-								
 							</ul>
 						</div>
-						<c:if test="${member.memGrade==2 && member.memState=='allow'}">
+						<c:if test="${member.memGrade==2 && member.memState=='allow' && sessionScope.member.memNickName eq vo.detWriter }">
 						 <a id="list" href="<c:url value='/edu/detDelete?detNum=${vo.detNum }'/>">삭제</a>
 						 <a id="list" href="<c:url value='/edu/detEdit?detNum=${vo.detNum }'/>">수정</a>
 						 </c:if>

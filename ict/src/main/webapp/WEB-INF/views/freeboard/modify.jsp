@@ -11,12 +11,12 @@ $(function(){
 		
 		$(".btnDelete").click(function(){
 			if(confirm("삭제하시겠습니까?")){
-				document.form.action="/ict/freeboard/delete.do";
+				document.form.action="/freeboard/delete.do";
 				document.form.submit();
 			}
 		});
 		$(".btnList").click(function(){
-			document.form.action="/ict/freeboard/list.do";
+			document.form.action="/freeboard/list.do";
 			document.form.submit();
 		});
 
@@ -24,7 +24,7 @@ $(function(){
 		//첨부파일 이름들을 폼에 추가
 			var str="";
 			$("#form").append(str);
-			document.form.action="/ict/freeboard/update.do";
+			document.form.action="/freeboard/update.do";
 			document.form.submit();
 		});
 		
@@ -114,7 +114,7 @@ function fileDel(fileNum){
 					</div>
 					
 <form id="form" name="form" method="post" enctype="multipart/form-data"
-action="/ict/freeboard/insert.do">
+action="/freeboard/insert.do">
 <div id="content">
 <table>
 							<colgroup>

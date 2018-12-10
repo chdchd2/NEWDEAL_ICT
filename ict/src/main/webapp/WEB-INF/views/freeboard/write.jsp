@@ -10,6 +10,16 @@ var num=1;
 $(function(){
 	
 	$(".btnSave").click(function(){
+		if($("#fbTitle").val()==""){
+			alert("제목을 적어주세요.");
+			return false;
+		}
+		if($("#fbContent").val()==""){
+			
+			alert("내용이 없습니다");
+			return false;
+			
+		}
 		//태그.each(function(){})모든 태그 반복
 		var str="";
 		//폼에 hidden 태그들을 추가
@@ -33,7 +43,7 @@ function fileselect(event,num){
 	   $("#span"+num).remove();
 	   $("#li"+num).append("<span id='span"+num+"'>"+filename+""+
 	         "<button class='img_del' onclick='fileDel("+num+")'>x</button>"+
-	         "<button class='img_add' onclick='fileAdd()' type='button'>추가</button></span>");
+	         "<button class='img_add' onclick='fileAdd()' type='button'></button></span>");
 	if(event.files.length==0){
 	      $("#span"+num).remove();
 	   }
@@ -67,7 +77,7 @@ function fileselect(event,num){
 	   $("#span"+num).remove();
 	   $("#li"+num).append("<span id='span"+num+"'>"+filename+""+
 	   "<button class='img_del' id='delbutton' onclick='fileDel("+num+")'>x</button>"+
-	   "<button class='img_add' id='addbutton' onclick='fileAdd()' type='button'>추가</button></span>");
+	   "<button class='img_add' id='addbutton' onclick='fileAdd()' type='button'></button></span>");
 	   if(event.files.length==0){
 	      $("#span"+num).remove();
 	   }

@@ -36,7 +36,7 @@ public class CommonController {
 	        response.setContentType("text/html;charset=utf-8");
 	 
 	        try{
-	        	String path="/usr/local/tomcatIct/download/";
+	        	String path="/usr/local/tomcatIct/webapps/ROOT/resources/download/";
 	            String fileName = upload.getOriginalFilename();
 	            byte[] bytes = upload.getBytes();
 	            String uploadPath = path + fileName;

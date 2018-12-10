@@ -76,7 +76,7 @@ if(confirm("삭제하시겠습니까?")){
 								
 							</ul>
 						</div>
-						 <c:if test="${sessionScope.member != null }"> 
+						<c:if test="${sessionScope.member.memNickName eq FesDetailVo.detWriter }">  
 						 <a id="list" onclick="del()">삭제</a>
 						  </c:if>
 						 <a id="list"href="<c:url value='/festival/detailList'/>">목록</a>
