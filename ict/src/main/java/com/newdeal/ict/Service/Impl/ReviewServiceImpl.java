@@ -75,19 +75,19 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public int rvDelete(int rvNum) throws Exception {
-		System.out.println("여기는오는지????");
+		System.out.println("�뿬湲곕뒗�삤�뒗吏�????");
 			List<CommonFileVo> filelist = dao.rvFileDelList(rvNum);
-			System.out.println("�뙆�씪由ъ뒪�듃異쒕젰"+filelist.toString());
+			System.out.println("占쎈솁占쎌뵬�뵳�딅뮞占쎈뱜�빊�뮆�젾"+filelist.toString());
 			if(filelist.size()>0) {
 			for(CommonFileVo vo:filelist) {
 				String files=vo.getFilePath()+vo.getFileName();
-				System.out.println("�뙆�씪�뵒�젆�넗由�+�뙆�씪�씠由� 異쒕젰�빐蹂닿린"+files);
-				File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
+				System.out.println("占쎈솁占쎌뵬占쎈탵占쎌젂占쎈꽅�뵳占�+占쎈솁占쎌뵬占쎌뵠�뵳占� �빊�뮆�젾占쎈퉸癰귣떯由�"+files);
+				File file=new File(vo.getFilePath()+"/"+vo.getFileName());
 				if( file.exists() ){
 		            if(file.delete()){
 		                dao.rvFileDelete(rvNum);
 		            }else{
-		            	System.out.println("파일삭제실패");
+		            	System.out.println("�뙆�씪�궘�젣�떎�뙣");
 		            }
 		            
 		        }else{
@@ -113,13 +113,13 @@ public class ReviewServiceImpl implements ReviewService{
 		File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 		if( file.exists() ){
             if(file.delete()){
-                System.out.println("�뙆�씪�궘�젣 �꽦怨�");
+                System.out.println("占쎈솁占쎌뵬占쎄텣占쎌젫 占쎄쉐�⑨옙");
                 dao.fileDel(filevo);
             }else{
-                System.out.println("�뙆�씪�궘�젣 �떎�뙣");
+                System.out.println("占쎈솁占쎌뵬占쎄텣占쎌젫 占쎈뼄占쎈솭");
             }
         }else{
-            System.out.println("�뙆�씪�씠 議댁옱�븯吏� �븡�뒿�땲�떎.");
+            System.out.println("占쎈솁占쎌뵬占쎌뵠 鈺곕똻�삺占쎈릭筌욑옙 占쎈륫占쎈뮸占쎈빍占쎈뼄.");
         }
 		return 1;
 	}

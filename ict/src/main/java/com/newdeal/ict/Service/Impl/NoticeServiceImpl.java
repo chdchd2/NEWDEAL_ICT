@@ -53,7 +53,7 @@ public class NoticeServiceImpl implements NoticeService {
 		for(CommonFileVo vo:filelist) {
 			String files=vo.getFilePath()+vo.getFileName();
 			System.out.println("파일디렉토리+파일이름 출력해보기"+files);
-			File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
+			File file=new File(vo.getFilePath()+"/"+vo.getFileName());
 			if( file.exists() ){
 	            if(file.delete()){
 	                System.out.println("파일삭제 성공");

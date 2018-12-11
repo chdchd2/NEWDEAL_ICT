@@ -16,10 +16,11 @@ section #sectionC {
 
 /*서브메뉴*/
 section #sectionC #subMenu {
-	width:256px;
-	background-color:#fff;
-	float:left;
-	  border: solid 1px #ebebeb;
+	 width: 256px;
+    background-color: #fff;
+    float: left;
+    border: solid 1px #ebebeb;
+
 }
 section #sectionC #subMenu h2 {
 	height:70px;

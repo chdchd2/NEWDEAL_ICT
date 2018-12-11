@@ -199,7 +199,7 @@ public class EduServiceImpl implements EduService{
 	public int fileDel(CommonFileVo filevo) throws Exception {
 		
 		CommonFileVo vo=dao.fileinfo(filevo);
-		File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
+		File file=new File(vo.getFilePath()+"/"+vo.getFileName());
 		if( file.exists() ){
             if(file.delete()){
                 System.out.println("�뙆�씪�"

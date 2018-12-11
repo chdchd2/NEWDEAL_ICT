@@ -44,7 +44,7 @@ public class QaBoardServiceImpl implements QaBoardService{
 	@Transactional
 	@Override
 	public void update(QaBoardVo vo) throws Exception {
-		dao.update(vo);// board���̺� ����
+		dao.update(vo);// board占쏙옙占싱븝옙 占쏙옙占쏙옙
 		
 	}
 
@@ -60,19 +60,14 @@ public class QaBoardServiceImpl implements QaBoardService{
 	@Override
 	public void delete(int qaNum) throws Exception {
 		List<CommonFileVo> filelist = dao.qaFileDelList(qaNum);
-		System.out.println("���ϸ���Ʈ���"+filelist.toString());
 		for(CommonFileVo vo:filelist) {
 			String files=vo.getFilePath()+vo.getFileName();
-			System.out.println("���ϵ��丮+�����̸� ����غ���"+files);
-			File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
+			File file=new File(vo.getFilePath()+"/"+vo.getFileName());
 			if( file.exists() ){
 	            if(file.delete()){
-	                System.out.println("���ϻ��� ����");
 	            }else{
-	                System.out.println("���ϻ��� ����");
 	            }
 	        }else{
-	            System.out.println("������ �������� �ʽ��ϴ�.");
 	        }
 		dao.qaFileDelete(qaNum);
 		}
@@ -92,13 +87,13 @@ public class QaBoardServiceImpl implements QaBoardService{
 	@Override
 	public void increaseViewcnt(int qaNum, HttpSession session) throws Exception {
 		long update_time = 0;
-		// ���ǿ� ����� �Խù��� ��ȸ�ð� �˻�
+		// 占쏙옙占실울옙 占쏙옙占쏙옙占� 占쌉시뱄옙占쏙옙 占쏙옙회占시곤옙 占싯삼옙
 		if (session.getAttribute("update_time_" + qaNum) != null) {
 			update_time = (Long) session.getAttribute("update_time_" + qaNum);
 		}
-		// ���� �ð�
+		// 占쏙옙占쏙옙 占시곤옙
 		long current_time = System.currentTimeMillis();
-		// ���� �ð��� ����� �� ��ȸ�� ���� ó��
+		// 占쏙옙占쏙옙 占시곤옙占쏙옙 占쏙옙占쏙옙占� 占쏙옙 占쏙옙회占쏙옙 占쏙옙占쏙옙 처占쏙옙
 		if (current_time - update_time > 5 * 1000) {
 			dao.increaseViewcnt(qaNum);
 			session.setAttribute("update_time_" + qaNum, current_time);
@@ -135,13 +130,13 @@ public class QaBoardServiceImpl implements QaBoardService{
 		File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
 		if( file.exists() ){
             if(file.delete()){
-                System.out.println("���ϻ��� ����");
+                System.out.println("占쏙옙占싹삼옙占쏙옙 占쏙옙占쏙옙");
                 dao.fileDel(filevo);
             }else{
-                System.out.println("���ϻ��� ����");
+                System.out.println("占쏙옙占싹삼옙占쏙옙 占쏙옙占쏙옙");
             }
         }else{
-            System.out.println("������ �������� �ʽ��ϴ�.");
+            System.out.println("占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占십쏙옙占싹댐옙.");
         }
 		return 1;
 	}

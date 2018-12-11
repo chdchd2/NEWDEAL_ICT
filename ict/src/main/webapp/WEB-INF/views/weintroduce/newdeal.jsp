@@ -20,7 +20,7 @@ font{font-family:'Yeon Sung', cursive, font-size:15px; }
 					</div>		
 					<div id="contents2">	
 				
-						<img src="<c:url value='/resources/images/newdeal.png'/>" alt="뉴딜일자리소개 이미지">
+						<a href="http://job.seoul.go.kr/newdeal/newdeal/newdeal_index.jsp"><img src="<c:url value='/resources/images/newdeal.png'/>" alt="뉴딜일자리소개 이미지"></a>
 					
 					</div>				
 			</div>

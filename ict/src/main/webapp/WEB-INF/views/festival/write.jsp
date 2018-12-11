@@ -29,21 +29,24 @@ $(function(){
 		if($("#fesTitle").val()==""){
 			alert("제목을 적어주세요.");
 			return false;
+		} 
+		var ckeditor = CKEDITOR.instances['fesContent']; 
+		if (ckeditor.getData()=="")
+		{
+		 alert('내용을 입력 하세요');
+		 ckeditor.focus();
+		 return;
 		}
-		if($("#fesContent").val()==""){
-			
-			alert("내용이 없습니다");
-			return false;
-			
-		}
+
 		//태그.each(function(){})모든 태그 반복
 		var str="";
 		//폼에 hidden 태그들을 추가
 		$("#form").append(str);
 		document.form.submit();
+		
 	});
 	$(".btnList").click(function(){
-		location.href="<c:url value='/festival/detailList'/>";
+		location.href="<c:url value='/festival/list'/>";
 	});
 });
 
@@ -91,20 +94,7 @@ function fileselect(event,num){
 	      $("#span"+num).remove();
 	   }
 	}
-$(function(){
-	
-	$(".btnSave").click(function(){
-		//태그.each(function(){})모든 태그 반복
-		var str="";
-		//폼에 hidden 태그들을 추가
-		$("#form").append(str);
-		document.form.submit();
-	});
-	$(".btnList").click(function(){
-		location.href="<c:url value='/festival/list'/>";
-		document.form.submit();
-	});
-});
+
 function fileselect(event,num){
 	   var filename=event.value.replace(/C:\\fakepath\\/i, '');
 	   $("#span"+num).remove();

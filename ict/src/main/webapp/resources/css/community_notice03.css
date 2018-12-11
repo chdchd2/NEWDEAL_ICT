@@ -3,11 +3,12 @@
 
 section #sectionC #sectionR #content {
     width: 914px;
-    min-height: 800px;
+    /* min-height: 668px; */
     padding: 30px 40px 35px;
     background-color: white;
     border-top: solid 1px #ebebeb;
     text-align: center;
+
 }
 
 section #sectionC #sectionR #content #boardheader {
@@ -68,6 +69,7 @@ section #sectionC #sectionR #content #board #writing {
     font-size: 14px;
     line-height: 30px;
     font-weight: 400;
+    overflow: hidden;
 }
 
 section #sectionC #sectionR #content #board ul li {

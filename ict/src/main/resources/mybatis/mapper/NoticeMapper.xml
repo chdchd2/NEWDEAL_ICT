@@ -85,8 +85,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              FILE_PATH AS filePath,
              FILE_REF_BOARD AS fileRefBoard,
              FILE_REF_NUM AS fileRefNum 
-        FROM  NOTICE NT, COMMON_FILE CF
-          WHERE  NT.NT_NUM=CF.FILE_REF_NUM(+) 
+        FROM  NOTICE NT, (SELECT * FROM COMMON_FILE WHERE FILE_REF_BOARD='NOTICE') CF
+          WHERE  NT.NT_NUM=CF.FILE_REF_NUM(+)
             AND  NT.NT_NUM=#{ntNum}
    </select>
       

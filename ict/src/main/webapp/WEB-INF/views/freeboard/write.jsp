@@ -14,11 +14,12 @@ $(function(){
 			alert("제목을 적어주세요.");
 			return false;
 		}
-		if($("#fbContent").val()==""){
-			
-			alert("내용이 없습니다");
-			return false;
-			
+		var ckeditor = CKEDITOR.instances['fbContent']; 
+		if (ckeditor.getData()=="")
+		{
+		 alert('내용을 입력 하세요');
+		 ckeditor.focus();
+		 return;
 		}
 		//태그.each(function(){})모든 태그 반복
 		var str="";

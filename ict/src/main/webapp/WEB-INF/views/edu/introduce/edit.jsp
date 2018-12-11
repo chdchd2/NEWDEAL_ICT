@@ -86,7 +86,9 @@ function fileselect(event,num){
 				<ul>
 						<li><a href="<c:url value='/edu/intList'/>"  class="subActive">교육신청안내 <img src="<c:url value='/resources/images/submenu_Active.png'/>" alt="서브메뉴활성화알림버튼"></a></li>
 						<li><a href="<c:url value='/edu/detList'/>" >프로그램상세</a></li>
-						<li><a href="#">교육신청 바로가기</a></li>
+							<c:forEach items="${linklist }" var="linklist" varStatus="linknum">
+ 			 	<li><a href="${linklist.linkUrl }" id="link${linknum.index }">${linklist.linkName }</a>
+ 			 	</c:forEach>
 					</ul>
 				</div>
 

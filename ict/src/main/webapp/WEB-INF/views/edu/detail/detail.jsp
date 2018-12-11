@@ -43,18 +43,18 @@
 									<a href="#">이전글이 없습니다.</a>
 									</c:when>
 									<c:otherwise>
-										<a href="<c:url value='/edu/detDetail?intNum=${prev.detNum }'/>">${prev.detTitle }</a>
+										<a href="<c:url value='/edu/detDetail?detNum=${prev.detNum }'/>">${prev.detTitle }</a>
 									</c:otherwise>
 									</c:choose>
 								</li>
 								<li>
 									<span>다음 글</span>
 									<c:choose>
-									<c:when test="${next.intTitle eq null}">
+									<c:when test="${next.detTitle eq null}">
 									<a href="#">다음글이 없습니다.</a>
 									</c:when>
 									<c:otherwise>
-										<a href="<c:url value='/edu/detDetail?intNum=${next.intNum }'/>">${next.intTitle }</a>
+										<a href="<c:url value='/edu/detDetail?detNum=${next.detNum }'/>">${next.detTitle }</a>
 									</c:otherwise>
 									</c:choose>
 								</li>

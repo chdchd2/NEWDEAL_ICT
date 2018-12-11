@@ -14,11 +14,12 @@ $(function(){
 			alert("제목을 적어주세요.");
 			return false;
 		}
-		if($("#qaContent").val()==""){
-			
-			alert("내용이 없습니다");
-			return false;
-			
+		var ckeditor = CKEDITOR.instances['qaContent']; 
+		if (ckeditor.getData()=="")
+		{
+		 alert('내용을 입력 하세요');
+		 ckeditor.focus();
+		 return;
 		}
 		//태그.each(function(){})모든 태그 반복
 		var str="";
@@ -95,7 +96,7 @@ function fileselect(event,num){
 						<h2>질문게시판</h2>
 					</div>
 					
-<form id="form" name="form" method="post" enctype="multipart/form-data" action="<c:url value='qaboard/insert.do'/>">
+<form id="form" name="form" method="post" enctype="multipart/form-data" action="<c:url value='/qaboard/insert.do'/>">
 <div id="content">
 <table>
 							<colgroup>

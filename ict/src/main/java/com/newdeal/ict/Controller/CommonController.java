@@ -37,6 +37,7 @@ public class CommonController {
 	 
 	        try{
 	        	String path="/usr/local/tomcatIct/webapps/ROOT/resources/download/";
+	        	String callURL="/resources/download/";
 	            String fileName = upload.getOriginalFilename();
 	            byte[] bytes = upload.getBytes();
 	            String uploadPath = path + fileName;
@@ -46,7 +47,7 @@ public class CommonController {
 	            String callback = request.getParameter("CKEditorFuncNum");
 	 
 	            printWriter = response.getWriter();
-	            String fileUrl = path+ fileName;//url寃쎈줈
+	            String fileUrl = callURL+ fileName;//url寃쎈줈
 	 
 	            printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("
 	                    + callback
