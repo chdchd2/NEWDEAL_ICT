@@ -153,7 +153,7 @@ public class FestivalServiceImpl  implements FestivalService {
 	@Override
 	public int fileDel(CommonFileVo filevo) throws Exception {
 		CommonFileVo vo=dao.fileinfo(filevo);
-		File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
+		File file=new File(vo.getFilePath()+"/"+vo.getFileName());
 		if( file.exists() ){
             if(file.delete()){
                 System.out.println("�뜝�럥�냱�뜝�럩逾у뜝�럡�뀭�뜝�럩�젷 �뜝�럡�뎽占썩뫅�삕");

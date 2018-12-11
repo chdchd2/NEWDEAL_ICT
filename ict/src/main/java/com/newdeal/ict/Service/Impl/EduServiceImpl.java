@@ -165,7 +165,7 @@ public class EduServiceImpl implements EduService{
 			for(CommonFileVo vo:filelist) {
 				String files=vo.getFilePath()+vo.getFileName();
 				System.out.println("�뙆�씪�뵒�젆�넗由�+�뙆�씪�씠由� 異쒕젰�빐蹂닿린"+files);
-				File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
+				File file=new File(vo.getFilePath()+"/"+vo.getFileName());
 				if( file.exists() ){
 		            if(file.delete()){
 		                dao.detFileDelete(detNum);

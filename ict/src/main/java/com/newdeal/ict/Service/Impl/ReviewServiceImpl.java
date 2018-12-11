@@ -85,14 +85,14 @@ public class ReviewServiceImpl implements ReviewService{
 				File file=new File(vo.getFilePath()+"/"+vo.getFileName());
 				if( file.exists() ){
 		            if(file.delete()){
-		                dao.rvFileDelete(rvNum);
+		             
 		            }else{
 		            	System.out.println("�뙆�씪�궘�젣�떎�뙣");
 		            }
 		            
 		        }else{
 		        }
-				
+				   dao.rvFileDelete(rvNum);
 
 			}
 			}
@@ -110,7 +110,7 @@ public class ReviewServiceImpl implements ReviewService{
 	public int fileDel(CommonFileVo filevo) throws Exception {
 		
 		CommonFileVo vo=dao.fileinfo(filevo);
-		File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
+		File file=new File(vo.getFilePath()+"/"+vo.getFileName());
 		if( file.exists() ){
             if(file.delete()){
                 System.out.println("占쎈솁占쎌뵬占쎄텣占쎌젫 占쎄쉐�⑨옙");

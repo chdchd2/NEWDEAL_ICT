@@ -65,11 +65,12 @@ public class QaBoardServiceImpl implements QaBoardService{
 			File file=new File(vo.getFilePath()+"/"+vo.getFileName());
 			if( file.exists() ){
 	            if(file.delete()){
+	            	
 	            }else{
 	            }
 	        }else{
 	        }
-		dao.qaFileDelete(qaNum);
+			dao.qaFileDelete(qaNum);
 		}
 		dao.delete(qaNum);
 		
@@ -127,7 +128,7 @@ public class QaBoardServiceImpl implements QaBoardService{
 	public int fileDel(CommonFileVo filevo) throws Exception {
 		
 		CommonFileVo vo=dao.fileinfo(filevo);
-		File file=new File(vo.getFilePath()+"\\"+vo.getFileName());
+		File file=new File(vo.getFilePath()+"/"+vo.getFileName());
 		if( file.exists() ){
             if(file.delete()){
                 System.out.println("占쏙옙占싹삼옙占쏙옙 占쏙옙占쏙옙");
