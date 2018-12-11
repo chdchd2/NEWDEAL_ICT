@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,9 +37,10 @@ public class CommonController {
 	        response.setContentType("text/html;charset=utf-8");
 	 
 	        try{
+	        	UUID uuid=UUID.randomUUID();
 	        	String path="/usr/local/tomcatIct/webapps/ROOT/resources/download/";
 	        	String callURL="/resources/download/";
-	            String fileName = upload.getOriginalFilename();
+	            String fileName = uuid+upload.getOriginalFilename();
 	            byte[] bytes = upload.getBytes();
 	            String uploadPath = path + fileName;
 	 
